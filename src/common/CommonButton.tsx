@@ -1,33 +1,38 @@
 import React, {ReactNode} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-type CommonButtonProps = {
-  path: string;
+import styled from 'styled-components';
 
-  callback?: ({...props}) => void;
-  children?: ReactNode;
+type CommonButtonProps = {
+  path?: string;
+
+  onClickCallback?: ({...props}) => void;
+  children?: React.ReactNode;
 };
 
 const CommonButton = ({
   path,
-  callback,
+  onClickCallback,
 
   children,
+  ...props
 }: CommonButtonProps) => {
   const navigate = useNavigate();
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = e => {
     e.preventDefault();
 
-    navigate(path);
+    if (path) {
+      navigate(path);
+    }
 
-    if (callback) {
-      callback({});
+    if (onClickCallback) {
+      onClickCallback({});
     }
   };
 
   return (
     <>
-      <button onClick={handleClick}>{children}</button>
+      <button {...props}>{children}</button>
     </>
   );
 };
