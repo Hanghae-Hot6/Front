@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 type NavigationButtonProps = {
-  path: string;
+  path?: string;
   onClickCallback?: ({...props}) => void;
   children?: React.ReactNode;
 };
