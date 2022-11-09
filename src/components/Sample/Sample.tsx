@@ -1,7 +1,9 @@
 import React from 'react';
 import * as Sample from './Sample.style';
 
-type sampleProps = {};
+type sampleProps = {
+  name: String;
+};
 
 const sample = ({}: sampleProps) => {
   return (
