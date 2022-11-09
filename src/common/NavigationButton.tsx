@@ -13,7 +13,6 @@ type NavigationButtonProps = {
 const NavigationButton = ({
   path,
   onClickCallback,
-
   children,
   ...props
 }: NavigationButtonProps) => {
@@ -26,7 +25,7 @@ const NavigationButton = ({
     }
 
     if (onClickCallback) {
-      onClickCallback({});
+      onClickCallback({...props});
     }
   };
 
