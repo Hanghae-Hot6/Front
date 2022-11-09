@@ -8,3 +8,4 @@ React-typescript App
 
 test 지운
 issue 만들기
+issue 만들기2
