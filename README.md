@@ -6,5 +6,6 @@ React-typescript App
 국경훈
 서지운
 
-
 test 지운
+issue 만들기
+issue 만들기2
