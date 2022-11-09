@@ -24,9 +24,9 @@ export const __yo = createAsyncThunk<
   string,
   string,
   {rejectValue: FetchTodosError}
->('registerUser2', async (payload: string, thunkAPI) => {
+>('registerUser2', async (payload, thunkAPI) => {
   try {
-    const response = await axios.post(payload);
+    const response = await axios.post('', payload);
 
     if (response.status !== 200) {
       // Return the error message:
@@ -57,8 +57,6 @@ export const __postUser = createAsyncThunk(
   },
 );
 
-Date.now();
-
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -79,10 +77,10 @@ const userSlice = createSlice({
     });
     builder.addCase(__postUser.rejected, (state, action) => {
       // state.error = action.payload;
+      state.loading = false;
     });
   },
 });
 
 export const userReducer = userSlice.reducer;
-
 export const userActions = userSlice.actions;
