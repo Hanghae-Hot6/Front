@@ -6,10 +6,11 @@ export const Section = styled.section`
 `;
 
 export const ToCreateClubButton = styled(NavigationButton)`
-  display: fixed;
+  display: flex;
+  position: fixed;
   font-size: 1rem;
   width: 8rem;
   height: 4rem;
   bottom: 2rem;
-  right: 2rem;
+  right: 3rem;
 `;
