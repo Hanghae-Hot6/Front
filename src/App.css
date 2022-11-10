@@ -156,5 +156,6 @@ button {
 
 body {
   font-family: 'Pretendard-Regular', sans-serif;
+  /** rem 코딩 (1rem = 10px) */
   font-size: 62.5%;
 }
