@@ -1,13 +1,13 @@
 import React from 'react';
+import NavigationButton from '../../common/NavigationButton';
 
 type HeaderProps = {};
 
 const Header = ({}: HeaderProps) => {
   return (
     <>
-      <div>
-        <h1>헤더</h1>
-      </div>
+      <NavigationButton path="/login">로그인</NavigationButton>
+      <NavigationButton path="/sigh">회원가입</NavigationButton>
     </>
   );
 };
