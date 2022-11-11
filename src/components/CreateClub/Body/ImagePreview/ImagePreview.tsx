@@ -1,8 +1,17 @@
 import React from 'react';
+import * as P from './ImagePreview.style';
 
-type ImagePreviewProps = {};
+type ImagePreviewProps = {
+  url: string;
+};
 
-const ImagePreview = ({}: ImagePreviewProps) => {
-  return <></>;
+const ImagePreview = ({url}: ImagePreviewProps) => {
+  return (
+    <>
+      <P.Div>
+        <P.Img src={url} alt="" />
+      </P.Div>
+    </>
+  );
 };
 export default ImagePreview;

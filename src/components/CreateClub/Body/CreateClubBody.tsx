@@ -35,11 +35,11 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
   };
 
   const [input, setInput] = useState<InputType>(initialValue);
-  const [multipleImage, setMultipleImage] = useState<File[]>([]);
+
+  const [multipleImageUrl, setMultipleImageUrl] = useState<string[]>([]);
   useEffect(() => {
-    // console.log(input);
-    console.log(multipleImage);
-  }, [input, multipleImage]);
+    console.log(input);
+  }, [input]);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -77,13 +77,9 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
   > = e => {
     e.preventDefault();
 
-    const aray1: File[] = [];
-
     if (e.target.files?.length) {
       if (e.target.files?.length > 0) {
-        console.log(e.target.files);
-        // aray1.push(e.target.files[0]);
-        setMultipleImage([...multipleImage, e.target.files[0]]);
+        setInput({...input, bookPlan: [...input.bookPlan, e.target.files[0]]});
       }
     }
   };
