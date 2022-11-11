@@ -7,7 +7,7 @@ const Header = ({}: HeaderProps) => {
   return (
     <>
       <NavigationButton path="/login">로그인</NavigationButton>
-      <NavigationButton path="/sigh">회원가입</NavigationButton>
+      <NavigationButton path="/sign">회원가입</NavigationButton>
     </>
   );
 };
