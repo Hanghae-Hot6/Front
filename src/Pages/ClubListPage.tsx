@@ -24,7 +24,6 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 100vw;
-  height: 100vh;
   margin: auto;
+  border: 1px solid black;
 `;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const Section = styled.section`
-  width: 200px;
+export const Form = styled.form`
+  position: relative;
 `;
