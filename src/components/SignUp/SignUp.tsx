@@ -3,16 +3,20 @@ import NavigationButton from '../../common/NavigationButton';
 import useSignUpForm from './useSignUpForm';
 
 function SignUp() {
+  const isSignUp = true;
   const {values, errors, submitting, handleChange, handleSubmit} =
-    useSignUpForm({
-      memberId: '',
-      email: '',
-      username: '',
-      address: '',
-      phoneNumber: '',
-      password: '',
-      passwordCheck: '',
-    });
+    useSignUpForm(
+      {
+        memberId: '',
+        email: '',
+        username: '',
+        address: '',
+        phoneNumber: '',
+        password: '',
+        passwordCheck: '',
+      },
+      isSignUp,
+    );
 
   return (
     <div>
@@ -104,7 +108,7 @@ function SignUp() {
         </label>
         <span>{errors.passwordCheck}</span>
         <br />
-        <button>회원가입하기</button>
+        <button type="submit">회원가입하기</button>
         {/* <NavigationButton path="/login">회원가입하기</NavigationButton> */}
       </form>
     </div>

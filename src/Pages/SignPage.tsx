@@ -8,7 +8,7 @@ const SignPage = ({}: SignPageProps) => {
   return (
     <>
       <Layout>
-        <SignUp></SignUp>
+        <SignUp />
       </Layout>
     </>
   );
