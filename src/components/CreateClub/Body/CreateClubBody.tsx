@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import NavigationButton from '../../../common/NavigationButton';
 import * as B from './CreateClubBody.style';
+import ImagePreview from './ImagePreview/ImagePreview';
 import CreateClubInputDiv from './InputDiv/CreateClubInputDiv';
 
 type CreateClubBodyProps = {};
@@ -36,10 +37,16 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
 
   const [input, setInput] = useState<InputType>(initialValue);
 
-  const [multipleImageUrl, setMultipleImageUrl] = useState<string[]>([]);
+  const [singleImagePreviewUrl, setSingleImagePreviewUrl] =
+    useState<string>('');
+  const [multipleImagePreviewUrl, setMultipleImagePreviewUrl] = useState<
+    string[]
+  >([]);
+
   useEffect(() => {
     console.log(input);
-  }, [input]);
+    console.log(multipleImagePreviewUrl);
+  }, [input, multipleImagePreviewUrl]);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -67,6 +74,12 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     if (e.target.files?.length) {
       if (e.target.files?.length > 0) {
         console.log(e.target.files[0]);
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+          setSingleImagePreviewUrl(reader.result as string);
+        };
+
         setInput({...input, [name]: e.target.files[0]});
       }
     }
@@ -79,6 +92,16 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
 
     if (e.target.files?.length) {
       if (e.target.files?.length > 0) {
+        console.log('hi');
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+          setMultipleImagePreviewUrl([
+            ...multipleImagePreviewUrl,
+            reader.result as string,
+          ]);
+        };
+
         setInput({...input, bookPlan: [...input.bookPlan, e.target.files[0]]});
       }
     }
@@ -93,12 +116,15 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
       <B.Form>
         {/* 모임소개 */}
         <CreateClubInputDiv title="썸네일 이미지">
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleSingleImageChange}
-          />
+          <B.InputImageDiv>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleSingleImageChange}
+            />
+            <ImagePreview url={singleImagePreviewUrl} />
+          </B.InputImageDiv>
         </CreateClubInputDiv>
         <CreateClubInputDiv title="모임이름">
           <input type="text" name="clubName" onChange={handleChange} />
@@ -113,13 +139,19 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           <textarea name="plan" onChange={handleTextareaChange} />
         </CreateClubInputDiv>
         <CreateClubInputDiv title="추가로 읽을 책">
-          <input
-            type="file"
-            name="bookPlan"
-            accept="image/*"
-            multiple
-            onChange={handleMulitpleImageChange}
-          />
+          <B.InputImageDiv>
+            <input
+              type="file"
+              name="bookPlan"
+              accept="image/*"
+              multiple
+              onChange={handleMulitpleImageChange}
+            />
+            {multipleImagePreviewUrl &&
+              multipleImagePreviewUrl.map((url, index) => {
+                return <ImagePreview key={index} url={url} />;
+              })}
+          </B.InputImageDiv>
         </CreateClubInputDiv>
         <CreateClubInputDiv title="모임장소">
           <input type="text" name="location" onChange={handleChange} />

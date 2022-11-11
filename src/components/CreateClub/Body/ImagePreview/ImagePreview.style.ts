@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 export const Div = styled.div`
   display: flex;
-  max-width: 31rem;
-  max-height: 20rem;
+  max-width: 24rem;
+  max-height: 16rem;
   border: 1px solid grey;
   position: relative;
+  margin: 1rem 0;
 `;
 
 export const Img = styled.img`
