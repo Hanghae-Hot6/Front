@@ -1,6 +1,12 @@
+import axios from 'axios';
 import React, {useState} from 'react';
+import {useQuery} from 'react-query';
 import NavigationButton from '../../common/NavigationButton';
 import useSignUpForm from './useSignUpForm';
+
+type IdDoubleCheckType = {
+  result: boolean;
+};
 
 function SignUp() {
   const isSignUp = true;
@@ -18,6 +24,36 @@ function SignUp() {
       isSignUp,
     );
 
+  const {
+    data: idCheckData,
+    isLoading,
+    error: idCheckError,
+    refetch: idCheckFetch,
+  } = useQuery(
+    ['IdDoubleCheck', `${values.memberId}`],
+    async () => {
+      console.log(`${values.memberId}`);
+      const {data} = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/members/idCheck/${values.memberId}`,
+      );
+      return data;
+    },
+    // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
+    {
+      refetchOnWindowFocus: false,
+      enabled: false,
+      // 재시도 횟수 1번
+      retry: 1,
+    },
+  );
+
+  const IdDoubleCheckHandler = () => {
+    idCheckFetch();
+    console.log(idCheckData);
+    console.log(idCheckError);
+  };
+  // const onNameDoubleCheck = () => {};
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -31,7 +67,7 @@ function SignUp() {
             value={values.memberId}
           />
         </label>
-        <button>중복확인</button>
+        <button onClick={IdDoubleCheckHandler}>중복확인</button>
         <span>{errors.memberId}</span>
         <br />
         <label htmlFor="email">
@@ -56,7 +92,7 @@ function SignUp() {
             value={values.username}
           />
         </label>
-        <button>중복확인</button>
+        {/* <button onClick={onNameDoubleCheck}>중복확인</button> */}
         <span>{errors.username}</span>
 
         <br />

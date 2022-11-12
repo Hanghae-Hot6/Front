@@ -2,7 +2,7 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {useMutation} from 'react-query';
 import {useNavigate} from 'react-router-dom';
-import validate from './validate';
+import validate from '../../utils/validate';
 
 type SignUpValuesProps = {
   memberId: string;
@@ -61,10 +61,12 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
         'Authorization',
         JSON.stringify(response.headers.authorization),
       );
+
       return response;
     },
     {
       onSuccess: () => {
+        localStorage.setItem('userId', values.memberId);
         alert('로그인 되었습니다.');
         navigate('/');
       },
@@ -79,7 +81,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     setValues({...values, [name]: value});
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setSubmitting(true);
     event.preventDefault();
     setErrors(validate({...values}, isSingUp));
