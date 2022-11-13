@@ -112,19 +112,19 @@ const Carousel = () => {
       <Container>
         {banners.length && (
           <ArrowButton pos="left" onClick={handlePrev}>
-            <button>left</button>
+            left
           </ArrowButton>
         )}
         <CarouselList>
           {banners.map((url, index) => (
             <CarouselListItem activeIndex={activeIndex} key={index}>
-              <img src={url} alt="" />
+              <img src={url} alt={url} />
             </CarouselListItem>
           ))}
         </CarouselList>
         {banners.length && (
           <ArrowButton pos="right" onClick={handleNext}>
-            <button>right</button>
+            right
           </ArrowButton>
         )}
       </Container>
