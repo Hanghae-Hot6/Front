@@ -1,22 +1,34 @@
+import axios from 'axios';
 import React, {useState} from 'react';
+import {useQuery} from 'react-query';
 import NavigationButton from '../../common/NavigationButton';
 import useSignUpForm from './useSignUpForm';
 
+type IdDoubleCheckType = {
+  result: boolean;
+};
+
 function SignUp() {
   const isSignUp = true;
-  const {values, errors, submitting, handleChange, handleSubmit} =
-    useSignUpForm(
-      {
-        memberId: '',
-        email: '',
-        username: '',
-        address: '',
-        phoneNumber: '',
-        password: '',
-        passwordCheck: '',
-      },
-      isSignUp,
-    );
+  const {
+    values,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+    IdCheckHandler,
+  } = useSignUpForm(
+    {
+      memberId: '',
+      email: '',
+      username: '',
+      address: '',
+      phoneNumber: '',
+      password: '',
+      passwordCheck: '',
+    },
+    isSignUp,
+  );
 
   return (
     <div>
@@ -31,7 +43,9 @@ function SignUp() {
             value={values.memberId}
           />
         </label>
-        <button>중복확인</button>
+        <button onClick={IdCheckHandler} type="button">
+          중복확인
+        </button>
         <span>{errors.memberId}</span>
         <br />
         <label htmlFor="email">
@@ -56,7 +70,7 @@ function SignUp() {
             value={values.username}
           />
         </label>
-        <button>중복확인</button>
+        {/* <button onClick={onNameDoubleCheck}>중복확인</button> */}
         <span>{errors.username}</span>
 
         <br />
