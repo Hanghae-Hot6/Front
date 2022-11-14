@@ -67,6 +67,10 @@ const ClubListPage = () => {
           ),
       };
     }
+    return {
+      id: index,
+      title: category,
+    };
   });
 
   return (
@@ -77,29 +81,35 @@ const ClubListPage = () => {
             <section>
               <article>
                 <ul>
-                  {status === 'success' &&
+                  {status === 'success' ? (
                     categoryTap.length > 0 &&
                     categoryTap.map(item => (
                       <li
-                        key={item?.id}
-                        onClick={() => setIndex(item ? item.id : -1)}
-                        className={index === item?.id ? 'on' : undefined}>
-                        {item?.title}
+                        key={item.id}
+                        onClick={() => setIndex(item.id)}
+                        className={index === item.id ? 'on' : undefined}>
+                        {item.title}
                       </li>
-                    ))}
+                    ))
+                  ) : (
+                    <div>정보가 없습니다.</div>
+                  )}
                 </ul>
               </article>
-              {status === 'success' &&
+              {status === 'success' ? (
                 categoryTap.length > 0 &&
                 categoryTap
-                  .filter(item => index === item?.id)
+                  .filter(item => index === item.id)
                   .map(item => {
                     return (
                       <>
-                        <div key={item?.id}>{item?.content}</div>
+                        <div key={item.id}>{item?.content}</div>
                       </>
                     );
-                  })}
+                  })
+              ) : (
+                <div>데이터가 없습니다.</div>
+              )}
             </section>
           </TabList>
           <ClubListBody />
