@@ -17,7 +17,7 @@ const MainPage = ({}: MainPageProps) => {
        * 인기 모임TOP10(get) => (멤버수 or 좋아요 개수로 sorting),
        * 독서 모임 후기(get) => (후기,별점) 필요
        * 가입하기 버튼누르면 가입요청
-       * 좋아요버튼 디자인 시안에 */}
+       * 좋아요버튼*/}
 
       <Layout>
         <Banner />
