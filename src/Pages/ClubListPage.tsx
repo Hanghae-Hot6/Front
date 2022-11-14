@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import ClubListBody from '../components/ClubList/Body/ClubListBody';
-import ClubListTitle from '../components/ClubList/Title/ClubListTitle';
 import Layout from '../components/Layout/Layout';
 import styled from 'styled-components';
-import {useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {useQuery} from 'react-query';
 import axios from 'axios';
 import {useEffect} from 'react';
 
 type clubs = {
-  id: string;
+  id: string | number;
   thumbnail: string;
   clubName: string;
   memberId: string;
@@ -18,10 +17,10 @@ type clubs = {
   memberLimit: number;
 };
 const ClubListPage = () => {
-  // const queryClient = useQueryClient();
+  // const queryClient = useQueryClient(); , isLoading 아직 안씀
   const location = useLocation();
   const {state} = location;
-  const {data, status, isLoading} = useQuery(['getClubs'], async () => {
+  const {data, status} = useQuery(['getClubs'], async () => {
     const response = await axios.get('http://43.201.69.50:8080/clubs');
     return response.data.data;
   });
@@ -48,6 +47,8 @@ const ClubListPage = () => {
     );
 
     if (status === 'success') {
+      // console.log(data);
+
       return {
         id: index,
         title: category,
@@ -55,11 +56,13 @@ const ClubListPage = () => {
           categoryFilter.length > 0 ? (
             categoryFilter.map((club: clubs) => {
               return (
-                <div key={club.id}>
-                  <h2>{club.clubName}</h2>
-                  <p>{club.summary}</p>
-                  <img src={club.thumbnail} alt={club.summary} />
-                </div>
+                <Link to={`/club_detail/${club.id}`}>
+                  <div key={club.id}>
+                    <h2>{club.clubName}</h2>
+                    <p>{club.summary}</p>
+                    <img src={club.thumbnail} alt={club.summary} />
+                  </div>
+                </Link>
               );
             })
           ) : (

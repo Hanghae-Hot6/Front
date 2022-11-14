@@ -1,13 +1,11 @@
 import React from 'react';
-import NavigationButton from '../../../common/NavigationButton';
+// import NavigationButton from '../../../common/NavigationButton';
 import * as C from './ClubListBody.style';
 
-type ClubListBodyProps = {};
-
-const ClubListBody = ({}: ClubListBodyProps) => {
+const ClubListBody = () => {
   return (
     <>
-      <div>모임리스트 내용</div>
+      <div>모임이 없습니다.</div>
 
       <C.ToCreateClubButton path="/create_club">
         모임 개설.. 플로팅 버튼
