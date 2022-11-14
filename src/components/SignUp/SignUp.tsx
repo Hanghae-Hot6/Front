@@ -10,49 +10,25 @@ type IdDoubleCheckType = {
 
 function SignUp() {
   const isSignUp = true;
-  const {values, errors, submitting, handleChange, handleSubmit} =
-    useSignUpForm(
-      {
-        memberId: '',
-        email: '',
-        username: '',
-        address: '',
-        phoneNumber: '',
-        password: '',
-        passwordCheck: '',
-      },
-      isSignUp,
-    );
-
   const {
-    data: idCheckData,
-    isLoading,
-    error: idCheckError,
-    refetch: idCheckFetch,
-  } = useQuery(
-    ['IdDoubleCheck', `${values.memberId}`],
-    async () => {
-      console.log(`${values.memberId}`);
-      const {data} = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/members/idCheck/${values.memberId}`,
-      );
-      return data;
-    },
-    // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
+    values,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+    IdCheckHandler,
+  } = useSignUpForm(
     {
-      refetchOnWindowFocus: false,
-      enabled: false,
-      // 재시도 횟수 1번
-      retry: 1,
+      memberId: '',
+      email: '',
+      username: '',
+      address: '',
+      phoneNumber: '',
+      password: '',
+      passwordCheck: '',
     },
+    isSignUp,
   );
-
-  const IdDoubleCheckHandler = () => {
-    idCheckFetch();
-    console.log(idCheckData);
-    console.log(idCheckError);
-  };
-  // const onNameDoubleCheck = () => {};
 
   return (
     <div>
@@ -67,7 +43,9 @@ function SignUp() {
             value={values.memberId}
           />
         </label>
-        <button onClick={IdDoubleCheckHandler}>중복확인</button>
+        <button onClick={IdCheckHandler} type="button">
+          중복확인
+        </button>
         <span>{errors.memberId}</span>
         <br />
         <label htmlFor="email">

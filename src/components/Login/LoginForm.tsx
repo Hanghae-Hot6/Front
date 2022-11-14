@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import useSignUpForm from '../SignUp/useSignUpForm';
-
+import {getAccessToken, getUserId} from '../../utils';
+import {useNavigate} from 'react-router-dom';
 function LoginForm() {
+  const navigate = useNavigate();
   const isSignUp = false;
+  const accessToken = getAccessToken();
+  const userId = getUserId();
   const {values, errors, submitting, handleChange, handleSubmit} =
     useSignUpForm(
       {
@@ -11,6 +15,16 @@ function LoginForm() {
       },
       isSignUp,
     );
+
+  useEffect(() => {
+    if (accessToken) {
+      console.log(accessToken);
+
+      alert('로그인중 입니다');
+      navigate('/');
+    }
+  }, [navigate]);
+
   return (
     <div>
       <form onSubmit={handleSubmit}>

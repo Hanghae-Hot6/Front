@@ -18,7 +18,7 @@ const Router = () => {
         <Route path="/club_list" element={<ClubListPage />} />
         <Route path="/create_club" element={<CreateClubPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:userId" element={<ProfilePage />} />
         <Route path="/sign" element={<SignPage />} />
       </Routes>
     </BrowserRouter>
