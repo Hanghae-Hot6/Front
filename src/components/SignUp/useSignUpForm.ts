@@ -133,14 +133,18 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   };
   useEffect(() => {
     if (submitting) {
-      if (isIdCheck) {
-        delete errors.memberId;
-        if (Object.keys(errors).length === 0) {
-          if (isSingUp) {
+      if (isSingUp) {
+        if (isIdCheck) {
+          delete errors.memberId;
+          if (Object.keys(errors).length === 0) {
             signUpSubmitMutate(values);
-          } else {
-            loginSubmitMutate(values);
           }
+        } else {
+          errors.memberId = '중복확인이 필요합니다.';
+        }
+      } else {
+        if (Object.keys(errors).length === 0) {
+          loginSubmitMutate(values);
         }
       }
 
