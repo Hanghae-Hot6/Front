@@ -81,4 +81,10 @@ const Position = styled.ul`
   display: flex;
   gap: 1rem;
   font-size: 1.6rem;
+  ul {
+    margin-top: 0.7rem;
+    li {
+      margin-bottom: 0.3rem;
+    }
+  }
 `;

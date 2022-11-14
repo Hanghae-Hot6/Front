@@ -26,12 +26,12 @@ const Category = () => {
       <LinkSt to={'/club_list'} state={6}>
         모바일
       </LinkSt>
-      <LinkSt to={'/club_list'} state={7}>
+      {/* <LinkSt to={'/club_list'} state={7}>
         소설
       </LinkSt>
       <LinkSt to={'/club_list'} state={8}>
         에세이/시
-      </LinkSt>
+      </LinkSt> */}
     </CategorySection>
   );
 };
@@ -45,11 +45,11 @@ const CategorySection = styled.section`
 const LinkSt = styled(Link)`
   display: inline-block;
   font-size: 1.6rem;
-  margin-right: 0.7rem;
-  background-color: #eee;
-  width: 100px;
-  height: 100px;
+  margin-right: 5rem;
+  background-color: #f1f1f5;
+  width: 6.8rem;
+  height: 6.8rem;
   border-radius: 50%;
-  line-height: 100px;
+  line-height: 18rem;
   text-align: center;
 `;
