@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+import {useQuery} from 'react-query';
 import NavigationButton from '../../../common/NavigationButton';
 import * as B from './CreateClubBody.style';
 import ImagePreview from './ImagePreview/ImagePreview';
@@ -34,6 +36,16 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     summary: '',
     image: undefined,
   };
+
+  const {data, status, isLoading, error} = useQuery('getBooks', async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/book/search/유시민`,
+    );
+    return response;
+  });
+
+  console.log(data);
+  console.log(error);
 
   const [input, setInput] = useState<InputType>(initialValue);
 
@@ -107,8 +119,14 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('hihi');
+
+    const response = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/clubs`,
+      initialValue,
+    );
+    console.log(response);
   };
 
   return (
