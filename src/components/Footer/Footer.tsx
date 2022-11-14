@@ -1,26 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
-type FooterProps = {};
 
-const Footer = ({}: FooterProps) => {
+const Footer = () => {
   // fe 3 be 3 designer 1 github link
   return (
     <FooterWrap>
       <FooterLayout>
         <FooterLeft>logo</FooterLeft>
         <FooterRight>
-          <ul>
+          <Position>
             <li>
               FE
               <ul>
                 <li>
-                  <a href="">서지운</a>
+                  <a href="https://github.com/MildColor" target="_target">
+                    서지운
+                  </a>
                 </li>
                 <li>
-                  <a href="">조재신</a>
+                  <a href="https://github.com/1005jsc" target="_target">
+                    조재신
+                  </a>
                 </li>
                 <li>
-                  <a href="">국경훈</a>
+                  <a href="https://github.com/kyunghoonkook" target="_target">
+                    국경훈
+                  </a>
                 </li>
               </ul>
             </li>
@@ -28,13 +33,19 @@ const Footer = ({}: FooterProps) => {
               BE
               <ul>
                 <li>
-                  <a href="">류창민</a>
+                  <a href="https://github.com/ryucm" target="_target">
+                    류창민
+                  </a>
                 </li>
                 <li>
-                  <a href="">박현도</a>
+                  <a href="https://github.com/atto08" target="_target">
+                    박현도
+                  </a>
                 </li>
                 <li>
-                  <a href="">조계일</a>
+                  <a href="https://github.com/chokyeil" target="_target">
+                    조계일
+                  </a>
                 </li>
               </ul>
             </li>
@@ -44,7 +55,7 @@ const Footer = ({}: FooterProps) => {
                 <li>장승주</li>
               </ul>
             </li>
-          </ul>
+          </Position>
         </FooterRight>
       </FooterLayout>
     </FooterWrap>
@@ -64,8 +75,10 @@ const FooterLayout = styled.div`
 
 const FooterLeft = styled.div``;
 
-const FooterRight = styled.div`
-  ul {
-    display: flex;
-  }
+const FooterRight = styled.div``;
+
+const Position = styled.ul`
+  display: flex;
+  gap: 1rem;
+  font-size: 1.6rem;
 `;

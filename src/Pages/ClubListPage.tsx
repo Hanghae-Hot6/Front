@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import ClubListBody from '../components/ClubList/Body/ClubListBody';
-import ClubListTitle from '../components/ClubList/Title/ClubListTitle';
 import Layout from '../components/Layout/Layout';
 import styled from 'styled-components';
-import {useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {useQuery} from 'react-query';
 import axios from 'axios';
 import {useEffect} from 'react';
 
 type clubs = {
-  id: string;
+  id: string | number;
   thumbnail: string;
   clubName: string;
   memberId: string;
@@ -18,20 +17,18 @@ type clubs = {
   memberLimit: number;
 };
 const ClubListPage = () => {
-  // const queryClient = useQueryClient();
+  // const queryClient = useQueryClient(); , isLoading 아직 안씀
   const location = useLocation();
   const {state} = location;
-  const {data, status, isLoading} = useQuery(['getClubs'], async () => {
+  const {data, status} = useQuery(['getClubs'], async () => {
     const response = await axios.get('http://43.201.69.50:8080/clubs');
     return response.data.data;
   });
-
+  const [index, setIndex] = useState<number>(0);
   useEffect(() => {
     setIndex(state);
   }, [state]);
 
-  // 배열안에 key , value를 map 하는 방법
-  // 모임 없을때 조건문
   const categoryArray = [
     '인문',
     '경영 경제',
@@ -44,149 +41,40 @@ const ClubListPage = () => {
     '에세이 시',
   ];
 
-  const categoryTap = [
-    {
-      id: 0,
-      title: '인문',
-      content: data
-        ?.filter((club: clubs) => club.category === '인문')
-        .map((club: clubs) => {
-          /** category에 값이 있을때 map 돌리고 없으면 없다고 출력 */
-          return club.category === '인문' ? (
-            <div key={club.id}>
-              <h2>{club.clubName}</h2>
-              <p>{club.summary}</p>
-              <img src={club.thumbnail} alt={club.summary} />
-            </div>
+  const categoryTap = categoryArray.map((category, index) => {
+    const categoryFilter = data?.filter(
+      (club: clubs) => club.category === category,
+    );
+
+    if (status === 'success') {
+      // console.log(data);
+
+      return {
+        id: index,
+        title: category,
+        content:
+          categoryFilter.length > 0 ? (
+            categoryFilter.map((club: clubs) => {
+              return (
+                <Link to={`/club_detail/${club.id}`}>
+                  <div key={club.id}>
+                    <h2>{club.clubName}</h2>
+                    <p>{club.summary}</p>
+                    <img src={club.thumbnail} alt={club.summary} />
+                  </div>
+                </Link>
+              );
+            })
           ) : (
             <div>모임이 없습니다</div>
-          );
-        }),
-    },
-    {
-      id: 1,
-      title: '경영 경제',
-      content: data
-        ?.filter((club: clubs) => club.category === '경영 경제')
-        .map((club: clubs) => {
-          return club.category === '경영 경제' ? (
-            <div key={club.id}>
-              <h2>{club.clubName}</h2>
-              <p>{club.summary}</p>
-              <img src={club.thumbnail} alt={club.summary} />
-            </div>
-          ) : (
-            <div>모임이 없습니다</div>
-          );
-        }),
-    },
-    {
-      id: 2,
-      title: '자기계발',
-      content: data
-        ?.filter((club: clubs) => club.category === '자기계발')
-        .map((club: clubs) => {
-          return (
-            <div key={club.id}>
-              <h2>{club.clubName}</h2>
-              <p>{club.summary}</p>
-              <img src={club.thumbnail} alt={club.summary} />
-            </div>
-          );
-        }),
-    },
-    {
-      id: 3,
-      title: '예술',
-      content: data
-        ?.filter((club: clubs) => club.category === '예술')
-        .map((club: clubs) => {
-          return (
-            <div key={club.id}>
-              <h2>{club.clubName}</h2>
-              <p>{club.summary}</p>
-              <img src={club.thumbnail} alt={club.summary} />
-            </div>
-          );
-        }),
-    },
-    {
-      id: 4,
-      title: '자연과학',
-      content: data
-        ?.filter((club: clubs) => club.category === '자연과학')
-        .map((club: clubs) => {
-          return (
-            <div key={club.id}>
-              <h2>{club.clubName}</h2>
-              <p>{club.summary}</p>
-              <img src={club.thumbnail} alt={club.summary} />
-            </div>
-          );
-        }),
-    },
-    {
-      id: 5,
-      title: '사회정치',
-      content: data
-        ?.filter((club: clubs) => club.category === '사회정치')
-        .map((club: clubs) => {
-          return (
-            <div key={club.id}>
-              <h2>{club.clubName}</h2>
-              <p>{club.summary}</p>
-              <img src={club.thumbnail} alt={club.summary} />
-            </div>
-          );
-        }),
-    },
-    {
-      id: 6,
-      title: 'IT 모바일',
-      content: data
-        ?.filter((club: clubs) => club.category === 'IT 모바일')
-        .map((club: clubs) => {
-          return (
-            <div key={club.id}>
-              <h2>{club.clubName}</h2>
-              <p>{club.summary}</p>
-              <img src={club.thumbnail} alt={club.summary} />
-            </div>
-          );
-        }),
-    },
-    {
-      id: 7,
-      title: '소설',
-      content: data
-        ?.filter((club: clubs) => club.category === '소설')
-        .map((club: clubs) => {
-          return (
-            <div key={club.id}>
-              <h2>{club.clubName}</h2>
-              <p>{club.summary}</p>
-              <img src={club.thumbnail} alt={club.summary} />
-            </div>
-          );
-        }),
-    },
-    {
-      id: 8,
-      title: '에세이 시',
-      content: data
-        ?.filter((club: clubs) => club.category === '에세이 시')
-        .map((club: clubs) => {
-          return (
-            <div key={club.id}>
-              <h2>{club.clubName}</h2>
-              <p>{club.summary}</p>
-              <img src={club.thumbnail} alt={club.summary} />
-            </div>
-          );
-        }),
-    },
-  ];
-  const [index, setIndex] = useState<number>(0);
+          ),
+      };
+    }
+    return {
+      id: index,
+      title: category,
+    };
+  });
 
   return (
     <>
@@ -196,26 +84,37 @@ const ClubListPage = () => {
             <section>
               <article>
                 <ul>
-                  {categoryTap?.map(item => (
-                    <li
-                      key={item.id}
-                      onClick={() => setIndex(item.id)}
-                      className={index === item.id ? 'on' : undefined}>
-                      {item.title}
-                    </li>
-                  ))}
+                  {status === 'success' ? (
+                    categoryTap.length > 0 &&
+                    categoryTap.map(item => (
+                      <li
+                        key={item.id}
+                        onClick={() => setIndex(item.id)}
+                        className={index === item.id ? 'on' : undefined}>
+                        {item.title}
+                      </li>
+                    ))
+                  ) : (
+                    <div>정보가 없습니다.</div>
+                  )}
                 </ul>
               </article>
-              {categoryTap
-                .filter(item => index === item.id)
-                .map(item => (
-                  <>
-                    <div key={item.id}>{item.content}</div>
-                  </>
-                ))}
+              {status === 'success' ? (
+                categoryTap.length > 0 &&
+                categoryTap
+                  .filter(item => index === item.id)
+                  .map(item => {
+                    return (
+                      <>
+                        <div key={item.id}>{item?.content}</div>
+                      </>
+                    );
+                  })
+              ) : (
+                <div>데이터가 없습니다.</div>
+              )}
             </section>
           </TabList>
-          {/* <ClubListTitle /> */}
           <ClubListBody />
         </Container>
       </Layout>
