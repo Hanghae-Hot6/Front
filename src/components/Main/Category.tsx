@@ -44,11 +44,11 @@ const CategorySection = styled.section`
 `;
 const LinkSt = styled(Link)`
   display: inline-block;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin-right: 5rem;
   background-color: #f1f1f5;
-  width: 6.8rem;
-  height: 6.8rem;
+  width: 7rem;
+  height: 7rem;
   border-radius: 50%;
   line-height: 18rem;
   text-align: center;

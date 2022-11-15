@@ -23,7 +23,9 @@ const ClubListBody = () => {
     const response = await axios.get('http://43.201.69.50:8080/clubs');
     return response.data.data;
   });
+
   const [index, setIndex] = useState<number>(0);
+
   useEffect(() => {
     setIndex(state);
   }, [state]);
@@ -46,8 +48,6 @@ const ClubListBody = () => {
     );
 
     if (status === 'success') {
-      // console.log(data);
-
       return {
         id: index,
         title: category,
