@@ -158,8 +158,28 @@ button {
 body {
   font-family: 'Pretendard-Regular', sans-serif;
 }
-
 html {
   font-size: 62.5%;
   /** rem 코딩 (1rem = 10px) */
+}
+/* 
+@media screen and (max-width: 1440px) {
+  html {
+    flex-direction: column;
+    align-items: flex-end;
+    display: none;
+    font-size: 40%;
+  }
+} */
+body::-webkit-scrollbar {
+  width: 8px; /* 스크롤바의 너비 */
+}
+body::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: #5200ff; /* 스크롤바의 색상 */
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #e0e0e0; /*스크롤바 뒷 배경 색상*/
 }
