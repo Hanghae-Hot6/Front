@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const Section = styled.section`
-  width: 200px;
+export const H1 = styled.h1`
+  font-size: 1.2rem;
 `;

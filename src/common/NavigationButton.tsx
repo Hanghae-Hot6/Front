@@ -5,6 +5,7 @@ type NavigationButtonProps = {
   path?: string;
   onClickCallback?: ({...props}) => void;
   children?: React.ReactNode;
+  type?: string;
 };
 
 // navigation 이동용 버튼입니다
@@ -14,6 +15,8 @@ const NavigationButton = ({
   path,
   onClickCallback,
   children,
+  type,
+
   ...props
 }: NavigationButtonProps) => {
   const navigate = useNavigate();
@@ -31,7 +34,7 @@ const NavigationButton = ({
 
   return (
     <>
-      <NavigationButtonDefault {...props} onClick={handleClick}>
+      <NavigationButtonDefault {...props} type={type} onClick={handleClick}>
         {children}
       </NavigationButtonDefault>
     </>
