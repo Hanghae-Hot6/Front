@@ -11,41 +11,41 @@ type CreateClubBodyProps = {};
 type InputType = {
   clubName: string;
   clubIntro: string;
-  book: string;
+  // book: string;
   plan: string;
-  bookPlan: File[];
+  // bookPlan: File[];
   location: string;
   schedule: string;
   memberLimit: number;
   category: string;
   summary: string;
-  image: File | undefined;
+  image: Blob | '';
 };
 
 const CreateClubBody = ({}: CreateClubBodyProps) => {
   const initialValue: InputType = {
-    clubName: '',
-    clubIntro: '',
-    book: '',
-    plan: '',
-    bookPlan: [],
-    location: '',
-    schedule: '',
+    clubName: 'a',
+    clubIntro: 'a',
+    // book: '',
+    plan: 'a',
+    // bookPlan: [],
+    location: 'a',
+    schedule: 'a',
     memberLimit: 0,
-    category: '',
-    summary: '',
-    image: undefined,
+    category: 'a',
+    summary: 'a',
+    image: '',
   };
 
-  const {data, status, isLoading, error} = useQuery('getBooks', async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/book/search/유시민`,
-    );
-    return response;
-  });
+  // const {data, status, isLoading, error} = useQuery('getBooks', async () => {
+  //   const response = await axios.get(
+  //     `${process.env.REACT_APP_BASE_URL}/book/search/유시민`,
+  //   );
+  //   return response;
+  // });
 
-  console.log(data);
-  console.log(error);
+  // console.log(data);
+  // console.log(error);
 
   const [input, setInput] = useState<InputType>(initialValue);
 
@@ -114,18 +114,41 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           ]);
         };
 
-        setInput({...input, bookPlan: [...input.bookPlan, e.target.files[0]]});
+        // setInput({...input, bookPlan: [...input.bookPlan, e.target.files[0]]});
       }
     }
   };
 
   const handleSubmit = async () => {
     console.log('hihi');
+    const accessToken = localStorage.getItem('Authorization');
+
+    const formData = new FormData();
+
+    formData.append('clubName', input.clubName);
+    formData.append('clubIntro', input.clubIntro);
+    formData.append('plan', input.plan);
+    formData.append('location', input.location);
+    formData.append('schedule', input.schedule);
+    formData.append('memberLimit', 's');
+    formData.append('category', input.category);
+    formData.append('summary', input.summary);
+    // formData.append('imageUrl', input.image);
 
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/clubs`,
-      initialValue,
+
+      formData,
+
+      {
+        headers: {
+          Authorization: accessToken,
+          // "Refresh-Token": refreshToken,
+          'Content-Type': 'multipart/form-data',
+        },
+      },
     );
+
     console.log(response);
   };
 
