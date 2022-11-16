@@ -2,7 +2,7 @@ import React, {ReactNode, useState, useEffect} from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import styled from 'styled-components';
-
+import arrow from '../../assets/arrowUp.svg';
 type Props = {
   children: ReactNode;
 };
@@ -36,7 +36,11 @@ const Layout = (props: Props) => {
         {props.children}
       </section>
       <Footer />
-      {showButton && <TopButton onClick={scrollToTop}>TOP</TopButton>}
+      {showButton && (
+        <TopButton onClick={scrollToTop}>
+          <img src={arrow} alt={arrow} />
+        </TopButton>
+      )}
     </div>
   );
 };

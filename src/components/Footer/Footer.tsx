@@ -1,12 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import logo from '../../assets/logo.svg';
+import {Link} from 'react-router-dom';
 
 const Footer = () => {
   // fe 3 be 3 designer 1 github link
   return (
     <FooterWrap>
       <FooterLayout>
-        <FooterLeft>logo</FooterLeft>
+        <FooterLeft>
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
+        </FooterLeft>
         <FooterRight>
           <Position>
             <li>
@@ -84,7 +90,8 @@ const Position = styled.ul`
   ul {
     margin-top: 0.7rem;
     li {
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.7rem;
+      font-size: 1.2rem;
     }
   }
 `;

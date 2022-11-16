@@ -4,8 +4,6 @@ import Layout from '../components/Layout/Layout';
 import styled from 'styled-components';
 
 const ClubListPage = () => {
-  // const queryClient = useQueryClient(); , isLoading 아직 안씀
-
   return (
     <>
       <Layout>

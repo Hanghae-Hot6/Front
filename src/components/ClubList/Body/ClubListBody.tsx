@@ -46,7 +46,6 @@ const ClubListBody = () => {
     const categoryFilter = data?.filter(
       (club: clubs) => club.category === category,
     );
-
     if (status === 'success') {
       return {
         id: index,
@@ -81,8 +80,7 @@ const ClubListBody = () => {
         <section>
           <article>
             <ul>
-              {status === 'success' ? (
-                categoryTap.length > 0 &&
+              {categoryTap.length > 0 &&
                 categoryTap.map(item => (
                   <li
                     key={item.id}
@@ -90,10 +88,7 @@ const ClubListBody = () => {
                     className={index === item.id ? 'on' : undefined}>
                     {item.title}
                   </li>
-                ))
-              ) : (
-                <div>타이틀이 없습니다.</div>
-              )}
+                ))}
             </ul>
           </article>
           {status === 'success' ? (

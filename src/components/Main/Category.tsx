@@ -37,8 +37,9 @@ const Category = () => {
 };
 
 export default Category;
+
 const CategorySection = styled.section`
-  margin-top: 5rem;
+  margin-top: 7rem;
   display: flex;
   justify-content: center;
 `;
