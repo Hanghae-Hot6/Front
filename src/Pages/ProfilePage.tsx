@@ -8,6 +8,9 @@ import {getAccessToken, getUserId} from '../utils';
 import axios from 'axios';
 import {useQuery} from 'react-query';
 import ProfileClubList from '../components/Profile/ProfileClubList';
+import GlobalModal from '../common/GlobalModal';
+import {useAppDispatch} from '../Redux/store/store';
+import {openGlobalModal} from '../Redux/modules/slices/modalSlice';
 
 type ProfilePageProps = {};
 type clubList = {
@@ -29,6 +32,7 @@ type ProfileData = {
 
 const ProfilePage = ({}: ProfilePageProps) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const urlId = useParams();
   const accessToken = getAccessToken();
   const userId = getUserId();
@@ -73,10 +77,11 @@ const ProfilePage = ({}: ProfilePageProps) => {
     } else if (urlId.userId !== userId) {
       // userId와 url의 params가 일치하지 않으면 메인페이지로 돌려보냄
       // strict mode를 끄니까 두 번 실행 되지 않는 것을 확인함.
-      alert('접근 권한이 없습니다');
-      navigate('/');
+      dispatch(openGlobalModal('noAccess'));
+      // alert('접근 권한이 없습니다');
+      // navigate('/');
     }
-  }, [accessToken, navigate, urlId.userId, userId]);
+  }, [accessToken, navigate, urlId.userId, userId, dispatch]);
 
   return (
     <>
@@ -84,6 +89,10 @@ const ProfilePage = ({}: ProfilePageProps) => {
         <ProfileDetail data={data} />
         <ProfileClubList clubList={data.clubList} />
       </Layout>
+      <GlobalModal id="noAccess" type="alertModal" confirmPath="/">
+        접근 권한이 없습니다.
+      </GlobalModal>
+
       <ReactQueryDevtools initialIsOpen={false} />
     </>
   );
