@@ -19,7 +19,8 @@ type InputType = {
   memberLimit: number;
   category: string;
   summary: string;
-  image: Blob | '';
+  // image: Blob | '';
+  image: any;
 };
 
 const CreateClubBody = ({}: CreateClubBodyProps) => {
@@ -37,12 +38,12 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     image: '',
   };
 
-  // const {data, status, isLoading, error} = useQuery('getBooks', async () => {
-  //   const response = await axios.get(
-  //     `${process.env.REACT_APP_BASE_URL}/book/search/유시민`,
-  //   );
-  //   return response;
-  // });
+  const {data, status, isLoading, error} = useQuery('getBooks', async () => {
+    const response = await axios.get(
+      `http://43.201.69.50:8080/book/search?keyword=자바&start=1&display=3`,
+    );
+    return response;
+  });
 
   // console.log(data);
   // console.log(error);
@@ -119,27 +120,65 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     }
   };
 
+  // const handleSubmit = async () => {
+  //   console.log('hihi');
+  //   const accessToken = localStorage.getItem('Authorization');
+
+  //   const formData = new FormData();
+
+  //   formData.append('clubName', input.clubName);
+  //   formData.append('clubIntro', input.clubIntro);
+  //   formData.append('plan', input.plan);
+  //   formData.append('location', input.location);
+  //   formData.append('schedule', input.schedule);
+  //   formData.append('memberLimit', 's');
+  //   formData.append('category', input.category);
+  //   formData.append('summary', input.summary);
+  //   // formData.append('imageUrl', input.image);
+
+  //   const response = await axios.post(
+  //     `${process.env.REACT_APP_BASE_URL}/clubs`,
+
+  //     formData,
+
+  //     {
+  //       headers: {
+  //         Authorization: accessToken,
+  //         // "Refresh-Token": refreshToken,
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     },
+  //   );
+
+  //   console.log(response);
+  // };
+
   const handleSubmit = async () => {
     console.log('hihi');
+
     const accessToken = localStorage.getItem('Authorization');
+    const formData2 = new FormData();
 
-    const formData = new FormData();
+    formData2.append('clubName', 'a');
+    formData2.append('clubIntro', 'a');
+    formData2.append('plan', 'a');
+    formData2.append('location', 'a');
+    formData2.append('schedule', 'a');
+    formData2.append('memberLimit', 'a');
+    formData2.append('category', 'a');
+    formData2.append('summary', 'a');
+    // formData.append('image', input.image);
+    formData2.append('book1', '9788965403340');
+    formData2.append('book2', '9791169210027');
+    formData2.append('book3', '9788964211830');
 
-    formData.append('clubName', input.clubName);
-    formData.append('clubIntro', input.clubIntro);
-    formData.append('plan', input.plan);
-    formData.append('location', input.location);
-    formData.append('schedule', input.schedule);
-    formData.append('memberLimit', 's');
-    formData.append('category', input.category);
-    formData.append('summary', input.summary);
-    // formData.append('imageUrl', input.image);
+    console.log(formData2);
 
+    console.log(accessToken);
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/clubs`,
 
-      formData,
-
+      formData2,
       {
         headers: {
           Authorization: accessToken,
@@ -148,7 +187,6 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
         },
       },
     );
-
     console.log(response);
   };
 
