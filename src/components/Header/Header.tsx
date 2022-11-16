@@ -10,7 +10,7 @@ const Header = ({}: HeaderProps) => {
   const isLogin = accessToken !== null;
 
   return (
-    <>
+    <div style={{position: 'absolute', top: '0'}}>
       {isLogin ? (
         <>
           <NavigationButton path={`/profile/${userId}`}>
@@ -31,7 +31,7 @@ const Header = ({}: HeaderProps) => {
           <NavigationButton path="/sign">회원가입</NavigationButton>
         </>
       )}
-    </>
+    </div>
   );
 };
 export default Header;

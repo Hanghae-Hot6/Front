@@ -24,9 +24,8 @@ const MainPage = ({}: MainPageProps) => {
        * 후기(댓글) 더보기 --> 새로운 페이지? 보류
        * 카테고리별 클럽데이터에서 클럽 ID값도 같이 보내주세용 ~~ ,
        */}
-
+      <Banner />
       <Layout>
-        <Banner />
         <Category />
         <PopularClub />
         <RecommendationClub />

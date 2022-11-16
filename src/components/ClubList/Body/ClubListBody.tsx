@@ -27,8 +27,14 @@ const ClubListBody = () => {
   const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {
-    setIndex(state);
-  }, [state]);
+    if (state === null) setIndex(index);
+    else {
+      setIndex(state);
+    }
+  }, []);
+  // useEffect(() => {
+  //   setIndex(state);
+  // }, [state]);
 
   const categoryArray = [
     '인문',
