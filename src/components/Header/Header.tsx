@@ -1,6 +1,7 @@
 import React from 'react';
 import NavigationButton from '../../common/NavigationButton';
 import {getAccessToken, getUserId} from '../../utils';
+import {useLocation} from 'react-router-dom';
 type HeaderProps = {};
 
 const Header = ({}: HeaderProps) => {
@@ -8,6 +9,7 @@ const Header = ({}: HeaderProps) => {
   const userId = getUserId();
   // accessToken이 존재하면 Login 상태
   const isLogin = accessToken !== null;
+  const location = useLocation();
 
   return (
     <>
