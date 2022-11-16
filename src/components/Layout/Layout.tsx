@@ -1,12 +1,34 @@
-import React, {ReactNode} from 'react';
+import React, {ReactNode, useState, useEffect} from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import styled from 'styled-components';
+import arrow from '../../assets/arrowUp.svg';
 type Props = {
   children: ReactNode;
 };
 
 const Layout = (props: Props) => {
+  const [showButton, setShowButton] = useState(false);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+  useEffect(() => {
+    const handleShowButton = () => {
+      if (window.scrollY > 500) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleShowButton);
+    return () => {
+      window.removeEventListener('scroll', handleShowButton);
+    };
+  }, []);
   return (
     <div>
       <Header />
@@ -14,7 +36,11 @@ const Layout = (props: Props) => {
         {props.children}
       </section>
       <Footer />
-      <TopButton>TOP</TopButton>
+      {showButton && (
+        <TopButton onClick={scrollToTop}>
+          <img src={arrow} alt={arrow} />
+        </TopButton>
+      )}
     </div>
   );
 };
