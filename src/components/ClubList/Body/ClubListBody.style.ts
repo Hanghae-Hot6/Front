@@ -21,32 +21,43 @@ export const Section = styled.section`
 
 export const TabList = styled.div`
   position: static;
-  width: 100%;
-  background-color: rgba(255, 255, 255);
+  width: 191rem;
+  height: 7rem;
+  margin-left: -31.5rem;
+  background-color: #5200ff;
+
   section {
     article {
       ul {
         display: flex;
+        justify-content: space-between;
         position: relative;
-        width: 100%;
-        height: 42px;
+        margin: 0 auto;
+        width: 1280px;
+        margin-top: 1.5rem;
         cursor: pointer;
         .on {
-          border: 1px solid #503396;
-          border-bottom: 0;
-          color: #503396;
+          background: #ffffff;
+          border-radius: 4rem;
+          color: #5200ff;
         }
         li {
-          height: 42px;
-          border-top: 1px solid #ebebeb;
-          border-right: 1px solid #ebebeb;
-          border-bottom: 1px solid #503396;
-          width: 25%;
-          color: #333;
-          line-height: 40px;
+          font-weight: 700;
+          font-size: 2rem;
+          padding: 1.5rem;
+          width: 12rem;
+          height: 4rem;
+          color: #b39fde;
           text-align: center;
+          line-height: 1rem;
+          transition: all 0.5s;
         }
       }
     }
   }
+`;
+
+export const ContentWrap = styled.div`
+  width: 1280px;
+  margin: 8rem auto;
 `;

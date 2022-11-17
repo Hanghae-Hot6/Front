@@ -1,8 +1,9 @@
 import styled, {css} from 'styled-components';
 
 export const Base = styled.div`
-  width: 1910px;
-  margin-left: -315px;
+  /* width: 1910px; */
+  /* margin-left: -315px; */
+  margin-top: 100px;
 `;
 
 export const Container = styled.div`

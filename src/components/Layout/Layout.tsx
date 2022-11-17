@@ -32,7 +32,7 @@ const Layout = (props: Props) => {
   return (
     <div>
       <Header />
-      <section style={{width: '1280px', margin: '0 auto'}}>
+      <section style={{width: '1280px', margin: '0 auto', marginTop: '90px'}}>
         {props.children}
       </section>
       <Footer />

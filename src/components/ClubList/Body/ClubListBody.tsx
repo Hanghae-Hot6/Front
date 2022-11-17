@@ -7,7 +7,7 @@ import {useQuery} from 'react-query';
 import axios from 'axios';
 import {useEffect} from 'react';
 
-type clubs = {
+type Clubs = {
   id: string | number;
   thumbnail: string;
   clubName: string;
@@ -15,20 +15,31 @@ type clubs = {
   category: string;
   summary: string;
   memberLimit: number;
+  clubId: number;
+};
+
+type LocationState = {
+  pathname: string;
+  state: number | null;
+  key: string | undefined;
 };
 const ClubListBody = () => {
-  const location = useLocation();
-  const {state} = location;
+  const {state} = useLocation() as LocationState;
   const {data, status} = useQuery(['getClubs'], async () => {
-    const response = await axios.get('http://43.201.69.50:8080/clubs');
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/clubs`);
     return response.data.data;
   });
-
   const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {
-    setIndex(state);
-  }, [state]);
+    if (state === null) setIndex(index);
+    else {
+      setIndex(state);
+    }
+  }, []);
+  // useEffect(() => {
+  //   setIndex(state);
+  // }, [state]);
 
   const categoryArray = [
     '인문',
@@ -44,7 +55,7 @@ const ClubListBody = () => {
 
   const categoryTap = categoryArray.map((category, index) => {
     const categoryFilter = data?.filter(
-      (club: clubs) => club.category === category,
+      (club: Clubs) => club.category === category,
     );
     if (status === 'success') {
       return {
@@ -52,10 +63,10 @@ const ClubListBody = () => {
         title: category,
         content:
           categoryFilter.length > 0 ? (
-            categoryFilter.map((club: clubs) => {
+            categoryFilter.map((club: Clubs) => {
               return (
-                <Link to={`/club_detail/${club.id}`}>
-                  <div key={club.id}>
+                <Link to={`/club_detail/${club.clubId}`}>
+                  <div key={club.clubId}>
                     <h2>{club.clubName}</h2>
                     <p>{club.summary}</p>
                     <img src={club.thumbnail} alt={club.summary} />
@@ -91,20 +102,17 @@ const ClubListBody = () => {
                 ))}
             </ul>
           </article>
-          {status === 'success' ? (
-            categoryTap.length > 0 &&
+
+          {categoryTap.length > 0 &&
             categoryTap
               .filter(item => index === item.id)
               .map(item => {
                 return (
                   <>
-                    <div key={item.id}>{item?.content}</div>
+                    <C.ContentWrap key={item.id}>{item?.content}</C.ContentWrap>
                   </>
                 );
-              })
-          ) : (
-            <div>정보가 없습니다.</div>
-          )}
+              })}
         </section>
       </C.TabList>
       {/* <C.ToCreateClubButton path="/create_club">TOP</C.ToCreateClubButton> */}
