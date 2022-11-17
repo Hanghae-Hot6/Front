@@ -4,6 +4,7 @@ import {getAccessToken, getUserId} from '../../utils';
 import {useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
+import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 
 type HeaderProps = {};
 
@@ -29,7 +30,8 @@ const Header = ({}: HeaderProps) => {
           <img src={logo} alt="" />
         </StLogo>
         <StInputDiv>
-          <input type="text" />
+          <img src={MagnifyingGlass} alt="" />
+          <input type="text" placeholder="독서모임 찾아보기" />
         </StInputDiv>
         <StNavBtnsDiv>
           {isLogin ? (
@@ -81,7 +83,27 @@ const StLogo = styled.div`
 const StInputDiv = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 33%;
+  position: relative;
+  img {
+    position: absolute;
+    left: 1.5rem;
+  }
+  input {
+    background: #ffffff;
+    border: 1px solid #5200ff;
+    box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
+    border-radius: 26px;
+    height: 4.8rem;
+    width: 42.5rem;
+    font-size: 1.8rem;
+    padding-left: 5rem;
+    :focus {
+      border-color: #5200ff;
+      outline: none;
+    }
+  }
 `;
 const StNavBtnsDiv = styled.div`
   width: 33%;

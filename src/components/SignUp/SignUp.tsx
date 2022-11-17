@@ -182,6 +182,7 @@ const StForm = styled.form`
   margin: 0 auto;
   border: 1px solid #c1a4ff;
   padding: 4.8rem;
+  background-color: #fff;
 `;
 
 const StInputItemsDiv = styled.div`
