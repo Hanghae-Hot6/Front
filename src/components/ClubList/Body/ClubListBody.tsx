@@ -18,14 +18,17 @@ type Clubs = {
   clubId: number;
 };
 
+type LocationState = {
+  pathname: string;
+  state: number | null;
+  key: string | undefined;
+};
 const ClubListBody = () => {
-  const location = useLocation();
-  const {state} = location;
+  const {state} = useLocation() as LocationState;
   const {data, status} = useQuery(['getClubs'], async () => {
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/clubs`);
     return response.data.data;
   });
-
   const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {

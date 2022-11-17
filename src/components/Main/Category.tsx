@@ -24,7 +24,7 @@ const Category = () => {
         사회정치
       </LinkSt>
       <LinkSt to={'/club_list'} state={6}>
-        모바일
+        IT 모바일
       </LinkSt>
       {/* <LinkSt to={'/club_list'} state={7}>
         소설
