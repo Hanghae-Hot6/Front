@@ -212,7 +212,9 @@ const StCheckBtn = styled.button`
   width: 7.7rem;
   height: 2.7rem;
   color: #5200ff;
-  border: 1px solid #5200ff;
+  /* border: 1px solid #5200ff; */
+  border: 1px solid
+    ${(props: {theme: {MainColor: any}}) => props.theme.MainColor};
   border-radius: 20px;
   background-color: white;
   position: absolute;
@@ -228,7 +230,9 @@ const StNavBtn = styled.button`
   width: 40rem;
   height: 6rem;
   color: ${(props: {fontC: string}) => props.fontC};
-  background-color: ${(props: {bgColor: string}) => props.bgColor};
+  /* background-color: ${(props: {bgColor: string}) => props.bgColor}; */
+  background-color: ${(props: {theme: {MainColor: string}}) =>
+    props.theme.MainColor};
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 4.3rem;
