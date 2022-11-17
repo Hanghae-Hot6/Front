@@ -1,7 +1,12 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useQuery} from 'react-query';
+import GlobalModal from '../../../common/GlobalModal';
 import NavigationButton from '../../../common/NavigationButton';
+import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
+import {useAppDispatch} from '../../../Redux/store/store';
+import {getAccessToken} from '../../../utils';
+import SearchBooks from '../SearchBooks/SearchBooks';
 import * as B from './CreateClubBody.style';
 import ImagePreview from './ImagePreview/ImagePreview';
 import CreateClubInputDiv from './InputDiv/CreateClubInputDiv';
@@ -20,22 +25,24 @@ type InputType = {
   category: string;
   summary: string;
   // image: Blob | '';
-  image: any;
+  imageUrl: any;
 };
 
 const CreateClubBody = ({}: CreateClubBodyProps) => {
+  const dispatch = useAppDispatch();
+
   const initialValue: InputType = {
-    clubName: 'a',
-    clubIntro: 'a',
+    clubName: '',
+    clubIntro: '',
     // book: '',
-    plan: 'a',
+    plan: '',
     // bookPlan: [],
-    location: 'a',
-    schedule: 'a',
+    location: '',
+    schedule: '',
     memberLimit: 0,
-    category: 'a',
-    summary: 'a',
-    image: '',
+    category: '',
+    summary: '',
+    imageUrl: '',
   };
 
   const {data, status, isLoading, error} = useQuery('getBooks', async () => {
@@ -45,7 +52,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     return response;
   });
 
-  // console.log(data);
+  console.log(data?.data.data);
   // console.log(error);
 
   const [input, setInput] = useState<InputType>(initialValue);
@@ -98,96 +105,31 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     }
   };
 
-  const handleMulitpleImageChange: React.ChangeEventHandler<
-    HTMLInputElement
-  > = e => {
-    e.preventDefault();
-
-    if (e.target.files?.length) {
-      if (e.target.files?.length > 0) {
-        console.log('hi');
-        let reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
-        reader.onload = () => {
-          setMultipleImagePreviewUrl([
-            ...multipleImagePreviewUrl,
-            reader.result as string,
-          ]);
-        };
-
-        // setInput({...input, bookPlan: [...input.bookPlan, e.target.files[0]]});
-      }
-    }
-  };
-
-  // const handleSubmit = async () => {
-  //   console.log('hihi');
-  //   const accessToken = localStorage.getItem('Authorization');
-
-  //   const formData = new FormData();
-
-  //   formData.append('clubName', input.clubName);
-  //   formData.append('clubIntro', input.clubIntro);
-  //   formData.append('plan', input.plan);
-  //   formData.append('location', input.location);
-  //   formData.append('schedule', input.schedule);
-  //   formData.append('memberLimit', 's');
-  //   formData.append('category', input.category);
-  //   formData.append('summary', input.summary);
-  //   // formData.append('imageUrl', input.image);
-
-  //   const response = await axios.post(
-  //     `${process.env.REACT_APP_BASE_URL}/clubs`,
-
-  //     formData,
-
-  //     {
-  //       headers: {
-  //         Authorization: accessToken,
-  //         // "Refresh-Token": refreshToken,
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     },
-  //   );
-
-  //   console.log(response);
-  // };
-
   const handleSubmit = async () => {
-    console.log('hihi');
-
-    const accessToken = localStorage.getItem('Authorization');
+    const accessToken = getAccessToken();
     const formData2 = new FormData();
 
-    formData2.append('clubName', 'a');
-    formData2.append('clubIntro', 'a');
-    formData2.append('plan', 'a');
-    formData2.append('location', 'a');
-    formData2.append('schedule', 'a');
-    formData2.append('memberLimit', 'a');
-    formData2.append('category', 'a');
-    formData2.append('summary', 'a');
-    // formData.append('image', input.image);
-    formData2.append('book1', '9788965403340');
-    formData2.append('book2', '9791169210027');
-    formData2.append('book3', '9788964211830');
+    formData2.append('clubName', input.clubName);
+    formData2.append('clubIntro', input.clubIntro);
+    formData2.append('plan', input.plan);
+    formData2.append('location', input.location);
+    formData2.append('schedule', input.schedule);
+    formData2.append('memberLimit', input.memberLimit.toString());
+    formData2.append('category', input.category);
+    formData2.append('summary', input.summary);
+    formData2.append('image', input.imageUrl);
+    if (status === 'success') {
+      formData2.append('book1', data!.data.data[0]!['isbn']);
+      formData2.append('book2', '');
+      // formData2.append('book3', '');
+    }
 
-    console.log(formData2);
-
-    console.log(accessToken);
-    const response = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/clubs`,
-
-      formData2,
-      {
-        headers: {
-          Authorization: accessToken,
-          // "Refresh-Token": refreshToken,
-          'Content-Type': 'multipart/form-data',
-        },
+    await axios.post(`${process.env.REACT_APP_BASE_URL}/clubs`, formData2, {
+      headers: {
+        Authorization: accessToken,
+        'Content-Type': 'multipart/form-data',
       },
-    );
-    console.log(response);
+    });
   };
 
   return (
@@ -218,19 +160,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           <textarea name="plan" onChange={handleTextareaChange} />
         </CreateClubInputDiv>
         <CreateClubInputDiv title="추가로 읽을 책">
-          <B.InputImageDiv>
-            <input
-              type="file"
-              name="bookPlan"
-              accept="image/*"
-              multiple
-              onChange={handleMulitpleImageChange}
-            />
-            {multipleImagePreviewUrl &&
-              multipleImagePreviewUrl.map((url, index) => {
-                return <ImagePreview key={index} url={url} />;
-              })}
-          </B.InputImageDiv>
+          <SearchBooks />
         </CreateClubInputDiv>
         <CreateClubInputDiv title="모임장소">
           <input type="text" name="location" onChange={handleChange} />
