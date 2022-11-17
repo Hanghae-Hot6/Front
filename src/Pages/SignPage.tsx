@@ -7,13 +7,17 @@ type SignPageProps = {};
 
 const SignPage = ({}: SignPageProps) => {
   return (
-    <>
-      <div>
-        <section style={{width: '1280px', margin: '0 auto'}}>
-          <SignUp />
-        </section>
-      </div>
-    </>
+    <div style={{}}>
+      <section
+        style={{
+          width: '1280px',
+          margin: '0 auto',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <SignUp />
+      </section>
+    </div>
   );
 };
 export default SignPage;

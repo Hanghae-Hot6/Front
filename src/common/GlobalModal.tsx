@@ -95,7 +95,10 @@ function GlobalModal({
           <button onClick={onCancelHandler}>취소</button>
         </StModalBody>
       ) : (
-        <StModalBody {...props}>{children}</StModalBody>
+        <StModalBody {...props}>
+          {children}
+          <button onClick={onConfirmHandler}>확인</button>
+        </StModalBody>
       )}
     </StModal>,
     document.getElementById('GlobalModal') as HTMLElement,
@@ -125,7 +128,7 @@ const StModalBody = styled.div`
   background-color: #fff;
   border-radius: 30px;
   width: 400px;
-  min-height: 400px;
+  min-height: 200px;
   max-height: 80%;
   z-index: 999;
   position: absolute;
@@ -135,6 +138,7 @@ const StModalBody = styled.div`
   padding: 20px;
 `;
 
+// const StModalBtn = styled.Button``
 // {isAlertModalOpen && (
 //   <GlobalModal
 //     type="alertModal"

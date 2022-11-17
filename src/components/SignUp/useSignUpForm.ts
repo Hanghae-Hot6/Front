@@ -38,7 +38,6 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   // signUp
   const {mutate: signUpSubmitMutate} = useMutation(
     async (values: SignUpValuesProps) => {
-      console.log(values);
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/members/signup`,
         values,
@@ -71,7 +70,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     {
       onSuccess: () => {
         localStorage.setItem('userId', values.memberId);
-        dispatch(openGlobalModal('LoginComplete'));
+        dispatch(openGlobalModal('loginComplete'));
       },
       onError: error => {
         console.log(error);
