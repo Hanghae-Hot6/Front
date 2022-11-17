@@ -61,6 +61,7 @@ const Footer = () => {
                 <li>장승주</li>
               </ul>
             </li>
+            <li></li>
           </Position>
         </FooterRight>
       </FooterLayout>

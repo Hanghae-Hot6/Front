@@ -3,6 +3,7 @@ import {useQuery, useMutation} from 'react-query';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
+import {getAccessToken} from '../utils';
 // type ClubDetailProps = {};
 type clubDetailType = {
   leader: string;
@@ -15,42 +16,54 @@ type clubDetailType = {
   category: string;
   summary: string;
   imageUrl: string;
+  accessToken: string;
+  id: number | string;
+  subscription: boolean;
 };
-type clubSign = {
-  id: string;
-};
+
 const ClubDetail = () => {
   // , status, isLoading 추후에 쓰임
+  const accessToken = getAccessToken();
   const {id} = useParams();
+  // 화면에 클럽정보 뿌려주는api
   const {data} = useQuery<clubDetailType | undefined>(
-    ['getClubDetail'],
+    ['getClubDetail', accessToken, id],
     async () => {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/clubs/${id}`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
       );
       return response.data.data;
     },
   );
-
+  //클럽 가입하기 api
   const {mutate: signUpClub} = useMutation(
     async () => {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/clubs/${id}`,
+        id,
         {
-          // 같이 보낼거~
+          headers: {
+            Authorization: accessToken,
+          },
         },
       );
-      return response;
+      return response.data.data;
     },
     {
-      onSuccess: () => {
-        alert('모임가입이 완료되었습니다!');
+      onSuccess: data => {
+        alert(data);
       },
       onError: error => {
         console.log(error);
       },
     },
   );
+
   return (
     <>
       <Layout>
@@ -63,15 +76,28 @@ const ClubDetail = () => {
             <img src={data.imageUrl} alt={data.imageUrl} />
             <h3>{data.leader}</h3>
             <p>{data.schedule}</p>
-            <p
-              style={{
-                width: '300px',
-                background: '#333',
-                height: '300px',
-              }}
-              onClick={() => signUpClub()}>
-              가입하기
-            </p>
+            {data.subscription ? (
+              <p
+                style={{
+                  width: '300px',
+                  background: '#333',
+                  height: '300px',
+                  color: '#fff',
+                }}>
+                이미 가입한 모임입니다.
+              </p>
+            ) : (
+              <p
+                style={{
+                  width: '300px',
+                  background: '#333',
+                  height: '300px',
+                  color: '#fff',
+                }}
+                onClick={() => signUpClub()}>
+                가입하기
+              </p>
+            )}
           </div>
         )}
       </Layout>

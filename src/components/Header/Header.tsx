@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import NavigationButton from '../../common/NavigationButton';
 import {getAccessToken, getUserId} from '../../utils';
-import {useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
 
@@ -26,7 +26,9 @@ const Header = ({}: HeaderProps) => {
     <>
       <StHeaderSection>
         <StLogo>
-          <img src={logo} alt="" />
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </StLogo>
         <StInputDiv>
           <input type="text" />
@@ -63,6 +65,10 @@ const Header = ({}: HeaderProps) => {
 export default Header;
 
 const StHeaderSection = styled.section`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
   display: flex;
   width: 1280px;
   margin: 0 auto;
