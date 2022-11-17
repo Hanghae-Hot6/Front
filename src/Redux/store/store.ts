@@ -1,10 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {userReducer} from '../modules/slices/userSlice';
+import {modalReducer} from '../modules/slices/modalSlice';
 
 export const store = configureStore({
   reducer: {
-    users: userReducer,
+    modalReducer,
   },
 });
 

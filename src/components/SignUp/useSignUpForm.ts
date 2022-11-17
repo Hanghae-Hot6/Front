@@ -2,6 +2,8 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {useMutation, useQuery} from 'react-query';
 import {useNavigate} from 'react-router-dom';
+import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
+import {useAppDispatch} from '../../Redux/store/store';
 import validate from '../../utils/validate';
 
 type SignUpValuesProps = {
@@ -27,6 +29,7 @@ type SetIdCheck = boolean | undefined;
 
 function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<ErrorsValue>({});
   const [submitting, setSubmitting] = useState(false);
@@ -35,7 +38,6 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   // signUp
   const {mutate: signUpSubmitMutate} = useMutation(
     async (values: SignUpValuesProps) => {
-      console.log(values);
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/members/signup`,
         values,
@@ -44,8 +46,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     },
     {
       onSuccess: () => {
-        alert('회원가입이 완료되었습니다!');
-        navigate('/login');
+        dispatch(openGlobalModal('SignUpComplete'));
       },
       onError: error => {
         console.log(error);
@@ -69,14 +70,14 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     {
       onSuccess: () => {
         localStorage.setItem('userId', values.memberId);
-        alert('로그인 되었습니다.');
-        navigate('/');
+        dispatch(openGlobalModal('loginComplete'));
       },
       onError: error => {
         console.log(error);
       },
     },
   );
+
   // id 중복검사
   const {
     data: idCheckData,
@@ -102,6 +103,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
         if (idCheckData) {
           if (idCheckData.success === true) {
             setIsIdCheck(true);
+            dispatch(openGlobalModal('idDoubleCheck'));
             // alert(idCheckData.data);
             setErrors({...errors, memberId: idCheckData.data});
           } else if (idCheckData.success === false) {

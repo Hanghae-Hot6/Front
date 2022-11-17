@@ -1,2 +1,8 @@
-export const getAccessToken = () => localStorage.getItem('Authorization');
+export const getAccessToken = () => {
+  const getToken = localStorage.getItem('Authorization');
+  const accessToken = getToken
+    ?.substring(0, getToken.length - 1)
+    .substring(1, getToken.length);
+  return accessToken;
+};
 export const getUserId = () => localStorage.getItem('userId');
