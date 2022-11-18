@@ -6,6 +6,7 @@ import logo from '../../assets/logo.svg';
 import GlobalModal from '../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {useNavigate} from 'react-router-dom';
+import RegistStInput from '../Elem/RegistStInput';
 
 function SignUp() {
   const isSignUp = true;
@@ -33,7 +34,7 @@ function SignUp() {
     },
     isSignUp,
   );
-
+  console.log(values);
   return (
     <StContainer>
       <StForm onSubmit={handleSubmit}>
@@ -41,86 +42,74 @@ function SignUp() {
           <img src={logo} alt="" />
           <span>간편하게 회원가입</span>
         </StLogoDiv>
-        <StInputItemsDiv>
-          <label htmlFor="id">아이디</label>
-          <StInput
-            id="id"
-            type="text"
-            name="memberId"
-            onChange={handleChange}
-            value={values.memberId}
-          />
+
+        <RegistStInput
+          id="id"
+          type="text"
+          name="memberId"
+          onChange={handleChange}
+          value={values.memberId}
+          label="아이디">
           <StCheckBtn onClick={IdCheckHandler} type="button">
             중복확인
           </StCheckBtn>
-        </StInputItemsDiv>
+        </RegistStInput>
         <StErrorSpan>{errors.memberId || errors.idCheck}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="password">비밀번호</label>
-          <StInput
-            id="password"
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={values.password}
-          />
-        </StInputItemsDiv>
+
+        <RegistStInput
+          id="password"
+          type="password"
+          name="password"
+          onChange={handleChange}
+          value={values.password}
+          label="비밀번호"></RegistStInput>
         <StErrorSpan>{errors.password}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="passwordCheck">비밀번호 확인</label>
-          <StInput
-            id="passwordCheck"
-            type="password"
-            name="passwordCheck"
-            value={values.passwordCheck}
-            onChange={handleChange}
-          />
-        </StInputItemsDiv>
+
+        <RegistStInput
+          id="passwordCheck"
+          type="password"
+          name="passwordCheck"
+          onChange={handleChange}
+          value={values.passwordCheck}
+          label="비밀번호 확인"></RegistStInput>
         <StErrorSpan>{errors.passwordCheck}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="address">주소</label>
-          <StInput
-            id="address"
-            type="address"
-            name="address"
-            onChange={handleChange}
-            value={values.address}
-          />
-        </StInputItemsDiv>
+
+        <RegistStInput
+          id="address"
+          type="address"
+          name="address"
+          onChange={handleChange}
+          value={values.address}
+          label="주소"></RegistStInput>
         <StErrorSpan>{errors.address}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="phoneNumber">전화번호</label>
-          <StInput
-            id="phoneNumber"
-            type="tel"
-            name="phoneNumber"
-            onChange={handleChange}
-            value={values.phoneNumber}
-          />
-        </StInputItemsDiv>
+
+        <RegistStInput
+          id="phoneNumber"
+          type="phoneNumber"
+          name="phoneNumber"
+          onChange={handleChange}
+          value={values.phoneNumber}
+          label="전화번호"></RegistStInput>
         <StErrorSpan>{errors.phoneNumber}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="email">E-mail</label>
-          <StInput
-            id="email"
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={values.email}
-          />
-        </StInputItemsDiv>
+
+        <RegistStInput
+          id="email"
+          type="email"
+          name="email"
+          onChange={handleChange}
+          value={values.email}
+          label="E-mail"></RegistStInput>
         <StErrorSpan>{errors.email}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="username">닉네임</label>
-          <StInput
-            id="username"
-            type="text"
-            name="username"
-            onChange={handleChange}
-            value={values.username}
-          />
-        </StInputItemsDiv>
+
+        <RegistStInput
+          id="username"
+          type="text"
+          name="username"
+          onChange={handleChange}
+          value={values.username}
+          label="닉네임"></RegistStInput>
         <StErrorSpan>{errors.username}</StErrorSpan>
+
         <ButtonContainer>
           <StNavBtn type="submit" bgColor="#5200FF" fontC="white">
             가입완료

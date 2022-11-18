@@ -103,19 +103,14 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
       // 재시도 횟수 1번
       retry: 1,
       onSuccess: idCheckData => {
-        // 통신 성공후 idCheck success를 판별 => 유효성검사
+        // 통신 성공후 idCheckData의 success를 판별 => 유효성검사
         if (idCheckData) {
-          console.log(idCheckData);
           if (idCheckData.success === true) {
             setIsIdCheck(true);
             delete errors.idCheck;
-            console.log(isIdCheck);
             dispatch(openGlobalModal('idDoubleCheck'));
-            // alert(idCheckData.data);
-            // setErrors({...errors, memberId: idCheckData.data});
           } else if (idCheckData.success === false) {
             setIsIdCheck(false);
-            // alert(idCheckData.error.message);
             setErrors({...errors, idCheck: idCheckData.error.message});
           }
         }
@@ -129,29 +124,41 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.currentTarget;
     setValues({...values, [name]: value});
+    // vale값이 바뀔때마다 중복검사 여부는 false가 되어야 한다.
     setIsIdCheck(false);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setSubmitting(true);
     event.preventDefault();
+    // 유효성 검사
     setErrors(validate({...values}, isSingUp, isIdCheck));
   };
 
+  // id 중복체크 버튼
   const IdCheckHandler = () => {
     idCheckFetch();
   };
+
   useEffect(() => {
+    // submit시 submitting이 true로 바뀜
     if (submitting) {
       if (isSingUp) {
+        // signUp인 경우
+        // 1.중복검사 여부 판별
         if (isIdCheck === true) {
+          // 2.유효성 검사 통과 여부 판별
           if (Object.keys(errors).length === 0) {
+            // 통과시 submit
             signUpSubmitMutate(values);
           }
         } else {
+          // 중복검사 X 시 errors 추가
           errors.idCheck = '중복확인이 필요합니다.';
         }
       } else {
+        // login인 경우
+        // 1. 유효성 검사 통과 여부만 판별
         if (Object.keys(errors).length === 0) {
           loginSubmitMutate(values);
         }
