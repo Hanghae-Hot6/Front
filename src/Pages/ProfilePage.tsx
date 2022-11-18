@@ -1,16 +1,16 @@
 import React from 'react';
 import {ReactQueryDevtools} from 'react-query/devtools';
-import Layout from '../components/Layout/Layout';
 import ProfileDetail from '../components/Profile/ProfileDetail';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {getAccessToken, getUserId} from '../utils';
-import axios from 'axios';
-import {useQuery} from 'react-query';
 import ProfileClubList from '../components/Profile/ProfileClubList';
-import GlobalModal from '../common/GlobalModal';
 import {useAppDispatch} from '../Redux/store/store';
 import {openGlobalModal} from '../Redux/modules/slices/modalSlice';
+import styled from 'styled-components';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import ProfileContainer from '../components/Profile/ProfileContainer';
 
 type ProfilePageProps = {};
 type clubList = {
@@ -85,16 +85,38 @@ const ProfilePage = ({}: ProfilePageProps) => {
 
   return (
     <>
-      <Layout>
-        <ProfileDetail data={data} />
-        <ProfileClubList clubList={data.clubList} />
-      </Layout>
-      <GlobalModal id="noAccess" type="alertModal" confirmPath="/">
-        접근 권한이 없습니다.
-      </GlobalModal>
+      <Header />
+      <StSection>
+        <StProfileBox>
+          <ProfileDetail data={data} />
+          <ProfileClubList clubList={data.clubList} />
+        </StProfileBox>
+      </StSection>
+      <Footer />
 
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </>
   );
 };
 export default ProfilePage;
+
+const StSection = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 9rem;
+  background-color: #fdfcff;
+`;
+const StProfileBox = styled.div`
+  display: flex;
+  height: 605px;
+  width: 973px;
+  border-radius: 10px;
+  margin: 18.5rem auto;
+  background-color: #fff;
+  border: 1px solid #c1a4ff;
+  box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
+`;

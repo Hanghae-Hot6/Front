@@ -69,7 +69,11 @@ function LoginForm() {
         <StErrorSpan>{errors.password}</StErrorSpan>
 
         <ButtonContainer>
-          <StNavBtn type="submit" bgColor="#5200FF" fontC="white">
+          <StNavBtn
+            type="submit"
+            bgColor="#5200FF"
+            fontC="white"
+            disabled={!values ? true : false}>
             로그인
           </StNavBtn>
           <div style={{width: '100%', margin: '0 auto'}}>
@@ -119,6 +123,7 @@ const StForm = styled.form`
   margin: 0 auto;
   border: 1px solid #c1a4ff;
   padding: 4.8rem;
+  background-color: #fff;
 `;
 const StLogoDiv = styled.div`
   display: flex;
