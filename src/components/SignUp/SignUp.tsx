@@ -54,7 +54,7 @@ function SignUp() {
             중복확인
           </StCheckBtn>
         </StInputItemsDiv>
-        <StErrorSpan>{errors.memberId}</StErrorSpan>
+        <StErrorSpan>{errors.memberId || errors.idCheck}</StErrorSpan>
         <StInputItemsDiv>
           <label htmlFor="password">비밀번호</label>
           <StInput

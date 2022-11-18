@@ -7,6 +7,7 @@ type ErrorProps = {
   password?: string;
   passwordCheck?: string;
   isIdCheck?: boolean;
+  idCheck?: string;
 };
 
 export default function validate(
@@ -18,6 +19,7 @@ export default function validate(
     phoneNumber,
     password,
     passwordCheck,
+    idCheck,
   }: ErrorProps,
   isSingUp?: boolean,
   isIdCheck?: boolean,
@@ -30,9 +32,8 @@ export default function validate(
       errors.memberId = '20자 이상 작성은 불가능 합니다.';
     } else if (memberId.length < 2) {
       errors.memberId = '2자 이상의 이름을 작성해주세요.';
-    } else if (isIdCheck === undefined) {
-      errors.memberId = '중복확인이 필요합니다.';
     }
+
     if (!email) {
       errors.email = '이메일이 입력되지 않았습니다.';
     } else if (email.length >= 30) {
