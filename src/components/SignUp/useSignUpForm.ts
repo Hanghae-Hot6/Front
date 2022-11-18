@@ -47,7 +47,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     },
     {
       onSuccess: () => {
-        dispatch(openGlobalModal('SignUpComplete'));
+        dispatch(openGlobalModal('signUpComplete'));
       },
       onError: error => {
         console.log(error);
@@ -73,8 +73,11 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
         localStorage.setItem('userId', values.memberId);
         dispatch(openGlobalModal('loginComplete'));
       },
-      onError: error => {
-        console.log(error);
+      onError: (error: any) => {
+        if (error.response.status === 401) {
+          dispatch(openGlobalModal('logIn-401Error'));
+        }
+        console.log('error response', error.response);
       },
     },
   );

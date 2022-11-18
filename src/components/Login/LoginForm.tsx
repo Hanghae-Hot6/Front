@@ -1,17 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import useSignUpForm from '../SignUp/useSignUpForm';
 import {getAccessToken, getUserId} from '../../utils';
-import {useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationButton from '../../common/NavigationButton';
 import GlobalModal from '../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import logo from '../../assets/logo.svg';
+import kako_comment_img from '../../assets/kako_comment_img.svg';
+
 import {useSelector} from 'react-redux';
+import {useQuery} from 'react-query';
+import axios from 'axios';
 
 function LoginForm() {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const isSignUp = false;
   const accessToken = getAccessToken();
@@ -19,6 +24,12 @@ function LoginForm() {
   const {isGlobalModalOpen, dispatchId} = useAppSelector(
     state => state.modalReducer,
   );
+  const REST_API_KEY = `${process.env.REACT_APP_REST_API_KEY}`;
+  const REDIRECT_URI = `${process.env.REACT_APP_REDIRECT_URI}`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  const kakaoCode = location.search.split('=')[1];
+
   const {values, errors, submitting, handleChange, handleSubmit} =
     useSignUpForm(
       {
@@ -34,8 +45,31 @@ function LoginForm() {
     if (accessToken) {
       dispatch(openGlobalModal('loggingIn'));
     }
-    return () => {};
   }, [dispatch]);
+
+  const {data, isLoading, error} = useQuery(
+    ['kakaoAuth', kakaoCode],
+    async () => {
+      const {data} = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/members/kakao?code=${kakaoCode}`,
+        // {
+        //   headers: {
+        //     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        //   },
+        // },
+      );
+      return data;
+    },
+
+    {
+      onSuccess: () => {},
+      onError: (error: any) => {
+        console.log('error response', error.response);
+      },
+    },
+  );
+
+  console.log(data);
 
   return (
     <div>
@@ -79,9 +113,12 @@ function LoginForm() {
           <div style={{width: '100%', margin: '0 auto'}}>
             <StLoginDivier>또는</StLoginDivier>
           </div>
-          <StNavBtn type="button" bgColor="#FFE600" fontC="#493236">
-            카카오로 로그인
-          </StNavBtn>
+          <a href={KAKAO_AUTH_URL}>
+            <StNavBtn type="button" bgColor="#FFE600" fontC="#493236">
+              <img src={kako_comment_img} alt="" />
+              카카오로 로그인
+            </StNavBtn>
+          </a>
           <StSmallBtnContainer>
             <StSmallNavBtn type="button">아이디 찾기</StSmallNavBtn>
             <StSmallNavBtn type="button">비밀번호 찾기</StSmallNavBtn>
@@ -101,9 +138,9 @@ function LoginForm() {
           이미 로그인 중 입니다.
         </GlobalModal>
       )}
-      {isGlobalModalOpen && dispatchId === 'logInError' && (
-        <GlobalModal id="logInError" type="alertModal" confirmPath="/login">
-          알 수 없는 에러 입니다.
+      {isGlobalModalOpen && dispatchId === 'logIn-401Error' && (
+        <GlobalModal id="logIn-401Error" type="alertModal" confirmPath="/login">
+          없는 정보입니다. 회원가입 해주세요.
         </GlobalModal>
       )}
     </div>
@@ -192,6 +229,7 @@ const StLoginDivier = styled.div`
 `;
 
 const StNavBtn = styled.button`
+  display: flex;
   width: 40rem;
   height: 6rem;
   color: ${(props: {fontC: string}) => props.fontC};
@@ -199,6 +237,13 @@ const StNavBtn = styled.button`
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 4.3rem;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    transform: scale(0.8);
+    margin-right: 1rem;
+  }
 `;
 
 const StSmallBtnContainer = styled.div`

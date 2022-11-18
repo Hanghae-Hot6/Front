@@ -136,8 +136,8 @@ function SignUp() {
           </StNavBtn>
         </ButtonContainer>
       </StForm>
-      {isGlobalModalOpen && dispatchId === 'SignUpComplete' && (
-        <GlobalModal id="SignUpComplete" type="alertModal" confirmPath="/login">
+      {isGlobalModalOpen && dispatchId === 'signUpComplete' && (
+        <GlobalModal id="signUpComplete" type="alertModal" confirmPath="/login">
           회원가입 완료되었습니다.
         </GlobalModal>
       )}
