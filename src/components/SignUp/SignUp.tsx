@@ -7,6 +7,8 @@ import GlobalModal from '../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {useNavigate} from 'react-router-dom';
 import RegistStInput from '../Elem/RegistStInput';
+import RegistStForm from '../Elem/RegistStForm';
+import RegistErrorSpan from '../Elem/RegistErrorSpan';
 
 function SignUp() {
   const isSignUp = true;
@@ -34,15 +36,13 @@ function SignUp() {
     },
     isSignUp,
   );
-  console.log(values);
   return (
     <StContainer>
-      <StForm onSubmit={handleSubmit}>
-        <StLogoDiv>
-          <img src={logo} alt="" />
-          <span>간편하게 회원가입</span>
-        </StLogoDiv>
-
+      <RegistStForm
+        onSubmit={handleSubmit}
+        title="간편하게 회원가입"
+        height="102rem"
+        width="49.2rem">
         <RegistStInput
           id="id"
           type="text"
@@ -54,7 +54,7 @@ function SignUp() {
             중복확인
           </StCheckBtn>
         </RegistStInput>
-        <StErrorSpan>{errors.memberId || errors.idCheck}</StErrorSpan>
+        <RegistErrorSpan>{errors.memberId || errors.idCheck}</RegistErrorSpan>
 
         <RegistStInput
           id="password"
@@ -63,7 +63,7 @@ function SignUp() {
           onChange={handleChange}
           value={values.password}
           label="비밀번호"></RegistStInput>
-        <StErrorSpan>{errors.password}</StErrorSpan>
+        <RegistErrorSpan>{errors.password}</RegistErrorSpan>
 
         <RegistStInput
           id="passwordCheck"
@@ -72,7 +72,7 @@ function SignUp() {
           onChange={handleChange}
           value={values.passwordCheck}
           label="비밀번호 확인"></RegistStInput>
-        <StErrorSpan>{errors.passwordCheck}</StErrorSpan>
+        <RegistErrorSpan>{errors.passwordCheck}</RegistErrorSpan>
 
         <RegistStInput
           id="address"
@@ -81,7 +81,7 @@ function SignUp() {
           onChange={handleChange}
           value={values.address}
           label="주소"></RegistStInput>
-        <StErrorSpan>{errors.address}</StErrorSpan>
+        <RegistErrorSpan>{errors.address}</RegistErrorSpan>
 
         <RegistStInput
           id="phoneNumber"
@@ -90,7 +90,7 @@ function SignUp() {
           onChange={handleChange}
           value={values.phoneNumber}
           label="전화번호"></RegistStInput>
-        <StErrorSpan>{errors.phoneNumber}</StErrorSpan>
+        <RegistErrorSpan>{errors.phoneNumber}</RegistErrorSpan>
 
         <RegistStInput
           id="email"
@@ -99,7 +99,7 @@ function SignUp() {
           onChange={handleChange}
           value={values.email}
           label="E-mail"></RegistStInput>
-        <StErrorSpan>{errors.email}</StErrorSpan>
+        <RegistErrorSpan>{errors.email}</RegistErrorSpan>
 
         <RegistStInput
           id="username"
@@ -108,7 +108,7 @@ function SignUp() {
           onChange={handleChange}
           value={values.username}
           label="닉네임"></RegistStInput>
-        <StErrorSpan>{errors.username}</StErrorSpan>
+        <RegistErrorSpan>{errors.username}</RegistErrorSpan>
 
         <ButtonContainer>
           <StNavBtn type="submit" bgColor="#5200FF" fontC="white">
@@ -124,7 +124,8 @@ function SignUp() {
             로그인
           </StNavBtn>
         </ButtonContainer>
-      </StForm>
+      </RegistStForm>
+
       {isGlobalModalOpen && dispatchId === 'signUpComplete' && (
         <GlobalModal id="signUpComplete" type="alertModal" confirmPath="/login">
           회원가입 완료되었습니다.
@@ -142,60 +143,6 @@ function SignUp() {
 export default SignUp;
 
 const StContainer = styled.div``;
-const StLogoDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 20.1rem;
-  height: 7.7rem;
-  margin: 0 auto;
-  margin-top: 2.8rem;
-
-  img {
-    transform: scale(1);
-    margin-bottom: 1.7rem;
-  }
-  span {
-    font-size: 2.8rem;
-    font-weight: 700;
-  }
-`;
-const StForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  height: 102rem;
-  width: 49.6rem;
-  margin: 0 auto;
-  border: 1px solid #c1a4ff;
-  padding: 4.8rem;
-  background-color: #fff;
-`;
-
-const StInputItemsDiv = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 5.7rem;
-  margin-top: 4.4rem;
-  position: relative;
-  border-bottom: 1px solid #e0e0e0;
-
-  label {
-    width: 12rem;
-    font-size: 1.8rem;
-  }
-`;
-
-const StInput = styled.input`
-  display: flex;
-  border: 0;
-  outline: none;
-  background-color: white;
-  font-size: 2rem;
-`;
 
 const StCheckBtn = styled.button`
   font-size: 1.4rem;
