@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
-export const Section = styled.section`
-  width: 200px;
-`;
+// export const Section = styled.section`
+//   width: 200px;
+//   overflow: hidden;
+// `;
 
 // export const ToCreateClubButton = styled(NavigationButton)`
 //   display: flex;
@@ -20,14 +21,14 @@ export const Section = styled.section`
 // `;
 
 export const TabList = styled.div`
-  position: static;
-  width: 191rem;
-  height: 7rem;
-  margin-left: -31.5rem;
-  background-color: #5200ff;
-
   section {
+    width: 100vw;
+    margin-left: -32.5rem;
+    overflow: hidden;
+    background-color: #5200ff;
+    height: 7rem;
     article {
+      overflow: hidden;
       ul {
         display: flex;
         justify-content: space-between;

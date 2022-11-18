@@ -102,18 +102,17 @@ const ClubListBody = () => {
                 ))}
             </ul>
           </article>
-
-          {categoryTap.length > 0 &&
-            categoryTap
-              .filter(item => index === item.id)
-              .map(item => {
-                return (
-                  <>
-                    <C.ContentWrap key={item.id}>{item?.content}</C.ContentWrap>
-                  </>
-                );
-              })}
         </section>
+        {categoryTap.length > 0 &&
+          categoryTap
+            .filter(item => index === item.id)
+            .map(item => {
+              return (
+                <>
+                  <C.ContentWrap key={item.id}>{item?.content}</C.ContentWrap>
+                </>
+              );
+            })}
       </C.TabList>
       {/* <C.ToCreateClubButton path="/create_club">TOP</C.ToCreateClubButton> */}
       {/* <C.ToCreateClubButton path="/create_club">TOP</C.ToCreateClubButton> */}
