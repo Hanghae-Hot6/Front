@@ -85,7 +85,7 @@ function SignUp() {
 
         <RegistStInput
           id="phoneNumber"
-          type="phoneNumber"
+          type="tel"
           name="phoneNumber"
           onChange={handleChange}
           value={values.phoneNumber}

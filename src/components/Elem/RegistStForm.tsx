@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
 
 type RegistStFormProps = {
+  jc?: string;
   title?: string;
   width?: string;
   height?: string;
@@ -11,6 +12,7 @@ type RegistStFormProps = {
 };
 
 function RegistStForm({
+  jc,
   title,
   children,
   onSubmit,
@@ -32,7 +34,9 @@ export default RegistStForm;
 const StForm = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: ${(props: {jc: string}) => props.jc || 'space-between'};
+  /* justify-content: ${(props: {jc: string}) =>
+    props.jc || 'space-between'}; */
   align-items: flex-start;
   /* height: 102rem; */
   height: ${(props: {height: string}) => props.height};

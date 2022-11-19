@@ -3,6 +3,8 @@ import ChatPage from '../Pages/ChatPage';
 import ClubDetail from '../Pages/ClubDetail';
 import ClubListPage from '../Pages/ClubListPage';
 import CreateClubPage from '../Pages/CreateClubPage';
+import FindIdPage from '../Pages/FindIdPage';
+import FindPasswordPage from '../Pages/FindPasswordPage';
 import LoginPage from '../Pages/LoginPage';
 import MainPage from '../Pages/MainPage';
 import ProfilePage from '../Pages/ProfilePage';
@@ -18,6 +20,8 @@ const Router = () => {
         <Route path="/club_list" element={<ClubListPage />} />
         <Route path="/create_club" element={<CreateClubPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/login/find-id" element={<FindIdPage />} />
+        <Route path="/login/find-password" element={<FindPasswordPage />} />
         <Route path="/profile/:userId" element={<ProfilePage />} />
         <Route path="/sign" element={<SignPage />} />
       </Routes>

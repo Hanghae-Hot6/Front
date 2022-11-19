@@ -7,6 +7,7 @@ type RegistStInputProps = {
   type?: string;
   name?: string;
   value?: string;
+  placeholder?: string;
   children?: React.ReactNode;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -30,6 +31,7 @@ function RegistStInput({
         name={name}
         onChange={onChange}
         value={value}
+        {...props}
       />
       {children}
     </StInputItemsDiv>

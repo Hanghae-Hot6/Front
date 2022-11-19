@@ -46,10 +46,14 @@ function LoginForm() {
   const {data, isLoading, error} = useQuery(
     ['kakaoAuth', kakaoCode],
     async () => {
-      const {data} = await axios.get(
+      const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/members/kakao?code=${kakaoCode}`,
       );
-      return data;
+      localStorage.setItem(
+        'Authorization',
+        JSON.stringify(response.headers.authorization),
+      );
+      return response;
     },
 
     {
@@ -57,6 +61,8 @@ function LoginForm() {
       enabled: !!kakaoCode,
       onSuccess: data => {
         console.log(data);
+        localStorage.setItem('userId', data.data.data);
+        dispatch(openGlobalModal('loginComplete'));
       },
       onError: (error: any) => {
         console.log('error response', error.response);
@@ -115,8 +121,12 @@ function LoginForm() {
             </StNavBtn>
           </a>
           <StSmallBtnContainer>
-            <StSmallNavBtn type="button">아이디 찾기</StSmallNavBtn>
-            <StSmallNavBtn type="button">비밀번호 찾기</StSmallNavBtn>
+            <StSmallNavBtn type="button" path="/login/find-id">
+              아이디 찾기
+            </StSmallNavBtn>
+            <StSmallNavBtn type="button" path="/login/find-password">
+              비밀번호 찾기
+            </StSmallNavBtn>
             <StSmallNavBtn type="button" path={'/sign'}>
               회원가입
             </StSmallNavBtn>
