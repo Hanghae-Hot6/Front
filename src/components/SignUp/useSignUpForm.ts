@@ -26,7 +26,8 @@ type ErrorsValue = {
   passwordCheck?: string;
   idCheck?: string;
 };
-type SetIdCheck = boolean | undefined;
+type IdCheckType = boolean | undefined;
+type CertNumType = string | undefined;
 
 function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   const navigate = useNavigate();
@@ -34,7 +35,8 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<ErrorsValue>({});
   const [submitting, setSubmitting] = useState(false);
-  const [isIdCheck, setIsIdCheck] = useState<SetIdCheck>(undefined);
+  const [isIdCheck, setIsIdCheck] = useState<IdCheckType>(undefined);
+  const [certNumber, setCertNumber] = useState<CertNumType>();
 
   // signUp
   const {mutate: signUpSubmitMutate} = useMutation(
@@ -89,7 +91,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     error: idCheckError,
     refetch: idCheckFetch,
   } = useQuery(
-    ['IdDoubleCheck', `${values.memberId}`],
+    ['IdDoubleCheck', values.memberId],
     async () => {
       const {data} = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/members/signup/checkid/${values.memberId}`,
@@ -121,13 +123,84 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     },
   );
 
+  //email 인증 버튼클릭시 email 전송
+  const {
+    data: emailCheckData,
+    error: emailCheckError,
+    refetch: emailCheckFetch,
+  } = useQuery(
+    ['emailCheck', values.email],
+    async () => {
+      const {data} = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/members/mailConfirm?email=${values.email}`,
+      );
+      return data;
+    },
+    // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
+    {
+      refetchOnWindowFocus: false,
+      enabled: false,
+      // 재시도 횟수 1번
+      retry: 1,
+      onSuccess: data => {
+        if (data.success) {
+          dispatch(openGlobalModal('emailCheck'));
+        } else if (!data.success) {
+          dispatch(openGlobalModal('alreadyExistEmail'));
+        }
+      },
+      onError: (error: any) => {
+        console.log(error.message);
+      },
+    },
+  );
+
+  // 인증번호 전송
+  const {
+    data: certNumData,
+    error: certNumError,
+    refetch: certNumFetch,
+  } = useQuery(
+    ['certNumCheck', certNumber],
+    async () => {
+      const {data} = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/members/mailAuth?code=${certNumber}`,
+      );
+
+      return data;
+    },
+    // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
+    {
+      refetchOnWindowFocus: false,
+      // certNumber이 있어야 사용가능
+      enabled: !!certNumber,
+      // 재시도 횟수 1번
+      retry: 1,
+      onSuccess: data => {
+        console.log(data);
+        if (data.success) {
+          dispatch(openGlobalModal('certNumMatchAlert'));
+        } else {
+          dispatch(openGlobalModal('certNumNotMatchAlert'));
+        }
+      },
+      onError: (error: any) => {
+        console.log(error.message);
+      },
+    },
+  );
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.currentTarget;
-    setValues({...values, [name]: value});
-    // vale값이 바뀔때마다 중복검사 여부는 false가 되어야 한다.
-    setIsIdCheck(false);
+    const dupValue = value.trim();
+    setValues({...values, [name]: dupValue});
+    if (name === 'memberId') {
+      // vale값이 바뀔때마다 중복검사 여부는 false가 되어야 한다.
+      setIsIdCheck(false);
+    }
   };
 
+  // 회원가입 버튼 눌렀을 시
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setSubmitting(true);
     event.preventDefault();
@@ -137,7 +210,29 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
 
   // id 중복체크 버튼
   const IdCheckHandler = () => {
-    idCheckFetch();
+    if (values.email === '') {
+      dispatch(openGlobalModal('emptyIdAlert'));
+    } else {
+      idCheckFetch();
+    }
+  };
+  // 이메일 인증 버튼
+  const certEmailHandler = () => {
+    if (values.email === '') {
+      dispatch(openGlobalModal('emailCertAlert'));
+    } else {
+      emailCheckFetch();
+    }
+  };
+  // 이메일 인증번호 작성후 모달 확인 버튼
+  const emailModalCheckHandler = (certNum: string) => {
+    setCertNumber(certNum);
+    if (certNum === '') {
+      dispatch(openGlobalModal('certNumEmptyAlert'));
+    } else {
+      console.log(certNum);
+      certNumFetch();
+    }
   };
 
   useEffect(() => {
@@ -163,10 +258,9 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
           loginSubmitMutate(values);
         }
       }
-
       setSubmitting(false);
     }
-  }, [errors, isIdCheck]);
+  }, [errors, submitting, isSingUp]);
 
   return {
     values,
@@ -175,6 +269,8 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     handleChange,
     handleSubmit,
     IdCheckHandler,
+    certEmailHandler,
+    emailModalCheckHandler,
   };
 }
 

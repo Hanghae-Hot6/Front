@@ -95,10 +95,7 @@ function GlobalModal({
           <button onClick={onCancelHandler}>취소</button>
         </StModalBody>
       ) : (
-        <StModalBody {...props}>
-          {children}
-          <button onClick={onConfirmHandler}>확인</button>
-        </StModalBody>
+        <StModalBody {...props}>{children}</StModalBody>
       )}
     </StModal>,
     document.getElementById('GlobalModal') as HTMLElement,

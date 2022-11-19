@@ -7,7 +7,7 @@ import NavigationButton from '../../common/NavigationButton';
 import GlobalModal from '../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
-import logo from '../../assets/logo.svg';
+import eyeImg from '../../assets/eye.svg';
 import kako_comment_img from '../../assets/kako_comment_img.svg';
 
 import {useSelector} from 'react-redux';
@@ -27,6 +27,12 @@ function LoginForm() {
   const {isGlobalModalOpen, dispatchId} = useAppSelector(
     state => state.modalReducer,
   );
+  // 비밀번호 보이기, 숨기기
+  const [passwordType, setPasswordType] = useState({
+    type: 'password',
+    visible: false,
+  });
+
   const REST_API_KEY = `${process.env.REACT_APP_REST_API_KEY}`;
   const REDIRECT_URI = `${process.env.REACT_APP_REDIRECT_URI}`;
   const DEPLOY_REDIRECT_URI = `${process.env.REACT_APP_DEPLOY_REDIRECT_URI}`;
@@ -78,6 +84,15 @@ function LoginForm() {
     }
   }, [dispatch]);
 
+  const handlePasswordType = () => {
+    setPasswordType(() => {
+      if (!passwordType.visible) {
+        return {type: 'text', visible: true};
+      }
+      return {type: 'password', visible: false};
+    });
+  };
+
   return (
     <div>
       <RegistStForm
@@ -96,11 +111,13 @@ function LoginForm() {
 
         <RegistStInput
           id="password"
-          type="password"
+          type={passwordType.type}
           name="password"
           onChange={handleChange}
           value={values.password}
-          label="비밀번호"></RegistStInput>
+          label="비밀번호">
+          <img src={eyeImg} alt="" onClick={handlePasswordType} />
+        </RegistStInput>
         <RegistErrorSpan>{errors.password}</RegistErrorSpan>
 
         <ButtonContainer>

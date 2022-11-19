@@ -19,7 +19,7 @@ function RegistStForm({
   ...props
 }: RegistStFormProps) {
   return (
-    <StForm onSubmit={onSubmit} {...props}>
+    <StForm onSubmit={onSubmit} jc={jc} {...props}>
       <StLogoDiv>
         <img src={logo} alt="" />
         <span>{title}</span>
@@ -35,13 +35,9 @@ const StForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: ${(props: {jc: string}) => props.jc || 'space-between'};
-  /* justify-content: ${(props: {jc: string}) =>
-    props.jc || 'space-between'}; */
   align-items: flex-start;
-  /* height: 102rem; */
-  height: ${(props: {height: string}) => props.height};
-  /* width: 49.6rem; */
-  width: ${(props: {width: string}) => props.width};
+  height: ${(props: {height: string}) => props.height || '102rem'};
+  width: ${(props: {width: string}) => props.width || '49.6rem'};
   margin: 0 auto;
   border: 1px solid #c1a4ff;
   padding: 4.8rem;
