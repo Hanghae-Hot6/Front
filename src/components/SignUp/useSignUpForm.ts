@@ -24,6 +24,7 @@ type ErrorsValue = {
   phoneNumber?: string;
   password?: string;
   passwordCheck?: string;
+  idCheck?: string;
 };
 type SetIdCheck = boolean | undefined;
 
@@ -33,7 +34,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<ErrorsValue>({});
   const [submitting, setSubmitting] = useState(false);
-  const [isIdCheck, setIsIdCheck] = useState<SetIdCheck>();
+  const [isIdCheck, setIsIdCheck] = useState<SetIdCheck>(undefined);
 
   // signUp
   const {mutate: signUpSubmitMutate} = useMutation(
@@ -101,15 +102,18 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
       onSuccess: idCheckData => {
         // 통신 성공후 idCheck success를 판별 => 유효성검사
         if (idCheckData) {
+          console.log(idCheckData);
           if (idCheckData.success === true) {
             setIsIdCheck(true);
+            delete errors.idCheck;
+            console.log(isIdCheck);
             dispatch(openGlobalModal('idDoubleCheck'));
             // alert(idCheckData.data);
-            setErrors({...errors, memberId: idCheckData.data});
+            // setErrors({...errors, memberId: idCheckData.data});
           } else if (idCheckData.success === false) {
             setIsIdCheck(false);
             // alert(idCheckData.error.message);
-            setErrors({...errors, memberId: idCheckData.error.message});
+            setErrors({...errors, idCheck: idCheckData.error.message});
           }
         }
       },
@@ -122,6 +126,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.currentTarget;
     setValues({...values, [name]: value});
+    setIsIdCheck(false);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -136,13 +141,12 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
   useEffect(() => {
     if (submitting) {
       if (isSingUp) {
-        if (isIdCheck) {
-          delete errors.memberId;
+        if (isIdCheck === true) {
           if (Object.keys(errors).length === 0) {
             signUpSubmitMutate(values);
           }
         } else {
-          errors.memberId = '중복확인이 필요합니다.';
+          errors.idCheck = '중복확인이 필요합니다.';
         }
       } else {
         if (Object.keys(errors).length === 0) {
@@ -152,7 +156,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
 
       setSubmitting(false);
     }
-  }, [errors]);
+  }, [errors, isIdCheck]);
 
   return {
     values,

@@ -46,4 +46,5 @@ const NavigationButtonDefault = styled.button`
   font-size: 30px;
   width: 220px;
   color: blue;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;

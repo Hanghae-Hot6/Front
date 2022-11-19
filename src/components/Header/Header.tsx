@@ -67,15 +67,15 @@ const Header = ({}: HeaderProps) => {
 export default Header;
 
 const StHeaderSection = styled.section`
+  display: flex;
+  align-items: center;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   top: 0;
-  display: flex;
   width: 1280px;
   margin: 0 auto;
   height: 9rem;
-  align-items: center;
   img {
     transform: scale(0.95);
   }
