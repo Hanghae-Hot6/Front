@@ -7,7 +7,7 @@ type MessageObjectType = {
 };
 
 class ChattingService {
-  socket = new sockJS('http://43.201.69.50:8080/gs-guide-websocket');
+  socket = new sockJS(`${process.env.REACT_APP_BASE_URL}/gs-guide-websocket`);
 
   stompClient = Stomp.over(this.socket);
 
@@ -21,19 +21,18 @@ class ChattingService {
   // 웹소켓 연결 요청 & 구독 요청
 
   onConnect = (
-    roomAddress = '/topic/greetings',
-    headers = {},
+    roomAddress = '/topic/greetings', // 채팅룸 고유주소
+    headers = {}, // headers에 {} 인증요청 집어 넣기
     callback: any = () => {},
   ) => {
     let newMessage = '';
-    // headers에 {} 인증요청 집어 넣기
+
     this.stompClient.connect(headers, () => {
       console.log('연결됬음');
       this.stompClient.subscribe(roomAddress, data => {
         newMessage = JSON.parse(data.body);
         // 연결 성공시 발동시킬 콜백 넣기
         // 주로 메세지를 받는 로직을 여기에 넣는다
-        // 리렌더링
 
         callback(newMessage);
       });
@@ -41,7 +40,7 @@ class ChattingService {
     return newMessage;
   };
 
-  //
+  // 메세지 전송
 
   sendMessage = (messageObject: MessageObjectType, headers = {}) => {
     this.stompClient.send('/app/hello', headers, JSON.stringify(messageObject));

@@ -24,8 +24,8 @@ type InputType = {
   memberLimit: number;
   category: string;
   summary: string;
-  // image: Blob | '';
-  imageUrl: any;
+  thumbnail: Blob | string;
+  // imageUrl: any;
 };
 
 const CreateClubBody = ({}: CreateClubBodyProps) => {
@@ -40,7 +40,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     memberLimit: 0,
     category: '',
     summary: '',
-    imageUrl: '',
+    thumbnail: '',
   };
 
   //내일 서버 열리면 타입 만들어 주기
@@ -102,21 +102,42 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
   const handleSubmit = async () => {
     const accessToken = getAccessToken();
     const formData2 = new FormData();
+    console.log(input.thumbnail);
 
-    formData2.append('clubName', input.clubName);
-    formData2.append('clubIntro', input.clubIntro);
-    formData2.append('plan', input.plan);
-    formData2.append('location', input.location);
-    formData2.append('schedule', input.schedule);
-    formData2.append('memberLimit', input.memberLimit.toString());
-    formData2.append('category', input.category);
-    formData2.append('summary', input.summary);
-    formData2.append('image', input.imageUrl);
-    if (status === 'success') {
-      // formData2.append('book1', getBooksData!.data.data[0]!['isbn']);
-      // formData2.append('book2', getBooksData!.data.data[1]!['isbn']);
-      // formData2.append('book3', getBooksData!.data.data[2]!['isbn']);
+    formData2.append('clubName', 'a');
+    formData2.append('category', 'a');
+    // if(typeof input.imageUrl === Blob){
+    //   formData2.append('thumbnail', input.imageUrl);
+    // }
+    if (input.thumbnail !== '') {
+      formData2.append('thumbnail', input.thumbnail);
     }
+
+    formData2.append('memberMaxNum', 'a');
+    formData2.append('memberMinNum', 'a');
+    formData2.append('startDate', 'a');
+    formData2.append('finishDate', 'a');
+    formData2.append('location', 'a');
+    formData2.append('schedule', 'a');
+    formData2.append('clubIntro', 'a');
+    formData2.append('clubSummary', 'a');
+    formData2.append('book1', 'a');
+    formData2.append('book2', 'a');
+    formData2.append('book3', 'a');
+    formData2.append('bookIntro', 'a');
+    formData2.append('bookSummary', 'a');
+
+    // if (status === 'success') {
+    //   formData2.append('book1', getBooksData!.data.data[0]!['isbn']);
+    //   formData2.append('book2', getBooksData!.data.data[1]!['isbn']);
+    //   formData2.append('book3', getBooksData!.data.data[2]!['isbn']);
+    // }
+
+    // let entries = formData2.entries();
+    // for (const pair of entries) {
+    //   // console.log(pair[0] + ', ' + pair[1]);
+    //   console.log(pair[1]);
+    // }
 
     await axios.post(`${process.env.REACT_APP_BASE_URL}/clubs`, formData2, {
       headers: {
@@ -134,7 +155,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           <B.InputImageDiv>
             <input
               type="file"
-              name="image"
+              name="thumbnail"
               accept="image/*"
               onChange={handleSingleImageChange}
             />
