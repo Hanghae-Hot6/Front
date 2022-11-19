@@ -6,19 +6,36 @@ import Layout from '../components/Layout/Layout';
 import {getAccessToken} from '../utils';
 // type ClubDetailProps = {};
 type clubDetailType = {
-  leader: string;
-  clubName: string;
-  clubIntro: string;
-  plan: string;
-  location: string;
-  schedule: string;
-  memberLimit: number;
-  category: string;
-  summary: string;
-  imageUrl: string;
   accessToken: string;
   id: number | string;
+  plan: string;
+  memberLimit: number;
+  summary: string;
+  imageUrl: string;
+  bookImage1: string;
+  bookImage2: string;
+  bookImage3: string;
+  bookIntro: string;
+  bookLink1: string;
+  bookLink2: string;
+  bookLink3: string;
+  bookName1: string;
+  bookName2: string;
+  bookName3: string;
+  bookSummary: string;
+  category: string;
+  clubId: number;
+  clubIntro: string;
+  clubName: string;
+  clubSummary: string;
+  interest: boolean;
+  leader: string;
+  location: string;
+  participantNum: number;
+  period: string;
+  schedule: string;
   subscription: boolean;
+  thumbnail: string;
 };
 
 const ClubDetail = () => {
@@ -40,6 +57,7 @@ const ClubDetail = () => {
       return response.data.data;
     },
   );
+
   //클럽 가입하기 api
   const {mutate: signUpClub} = useMutation(
     async () => {
@@ -63,6 +81,7 @@ const ClubDetail = () => {
       },
     },
   );
+  console.log(data);
 
   return (
     <>

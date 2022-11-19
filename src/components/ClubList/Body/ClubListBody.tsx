@@ -29,6 +29,7 @@ const ClubListBody = () => {
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/clubs`);
     return response.data.data;
   });
+
   const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const ClubListBody = () => {
       setIndex(state);
     }
   }, []);
+
   // useEffect(() => {
   //   setIndex(state);
   // }, [state]);
@@ -65,8 +67,8 @@ const ClubListBody = () => {
           categoryFilter.length > 0 ? (
             categoryFilter.map((club: Clubs) => {
               return (
-                <Link to={`/club_detail/${club.clubId}`}>
-                  <div key={club.clubId}>
+                <Link to={`/club_detail/${club.clubId}`} key={club.clubId}>
+                  <div>
                     <h2>{club.clubName}</h2>
                     <p>{club.summary}</p>
                     <img src={club.thumbnail} alt={club.summary} />
@@ -108,9 +110,7 @@ const ClubListBody = () => {
             .filter(item => index === item.id)
             .map(item => {
               return (
-                <>
-                  <C.ContentWrap key={item.id}>{item?.content}</C.ContentWrap>
-                </>
+                <C.ContentWrap key={item.id}>{item?.content}</C.ContentWrap>
               );
             })}
       </C.TabList>
