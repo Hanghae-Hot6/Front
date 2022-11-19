@@ -4,6 +4,7 @@ import {Stomp} from '@stomp/stompjs';
 
 type MessageObjectType = {
   content: string;
+  // accesstoken: string | undefined;
 };
 
 class ChattingService {
@@ -25,19 +26,19 @@ class ChattingService {
     headers = {}, // headers에 {} 인증요청 집어 넣기
     callback: any = () => {},
   ) => {
-    let newMessage = '';
+    let receivingMessage = '';
 
     this.stompClient.connect(headers, () => {
       console.log('연결됬음');
       this.stompClient.subscribe(roomAddress, data => {
-        newMessage = JSON.parse(data.body);
+        receivingMessage = JSON.parse(data.body);
         // 연결 성공시 발동시킬 콜백 넣기
         // 주로 메세지를 받는 로직을 여기에 넣는다
 
-        callback(newMessage);
+        callback(receivingMessage);
       });
     });
-    return newMessage;
+    return receivingMessage;
   };
 
   // 메세지 전송
