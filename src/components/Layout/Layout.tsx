@@ -36,6 +36,7 @@ const Layout = (props: Props) => {
         {props.children}
       </section>
       <Footer />
+
       {showButton && (
         <TopButton onClick={scrollToTop}>
           <img src={arrow} alt={arrow} />
@@ -53,7 +54,7 @@ const TopButton = styled.button`
   width: 5.5rem;
   height: 5.5rem;
   bottom: 20rem;
-  right: 30rem;
+  right: 10rem;
   border: 1px solid #5200ff;
   box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
   border-radius: 50%;

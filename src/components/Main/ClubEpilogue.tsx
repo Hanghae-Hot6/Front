@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Banner from '../../components/Main/Banner';
+import Carousel from './Carousel';
 const ClubEpilogue = () => {
   return (
     <ClubEpilogueWrap>
@@ -11,7 +11,7 @@ const ClubEpilogue = () => {
         <p>11월 3주차에 진행되었던 독서모임! 유저들은 이런 후기를 남겼어요</p>
       </TitleWrap>
       <div>
-        <Banner />
+        <Carousel />
       </div>
     </ClubEpilogueWrap>
   );
