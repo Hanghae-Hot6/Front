@@ -60,7 +60,7 @@ export default function validate(
     }
 
     if (!phoneNumber) {
-      errors.phoneNumber = '닉네임이 입력되지 않았습니다.';
+      errors.phoneNumber = '전화번호가 입력되지 않았습니다.';
     } else if (!/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phoneNumber)) {
       errors.phoneNumber = '전화번호 형식으로 작성해주세요';
     }

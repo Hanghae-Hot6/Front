@@ -43,11 +43,9 @@ export const CarouselList = styled.ul`
   width: 100%;
 `;
 
-export const CarouselListItem = styled.li<{activeIndex: number}>`
+export const CarouselListItem = styled.li<{currCarousel: number}>`
   width: 427px;
-  transform: translateX(
-    -${({activeIndex}: {activeIndex: number}) => activeIndex * 100}%
-  );
+  transform: translateX(-${({currCarousel}) => currCarousel * 100}%);
   transition: 200ms ease;
   img {
     width: 427px;
@@ -61,7 +59,7 @@ export const NavButton = styled.button<{isActive?: boolean}>`
   width: 4px;
   height: 4px;
   background-color: #000;
-  opacity: ${({isActive}: {isActive: boolean}) => (isActive ? 0.3 : 0.1)};
+  opacity: ${({isActive}) => (isActive ? 0.3 : 0.1)};
 `;
 
 export const NavItem = styled.li`

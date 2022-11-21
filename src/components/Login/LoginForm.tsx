@@ -1,17 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import useSignUpForm from '../SignUp/useSignUpForm';
 import {getAccessToken, getUserId} from '../../utils';
-import {useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationButton from '../../common/NavigationButton';
 import GlobalModal from '../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
-import logo from '../../assets/logo.svg';
+import eyeImg from '../../assets/eye.svg';
+import kako_comment_img from '../../assets/kako_comment_img.svg';
+
 import {useSelector} from 'react-redux';
+import {useQuery} from 'react-query';
+import axios from 'axios';
+import RegistStInput from '../Elem/RegistStInput';
+import RegistStForm from '../Elem/RegistStForm';
+import RegistErrorSpan from '../Elem/RegistErrorSpan';
 
 function LoginForm() {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const isSignUp = false;
   const accessToken = getAccessToken();
@@ -19,6 +27,19 @@ function LoginForm() {
   const {isGlobalModalOpen, dispatchId} = useAppSelector(
     state => state.modalReducer,
   );
+  // 비밀번호 보이기, 숨기기
+  const [passwordType, setPasswordType] = useState({
+    type: 'password',
+    visible: false,
+  });
+
+  const REST_API_KEY = `${process.env.REACT_APP_REST_API_KEY}`;
+  const REDIRECT_URI = `${process.env.REACT_APP_REDIRECT_URI}`;
+  const DEPLOY_REDIRECT_URI = `${process.env.REACT_APP_DEPLOY_REDIRECT_URI}`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${DEPLOY_REDIRECT_URI}&response_type=code`;
+
+  const kakaoCode = location.search.split('=')[1];
+
   const {values, errors, submitting, handleChange, handleSubmit} =
     useSignUpForm(
       {
@@ -28,45 +49,76 @@ function LoginForm() {
       isSignUp,
     );
 
+  const {data, isLoading, error} = useQuery(
+    ['kakaoAuth', kakaoCode],
+    async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/members/kakao?code=${kakaoCode}`,
+      );
+      localStorage.setItem(
+        'Authorization',
+        JSON.stringify(response.headers.authorization),
+      );
+      return response;
+    },
+
+    {
+      retry: 0,
+      enabled: !!kakaoCode,
+      onSuccess: data => {
+        console.log(data);
+        localStorage.setItem('userId', data.data.data);
+        dispatch(openGlobalModal('loginComplete'));
+      },
+      onError: (error: any) => {
+        console.log('error response', error.response);
+      },
+    },
+  );
+
   useEffect(() => {
     // accessToken을 deps에서 제외시켜줘야 제대로 작동함
     //accessToken이 있는지 없는지는 컴포넌트가 렌더링 될 때 한번만 판별하면 되는데, deps에 access토큰이 있으면 로그인 로그아웃 할 시 매번 useEffect를 실행시키기 때문에 매번 loggingIn 모달을 dispatch
     if (accessToken) {
       dispatch(openGlobalModal('loggingIn'));
     }
-    return () => {};
   }, [dispatch]);
+
+  const handlePasswordType = () => {
+    setPasswordType(() => {
+      if (!passwordType.visible) {
+        return {type: 'text', visible: true};
+      }
+      return {type: 'password', visible: false};
+    });
+  };
 
   return (
     <div>
-      <StForm onSubmit={handleSubmit}>
-        <StLogoDiv>
-          <img src={logo} alt="" />
-          <span>로그인</span>
-        </StLogoDiv>
-        <StInputItemsDiv>
-          <label htmlFor="id">아이디</label>
-          <StInput
-            id="id"
-            type="text"
-            name="memberId"
-            onChange={handleChange}
-            value={values.memberId}
-          />
-        </StInputItemsDiv>
+      <RegistStForm
+        onSubmit={handleSubmit}
+        title="로그인"
+        height="83rem"
+        width="49.2rem">
+        <RegistStInput
+          id="id"
+          type="text"
+          name="memberId"
+          onChange={handleChange}
+          value={values.memberId}
+          label="아이디"></RegistStInput>
+        <RegistErrorSpan>{errors.memberId}</RegistErrorSpan>
 
-        <StErrorSpan>{errors.memberId}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="password">비밀번호</label>
-          <StInput
-            id="password"
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={values.password}
-          />
-        </StInputItemsDiv>
-        <StErrorSpan>{errors.password}</StErrorSpan>
+        <RegistStInput
+          id="password"
+          type={passwordType.type}
+          name="password"
+          onChange={handleChange}
+          value={values.password}
+          label="비밀번호">
+          <img src={eyeImg} alt="" onClick={handlePasswordType} />
+        </RegistStInput>
+        <RegistErrorSpan>{errors.password}</RegistErrorSpan>
 
         <ButtonContainer>
           <StNavBtn
@@ -79,18 +131,26 @@ function LoginForm() {
           <div style={{width: '100%', margin: '0 auto'}}>
             <StLoginDivier>또는</StLoginDivier>
           </div>
-          <StNavBtn type="button" bgColor="#FFE600" fontC="#493236">
-            카카오로 로그인
-          </StNavBtn>
+          <a href={KAKAO_AUTH_URL}>
+            <StNavBtn type="button" bgColor="#FFE600" fontC="#493236">
+              <img src={kako_comment_img} alt="" />
+              카카오로 로그인
+            </StNavBtn>
+          </a>
           <StSmallBtnContainer>
-            <StSmallNavBtn type="button">아이디 찾기</StSmallNavBtn>
-            <StSmallNavBtn type="button">비밀번호 찾기</StSmallNavBtn>
+            <StSmallNavBtn type="button" path="/login/find-id">
+              아이디 찾기
+            </StSmallNavBtn>
+            <StSmallNavBtn type="button" path="/login/find-password">
+              비밀번호 찾기
+            </StSmallNavBtn>
             <StSmallNavBtn type="button" path={'/sign'}>
               회원가입
             </StSmallNavBtn>
           </StSmallBtnContainer>
         </ButtonContainer>
-      </StForm>
+      </RegistStForm>
+
       {isGlobalModalOpen && dispatchId === 'loginComplete' && (
         <GlobalModal id="loginComplete" type="alertModal" confirmPath="/">
           로그인 되었습니다
@@ -101,9 +161,9 @@ function LoginForm() {
           이미 로그인 중 입니다.
         </GlobalModal>
       )}
-      {isGlobalModalOpen && dispatchId === 'logInError' && (
-        <GlobalModal id="logInError" type="alertModal" confirmPath="/login">
-          알 수 없는 에러 입니다.
+      {isGlobalModalOpen && dispatchId === 'logIn-401Error' && (
+        <GlobalModal id="logIn-401Error" type="alertModal" confirmPath="/login">
+          없는 정보입니다. 회원가입 해주세요.
         </GlobalModal>
       )}
     </div>
@@ -111,60 +171,6 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
-const StForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: flex-start;
-  height: 83rem;
-  width: 49.6rem;
-  border-radius: 0px;
-  margin: 0 auto;
-  border: 1px solid #c1a4ff;
-  padding: 4.8rem;
-  background-color: #fff;
-`;
-const StLogoDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 20.1rem;
-  height: 7.7rem;
-  margin: 0 auto;
-  margin-top: 2.8rem;
-  margin-bottom: 0.9rem;
-  img {
-    transform: scale(1);
-    margin-bottom: 1.7rem;
-  }
-  span {
-    font-size: 2.8rem;
-    font-weight: 700;
-  }
-`;
-
-const StInputItemsDiv = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 5.7rem;
-  margin-top: 7.4rem;
-  position: relative;
-  border-bottom: 1px solid #e0e0e0;
-  label {
-    width: 7rem;
-    font-size: 1.8rem;
-    margin-right: 5rem;
-  }
-`;
-const StInput = styled.input`
-  border: 0;
-  outline: none;
-  background-color: white;
-  font-size: 2rem;
-`;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -192,6 +198,7 @@ const StLoginDivier = styled.div`
 `;
 
 const StNavBtn = styled.button`
+  display: flex;
   width: 40rem;
   height: 6rem;
   color: ${(props: {fontC: string}) => props.fontC};
@@ -199,6 +206,13 @@ const StNavBtn = styled.button`
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 4.3rem;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    transform: scale(0.8);
+    margin-right: 1rem;
+  }
 `;
 
 const StSmallBtnContainer = styled.div`

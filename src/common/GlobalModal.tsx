@@ -85,20 +85,17 @@ function GlobalModal({
     <StModal>
       {dispatchId === id && type === 'alertModal' ? (
         <StModalBody {...props}>
-          {children}
+          <div>{children}</div>
           <button onClick={onConfirmHandler}>확인</button>
         </StModalBody>
       ) : dispatchId === id && type === 'confirmModal' ? (
         <StModalBody {...props}>
-          {children}
+          <div>{children}</div>
           <button onClick={onConfirmHandler}>확인</button>
           <button onClick={onCancelHandler}>취소</button>
         </StModalBody>
       ) : (
-        <StModalBody {...props}>
-          {children}
-          <button onClick={onConfirmHandler}>확인</button>
-        </StModalBody>
+        <StModalBody {...props}>{children}</StModalBody>
       )}
     </StModal>,
     document.getElementById('GlobalModal') as HTMLElement,
@@ -136,15 +133,11 @@ const StModalBody = styled.div`
   left: 50%;
   transform: translate(-50%, -60%);
   padding: 20px;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 11rem;
+    font-size: 1.8rem;
+  }
 `;
-
-// const StModalBtn = styled.Button``
-// {isAlertModalOpen && (
-//   <GlobalModal
-//     type="alertModal"
-//     message="Success"
-//     onConfirmCallback={() => {
-//       console.log('hi');
-//       setAlertModalOpen(false);
-//     }}></GlobalModal>
-// )}

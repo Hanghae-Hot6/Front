@@ -29,8 +29,6 @@ type InputType = {
 };
 
 const CreateClubBody = ({}: CreateClubBodyProps) => {
-  const dispatch = useAppDispatch();
-
   const initialValue: InputType = {
     clubName: '',
     clubIntro: '',
@@ -45,14 +43,10 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     imageUrl: '',
   };
 
-  const {data, status, isLoading, error} = useQuery('getBooks', async () => {
-    const response = await axios.get(
-      `http://43.201.69.50:8080/book/search?keyword=자바&start=1&display=3`,
-    );
-    return response;
-  });
+  //내일 서버 열리면 타입 만들어 주기
+  const {data: getBooksData, status} = useQuery<any>('getBooks');
 
-  console.log(data?.data.data);
+  // console.log(getBooksData?.data.data);
   // console.log(error);
 
   const [input, setInput] = useState<InputType>(initialValue);
@@ -119,9 +113,9 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     formData2.append('summary', input.summary);
     formData2.append('image', input.imageUrl);
     if (status === 'success') {
-      formData2.append('book1', data!.data.data[0]!['isbn']);
-      formData2.append('book2', '');
-      // formData2.append('book3', '');
+      // formData2.append('book1', getBooksData!.data.data[0]!['isbn']);
+      // formData2.append('book2', getBooksData!.data.data[1]!['isbn']);
+      // formData2.append('book3', getBooksData!.data.data[2]!['isbn']);
     }
 
     await axios.post(`${process.env.REACT_APP_BASE_URL}/clubs`, formData2, {

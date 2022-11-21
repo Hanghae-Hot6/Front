@@ -112,11 +112,11 @@ const StSection = styled.section`
 `;
 const StProfileBox = styled.div`
   display: flex;
-  height: 605px;
-  width: 973px;
+  height: 60.5rem;
+  width: 97.3rem;
   border-radius: 10px;
   margin: 18.5rem auto;
-  background-color: #fff;
+  /* background-color: #fff;
   border: 1px solid #c1a4ff;
-  box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
+  box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08); */
 `;

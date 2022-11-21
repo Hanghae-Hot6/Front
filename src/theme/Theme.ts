@@ -1,6 +1,6 @@
-import * as S from 'styled-components';
+import {DefaultTheme} from 'styled-components';
 
-const Theme: S.DefaultTheme = {
+const Theme: DefaultTheme = {
   MainColor: '#5200FF',
   Black: '#000000',
   Gray: '#767676',
@@ -11,4 +11,4 @@ const Theme: S.DefaultTheme = {
   White: '#FFFFFF',
 };
 
-export {Theme};
+export default Theme;
