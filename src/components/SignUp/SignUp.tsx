@@ -1,18 +1,41 @@
 import NavigationButton from '../../common/NavigationButton';
 import useSignUpForm from './useSignUpForm';
 import styled from 'styled-components';
-import logo from '../../assets/logo.svg';
-
+import eyeImg from '../../assets/eye.svg';
+import {
+  closeGlobalModal,
+  openGlobalModal,
+} from '../../Redux/modules/slices/modalSlice';
 import GlobalModal from '../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {useNavigate} from 'react-router-dom';
+import RegistStInput from '../Elem/RegistStInput';
+import RegistStForm from '../Elem/RegistStForm';
+import RegistErrorSpan from '../Elem/RegistErrorSpan';
+import {useState} from 'react';
+import SignUpModalCollection from './SignUpModalCollection';
+import Timer from '../Login/Timer';
 
 function SignUp() {
-  const isSignUp = true;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {isGlobalModalOpen, dispatchId} = useAppSelector(
     state => state.modalReducer,
   );
+  const isSignUp = true;
+
+  // 인증번호 모달
+  const [certNumValue, setCertNumValue] = useState('');
+
+  // 비밀번호 보이기, 숨기기
+  const [passwordType, setPasswordType] = useState({
+    type: 'password',
+    visible: false,
+  });
+  const [passwordCheckType, setPasswordCheckType] = useState({
+    type: 'password',
+    visible: false,
+  });
 
   const {
     values,
@@ -21,6 +44,8 @@ function SignUp() {
     handleChange,
     handleSubmit,
     IdCheckHandler,
+    certEmailHandler,
+    emailModalCheckHandler,
   } = useSignUpForm(
     {
       memberId: '',
@@ -34,93 +59,117 @@ function SignUp() {
     isSignUp,
   );
 
+  // 비밀번호, 비밀번호 확인 숨기기 / 보이기 기능
+  const handlePasswordType = (e: React.MouseEvent<HTMLImageElement>) => {
+    const {id} = e.currentTarget;
+    if (id === 'password') {
+      setPasswordType(() => {
+        if (!passwordType.visible) {
+          return {type: 'text', visible: true};
+        }
+        return {type: 'password', visible: false};
+      });
+    } else if (id === 'passwordCheck') {
+      setPasswordCheckType(() => {
+        if (!passwordCheckType.visible) {
+          return {type: 'text', visible: true};
+        }
+        return {type: 'password', visible: false};
+      });
+    }
+  };
+
   return (
     <StContainer>
-      <StForm onSubmit={handleSubmit}>
-        <StLogoDiv>
-          <img src={logo} alt="" />
-          <span>간편하게 회원가입</span>
-        </StLogoDiv>
-        <StInputItemsDiv>
-          <label htmlFor="id">아이디</label>
-          <StInput
-            id="id"
-            type="text"
-            name="memberId"
-            onChange={handleChange}
-            value={values.memberId}
-          />
+      <RegistStForm
+        onSubmit={handleSubmit}
+        title="간편하게 회원가입"
+        height="102rem"
+        width="49.2rem">
+        <RegistStInput
+          id="id"
+          type="text"
+          name="memberId"
+          onChange={handleChange}
+          value={values.memberId}
+          label="아이디">
           <StCheckBtn onClick={IdCheckHandler} type="button">
             중복확인
           </StCheckBtn>
-        </StInputItemsDiv>
-        <StErrorSpan>{errors.memberId || errors.idCheck}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="password">비밀번호</label>
-          <StInput
-            id="password"
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={values.password}
-          />
-        </StInputItemsDiv>
-        <StErrorSpan>{errors.password}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="passwordCheck">비밀번호 확인</label>
-          <StInput
+        </RegistStInput>
+        <RegistErrorSpan>{errors.memberId || errors.idCheck}</RegistErrorSpan>
+
+        <RegistStInput
+          id="password"
+          type={passwordType.type}
+          name="password"
+          onChange={handleChange}
+          value={values.password}
+          label="비밀번호">
+          <img src={eyeImg} alt="" id="password" onClick={handlePasswordType} />
+        </RegistStInput>
+        <RegistErrorSpan>{errors.password}</RegistErrorSpan>
+
+        <RegistStInput
+          id="passwordCheck"
+          type={passwordCheckType.type}
+          name="passwordCheck"
+          onChange={handleChange}
+          value={values.passwordCheck}
+          label="비밀번호 확인">
+          <img
+            src={eyeImg}
+            alt=""
             id="passwordCheck"
-            type="password"
-            name="passwordCheck"
-            value={values.passwordCheck}
-            onChange={handleChange}
+            onClick={handlePasswordType}
           />
-        </StInputItemsDiv>
-        <StErrorSpan>{errors.passwordCheck}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="address">주소</label>
-          <StInput
-            id="address"
-            type="address"
-            name="address"
-            onChange={handleChange}
-            value={values.address}
-          />
-        </StInputItemsDiv>
-        <StErrorSpan>{errors.address}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="phoneNumber">전화번호</label>
-          <StInput
-            id="phoneNumber"
-            type="tel"
-            name="phoneNumber"
-            onChange={handleChange}
-            value={values.phoneNumber}
-          />
-        </StInputItemsDiv>
-        <StErrorSpan>{errors.phoneNumber}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="email">E-mail</label>
-          <StInput
-            id="email"
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={values.email}
-          />
-        </StInputItemsDiv>
-        <StErrorSpan>{errors.email}</StErrorSpan>
-        <StInputItemsDiv>
-          <label htmlFor="username">닉네임</label>
-          <StInput
-            id="username"
-            type="text"
-            name="username"
-            onChange={handleChange}
-            value={values.username}
-          />
-        </StInputItemsDiv>
-        <StErrorSpan>{errors.username}</StErrorSpan>
+        </RegistStInput>
+        <RegistErrorSpan>{errors.passwordCheck}</RegistErrorSpan>
+
+        <RegistStInput
+          id="address"
+          type="address"
+          name="address"
+          onChange={handleChange}
+          value={values.address}
+          label="주소"></RegistStInput>
+        <RegistErrorSpan>{errors.address}</RegistErrorSpan>
+
+        <RegistStInput
+          id="phoneNumber"
+          type="tel"
+          name="phoneNumber"
+          onChange={handleChange}
+          value={values.phoneNumber}
+          label="전화번호"></RegistStInput>
+        <RegistErrorSpan>{errors.phoneNumber}</RegistErrorSpan>
+
+        <RegistStInput
+          id="email"
+          type="email"
+          name="email"
+          onChange={handleChange}
+          value={values.email}
+          label="E-mail">
+          <StCheckBtn
+            type="button"
+            onClick={() => {
+              certEmailHandler();
+            }}>
+            이메일 인증
+          </StCheckBtn>
+        </RegistStInput>
+        <RegistErrorSpan>{errors.email}</RegistErrorSpan>
+
+        <RegistStInput
+          id="username"
+          type="text"
+          name="username"
+          onChange={handleChange}
+          value={values.username}
+          label="실명"></RegistStInput>
+        <RegistErrorSpan>{errors.username}</RegistErrorSpan>
+
         <ButtonContainer>
           <StNavBtn type="submit" bgColor="#5200FF" fontC="white">
             가입완료
@@ -135,15 +184,39 @@ function SignUp() {
             로그인
           </StNavBtn>
         </ButtonContainer>
-      </StForm>
-      {isGlobalModalOpen && dispatchId === 'SignUpComplete' && (
-        <GlobalModal id="SignUpComplete" type="alertModal" confirmPath="/login">
-          회원가입 완료되었습니다.
-        </GlobalModal>
-      )}
-      {isGlobalModalOpen && dispatchId === 'idDoubleCheck' && (
-        <GlobalModal id="idDoubleCheck" type="alertModal">
-          중복확인 완료!
+      </RegistStForm>
+      <SignUpModalCollection />
+      {isGlobalModalOpen && dispatchId === 'emailCheck' && (
+        <GlobalModal id="emailCheck">
+          <StModalDiv>
+            <span>이메일 인증번호를 입력해주세요...!</span>
+            <Timer initMin={2} initSec={0} />
+            <form
+              onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+                e.preventDefault();
+                return emailModalCheckHandler(certNumValue);
+              }}>
+              <input
+                type="text"
+                name="certNumber"
+                value={certNumValue}
+                onChange={e => {
+                  const {value} = e.currentTarget;
+                  const validateValue = value.trim();
+                  setCertNumValue(validateValue);
+                }}
+              />
+              <button type="submit">확인</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setCertNumValue('');
+                  dispatch(closeGlobalModal('emailCheck'));
+                }}>
+                취소
+              </button>
+            </form>
+          </StModalDiv>
         </GlobalModal>
       )}
     </StContainer>
@@ -153,65 +226,10 @@ function SignUp() {
 export default SignUp;
 
 const StContainer = styled.div``;
-const StLogoDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 20.1rem;
-  height: 7.7rem;
-  margin: 0 auto;
-  margin-top: 2.8rem;
-
-  img {
-    transform: scale(1);
-    margin-bottom: 1.7rem;
-  }
-  span {
-    font-size: 2.8rem;
-    font-weight: 700;
-  }
-`;
-const StForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  height: 102rem;
-  width: 49.6rem;
-  margin: 0 auto;
-  border: 1px solid #c1a4ff;
-  padding: 4.8rem;
-  background-color: #fff;
-`;
-
-const StInputItemsDiv = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 5.7rem;
-  margin-top: 4.4rem;
-  position: relative;
-  border-bottom: 1px solid #e0e0e0;
-
-  label {
-    width: 12rem;
-    font-size: 1.8rem;
-  }
-`;
-
-const StInput = styled.input`
-  display: flex;
-  border: 0;
-  outline: none;
-  background-color: white;
-  font-size: 2rem;
-`;
 
 const StCheckBtn = styled.button`
   font-size: 1.4rem;
-  width: 7.7rem;
-  height: 2.7rem;
+  height: 2.3rem;
   color: #5200ff;
   /* border: 1px solid #5200ff; */
   border: 1px solid
@@ -220,13 +238,9 @@ const StCheckBtn = styled.button`
   background-color: white;
   position: absolute;
   right: 0;
+  text-align: center;
 `;
 
-const StErrorSpan = styled.span`
-  color: #ff0000;
-  font-size: 1.4rem;
-  margin-top: 0.4rem;
-`;
 const StNavBtn = styled.button`
   width: 40rem;
   height: 6rem;
@@ -242,4 +256,12 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 5.2rem;
+`;
+
+const StModalDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  span {
+    margin-bottom: 2rem;
+  }
 `;
