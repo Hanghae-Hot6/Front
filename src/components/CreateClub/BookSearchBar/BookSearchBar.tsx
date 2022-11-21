@@ -53,13 +53,10 @@ const BookSearchBar = ({}: BookSearchBarProps) => {
   }
   // console.log(yo);
 
-  const queryClient = useQueryClient();
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
 
     const {value} = e.target;
-    queryClient.invalidateQueries(['getBooks']);
 
     setInput(value);
   };
