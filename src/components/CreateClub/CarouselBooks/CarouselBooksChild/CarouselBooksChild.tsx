@@ -28,12 +28,9 @@ const CarouselBooksChild = ({
 };
 export default CarouselBooksChild;
 
-const Div = styled.div`
-  /* width: 100%; */
+const Div = styled.div<{width: number; height: number}>`
   width: ${(props: {width: number}) => props.width}rem;
   height: ${(props: {height: number}) => props.height}rem;
   display: flex;
   flex-direction: column;
-  /* padding: 1rem; */
-  /* border: 1px solid blue; */
 `;

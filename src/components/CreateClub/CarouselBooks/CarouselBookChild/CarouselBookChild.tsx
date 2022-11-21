@@ -27,7 +27,7 @@ const CarouselBookChild = ({
 };
 export default CarouselBookChild;
 
-const Div = styled.div`
+const Div = styled.div<{width: number; height: number}>`
   /* width: 100%; */
   width: ${(props: {width: number}) => props.width}rem;
   height: ${(props: {height: number}) => props.height}rem;
