@@ -25,7 +25,7 @@ export const TabList = styled.div`
     width: 100vw;
     margin-left: -32.5rem;
     overflow: hidden;
-    background-color: #5200ff;
+    background-color: #6e6bff;
     height: 7rem;
     article {
       overflow: hidden;
@@ -40,7 +40,7 @@ export const TabList = styled.div`
         .on {
           background: #ffffff;
           border-radius: 4rem;
-          color: #5200ff;
+          color: #6e6bff;
         }
         li {
           font-weight: 700;

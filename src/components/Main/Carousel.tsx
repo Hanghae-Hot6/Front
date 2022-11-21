@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import * as C from './CarouselStyled';
 // import {RiArrowDropLeftLine, RiArrowDropRightLine} from 'react-icons/ri';
 import rightArrow from '../../assets/right_arrow.svg';
@@ -11,27 +11,29 @@ const Carousel = () => {
     'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
   ];
   const [currCarousel, setCurrCarousel] = useState(1);
-  const [carouselTransition, setCarouselTransition] = useState('');
+  const [carouselTransition, setCarouselTransition] = useState(
+    'transform 500ms ease-in-out',
+  );
+
   // banner 앞뒤에 눈속임 배너 추가해주기
   const makeNewDataArray = (banners: string[]) => {
-    const dataStart = banners[0];
-    const dataMiddle = banners[1];
-    const dataEnd = banners[banners.length - 1];
+    // const dataStart = banners[0];
+    // const dataMiddle = banners[1];
+    // const dataEnd = banners[banners.length - 1];
     // 2 0 1 2 0 1
-    const modifiedArray = [
-      dataEnd,
-      ...banners,
-      dataStart,
-      dataMiddle,
-      dataEnd,
-      ...banners,
-    ];
+    const modifiedArray = [...banners, ...banners, ...banners];
     return modifiedArray;
   };
 
   const newArray = makeNewDataArray(banners);
+  // const moveToNthSlide = (n: number) => {
+  //   setCurrCarousel(n);
+  // };
   const moveToNthSlide = (n: number) => {
-    setCurrCarousel(n);
+    setTimeout(() => {
+      setCarouselTransition('');
+      setCurrCarousel(n);
+    }, 500);
   };
   const slideNextSoulsCarousel = () => {
     const soulSliderLength = banners.length;
@@ -51,6 +53,7 @@ const Carousel = () => {
       moveToNthSlide(soulSliderLength - 1);
     }
   };
+
   const handleGoTo = (index: number) => setCurrCarousel(index);
 
   return (
@@ -64,8 +67,8 @@ const Carousel = () => {
         <C.CarouselList>
           {newArray.map((url, index) => (
             <C.CarouselListItem
-              className="carouselImageWrap"
               key={index}
+              // className={}
               style={{
                 transform: `translateX(-${currCarousel * 100}%)`,
               }}>

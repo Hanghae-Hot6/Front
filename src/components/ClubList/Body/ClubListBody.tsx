@@ -38,6 +38,7 @@ const ClubListBody = () => {
       setIndex(state);
     }
   }, []);
+  console.log(status);
 
   // useEffect(() => {
   //   setIndex(state);
@@ -55,6 +56,7 @@ const ClubListBody = () => {
     // '에세이 시',
   ];
 
+  // 성공
   const categoryTap = categoryArray.map((category, index) => {
     const categoryFilter = data?.filter(
       (club: Clubs) => club.category === category,
@@ -64,21 +66,18 @@ const ClubListBody = () => {
         id: index,
         title: category,
         content:
-          categoryFilter.length > 0 ? (
-            categoryFilter.map((club: Clubs) => {
-              return (
-                <Link to={`/club_detail/${club.clubId}`} key={club.clubId}>
-                  <div>
-                    <h2>{club.clubName}</h2>
-                    <p>{club.summary}</p>
-                    <img src={club.thumbnail} alt={club.summary} />
-                  </div>
-                </Link>
-              );
-            })
-          ) : (
-            <div>모임이 없습니다</div>
-          ),
+          categoryFilter.length > 0 &&
+          categoryFilter.map((club: Clubs) => {
+            return (
+              <Link to={`/club_detail/${club.clubId}`} key={club.clubId}>
+                <div>
+                  <h2>{club.clubName}</h2>
+                  <p>{club.summary}</p>
+                  <img src={club.thumbnail} alt={club.summary} />
+                </div>
+              </Link>
+            );
+          }),
       };
     }
     return {
@@ -87,21 +86,32 @@ const ClubListBody = () => {
     };
   });
 
+  // 로딩
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  // 에러
+
+  if (status === 'error') {
+    return <div>개설된 모임이 없습니다...</div>;
+  }
+
   return (
     <>
       <C.TabList>
         <section>
           <article>
             <ul>
-              {categoryTap.length > 0 &&
-                categoryTap.map(item => (
-                  <li
-                    key={item.id}
-                    onClick={() => setIndex(item.id)}
-                    className={index === item.id ? 'on' : undefined}>
-                    {item.title}
-                  </li>
-                ))}
+              {categoryTap.map(item => (
+                <li
+                  key={item.id}
+                  onClick={() => setIndex(item.id)}
+                  className={index === item.id ? 'on' : undefined}>
+                  {item.title}
+                </li>
+              ))}
             </ul>
           </article>
         </section>

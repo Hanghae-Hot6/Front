@@ -49,7 +49,7 @@ export const CarouselListItem = styled.li<{activeIndex: number}>`
     -${({activeIndex}: {activeIndex: number}) => activeIndex * 100}%
   );
   transition: 200ms ease;
-  > img {
+  img {
     width: 427px;
     height: 458px;
     object-fit: cover;

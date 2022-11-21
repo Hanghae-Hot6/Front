@@ -58,11 +58,11 @@ const ClubDetail = () => {
     },
   );
 
-  //클럽 가입하기 api
+  //모임 가입하기 api
   const {mutate: signUpClub} = useMutation(
     async () => {
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/clubs/${id}`,
+        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/join`,
         id,
         {
           headers: {
@@ -81,6 +81,47 @@ const ClubDetail = () => {
       },
     },
   );
+  // 관심 모임 api
+  const {mutate: interestClub} = useMutation(
+    async () => {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/interest`,
+        id,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      );
+      return response.data.data;
+    },
+    {
+      onSuccess: data => {
+        alert(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
+
+  const {mutate: interestDelClub} = useMutation(
+    async () => {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/interest`,
+      );
+      return response.data.data;
+    },
+    {
+      onSuccess: data => {
+        alert(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
+
   console.log(data);
 
   return (
@@ -95,12 +136,36 @@ const ClubDetail = () => {
             <img src={data.imageUrl} alt={data.imageUrl} />
             <h3>{data.leader}</h3>
             <p>{data.schedule}</p>
+            {data.interest ? (
+              <p
+                style={{
+                  width: '100px',
+                  background: '#333',
+                  height: '100px',
+                  color: '#fff',
+                }}
+                onClick={() => interestDelClub()}>
+                빈 하트(관심 안된상태)
+              </p>
+            ) : (
+              <p
+                style={{
+                  width: '100px',
+                  background: '#fff',
+                  height: '100px',
+                  color: '#333',
+                  border: '1px solid #333',
+                }}
+                onClick={() => interestClub()}>
+                색깔(관심등록된 상태)
+              </p>
+            )}
             {data.subscription ? (
               <p
                 style={{
                   width: '300px',
                   background: '#333',
-                  height: '300px',
+                  height: '100px',
                   color: '#fff',
                 }}>
                 이미 가입한 모임입니다.
@@ -110,7 +175,7 @@ const ClubDetail = () => {
                 style={{
                   width: '300px',
                   background: '#333',
-                  height: '300px',
+                  height: '100px',
                   color: '#fff',
                 }}
                 onClick={() => signUpClub()}>
