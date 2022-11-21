@@ -15,23 +15,24 @@ export type NaverBooksDataType = {
 const BookSearchBar = ({}: BookSearchBarProps) => {
   const [input, setInput] = useState<string>('');
 
-  const fetchYo = async ({queryKey}: any) => {
-    console.log(queryKey[1]);
-    if (input) {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=12`,
-      );
-
-      return response?.data.data;
-    }
-  };
-
   const {
     data: getBooksData,
     status,
     isLoading,
     error,
-  } = useQuery<NaverBooksDataType[]>(['getBooks', input], fetchYo);
+  } = useQuery<NaverBooksDataType[]>(
+    ['getBooks', input],
+    async ({queryKey}: any) => {
+      console.log(queryKey[1]);
+      if (input) {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=12`,
+        );
+
+        return response?.data.data;
+      }
+    },
+  );
 
   let endNum: number;
   let divideBy: number;

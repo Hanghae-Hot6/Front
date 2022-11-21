@@ -6,7 +6,7 @@ type CreateClubTitleProps = {};
 const CreateClubTitle = ({}: CreateClubTitleProps) => {
   return (
     <>
-      <T.H1>모임등록</T.H1>
+      <T.H1>모임 개설하기</T.H1>
     </>
   );
 };

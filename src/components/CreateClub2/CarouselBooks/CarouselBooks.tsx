@@ -1,7 +1,6 @@
 import React, {ReactNode, useState} from 'react';
 import styled from 'styled-components';
 import {NaverBooksDataType} from '../BookSearchBar/BookSearchBar';
-
 import CarouselBooksChild from './CarouselBooksChild/CarouselBooksChild';
 
 type CarouselBooksProps = {

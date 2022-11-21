@@ -43,7 +43,7 @@ const NavigationButton = ({
 };
 export default NavigationButton;
 
-const NavigationButtonDefault = styled.button<{type: string | undefined}>`
+const NavigationButtonDefault = styled.button`
   font-size: 30px;
   width: 220px;
   color: blue;
