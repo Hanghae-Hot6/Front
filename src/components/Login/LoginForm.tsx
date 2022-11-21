@@ -138,15 +138,19 @@ function LoginForm() {
             </StNavBtn>
           </a>
           <StSmallBtnContainer>
-            <Link to="/login/find-id">
-              <StSmallNavBtn type="button">아이디 찾기</StSmallNavBtn>
-            </Link>
-            <Link to="/login/find-password">
-              <StSmallNavBtn type="button">비밀번호 찾기</StSmallNavBtn>
-            </Link>
-            <Link to="/sign">
-              <StSmallNavBtn type="button">회원가입</StSmallNavBtn>
-            </Link>
+            <StSmallNavBtn
+              type="button"
+              onClick={() => navigate('/login/find-id')}>
+              아이디 찾기
+            </StSmallNavBtn>
+            <StSmallNavBtn
+              type="button"
+              onClick={() => navigate('/login/find-password')}>
+              비밀번호 찾기
+            </StSmallNavBtn>
+            <StSmallNavBtn type="button" onClick={() => navigate('/sign')}>
+              회원가입
+            </StSmallNavBtn>
           </StSmallBtnContainer>
         </ButtonContainer>
       </RegistStForm>
@@ -163,6 +167,7 @@ function LoginForm() {
       )}
       {isGlobalModalOpen && dispatchId === 'logIn-401Error' && (
         <GlobalModal id="logIn-401Error" type="alertModal" confirmPath="/login">
+          <h2>로그인 실패</h2>
           <div>없는 정보입니다. 회원가입 해주세요.</div>
         </GlobalModal>
       )}
@@ -222,7 +227,6 @@ const StSmallBtnContainer = styled.div`
 
 const StSmallNavBtn = styled.button<{
   fontC?: string | undefined;
-  type?: 'button' | 'submit' | 'reset' | undefined;
 }>`
   color: ${({fontC}) => fontC};
   background-color: white;

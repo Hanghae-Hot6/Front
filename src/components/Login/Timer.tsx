@@ -55,4 +55,5 @@ export default Timer;
 
 const StH2 = styled.h2<{isH2Red: boolean}>`
   color: ${({isH2Red}) => (isH2Red === true ? 'red' : 'black')};
+  font-size: 1.8rem;
 `;

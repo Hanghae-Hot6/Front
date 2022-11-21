@@ -7,6 +7,7 @@ type RegistStInputProps = {
   type?: string;
   name?: string;
   value?: string;
+  maxLength?: number;
   placeholder?: string;
   children?: React.ReactNode;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -17,8 +18,9 @@ function RegistStInput({
   label,
   type,
   name,
-  onChange,
   value,
+  maxLength,
+  onChange,
   children,
   ...props
 }: RegistStInputProps) {
@@ -31,6 +33,7 @@ function RegistStInput({
         name={name}
         onChange={onChange}
         value={value}
+        maxLength={maxLength}
         {...props}
       />
       {children}
@@ -50,14 +53,24 @@ const StInputItemsDiv = styled.div`
   border-bottom: 1px solid #e0e0e0;
 
   label {
-    width: 12rem;
+    display: flex;
+    width: 9.9rem;
     font-size: 1.8rem;
+    white-space: nowrap;
   }
   input {
+    min-width: 50%;
+    max-width: 100%;
     display: flex;
     border: 0;
     outline: none;
     background-color: white;
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+  img {
+    display: flex;
+    position: absolute;
+    right: 0;
+    text-align: center;
   }
 `;

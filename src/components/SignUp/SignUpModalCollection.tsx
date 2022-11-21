@@ -18,13 +18,18 @@ function SignUpModalCollection() {
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'emptyIdAlert' && (
-        <GlobalModal id="emptyIdAlert" type="alertModal">
+        <GlobalModal id="emptyIdAlert" type="confirmModal">
           <div>아이디를 작성해주세요.</div>
         </GlobalModal>
       )}
-      {isGlobalModalOpen && dispatchId === 'idDoubleCheck' && (
-        <GlobalModal id="idDoubleCheck" type="alertModal">
+      {isGlobalModalOpen && dispatchId === 'idCheckTrue' && (
+        <GlobalModal id="idCheckTrue" type="alertModal">
           <div>중복확인 완료!</div>
+        </GlobalModal>
+      )}
+      {isGlobalModalOpen && dispatchId === 'idCheckFalse' && (
+        <GlobalModal id="idCheckFalse" type="alertModal">
+          <div>사용중인 아이디 입니다.</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'emailCertAlert' && (

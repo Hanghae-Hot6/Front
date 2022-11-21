@@ -86,14 +86,16 @@ function GlobalModal({
     <StModal>
       {dispatchId === id && type === 'alertModal' ? (
         <StModalBody {...props}>
-          <StContainer {...props}>{children}</StContainer>
+          <StAlertContainer {...props}>{children}</StAlertContainer>
           <button onClick={onConfirmHandler}>확인</button>
         </StModalBody>
       ) : dispatchId === id && type === 'confirmModal' ? (
         <StModalBody {...props}>
-          <StContainer>{children}</StContainer>
-          <button onClick={onConfirmHandler}>확인</button>
-          <button onClick={onCancelHandler}>취소</button>
+          <StConfirmContainer>{children}</StConfirmContainer>
+          <StBtnBox>
+            <button onClick={onConfirmHandler}>확인</button>
+            <button onClick={onCancelHandler}>취소</button>
+          </StBtnBox>
         </StModalBody>
       ) : (
         <StModalBody {...props}>{children}</StModalBody>
@@ -126,10 +128,8 @@ const StModalBody = styled.div<modalProps>`
   background-color: #fff;
   width: 35rem;
   height: ${props => {
-    console.log(props.size);
     return props.size === 'lg' ? '35rem' : '25rem';
   }};
-  /* height: 24rem; */
   z-index: 999;
   position: absolute;
   top: 50%;
@@ -139,13 +139,33 @@ const StModalBody = styled.div<modalProps>`
   border: 1px solid ${props => props.theme.MainColor};
   button {
     height: 5.5rem;
-    background-color: ${props => props.theme.MainColor};
     color: white;
+    font-size: 1.8rem;
+    background-color: ${props => props.theme.MainColor};
+    width: ${props => {
+      console.log(props.type);
+      return props.type === 'confirmModal' ? '50%' : '100%';
+    }};
+  }
+`;
+
+const StAlertContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 29.5rem;
+  font-size: 1.8rem;
+  h2 {
+    font-size: 2.3rem;
+    font-weight: bold;
+  }
+  div {
     font-size: 1.8rem;
   }
 `;
 
-const StContainer = styled.div`
+const StConfirmContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,4 +179,8 @@ const StContainer = styled.div`
   div {
     font-size: 1.8rem;
   }
+`;
+
+const StBtnBox = styled.div`
+  width: 100%;
 `;

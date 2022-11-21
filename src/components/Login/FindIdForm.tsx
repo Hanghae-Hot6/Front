@@ -78,14 +78,6 @@ function FindIdForm() {
         width="55.6rem">
         <StContainer>
           <div>
-            {/* <RegistStInput
-              id="email"
-              type="email"
-              name="email"
-              onChange={handleChange}
-              value={value}
-              label="E-mail"></RegistStInput> */}
-
             <RegistStInput
               id="email"
               type="email"
@@ -93,7 +85,6 @@ function FindIdForm() {
               onChange={handleChange}
               value={values.email}
               label="E-mail"></RegistStInput>
-            {/* <RegistErrorSpan>{errors.email}</RegistErrorSpan> */}
 
             <RegistStInput
               id="username"
@@ -102,7 +93,6 @@ function FindIdForm() {
               onChange={handleChange}
               value={values.username}
               label="실명"></RegistStInput>
-            {/* <RegistErrorSpan>{errors.username}</RegistErrorSpan> */}
           </div>
           <StNavBtn type="submit" bgColor="#5200FF" fontC="white">
             아이디 찾기
@@ -130,11 +120,12 @@ const StContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  width: 100%;
 `;
 
 const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   display: flex;
-  width: 40rem;
+  width: 100%;
   height: 6rem;
   color: ${({fontC}) => fontC};
   background-color: ${({bgColor}) => bgColor};

@@ -150,6 +150,7 @@ function SignUp() {
           name="email"
           onChange={handleChange}
           value={values.email}
+          maxLength={20}
           label="E-mail">
           <StCheckBtn
             type="button"
@@ -159,7 +160,7 @@ function SignUp() {
             이메일 인증
           </StCheckBtn>
         </RegistStInput>
-        <RegistErrorSpan>{errors.email}</RegistErrorSpan>
+        <RegistErrorSpan>{errors.email || errors.emailCheck}</RegistErrorSpan>
 
         <RegistStInput
           id="username"
@@ -189,32 +190,38 @@ function SignUp() {
       {isGlobalModalOpen && dispatchId === 'emailCheck' && (
         <GlobalModal id="emailCheck">
           <StModalDiv>
-            <span>이메일 인증번호를 입력해주세요...!</span>
-            <Timer initMin={2} initSec={0} />
             <form
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
                 e.preventDefault();
                 return emailModalCheckHandler(certNumValue);
               }}>
-              <input
-                type="text"
-                name="certNumber"
-                value={certNumValue}
-                onChange={e => {
-                  const {value} = e.currentTarget;
-                  const validateValue = value.trim();
-                  setCertNumValue(validateValue);
-                }}
-              />
-              <button type="submit">확인</button>
-              <button
-                type="button"
-                onClick={() => {
-                  setCertNumValue('');
-                  dispatch(closeGlobalModal('emailCheck'));
-                }}>
-                취소
-              </button>
+              <div>
+                <span>이메일 인증번호를 입력해주세요...!</span>
+
+                <Timer initMin={5} initSec={0} />
+
+                <input
+                  type="text"
+                  name="certNumber"
+                  value={certNumValue}
+                  onChange={e => {
+                    const {value} = e.currentTarget;
+                    const validateValue = value.trim();
+                    setCertNumValue(validateValue);
+                  }}
+                />
+              </div>
+              <div>
+                <button type="submit">확인</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCertNumValue('');
+                    dispatch(closeGlobalModal('emailCheck'));
+                  }}>
+                  취소
+                </button>
+              </div>
             </form>
           </StModalDiv>
         </GlobalModal>
@@ -228,17 +235,17 @@ export default SignUp;
 const StContainer = styled.div``;
 
 const StCheckBtn = styled.button`
+  display: flex;
   font-size: 1.4rem;
   height: 2.3rem;
   color: #5200ff;
-  /* border: 1px solid #5200ff; */
-  border: 1px solid
-    ${(props: {theme: {MainColor: any}}) => props.theme.MainColor};
+  border: 1px solid ${props => props.theme.MainColor};
   border-radius: 20px;
   background-color: white;
   position: absolute;
   right: 0;
   text-align: center;
+  white-space: nowrap;
 `;
 
 const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
@@ -258,8 +265,36 @@ const ButtonContainer = styled.div`
 
 const StModalDiv = styled.div`
   display: flex;
-  flex-direction: column;
+  height: 100%;
+  width: 100%;
   span {
+    font-size: 1.8rem;
     margin-bottom: 2rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    input {
+      border: 1px solid ${props => props.theme.MainColor};
+      height: 3rem;
+    }
+    div:nth-child(1) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 100%;
+    }
+    div:nth-child(2) {
+      display: flex;
+      width: 100%;
+      button {
+        width: 100%;
+      }
+    }
   }
 `;

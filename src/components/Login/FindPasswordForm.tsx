@@ -10,9 +10,8 @@ import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
 
 type FindPasswordValueProps = {
-  memberId: string;
+  id: string;
   email: string;
-  username: string;
 };
 
 function FindPasswordForm() {
@@ -22,32 +21,31 @@ function FindPasswordForm() {
   );
 
   const init = {
-    memberId: '',
+    id: '',
     email: '',
-    username: '',
   };
 
   const [values, setValue] = useState(init);
 
-  // const {mutate: findPasswordMutate} = useMutation(
-  //   async (values: FindPasswordValueProps) => {
-  //     console.log(values);
-  //     const response = await axios.post(
-  //       // `${process.env.REACT_APP_BASE_URL}/members/findId`,
-  //       values,
-  //     );
-  //     return response;
-  //   },
-  //   {
-  //     onSuccess: data => {
-  //       console.log(data);
-  //       dispatch(openGlobalModal(''));
-  //     },
-  //     onError: error => {
-  //       console.log(error);
-  //     },
-  //   },
-  // );
+  const {mutate: findPasswordMutate} = useMutation(
+    async (values: FindPasswordValueProps) => {
+      console.log(values);
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/members/findPassword`,
+        values,
+      );
+      return response;
+    },
+    {
+      onSuccess: data => {
+        console.log(data);
+        dispatch(openGlobalModal(''));
+      },
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.currentTarget;
@@ -57,15 +55,11 @@ function FindPasswordForm() {
   // submit handler
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      values.memberId === '' ||
-      values.email === '' ||
-      values.username === ''
-    ) {
+    if (values.id === '' || values.email === '') {
       dispatch(openGlobalModal('findPasswordEmptyInput'));
     } else {
       console.log(values);
-      // findPasswordMutate(values);
+      findPasswordMutate(values);
     }
   };
 
@@ -82,11 +76,10 @@ function FindPasswordForm() {
             <RegistStInput
               id="id"
               type="text"
-              name="memberId"
+              name="id"
               onChange={handleChange}
-              value={values.memberId}
+              value={values.id}
               label="아이디"></RegistStInput>
-            {/* <RegistErrorSpan>{errors.memberId}</RegistErrorSpan> */}
 
             <RegistStInput
               id="email"
@@ -95,17 +88,8 @@ function FindPasswordForm() {
               onChange={handleChange}
               value={values.email}
               label="E-mail"></RegistStInput>
-            {/* <RegistErrorSpan>{errors.email}</RegistErrorSpan> */}
-
-            <RegistStInput
-              id="username"
-              type="text"
-              name="username"
-              onChange={handleChange}
-              value={values.username}
-              label="실명"></RegistStInput>
-            {/* <RegistErrorSpan>{errors.username}</RegistErrorSpan> */}
           </div>
+
           <StNavBtn type="submit" bgColor="#5200FF" fontC="white">
             비밀번호 찾기
           </StNavBtn>
@@ -127,11 +111,12 @@ const StContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  width: 100%;
 `;
 
 const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   display: flex;
-  width: 40rem;
+  width: 100%;
   height: 6rem;
   color: ${({fontC}) => fontC};
   background-color: ${({bgColor}) => bgColor};
