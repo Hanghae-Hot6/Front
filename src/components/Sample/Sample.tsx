@@ -8,7 +8,11 @@ type sampleProps = {
 const sample = ({}: sampleProps) => {
   return (
     <>
-      <Sample.Section></Sample.Section>
+      <Sample.Section>
+        <Sample.H1 fontSize={2} fontWeight={600}>
+          하이루~~~
+        </Sample.H1>
+      </Sample.Section>
     </>
   );
 };

@@ -5,7 +5,7 @@ type NavigationButtonProps = {
   path?: string;
   onClickCallback?: ({...props}) => void;
   children?: React.ReactNode;
-  type?: string;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 };
 
 // navigation 이동용 버튼입니다
@@ -42,7 +42,7 @@ const NavigationButton = ({
 };
 export default NavigationButton;
 
-const NavigationButtonDefault = styled.button`
+const NavigationButtonDefault = styled.button<{type: string | undefined}>`
   font-size: 30px;
   width: 220px;
   color: blue;
