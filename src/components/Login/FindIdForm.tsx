@@ -110,12 +110,12 @@ function FindIdForm() {
         </StContainer>
         {isGlobalModalOpen && dispatchId === 'findIdEmptyInput' && (
           <GlobalModal id="findIdEmptyInput" type="alertModal">
-            빈칸을 작성해주세요.
+            <div>빈칸을 작성해주세요.</div>
           </GlobalModal>
         )}
         {isGlobalModalOpen && dispatchId === 'findIdSendMessage' && (
           <GlobalModal id="findIdSendMessage" type="alertModal">
-            아이디가 전송되었습니다. 이메일을 확인해 주세요!
+            <div>아이디가 전송되었습니다. 이메일을 확인해 주세요!</div>
           </GlobalModal>
         )}
       </RegistStForm>

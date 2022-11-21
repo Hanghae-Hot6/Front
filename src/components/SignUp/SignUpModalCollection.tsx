@@ -14,42 +14,42 @@ function SignUpModalCollection() {
     <>
       {isGlobalModalOpen && dispatchId === 'signUpComplete' && (
         <GlobalModal id="signUpComplete" type="alertModal" confirmPath="/login">
-          회원가입 완료되었습니다.
+          <div>회원가입 완료되었습니다.</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'emptyIdAlert' && (
         <GlobalModal id="emptyIdAlert" type="alertModal">
-          아이디를 작성해주세요.
+          <div>아이디를 작성해주세요.</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'idDoubleCheck' && (
         <GlobalModal id="idDoubleCheck" type="alertModal">
-          중복확인 완료!
+          <div>중복확인 완료!</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'emailCertAlert' && (
         <GlobalModal id="emailCertAlert" type="alertModal">
-          이메일을 작성해주세요.
+          <div>이메일을 작성해주세요.</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'alreadyExistEmail' && (
         <GlobalModal id="alreadyExistEmail" type="alertModal">
-          이미 존재하는 이메일 입니다.
+          <div>이미 존재하는 이메일 입니다.</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'certNumEmptyAlert' && (
         <GlobalModal id="certNumEmptyAlert" type="alertModal">
-          인증번호를 작성해주세요.
+          <div>인증번호를 작성해주세요.</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'certNumNotMatchAlert' && (
         <GlobalModal id="certNumNotMatchAlert" type="alertModal">
-          인증번호가 일치하지 않습니다.
+          <div>인증번호가 일치하지 않습니다.</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'certNumMatchAlert' && (
         <GlobalModal id="certNumMatchAlert" type="alertModal">
-          인증에 성공했습니다!
+          <div>인증에 성공했습니다!</div>
         </GlobalModal>
       )}
     </>

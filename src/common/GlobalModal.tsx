@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from '../Redux/store/store';
 type modalProps = {
   id?: string;
   type?: string;
+  size?: string;
   confirmPath?: string;
   cancelPath?: string;
   message?: string;
@@ -85,12 +86,12 @@ function GlobalModal({
     <StModal>
       {dispatchId === id && type === 'alertModal' ? (
         <StModalBody {...props}>
-          <div>{children}</div>
+          <StContainer {...props}>{children}</StContainer>
           <button onClick={onConfirmHandler}>확인</button>
         </StModalBody>
       ) : dispatchId === id && type === 'confirmModal' ? (
         <StModalBody {...props}>
-          <div>{children}</div>
+          <StContainer>{children}</StContainer>
           <button onClick={onConfirmHandler}>확인</button>
           <button onClick={onCancelHandler}>취소</button>
         </StModalBody>
@@ -119,25 +120,43 @@ const StModal = styled.div`
   height: 100%;
 `;
 
-const StModalBody = styled.div`
+const StModalBody = styled.div<modalProps>`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  border-radius: 30px;
-  width: 400px;
-  min-height: 200px;
-  max-height: 80%;
+  width: 35rem;
+  height: ${props => {
+    console.log(props.size);
+    return props.size === 'lg' ? '35rem' : '25rem';
+  }};
+  /* height: 24rem; */
   z-index: 999;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -60%);
-  padding: 20px;
+  justify-content: space-between;
+  border: 1px solid ${props => props.theme.MainColor};
+  button {
+    height: 5.5rem;
+    background-color: ${props => props.theme.MainColor};
+    color: white;
+    font-size: 1.8rem;
+  }
+`;
+
+const StContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 29.5rem;
+  font-size: 1.8rem;
+  h2 {
+    font-size: 2.3rem;
+    font-weight: bold;
+  }
   div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 11rem;
     font-size: 1.8rem;
   }
 `;

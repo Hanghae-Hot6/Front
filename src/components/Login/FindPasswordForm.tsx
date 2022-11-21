@@ -112,7 +112,7 @@ function FindPasswordForm() {
         </StContainer>
         {isGlobalModalOpen && dispatchId === 'findPasswordEmptyInput' && (
           <GlobalModal id="findPasswordEmptyInput" type="alertModal">
-            빈칸을 작성해주세요.
+            <div>빈칸을 작성해주세요.</div>
           </GlobalModal>
         )}
       </RegistStForm>
