@@ -2,19 +2,11 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {useMutation, useQuery} from 'react-query';
 import {useNavigate} from 'react-router-dom';
+import {memberApis} from '../../api/axiosconfig';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../Redux/store/store';
+import {SignValueType} from '../../types/regist';
 import validate from '../../utils/validate';
-
-type SignUpValuesProps = {
-  memberId: string;
-  email?: string;
-  username?: string;
-  address?: string;
-  phoneNumber?: string;
-  password: string;
-  passwordCheck?: string;
-};
 
 type ErrorsValue = {
   memberId?: string;
@@ -31,7 +23,7 @@ type IdCheckType = boolean | undefined;
 type EmailCheckType = boolean | undefined;
 type CertNumType = string | undefined;
 
-function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
+function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [values, setValues] = useState(initialValues);
@@ -43,11 +35,9 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
 
   // signUp
   const {mutate: signUpSubmitMutate} = useMutation(
-    async (values: SignUpValuesProps) => {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/members/signup`,
-        values,
-      );
+    async (values: SignValueType) => {
+      console.log(values);
+      const response = await memberApis.signUp(values);
       return response;
     },
     {
@@ -55,18 +45,15 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
         dispatch(openGlobalModal('signUpComplete'));
       },
       onError: error => {
+        //401 에러 Bad Request
         console.log(error);
       },
     },
   );
   // login
   const {mutate: loginSubmitMutate} = useMutation(
-    async (values: SignUpValuesProps) => {
-      console.log(values);
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/members/login`,
-        values,
-      );
+    async (values: SignValueType) => {
+      const response = await memberApis.login(values);
       localStorage.setItem(
         'Authorization',
         JSON.stringify(response.headers.authorization),
@@ -76,8 +63,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     },
     {
       onSuccess: data => {
-        console.log(data);
-        localStorage.setItem('userId', values.memberId);
+        localStorage.setItem('userId', JSON.stringify(values.memberId));
         dispatch(openGlobalModal('loginComplete'));
       },
       onError: (error: any) => {
@@ -97,10 +83,8 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     refetch: idCheckFetch,
   } = useQuery(
     ['IdDoubleCheck', values.memberId],
-    async () => {
-      const {data} = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/members/signup/checkid/${values.memberId}`,
-      );
+    async ({queryKey}) => {
+      const {data} = await memberApis.idCheck(queryKey[1]);
       return data;
     },
     // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
@@ -109,7 +93,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
       enabled: false,
       // 재시도 횟수 1번
       retry: 1,
-      onSuccess: idCheckData => {
+      onSuccess: (idCheckData: any) => {
         // 통신 성공후 idCheckData의 success를 판별 => 유효성검사
         if (idCheckData) {
           console.log(idCheckData);
@@ -135,10 +119,10 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
     refetch: emailCheckFetch,
   } = useQuery(
     ['emailCheck', values.email],
-    async () => {
-      const {data} = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/members/mailConfirm?email=${values.email}`,
-      );
+
+    async ({queryKey}) => {
+      console.log(queryKey[1]);
+      const {data} = await memberApis.sendEmail(queryKey[1]);
       return data;
     },
     // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
@@ -146,8 +130,8 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
       refetchOnWindowFocus: false,
       enabled: false,
       // 재시도 횟수 1번
-      retry: 1,
-      onSuccess: data => {
+      retry: 0,
+      onSuccess: (data: any) => {
         if (data) {
           if (data.success) {
             dispatch(openGlobalModal('emailCheck'));
