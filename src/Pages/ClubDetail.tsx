@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useQuery, useMutation} from 'react-query';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
 import {getAccessToken} from '../utils';
+import {useNavigate} from 'react-router-dom';
 // type ClubDetailProps = {};
 type clubDetailType = {
   accessToken: string;
@@ -41,9 +42,11 @@ type clubDetailType = {
 const ClubDetail = () => {
   // , status, isLoading 추후에 쓰임
   const accessToken = getAccessToken();
+  const navigate = useNavigate();
   const {id} = useParams();
   // 화면에 클럽정보 뿌려주는api
-  const {data} = useQuery<clubDetailType | undefined>(
+
+  const {data, status} = useQuery<clubDetailType | undefined>(
     ['getClubDetail', accessToken, id],
     async () => {
       const response = await axios.get(
@@ -121,8 +124,17 @@ const ClubDetail = () => {
       },
     },
   );
-
   console.log(data);
+
+  useEffect(() => {
+    if (status === 'error') {
+      return alert('로그인이 필요합니다.'), navigate('/Login');
+    }
+  });
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -145,7 +157,7 @@ const ClubDetail = () => {
                   color: '#fff',
                 }}
                 onClick={() => interestDelClub()}>
-                빈 하트(관심 안된상태)
+                색깔(관심등록된 상태)
               </p>
             ) : (
               <p
@@ -157,19 +169,30 @@ const ClubDetail = () => {
                   border: '1px solid #333',
                 }}
                 onClick={() => interestClub()}>
-                색깔(관심등록된 상태)
+                빈 하트(관심 안된상태)
               </p>
             )}
             {data.subscription ? (
-              <p
-                style={{
-                  width: '300px',
-                  background: '#333',
-                  height: '100px',
-                  color: '#fff',
-                }}>
-                이미 가입한 모임입니다.
-              </p>
+              <>
+                <p
+                  style={{
+                    width: '300px',
+                    background: '#fff',
+                    height: '100px',
+                    color: '#333',
+                  }}>
+                  참석중
+                </p>
+                <p
+                  style={{
+                    width: '300px',
+                    background: '#fff',
+                    height: '100px',
+                    color: '#333',
+                  }}>
+                  탈퇴하기
+                </p>
+              </>
             ) : (
               <p
                 style={{
@@ -179,7 +202,7 @@ const ClubDetail = () => {
                   color: '#fff',
                 }}
                 onClick={() => signUpClub()}>
-                가입하기
+                참석하기
               </p>
             )}
           </div>

@@ -5,7 +5,7 @@ import {Link, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
-
+import HeaderSearch from './HeaderSearch';
 type HeaderProps = {};
 
 const Header = ({}: HeaderProps) => {
@@ -31,10 +31,7 @@ const Header = ({}: HeaderProps) => {
             <img src={logo} alt="logo" />
           </Link>
         </StLogo>
-        <StInputDiv>
-          <img src={MagnifyingGlass} alt="" />
-          <input type="text" placeholder="독서모임 찾아보기" />
-        </StInputDiv>
+        <HeaderSearch />
         <StNavBtnsDiv>
           {isLogin ? (
             <>

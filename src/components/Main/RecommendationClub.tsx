@@ -6,14 +6,25 @@ import pop2 from '../../assets/pop2.svg';
 import pop3 from '../../assets/pop3.svg';
 import pop4 from '../../assets/pop4.svg';
 import pop5 from '../../assets/pop5.svg';
+import {useQuery} from 'react-query';
+import axios from 'axios';
 const RecommendationClub = () => {
+  // const {data, status} = useQuery(['getClubsTop5'], async () => {
+  //   const response = await axios.get(
+  //     `${process.env.REACT_APP_BASE_URL}/clubs/top5`,
+  //   );
+  //   return response;
+  // });
+
+  // console.log(data);
+
   return (
     <RecommendationWrap>
       <TitleWrap>
         <h3>
-          이번주 인기 모임 <span>TOP5</span>
+          인기 모임 <span>TOP5</span>
         </h3>
-        <p>이번주 회원님들이 선정한 인기 독서 모임이에요!</p>
+        <p>회원님들이 선정한 인기 독서 모임이에요!</p>
       </TitleWrap>
       <div>
         <ListWrap>

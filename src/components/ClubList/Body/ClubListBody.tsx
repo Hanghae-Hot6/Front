@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import NavigationButton from '../../../common/NavigationButton';
 import * as C from './ClubListBody.style';
 // import styled from 'styled-components';
 import {Link, useLocation} from 'react-router-dom';
 import {useQuery} from 'react-query';
 import axios from 'axios';
-import {useEffect} from 'react';
+import {CategoryTop} from './ClubListBody.style';
 
 type Clubs = {
   id: string | number;
@@ -38,7 +38,6 @@ const ClubListBody = () => {
       setIndex(state);
     }
   }, []);
-  console.log(status);
 
   // useEffect(() => {
   //   setIndex(state);
@@ -67,15 +66,48 @@ const ClubListBody = () => {
         title: category,
         content:
           categoryFilter.length > 0 &&
-          categoryFilter.map((club: Clubs) => {
+          categoryFilter.map((club: Clubs, id: number) => {
             return (
-              <Link to={`/club_detail/${club.clubId}`} key={club.clubId}>
-                <div>
-                  <h2>{club.clubName}</h2>
-                  <p>{club.summary}</p>
-                  <img src={club.thumbnail} alt={club.summary} />
-                </div>
-              </Link>
+              <div key={club.clubId}>
+                {/* 인기 TOP3 */}
+                <Link to={`/club_detail/${club.clubId}`}>
+                  <div>
+                    <C.ImgWrap>
+                      <span>{id + 1}</span>
+                      <img src={club.thumbnail} alt={club.summary} />
+                    </C.ImgWrap>
+                    <C.CategoryTitle color="#5200FF">
+                      {club.clubName}
+                    </C.CategoryTitle>
+                    <C.Summary>{club.summary}</C.Summary>
+                  </div>
+                </Link>
+              </div>
+            );
+          }),
+        main:
+          categoryFilter.length > 0 &&
+          categoryFilter.map((club: Clubs, id: number) => {
+            return (
+              <div key={club.clubId}>
+                {/* 전체모임조회 */}
+                <Link to={`/club_detail/${club.clubId}`}>
+                  <C.MainContentBox>
+                    <C.MainImgWrap>
+                      <img src={club.thumbnail} alt={club.summary} />
+                    </C.MainImgWrap>
+                    <C.MainTitleWrap>
+                      <C.CategoryTitle color="#5200FF">
+                        {club.clubName}
+                      </C.CategoryTitle>
+                      {/* <C.Summary>{club.summary}</C.Summary> */}
+                      <C.Location>장소</C.Location>
+                      <C.Time>11/30(수) 10:30-12:30</C.Time>
+                      <C.People>현재인원/{club.memberLimit} 모집중</C.People>
+                    </C.MainTitleWrap>
+                  </C.MainContentBox>
+                </Link>
+              </div>
             );
           }),
       };
@@ -120,12 +152,34 @@ const ClubListBody = () => {
             .filter(item => index === item.id)
             .map(item => {
               return (
-                <C.ContentWrap key={item.id}>{item?.content}</C.ContentWrap>
+                <C.ContentWrap key={item.id}>
+                  <C.CategoryTitle color="#5200FF">
+                    이번주 <span>{item.title} 인기 독서 모임</span>
+                    <p>회원님들이 선정한 인기 독서 모임!</p>
+                  </C.CategoryTitle>
+                  {item.content ? (
+                    <div>
+                      <C.CategoryTop>{item?.content}</C.CategoryTop>
+                      <C.MainContentWrap>
+                        <C.CategoryTitle color="#5200FF">
+                          {item.title}에 대해 토론해봐요!
+                          <C.Summary>
+                            {item.title}독서 모임! 유저들은 이런 후기를
+                            남겼어요!
+                          </C.Summary>
+                        </C.CategoryTitle>
+                        <C.MainContent>{item.main}</C.MainContent>
+                      </C.MainContentWrap>
+                    </div>
+                  ) : (
+                    <C.NullClubWrap>
+                      아직 개설된 모임이 없습니다!
+                    </C.NullClubWrap>
+                  )}
+                </C.ContentWrap>
               );
             })}
       </C.TabList>
-      {/* <C.ToCreateClubButton path="/create_club">TOP</C.ToCreateClubButton> */}
-      {/* <C.ToCreateClubButton path="/create_club">TOP</C.ToCreateClubButton> */}
     </>
   );
 };
