@@ -66,9 +66,7 @@ const Carousel = () => {
             <C.CarouselListItem
               className="carouselImageWrap"
               key={index}
-              style={{
-                transform: `translateX(-${currCarousel * 100}%)`,
-              }}>
+              currCarousel={currCarousel}>
               <img src={url} alt={url} />
             </C.CarouselListItem>
           ))}

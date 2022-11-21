@@ -78,10 +78,13 @@ const FlexDiv = styled.div`
   align-items: center;
 `;
 
-const Container = styled.div`
+const Container = styled.div<{
+  width: number | undefined;
+  height: number | undefined;
+}>`
   display: flex;
-  width: ${(props: {width: number}) => props.width}rem;
-  height: ${(props: {height: number}) => props.height}rem;
+  width: ${(props: {width?: number}) => props.width}rem;
+  height: ${(props: {height?: number}) => props.height}rem;
   /* width: 100%; */
   /* height: 100%; */
   overflow: hidden;
