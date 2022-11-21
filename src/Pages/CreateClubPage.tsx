@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import NavigationButton from '../common/NavigationButton';
 import ThinLine from '../common/ThinLine';
-import CreateClubBody from '../components/CreateClub2/Body/CreateClubBody';
-import CreateClubTitle from '../components/CreateClub2/Title/CreateClubTitle';
+import CreateClubBody from '../components/CreateClub_FixClub/Body/CreateClubBody';
+import CreateClubTitle from '../components/CreateClub_FixClub/Title/CreateClubTitle';
 
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
@@ -17,7 +17,7 @@ const CreateClubPage = ({}: CreateClubPageProps) => {
     <>
       <Layout>
         <CreateClubPageLayout>
-          <CreateClubTitle />
+          <CreateClubTitle title="모임 개설하기" />
           <ThinLine color={Theme.MainColor} />
           <CreateClubBody />
         </CreateClubPageLayout>
@@ -29,5 +29,6 @@ export default CreateClubPage;
 
 const CreateClubPageLayout = styled.div`
   width: 86.8rem;
+  padding: 8.8rem 0;
   margin: auto;
 `;
