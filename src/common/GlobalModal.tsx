@@ -119,8 +119,6 @@ const StModal = styled.div`
   height: 100%;
 `;
 
-const StTextDiv = styled.div``;
-
 const StModalBody = styled.div`
   display: flex;
   flex-direction: column;

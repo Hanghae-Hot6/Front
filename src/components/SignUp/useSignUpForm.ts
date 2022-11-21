@@ -71,7 +71,8 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
       return response;
     },
     {
-      onSuccess: () => {
+      onSuccess: data => {
+        console.log(data);
         localStorage.setItem('userId', values.memberId);
         dispatch(openGlobalModal('loginComplete'));
       },
@@ -210,7 +211,7 @@ function useSignUpForm(initialValues: SignUpValuesProps, isSingUp: boolean) {
 
   // id 중복체크 버튼
   const IdCheckHandler = () => {
-    if (values.email === '') {
+    if (values.memberId === '') {
       dispatch(openGlobalModal('emptyIdAlert'));
     } else {
       idCheckFetch();

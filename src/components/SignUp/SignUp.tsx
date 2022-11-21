@@ -14,6 +14,7 @@ import RegistStForm from '../Elem/RegistStForm';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import {useState} from 'react';
 import SignUpModalCollection from './SignUpModalCollection';
+import Timer from '../Login/Timer';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -189,6 +190,7 @@ function SignUp() {
         <GlobalModal id="emailCheck">
           <StModalDiv>
             <span>이메일 인증번호를 입력해주세요...!</span>
+            <Timer initMin={2} initSec={0} />
             <form
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
                 e.preventDefault();

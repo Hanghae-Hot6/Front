@@ -35,7 +35,7 @@ const StForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: ${(props: {jc: string}) => props.jc || 'space-between'};
-  align-items: flex-start;
+  align-items: center;
   height: ${(props: {height: string}) => props.height || '102rem'};
   width: ${(props: {width: string}) => props.width || '49.6rem'};
   margin: 0 auto;
