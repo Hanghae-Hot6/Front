@@ -60,7 +60,7 @@ export const NavButton = styled.button<{isActive?: boolean}>`
   width: 4px;
   height: 4px;
   background-color: #000;
-  opacity: ${({isActive}: {isActive: boolean}) => (isActive ? 0.3 : 0.1)};
+  opacity: ${({isActive}) => (isActive ? 0.3 : 0.1)};
 `;
 
 export const NavItem = styled.li`
