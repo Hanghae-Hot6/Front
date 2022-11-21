@@ -4,6 +4,7 @@ import {QueryClient, useQuery, useQueryClient} from 'react-query';
 import styled from 'styled-components';
 import CarouselBooks from '../../components/CreateClub/CarouselBooks/CarouselBooks';
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
+import HeaderSearchBooks from './HeaderSearchBooks';
 type BookSearchBarProps = {};
 
 export type NaverBooksDataType = {
@@ -14,45 +15,46 @@ export type NaverBooksDataType = {
 };
 
 const BookSearchBar = ({}: BookSearchBarProps) => {
+  const [showBookSearchBar, setShowBookSearchBar] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
+
+  const fetch = async ({queryKey}: any) => {
+    console.log(queryKey[1]);
+    if (input) {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=12`,
+      );
+
+      return response?.data.data;
+    }
+  };
+
   const {
     data: getBooksData,
     status,
     isLoading,
     error,
-  } = useQuery<NaverBooksDataType[]>('getBooks', async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${input}&start=1&display=12`,
-    );
-
-    return response?.data.data;
-  });
+  } = useQuery<NaverBooksDataType[]>(['getBooks', input], fetch);
 
   let endNum: number;
   let divideBy: number;
 
-  let yo: NaverBooksDataType[][] = [];
+  let NewArray: NaverBooksDataType[][] = [];
   if (status === 'success') {
     if (getBooksData) {
       divideBy = 3;
       endNum = Math.ceil(getBooksData.length / 3);
-      let yo2 = [];
+      let NewPushArray = [];
       for (let i = 0; i < endNum; i++) {
         for (let k = 0; k < 3; k++) {
-          yo2.push(getBooksData[k + 3 * i]);
+          NewPushArray.push(getBooksData[k + 3 * i]);
         }
-        yo.push(yo2);
-        yo2 = [];
+        NewArray.push(NewPushArray);
+        NewPushArray = [];
       }
     }
   }
-  console.log(yo);
-
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    queryClient.invalidateQueries('getBooks');
-  }, [input]);
+  // console.log(yo);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -61,34 +63,35 @@ const BookSearchBar = ({}: BookSearchBarProps) => {
 
     setInput(value);
   };
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
+    e.preventDefault();
 
-  const mockData: NaverBooksDataType[] = [
-    {
-      title: '유럽 도시 기행 1',
-      image: '/assets/1.jpg',
-      isbn: 'string',
-      pubdate: 'string',
-    },
-  ];
-
+    setShowBookSearchBar(!showBookSearchBar);
+  };
   return (
     <>
       <Container>
-        <StInputDiv>
+        <StInputDiv onClick={handleClick}>
           <img src={MagnifyingGlass} alt="" />
           <input
             type="text"
-            placeholder="독서모임 찾아보기"
+            placeholder="도서 찾기"
             onChange={handleChange}
+            value={input}
           />
+          <div onClick={handleClick}>{showBookSearchBar ? 'X' : undefined}</div>
         </StInputDiv>
         {/* <SearchBar type="text" onChange={handleChange} /> */}
-        <Div1>
-          <Div2>
-            <CarouselBooks data={yo} width={40} height={30} />
-          </Div2>
-          <Div3></Div3>
-        </Div1>
+        {showBookSearchBar && (
+          <SearchBox>
+            <BoxWrap>
+              <Div2>
+                <HeaderSearchBooks data={NewArray} width={42} height={30} />
+              </Div2>
+              <Div3></Div3>
+            </BoxWrap>
+          </SearchBox>
+        )}
       </Container>
     </>
   );
@@ -98,22 +101,25 @@ export default BookSearchBar;
 const Container = styled.div`
   display: flex;
   /* border: 1px solid black; */
-  width: 60rem;
-  height: 40rem;
+  /* height: 40rem; */
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  left: -300px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 33%;
 `;
-
-const Div1 = styled.div`
+const SearchBox = styled.div`
+  position: absolute;
+  bottom: -1rem;
+  width: 42rem;
+`;
+const BoxWrap = styled.div`
   display: flex;
   height: 100%;
 `;
 const Div2 = styled.div`
-  width: 40rem;
+  width: 100%;
   height: 100%;
-  background-color: aliceblue;
 `;
 const Div3 = styled.div`
   flex: 2;
@@ -125,11 +131,10 @@ const SearchBar = styled.input`
 `;
 
 const StInputDiv = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 33%;
-  position: relative;
   img {
     position: absolute;
     left: 1.5rem;
@@ -139,13 +144,26 @@ const StInputDiv = styled.div`
     border: 1px solid #5200ff;
     box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
     border-radius: 26px;
-    height: 4.8rem;
-    width: 42.5rem;
-    font-size: 1.8rem;
+    height: 4rem;
+    width: 38.5rem;
+    font-size: 1.4rem;
     padding-left: 5rem;
     :focus {
       border-color: #5200ff;
       outline: none;
     }
+  }
+  div {
+    cursor: pointer;
+    position: absolute;
+    bottom: -4.2rem;
+    right: -2rem;
+    z-index: 10;
+    width: 3.5rem;
+    height: 3rem;
+    font-size: 2rem;
+    line-height: 3rem;
+    text-align: center;
+    color: #111;
   }
 `;

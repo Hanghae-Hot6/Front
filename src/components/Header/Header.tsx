@@ -73,6 +73,8 @@ const StHeaderSection = styled.section`
   width: 1280px;
   margin: 0 auto;
   height: 9rem;
+  justify-content: space-between;
+  z-index: 10;
   img {
     transform: scale(0.95);
   }
@@ -83,31 +85,31 @@ const StLogo = styled.div`
   justify-content: start;
   width: 33%;
 `;
-const StInputDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 33%;
-  position: relative;
-  img {
-    position: absolute;
-    left: 1.5rem;
-  }
-  input {
-    background: #ffffff;
-    border: 1px solid #5200ff;
-    box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
-    border-radius: 26px;
-    height: 4.8rem;
-    width: 42.5rem;
-    font-size: 1.8rem;
-    padding-left: 5rem;
-    :focus {
-      border-color: #5200ff;
-      outline: none;
-    }
-  }
-`;
+// const StInputDiv = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 33%;
+//   position: relative;
+//   img {
+//     position: absolute;
+//     left: 1.5rem;
+//   }
+//   input {
+//     background: #ffffff;
+//     border: 1px solid #5200ff;
+//     box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
+//     border-radius: 26px;
+//     height: 4.8rem;
+//     width: 42.5rem;
+//     font-size: 1.8rem;
+//     padding-left: 5rem;
+//     :focus {
+//       border-color: #5200ff;
+//       outline: none;
+//     }
+//   }
+// `;
 const StNavBtnsDiv = styled.div`
   width: 33%;
   display: flex;
@@ -117,16 +119,16 @@ const StNavBtnsDiv = styled.div`
     color: black;
     font-weight: 600;
     background-color: #fff;
-    font-size: 20px;
-    height: 4.5rem;
-    width: 13.4rem;
+    font-size: 16px;
+    height: 4rem;
+    width: 12rem;
   }
   button:nth-child(3) {
     color: white;
     font-weight: 600;
     background-color: black;
     font-size: 16px;
-    height: 4.5rem;
-    width: 13.4rem;
+    height: 4rem;
+    width: 10rem;
   }
 `;
