@@ -14,8 +14,6 @@ const CarouselBooksChild = ({
   width = 40,
   height = 20,
 }: CarouselBooksChildProps) => {
-  console.log(data);
-
   return (
     <Div width={width} height={height}>
       {data?.map((val, index) => {

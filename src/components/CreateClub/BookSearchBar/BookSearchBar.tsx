@@ -14,18 +14,24 @@ export type NaverBooksDataType = {
 
 const BookSearchBar = ({}: BookSearchBarProps) => {
   const [input, setInput] = useState<string>('');
+
+  const fetchYo = async ({queryKey}: any) => {
+    console.log(queryKey[1]);
+    if (input) {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=12`,
+      );
+
+      return response?.data.data;
+    }
+  };
+
   const {
     data: getBooksData,
     status,
     isLoading,
     error,
-  } = useQuery<NaverBooksDataType[]>('getBooks', async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${input}&start=1&display=12`,
-    );
-
-    return response?.data.data;
-  });
+  } = useQuery<NaverBooksDataType[]>(['getBooks', input], fetchYo);
 
   let endNum: number;
   let divideBy: number;
@@ -45,32 +51,18 @@ const BookSearchBar = ({}: BookSearchBarProps) => {
       }
     }
   }
-  console.log(yo);
+  // console.log(yo);
 
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    queryClient.invalidateQueries('getBooks');
-  }, [input]);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
 
     const {value} = e.target;
+    queryClient.invalidateQueries(['getBooks']);
 
     setInput(value);
   };
-
-  const mockData: NaverBooksDataType[] = [
-    {
-      title: '유럽 도시 기행 1',
-
-      image: '/assets/1.jpg',
-
-      isbn: 'string',
-      pubdate: 'string',
-    },
-  ];
 
   return (
     <>

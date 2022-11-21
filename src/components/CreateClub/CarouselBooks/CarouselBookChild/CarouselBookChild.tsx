@@ -15,11 +15,11 @@ const CarouselBookChild = ({
 }: CarouselBookChildProps) => {
   return (
     <Div width={width} height={height}>
-      <Image src={data.image} />
+      <Image src={data?.image} />
       <SmallDiv>
-        <Title>{data.title}</Title>
-        <Author>{data.isbn}</Author>
-        <Price>{data.pubdate}</Price>
+        <Title>{data?.title}</Title>
+        <Author>{data?.isbn}</Author>
+        <Price>{data?.pubdate}</Price>
         {/* <Content>{data.}</Content> */}
       </SmallDiv>
     </Div>

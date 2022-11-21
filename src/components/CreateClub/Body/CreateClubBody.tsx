@@ -44,7 +44,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
   };
 
   //내일 서버 열리면 타입 만들어 주기
-  const {data: getBooksData, status} = useQuery<any>('getBooks');
+  const {data: getBooksData, status} = useQuery<any>(['getBooks']);
 
   // console.log(getBooksData?.data.data);
   // console.log(error);
