@@ -129,12 +129,12 @@ const StContainer = styled.div`
   height: 100%;
 `;
 
-const StNavBtn = styled.button`
+const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   display: flex;
   width: 40rem;
   height: 6rem;
-  color: ${(props: {fontC: string}) => props.fontC};
-  background-color: ${(props: {bgColor: string}) => props.bgColor};
+  color: ${({fontC}) => fontC};
+  background-color: ${({bgColor}) => bgColor};
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 4.3rem;

@@ -13,8 +13,8 @@ import kako_comment_img from '../../assets/kako_comment_img.svg';
 import {useSelector} from 'react-redux';
 import {useQuery} from 'react-query';
 import axios from 'axios';
-import RegistStInput from '../Elem/RegistStInput';
 import RegistStForm from '../Elem/RegistStForm';
+import RegistStInput from '../Elem/RegistStInput';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
 
 function LoginForm() {
@@ -138,15 +138,15 @@ function LoginForm() {
             </StNavBtn>
           </a>
           <StSmallBtnContainer>
-            <StSmallNavBtn type="button" path="/login/find-id">
-              아이디 찾기
-            </StSmallNavBtn>
-            <StSmallNavBtn type="button" path="/login/find-password">
-              비밀번호 찾기
-            </StSmallNavBtn>
-            <StSmallNavBtn type="button" path={'/sign'}>
-              회원가입
-            </StSmallNavBtn>
+            <Link to="/login/find-id">
+              <StSmallNavBtn type="button">아이디 찾기</StSmallNavBtn>
+            </Link>
+            <Link to="/login/find-password">
+              <StSmallNavBtn type="button">비밀번호 찾기</StSmallNavBtn>
+            </Link>
+            <Link to="/sign">
+              <StSmallNavBtn type="button">회원가입</StSmallNavBtn>
+            </Link>
           </StSmallBtnContainer>
         </ButtonContainer>
       </RegistStForm>
@@ -197,12 +197,12 @@ const StLoginDivier = styled.div`
   }
 `;
 
-const StNavBtn = styled.button`
+const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   display: flex;
   width: 40rem;
   height: 6rem;
-  color: ${(props: {fontC: string}) => props.fontC};
-  background-color: ${(props: {bgColor: string}) => props.bgColor};
+  color: ${({fontC}) => fontC};
+  background-color: ${({bgColor}) => bgColor};
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 4.3rem;
@@ -220,8 +220,11 @@ const StSmallBtnContainer = styled.div`
   width: 100%;
 `;
 
-const StSmallNavBtn = styled(NavigationButton)`
-  color: ${(props: {fontC: string}) => props.fontC};
+const StSmallNavBtn = styled.button<{
+  fontC?: string | undefined;
+  type?: 'button' | 'submit' | 'reset' | undefined;
+}>`
+  color: ${({fontC}) => fontC};
   background-color: white;
   color: #767676;
   font-size: 1.8rem;
@@ -230,10 +233,4 @@ const StSmallNavBtn = styled(NavigationButton)`
   width: 33%;
   justify-content: center;
   align-items: center;
-`;
-
-const StErrorSpan = styled.span`
-  color: #ff0000;
-  font-size: 1.4rem;
-  margin-top: 0.4rem;
 `;

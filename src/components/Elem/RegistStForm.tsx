@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
 
 type RegistStFormProps = {
-  jc?: string;
+  jc?: string | undefined;
   title?: string;
   width?: string;
   height?: string;
@@ -13,13 +13,20 @@ type RegistStFormProps = {
 
 function RegistStForm({
   jc,
+  width,
+  height,
   title,
   children,
   onSubmit,
   ...props
 }: RegistStFormProps) {
   return (
-    <StForm onSubmit={onSubmit} jc={jc} {...props}>
+    <StForm
+      onSubmit={onSubmit}
+      jc={jc}
+      width={width}
+      height={height}
+      {...props}>
       <StLogoDiv>
         <img src={logo} alt="" />
         <span>{title}</span>
@@ -31,13 +38,17 @@ function RegistStForm({
 
 export default RegistStForm;
 
-const StForm = styled.form`
+const StForm = styled.form<{
+  jc: string | undefined;
+  height: string | undefined;
+  width: string | undefined;
+}>`
   display: flex;
   flex-direction: column;
-  justify-content: ${(props: {jc: string}) => props.jc || 'space-between'};
+  justify-content: ${({jc}) => jc || 'space-between'};
   align-items: center;
-  height: ${(props: {height: string}) => props.height || '102rem'};
-  width: ${(props: {width: string}) => props.width || '49.6rem'};
+  height: ${({height}) => height || '102rem'};
+  width: ${({width}) => width || '49.6rem'};
   margin: 0 auto;
   border: 1px solid #c1a4ff;
   padding: 4.8rem;
