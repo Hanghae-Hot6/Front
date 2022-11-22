@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useQuery, useMutation} from 'react-query';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
 import {getAccessToken} from '../utils';
+import {useNavigate} from 'react-router-dom';
 // type ClubDetailProps = {};
 type clubDetailType = {
   accessToken: string;
@@ -41,9 +42,11 @@ type clubDetailType = {
 const ClubDetail = () => {
   // , status, isLoading 추후에 쓰임
   const accessToken = getAccessToken();
+  const navigate = useNavigate();
   const {id} = useParams();
   // 화면에 클럽정보 뿌려주는api
-  const {data} = useQuery<clubDetailType | undefined>(
+
+  const {data, status} = useQuery<clubDetailType | undefined>(
     ['getClubDetail', accessToken, id],
     async () => {
       const response = await axios.get(
@@ -58,11 +61,11 @@ const ClubDetail = () => {
     },
   );
 
-  //클럽 가입하기 api
+  //모임 가입하기 api
   const {mutate: signUpClub} = useMutation(
     async () => {
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/clubs/${id}`,
+        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/join`,
         id,
         {
           headers: {
@@ -81,7 +84,57 @@ const ClubDetail = () => {
       },
     },
   );
+  // 관심 모임 api
+  const {mutate: interestClub} = useMutation(
+    async () => {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/interest`,
+        id,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      );
+      return response.data.data;
+    },
+    {
+      onSuccess: data => {
+        alert(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
+
+  const {mutate: interestDelClub} = useMutation(
+    async () => {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/interest`,
+      );
+      return response.data.data;
+    },
+    {
+      onSuccess: data => {
+        alert(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
   console.log(data);
+
+  useEffect(() => {
+    if (status === 'error') {
+      return alert('로그인이 필요합니다.'), navigate('/Login');
+    }
+  });
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -95,26 +148,61 @@ const ClubDetail = () => {
             <img src={data.imageUrl} alt={data.imageUrl} />
             <h3>{data.leader}</h3>
             <p>{data.schedule}</p>
-            {data.subscription ? (
+            {data.interest ? (
               <p
                 style={{
-                  width: '300px',
+                  width: '100px',
                   background: '#333',
-                  height: '300px',
+                  height: '100px',
                   color: '#fff',
-                }}>
-                이미 가입한 모임입니다.
+                }}
+                onClick={() => interestDelClub()}>
+                색깔(관심등록된 상태)
               </p>
+            ) : (
+              <p
+                style={{
+                  width: '100px',
+                  background: '#fff',
+                  height: '100px',
+                  color: '#333',
+                  border: '1px solid #333',
+                }}
+                onClick={() => interestClub()}>
+                빈 하트(관심 안된상태)
+              </p>
+            )}
+            {data.subscription ? (
+              <>
+                <p
+                  style={{
+                    width: '300px',
+                    background: '#fff',
+                    height: '100px',
+                    color: '#333',
+                  }}>
+                  참석중
+                </p>
+                <p
+                  style={{
+                    width: '300px',
+                    background: '#fff',
+                    height: '100px',
+                    color: '#333',
+                  }}>
+                  탈퇴하기
+                </p>
+              </>
             ) : (
               <p
                 style={{
                   width: '300px',
                   background: '#333',
-                  height: '300px',
+                  height: '100px',
                   color: '#fff',
                 }}
                 onClick={() => signUpClub()}>
-                가입하기
+                참석하기
               </p>
             )}
           </div>

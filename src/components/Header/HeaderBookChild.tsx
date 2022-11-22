@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {NaverBooksDataType} from '../../BookSearchBar/BookSearchBar';
+import {NaverBooksDataType} from '../../components/CreateClub/BookSearchBar/BookSearchBar';
 
 type CarouselBookChildProps = {
   data: NaverBooksDataType;
@@ -33,6 +33,7 @@ const Div = styled.div<{width: number; height: number}>`
   height: ${(props: {height: number}) => props.height}rem;
   display: flex;
   padding: 1rem;
+  margin-bottom: 3px;
   border: 1px solid black;
 `;
 const SmallDiv = styled.div`

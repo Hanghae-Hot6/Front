@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {NaverBooksDataType} from '../../BookSearchBar/BookSearchBar';
-import CarouselBookChild from '../CarouselBookChild/CarouselBookChild';
+import {NaverBooksDataType} from '../../components/CreateClub/BookSearchBar/BookSearchBar';
+import HeaderBookChild from './HeaderBookChild';
 
 type CarouselBooksChildProps = {
   data: NaverBooksDataType[] | undefined;
@@ -18,7 +18,7 @@ const CarouselBooksChild = ({
     <Div width={width} height={height}>
       {data?.map((val, index) => {
         return (
-          <CarouselBookChild key={index} data={val} width={20} height={10} />
+          <HeaderBookChild key={index} data={val} width={20} height={10} />
         );
       })}
     </Div>
