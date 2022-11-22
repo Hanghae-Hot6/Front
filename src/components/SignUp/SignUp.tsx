@@ -117,8 +117,17 @@ function SignUp() {
       <RegistStForm
         onSubmit={handleSubmit}
         title="간편하게 회원가입"
-        height="102rem"
+        height="83rem"
         width="49.2rem">
+        <RegistStInput
+          id="username"
+          type="text"
+          name="username"
+          onChange={handleChange}
+          value={values.username}
+          label="실명"></RegistStInput>
+        <RegistErrorSpan>{errors.username}</RegistErrorSpan>
+
         <RegistStInput
           id="id"
           type="text"
@@ -131,6 +140,24 @@ function SignUp() {
           </StCheckBtn>
         </RegistStInput>
         <RegistErrorSpan>{errors.memberId || errors.idCheck}</RegistErrorSpan>
+
+        <RegistStInput
+          id="email"
+          type="email"
+          name="email"
+          onChange={handleChange}
+          value={values.email}
+          maxLength={20}
+          label="E-mail">
+          <StCheckBtn
+            type="button"
+            onClick={() => {
+              certEmailHandler();
+            }}>
+            이메일 인증
+          </StCheckBtn>
+        </RegistStInput>
+        <RegistErrorSpan>{errors.email || errors.emailCheck}</RegistErrorSpan>
 
         <RegistStInput
           id="password"
@@ -159,7 +186,7 @@ function SignUp() {
         </RegistStInput>
         <RegistErrorSpan>{errors.passwordCheck}</RegistErrorSpan>
 
-        <RegistStInput
+        {/* <RegistStInput
           id="address"
           type="address"
           name="address"
@@ -175,34 +202,7 @@ function SignUp() {
           onChange={handleChange}
           value={values.phoneNumber}
           label="전화번호"></RegistStInput>
-        <RegistErrorSpan>{errors.phoneNumber}</RegistErrorSpan>
-
-        <RegistStInput
-          id="email"
-          type="email"
-          name="email"
-          onChange={handleChange}
-          value={values.email}
-          maxLength={20}
-          label="E-mail">
-          <StCheckBtn
-            type="button"
-            onClick={() => {
-              certEmailHandler();
-            }}>
-            이메일 인증
-          </StCheckBtn>
-        </RegistStInput>
-        <RegistErrorSpan>{errors.email || errors.emailCheck}</RegistErrorSpan>
-
-        <RegistStInput
-          id="username"
-          type="text"
-          name="username"
-          onChange={handleChange}
-          value={values.username}
-          label="실명"></RegistStInput>
-        <RegistErrorSpan>{errors.username}</RegistErrorSpan>
+        <RegistErrorSpan>{errors.phoneNumber}</RegistErrorSpan> */}
 
         <ButtonContainer>
           <StNavBtn type="submit" bgColor="#5200FF" fontC="white">

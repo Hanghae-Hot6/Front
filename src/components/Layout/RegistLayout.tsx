@@ -22,13 +22,16 @@ const StLayout = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const StSection = styled.div`
+  display: flex;
   width: 128rem;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 `;

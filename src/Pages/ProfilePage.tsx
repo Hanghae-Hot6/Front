@@ -106,6 +106,5 @@ const StSection = styled.section`
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  margin-top: 9rem;
   background-color: #fdfcff;
 `;
