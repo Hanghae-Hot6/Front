@@ -87,7 +87,7 @@ const ClubListBody = () => {
           }),
         main:
           categoryFilter.length > 0 &&
-          categoryFilter.map((club: Clubs, id: number) => {
+          categoryFilter.map((club: Clubs) => {
             return (
               <div key={club.clubId}>
                 {/* 전체모임조회 */}

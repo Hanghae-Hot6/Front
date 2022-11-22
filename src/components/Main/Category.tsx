@@ -39,9 +39,9 @@ const Category = () => {
 export default Category;
 
 const CategorySection = styled.section`
-  margin-top: 7rem;
   display: flex;
   justify-content: center;
+  margin-top: 2rem;
 `;
 const LinkSt = styled(Link)`
   display: inline-block;

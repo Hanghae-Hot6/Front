@@ -32,7 +32,7 @@ const Layout = (props: Props) => {
   return (
     <div>
       <Header />
-      <section style={{width: '1280px', margin: '0 auto', marginTop: '90px'}}>
+      <section style={{width: '1280px', margin: '0 auto', overflow: 'hidden'}}>
         {props.children}
       </section>
       <Footer />
@@ -54,7 +54,7 @@ const TopButton = styled.button`
   width: 5.5rem;
   height: 5.5rem;
   bottom: 20rem;
-  right: 10rem;
+  right: 12rem;
   border: 1px solid #5200ff;
   box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
   border-radius: 50%;

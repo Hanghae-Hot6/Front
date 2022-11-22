@@ -5,6 +5,10 @@ import {useParams} from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
 import {getAccessToken} from '../utils';
 import {useNavigate} from 'react-router-dom';
+import styled from 'styled-components';
+import {idText} from 'typescript';
+import heartOn from '../assets/heartOn.svg';
+import heartOff from '../assets/heartOff.svg';
 // type ClubDetailProps = {};
 type clubDetailType = {
   accessToken: string;
@@ -108,13 +112,14 @@ const ClubDetail = () => {
     },
   );
 
-  const {mutate: interestDelClub} = useMutation(
+  const {mutate: delClub} = useMutation(
     async () => {
       const response = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/interest`,
+        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/withdraw`,
       );
       return response.data.data;
     },
+
     {
       onSuccess: data => {
         alert(data);
@@ -124,7 +129,6 @@ const ClubDetail = () => {
       },
     },
   );
-  console.log(data);
 
   useEffect(() => {
     if (status === 'error') {
@@ -140,75 +144,146 @@ const ClubDetail = () => {
     <>
       <Layout>
         {data && (
-          <div>
-            <h2>{data.category}</h2>
-            <p>{data.clubName}</p>
-            <div>{data.clubIntro}</div>
-            <span>{data.plan}</span>
-            <img src={data.imageUrl} alt={data.imageUrl} />
-            <h3>{data.leader}</h3>
-            <p>{data.schedule}</p>
-            {data.interest ? (
-              <p
-                style={{
-                  width: '100px',
-                  background: '#333',
-                  height: '100px',
-                  color: '#fff',
-                }}
-                onClick={() => interestDelClub()}>
-                색깔(관심등록된 상태)
-              </p>
-            ) : (
-              <p
-                style={{
-                  width: '100px',
-                  background: '#fff',
-                  height: '100px',
-                  color: '#333',
-                  border: '1px solid #333',
-                }}
-                onClick={() => interestClub()}>
-                빈 하트(관심 안된상태)
-              </p>
-            )}
-            {data.subscription ? (
-              <>
-                <p
-                  style={{
-                    width: '300px',
-                    background: '#fff',
-                    height: '100px',
-                    color: '#333',
-                  }}>
-                  참석중
-                </p>
-                <p
-                  style={{
-                    width: '300px',
-                    background: '#fff',
-                    height: '100px',
-                    color: '#333',
-                  }}>
-                  탈퇴하기
-                </p>
-              </>
-            ) : (
-              <p
-                style={{
-                  width: '300px',
-                  background: '#333',
-                  height: '100px',
-                  color: '#fff',
-                }}
-                onClick={() => signUpClub()}>
-                참석하기
-              </p>
-            )}
-          </div>
+          <>
+            <MainContent>
+              <div>
+                <ImageWrap>
+                  <img src={data.bookImage1} alt={data.bookIntro} />
+                </ImageWrap>
+              </div>
+
+              <div>
+                <TitleWrap>
+                  <h3>{data.category}</h3>
+                  <h2>{data.clubSummary}</h2>
+                  <p>{data.clubName}</p>
+                </TitleWrap>
+                <ClubInfoWrap>
+                  <p>
+                    <span>장소</span>
+                    {data.location}
+                  </p>
+                  <p>
+                    <span>날짜</span>
+                    {data.period}
+                  </p>
+                  <p>
+                    <span>주최자</span>
+                    {data.leader}
+                  </p>
+                  <p>
+                    <span>참석인원</span>
+                    {data.participantNum}
+                  </p>
+                </ClubInfoWrap>
+
+                <ClubJoin>
+                  {data.interest ? (
+                    <InterestBtn onClick={() => interestClub()}>
+                      <img src={heartOn} alt="관심모임등록" />
+                    </InterestBtn>
+                  ) : (
+                    <InterestBtn onClick={() => interestClub()}>
+                      <img src={heartOff} alt="관심모임해제" />
+                    </InterestBtn>
+                  )}
+                  {data.subscription ? (
+                    <>
+                      <button
+                        style={{
+                          width: '300px',
+                          background: '#fff',
+                          height: '100px',
+                          color: '#333',
+                        }}>
+                        참석중
+                      </button>
+                      <button
+                        style={{
+                          width: '300px',
+                          background: '#fff',
+                          height: '100px',
+                          color: '#333',
+                        }}
+                        onClick={() => delClub()}>
+                        탈퇴하기
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      style={{
+                        width: '300px',
+                        background: '#333',
+                        height: '100px',
+                        color: '#fff',
+                      }}
+                      onClick={() => signUpClub()}>
+                      참석하기
+                    </button>
+                  )}
+                </ClubJoin>
+              </div>
+            </MainContent>
+          </>
         )}
       </Layout>
     </>
   );
 };
 export default ClubDetail;
+
+export const MainContent = styled.div`
+  display: flex;
+  margin-top: 5rem;
+`;
+
+export const ImageWrap = styled.div`
+  width: 57.3rem;
+  height: 56rem;
+  background-color: #cacad7;
+  display: flex;
+  margin-right: 9.2rem;
+  > img {
+    display: inline-block;
+    margin: 10% auto;
+    width: 50.4rem;
+    height: 90%;
+    object-fit: cover;
+    object-position: top;
+  }
+`;
+
+export const TitleWrap = styled.div`
+  width: 59.2rem;
+  border-bottom: 1px solid #dbdbdb;
+  > h3 {
+    color: gray;
+    font-size: 2rem;
+    margin-bottom: 1.8rem;
+  }
+  > h2 {
+    font-weight: 600;
+    font-size: 3rem;
+    margin-bottom: 1.8rem;
+  }
+  > p {
+    color: ${props => props.theme.MainColor};
+    font-weight: 600;
+    font-size: 2.4rem;
+    padding-bottom: 30px;
+  }
+`;
+
+export const ClubInfoWrap = styled.div`
+  margin-top: 3rem;
+`;
+
+export const ClubJoin = styled.div`
+  padding: 0;
+`;
+
+export const InterestBtn = styled.button`
+  padding: 0;
+  width: 6rem;
+  height: 6rem;
+`;

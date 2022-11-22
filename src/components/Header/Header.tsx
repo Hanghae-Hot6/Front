@@ -25,44 +25,51 @@ const Header = ({}: HeaderProps) => {
 
   return (
     <>
-      <StHeaderSection>
-        <StLogo>
-          <Link to="/">
-            <img src={logo} alt="logo" />
-          </Link>
-        </StLogo>
-        <HeaderSearch />
-        <StNavBtnsDiv>
-          {isLogin ? (
-            <>
-              <NavigationButton
-                path={`/login`}
-                onClickCallback={() => {
-                  localStorage.removeItem('Authorization');
-                  localStorage.removeItem('userId');
-                }}>
-                로그아웃
-              </NavigationButton>
-              <NavigationButton path={`/profile/${userId}`}>
-                마이페이지
-              </NavigationButton>
-              <NavigationButton path={`/create_club`}>
-                모임개설
-              </NavigationButton>
-            </>
-          ) : (
-            <>
-              <NavigationButton path="/login">로그인</NavigationButton>
-              <NavigationButton path="/sign">회원가입</NavigationButton>
-            </>
-          )}
-        </StNavBtnsDiv>
-      </StHeaderSection>
+      <StHeader>
+        <StHeaderSection>
+          <StLogo>
+            <Link to="/">
+              <img src={logo} alt="logo" />
+            </Link>
+          </StLogo>
+          <HeaderSearch />
+          <StNavBtnsDiv>
+            {isLogin ? (
+              <>
+                <NavigationButton
+                  path={`/login`}
+                  onClickCallback={() => {
+                    localStorage.removeItem('Authorization');
+                    localStorage.removeItem('userId');
+                  }}>
+                  로그아웃
+                </NavigationButton>
+                <NavigationButton path={`/profile/${userId}`}>
+                  마이페이지
+                </NavigationButton>
+                <NavigationButton path={`/create_club`}>
+                  모임개설
+                </NavigationButton>
+              </>
+            ) : (
+              <>
+                <NavigationButton path="/login">로그인</NavigationButton>
+                <NavigationButton path="/sign">회원가입</NavigationButton>
+              </>
+            )}
+          </StNavBtnsDiv>
+        </StHeaderSection>
+      </StHeader>
     </>
   );
 };
 export default Header;
-
+const StHeader = styled.div`
+  width: 99vw;
+  height: 92px;
+  border-bottom: 1px solid #eee;
+  overflow: hidden;
+`;
 const StHeaderSection = styled.section`
   display: flex;
   align-items: center;
