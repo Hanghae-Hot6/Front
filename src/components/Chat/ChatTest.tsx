@@ -23,6 +23,7 @@ const ChatTest = ({}: ChatTestProps) => {
   useEffect(() => {
     ChattingServiceKit.onConnect(
       '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
+      getAccessToken(),
       {
         Authorization: getAccessToken(),
         type: 'TALK',

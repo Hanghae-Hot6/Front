@@ -116,6 +116,11 @@ const ClubDetail = () => {
     async () => {
       const response = await axios.delete(
         `${process.env.REACT_APP_BASE_URL}/clubs/${id}/withdraw`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
       );
       return response.data.data;
     },

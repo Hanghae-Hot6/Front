@@ -11,6 +11,11 @@ type MessageObjectType = {
 };
 
 type functionType = ({...props}) => void;
+type HeadersType =
+  | {
+      Authorization: string | undefined;
+    }
+  | {};
 
 class ChattingService {
   socket = new sockJS(`${process.env.REACT_APP_BASE_URL}/wss/chat`);
@@ -28,8 +33,8 @@ class ChattingService {
 
   onConnect = (
     roomNo: string, // 채팅룸 고유주소
-
-    headers = {}, // headers에 {} 인증요청 집어 넣기
+    token: string | undefined,
+    headers: HeadersType = {}, // headers에 {} 인증요청 집어 넣기
     callback: any = () => {},
     userId: string | null,
   ) => {
@@ -37,13 +42,21 @@ class ChattingService {
 
     this.stompClient.connect(headers, () => {
       console.log('연결됬음');
-      this.stompClient.subscribe(`/sub/chat/room/${roomNo}`, data => {
-        receivingMessage = JSON.parse(data.body);
-        // 연결 성공시 발동시킬 콜백 넣기
-        // 주로 메세지를 받는 로직을 여기에 넣는다
+      this.stompClient.subscribe(
+        `/sub/chat/room/${roomNo}`,
+        data => {
+          receivingMessage = JSON.parse(data.body);
+          // 연결 성공시 발동시킬 콜백 넣기
+          // 주로 메세지를 받는 로직을 여기에 넣는다
 
-        callback(receivingMessage);
-      });
+          callback(receivingMessage);
+        },
+        token
+          ? {
+              Authorization: token,
+            }
+          : {},
+      );
       this.stompClient.send(
         '/pub/chat/message',
         headers,
