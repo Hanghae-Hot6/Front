@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import {memberApis} from '../../api/axiosconfig';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../Redux/store/store';
-import {SignValueType} from '../../types/regist';
+import {CertNumValuesType, SignValueType} from '../../types/regist';
 import validate from '../../utils/validate';
 
 type ErrorsValue = {
@@ -226,9 +226,14 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
     }
   };
   // 이메일 인증번호 작성후 모달 확인 버튼
-  const emailModalCheckHandler = (certNum: string) => {
+  const emailModalCheckHandler = (certNumObj: any) => {
+    let certNum = '';
+    for (let b = 0; b < Object.keys(certNumObj).length; b++) {
+      certNum = certNum + certNumObj['certNumber' + b];
+    }
+
     setCertNumber(certNum);
-    if (certNum === '') {
+    if (certNumber === '' || undefined) {
       dispatch(openGlobalModal('certNumEmptyAlert'));
     } else {
       console.log(certNum);

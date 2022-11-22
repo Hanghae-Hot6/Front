@@ -15,7 +15,8 @@ import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import {useState} from 'react';
 import SignUpModalCollection from './SignUpModalCollection';
 import Timer from '../Login/Timer';
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
+import {cursorTo} from 'readline';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -25,8 +26,19 @@ function SignUp() {
     state => state.modalReducer,
   );
 
+  const certNumInit = {
+    certNumber0: '',
+    certNumber1: '',
+    certNumber2: '',
+    certNumber3: '',
+    certNumber4: '',
+    certNumber5: '',
+    certNumber6: '',
+    certNumber7: '',
+  };
+
   // 인증번호 모달
-  const [certNumValue, setCertNumValue] = useState('');
+  const [certNumValue, setCertNumValue] = useState(certNumInit);
 
   // 비밀번호 보이기, 숨기기
   const [passwordType, setPasswordType] = useState({
@@ -82,13 +94,24 @@ function SignUp() {
 
   const inputRef = useRef<null[] | HTMLInputElement[]>([]);
 
-  const handleFocus = (idx: number) => {
-    console.log(inputRef.current);
+  const handleFocus = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+    const {name, value} = e.currentTarget;
+    setCertNumValue({...certNumValue, [name]: value});
 
-    // inputRef.current[idx]!.focus({
-    //   cursor: 'end',
-    // });
+    if (value.length >= 1) {
+      inputRef.current[idx]!.className = 'On';
+    } else {
+      inputRef.current[idx]!.className = 'certNumInput';
+    }
+    if (idx + 1 === 8) {
+      inputRef.current[idx]!.focus();
+    } else {
+      inputRef.current[idx + 1]!.focus();
+    }
   };
+
+  useEffect(() => {});
+
   return (
     <StContainer>
       <RegistStForm
@@ -225,54 +248,83 @@ function SignUp() {
                   <input
                     type="text"
                     name="certNumber0"
-                    // ref={inputRef}
-                    onClick={() => {
-                      handleFocus(0);
+                    className="certNumInput"
+                    maxLength={1}
+                    ref={elem => (inputRef.current[0] = elem)}
+                    onChange={e => {
+                      handleFocus(e, 0);
                     }}
                   />
-                  {/* <input
+                  <input
                     type="text"
                     name="certNumber1"
-                    ref={inputRef}
-                    onClick={() => {
-                      handleFocus(1);
+                    className="certNumInput"
+                    maxLength={1}
+                    ref={elem => (inputRef.current[1] = elem)}
+                    onChange={e => {
+                      handleFocus(e, 1);
                     }}
-                  /> */}
-                  {/* <input
+                  />
+                  <input
+                    type="text"
+                    name="certNumber2"
+                    className="certNumInput"
+                    maxLength={1}
+                    ref={elem => (inputRef.current[2] = elem)}
+                    onChange={e => {
+                      handleFocus(e, 2);
+                    }}
+                  />
+                  <input
                     type="text"
                     name="certNumber3"
-                    ref={elem => (inputRef.current[2] = elem)}
+                    className="certNumInput"
+                    maxLength={1}
+                    ref={elem => (inputRef.current[3] = elem)}
+                    onChange={e => {
+                      handleFocus(e, 3);
+                    }}
                   />
                   <input
                     type="text"
                     name="certNumber4"
-                    ref={elem => (inputRef.current[3] = elem)}
+                    className="certNumInput"
+                    maxLength={1}
+                    ref={elem => (inputRef.current[4] = elem)}
+                    onChange={e => {
+                      handleFocus(e, 4);
+                    }}
                   />
                   <input
                     type="text"
                     name="certNumber5"
-                    ref={elem => (inputRef.current[4] = elem)}
+                    className="certNumInput"
+                    maxLength={1}
+                    ref={elem => (inputRef.current[5] = elem)}
+                    onChange={e => {
+                      handleFocus(e, 5);
+                    }}
                   />
                   <input
                     type="text"
                     name="certNumber6"
-                    ref={elem => (inputRef.current[5] = elem)}
-                  />
-                  <input
-                    type="text"
-                    name="certNumber7"
+                    className="certNumInput"
+                    maxLength={1}
                     ref={elem => (inputRef.current[6] = elem)}
+                    onChange={e => {
+                      handleFocus(e, 6);
+                    }}
                   />
                   <input
                     type="text"
                     name="certNumber7"
+                    className="certNumInput"
+                    maxLength={1}
                     ref={elem => (inputRef.current[7] = elem)}
+                    onChange={e => {
+                      handleFocus(e, 7);
+                    }}
                   />
-                  <input
-                    type="text"
-                    name="certNumber7"
-                    ref={elem => (inputRef.current[8] = elem)}
-                  /> */}
                 </StInputBox>
               </div>
               <div>
@@ -280,7 +332,7 @@ function SignUp() {
                 <button
                   type="button"
                   onClick={() => {
-                    setCertNumValue('');
+                    setCertNumValue(certNumInit);
                     dispatch(closeGlobalModal('emailCheck'));
                   }}>
                   취소
@@ -376,12 +428,19 @@ const StInputBox = styled.div`
   padding: 0 7rem;
   input {
     display: flex;
+    text-align: center;
     width: 10%;
     height: 100%;
     border: none;
-    border-bottom: 1px solid ${props => props.theme.Gray};
+    border-bottom: 1px solid ${props => props.theme.LightGray};
+    font-size: 1.8rem;
+    font-weight: bold;
     :focus {
       outline: none;
     }
+  }
+
+  .On {
+    border-bottom: 1px solid ${props => props.theme.MainColor};
   }
 `;
