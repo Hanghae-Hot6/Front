@@ -10,6 +10,7 @@ import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {FindPasswordValueType} from '../../types/regist';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
+import LoginModalCollection from './LoginModalCollection';
 
 function FindPasswordForm() {
   const dispatch = useAppDispatch();
@@ -85,11 +86,7 @@ function FindPasswordForm() {
             비밀번호 찾기
           </StNavBtn>
         </StContainer>
-        {isGlobalModalOpen && dispatchId === 'findPasswordEmptyInput' && (
-          <GlobalModal id="findPasswordEmptyInput" type="alertModal">
-            <div>빈칸을 작성해주세요.</div>
-          </GlobalModal>
-        )}
+        <LoginModalCollection />
       </RegistStForm>
     </>
   );
