@@ -44,7 +44,6 @@ const TextInputDiv = styled.div<{width: string}>`
   height: 5.8rem;
   border: 1px solid ${props => props.theme.LightGray};
   padding: 0 1rem;
-  /* text-align: center; */
 `;
 
 const TextInputInput = styled.input`

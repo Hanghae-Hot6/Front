@@ -1,7 +1,8 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {useEffect} from 'react';
 import styled from 'styled-components';
 import {getAccessToken} from '../../utils';
+import KeyDetector from '../../utils/KeyDetector';
 import ChattingService from './ChattingService';
 
 type ChatTestProps = {};
@@ -11,41 +12,34 @@ const ChattingServiceKit = new ChattingService();
 const ChatTest = ({}: ChatTestProps) => {
   const [input, setInput] = useState<string>('');
 
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
   useEffect(() => {
     console.log(input);
   }, [input]);
 
   useEffect(() => {
     ChattingServiceKit.onConnect(
-      '/topic/greetings',
-      {},
+      '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
+      {
+        Authorization: getAccessToken(),
+        type: 'TALK',
+      },
       (receivingMessage: any) => console.log(receivingMessage),
     );
   }, []);
 
   const handleClick = useCallback(() => {
-    // ChattingServiceKit.sendMessage({
-    //   content: { nickname: '안녕하세요 연태님' },
-    // });
-    console.log('hi');
-    console.log(input);
-    console.log(
-      JSON.stringify({
-        content: input,
-        accesstoken: getAccessToken(),
-      }),
-    );
-
     ChattingServiceKit.sendMessage(
       {
-        content: input,
-        // accesstoken: getAccessToken(),
+        Authorization: getAccessToken(),
+        // 'Content-Type': 'application/json',
       },
       {
-        headers: {
-          Authorization: getAccessToken(),
-          'Content-Type': 'application/json',
-        },
+        chatRoomId: '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
+        message: input,
+        type: 'TALK',
+        sender: 'jae12',
       },
     );
   }, [input]);
@@ -62,10 +56,19 @@ const ChatTest = ({}: ChatTestProps) => {
     };
   }, []);
 
+  const handleKeyPress = (key: any) => {
+    if (key === 'Enter') {
+      buttonRef.current!.click();
+    }
+  };
+
   return (
     <>
-      <MessageSendButton onClick={handleClick}>메세지보내기</MessageSendButton>
+      <MessageSendButton ref={buttonRef} onClick={handleClick}>
+        메세지보내기
+      </MessageSendButton>
       <input type="text" onChange={handleChange} />
+      <KeyDetector sendKeyValue={handleKeyPress} />
     </>
   );
 };

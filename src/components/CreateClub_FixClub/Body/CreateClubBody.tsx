@@ -74,7 +74,15 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           'IT모바일',
         ]}
       />
-      <TextArea />
+
+      <TextArea
+        input={input}
+        setInput={setInput}
+        name="clubName"
+        placeholder="1/1 첫번째 회의 10:30 - 02:00"
+        width="55.8rem"
+        height="17.8rem"
+      />
     </>
   );
 };
