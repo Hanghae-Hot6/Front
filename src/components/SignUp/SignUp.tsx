@@ -80,12 +80,15 @@ function SignUp() {
     }
   };
 
-  // const inputRef = useRef<HTMLInputElement[]>([]);
-  // const handleFocus = (idx: number) => {
-  //   inputRef.current[idx]!.focus({
-  //     cursor: 'end',
-  //   });
-  // };
+  const inputRef = useRef<null[] | HTMLInputElement[]>([]);
+
+  const handleFocus = (idx: number) => {
+    console.log(inputRef.current);
+
+    // inputRef.current[idx]!.focus({
+    //   cursor: 'end',
+    // });
+  };
   return (
     <StContainer>
       <RegistStForm
@@ -219,40 +222,56 @@ function SignUp() {
                   }}
                 /> */}
                 <StInputBox>
+                  <input
+                    type="text"
+                    name="certNumber0"
+                    // ref={inputRef}
+                    onClick={() => {
+                      handleFocus(0);
+                    }}
+                  />
                   {/* <input
                     type="text"
                     name="certNumber1"
-                    ref={elem => (inputRef.current[0] = elem)}
-                  />
-                  <input
-                    type="text"
-                    name="certNumber2"
-                    ref={elem => (inputRef.current[0] = elem)}
-                  />
-                  <input
+                    ref={inputRef}
+                    onClick={() => {
+                      handleFocus(1);
+                    }}
+                  /> */}
+                  {/* <input
                     type="text"
                     name="certNumber3"
-                    ref={elem => (inputRef.current[0] = elem)}
+                    ref={elem => (inputRef.current[2] = elem)}
                   />
                   <input
                     type="text"
                     name="certNumber4"
-                    ref={elem => (inputRef.current[0] = elem)}
+                    ref={elem => (inputRef.current[3] = elem)}
                   />
                   <input
                     type="text"
                     name="certNumber5"
-                    ref={elem => (inputRef.current[0] = elem)}
+                    ref={elem => (inputRef.current[4] = elem)}
                   />
                   <input
                     type="text"
                     name="certNumber6"
-                    ref={elem => (inputRef.current[0] = elem)}
+                    ref={elem => (inputRef.current[5] = elem)}
                   />
                   <input
                     type="text"
                     name="certNumber7"
-                    ref={elem => (inputRef.current[0] = elem)}
+                    ref={elem => (inputRef.current[6] = elem)}
+                  />
+                  <input
+                    type="text"
+                    name="certNumber7"
+                    ref={elem => (inputRef.current[7] = elem)}
+                  />
+                  <input
+                    type="text"
+                    name="certNumber7"
+                    ref={elem => (inputRef.current[8] = elem)}
                   /> */}
                 </StInputBox>
               </div>
