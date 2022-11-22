@@ -17,10 +17,6 @@ const ChatTest = ({}: ChatTestProps) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    console.log(input);
-  }, [input]);
-
-  useEffect(() => {
     ChattingServiceKit.onConnect(
       '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
       getAccessToken(),
