@@ -67,6 +67,8 @@ const BookSearchBar = ({}: BookSearchBarProps) => {
     e.preventDefault();
 
     setShowBookSearchBar(!showBookSearchBar);
+
+    setInput('');
   };
   return (
     <>

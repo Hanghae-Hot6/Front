@@ -111,6 +111,7 @@ const ClubDetail = () => {
     },
   );
 
+  // 클럽탈퇴하기
   const {mutate: delClub} = useMutation(
     async () => {
       const response = await axios.delete(
@@ -126,6 +127,7 @@ const ClubDetail = () => {
 
     {
       onSuccess: data => {
+        alert('탈퇴하시겠습니까?');
         alert(data);
       },
       onError: error => {
@@ -195,30 +197,35 @@ const ClubDetail = () => {
                     <>
                       <button
                         style={{
-                          width: '300px',
+                          width: '256px',
                           background: '#fff',
-                          height: '100px',
-                          color: '#333',
+                          border: '1px solid #5200ff',
+                          height: '80px',
+                          color: '#5200ff',
+                          borderRight: 'none',
                         }}>
                         참석중
                       </button>
                       <button
                         style={{
-                          width: '300px',
+                          width: '256px',
                           background: '#fff',
-                          height: '100px',
-                          color: '#333',
+                          border: '1px solid #5200ff',
+                          height: '80px',
+                          color: '#5200ff',
                         }}
-                        onClick={() => delClub()}>
+                        onClick={() => {
+                          delClub();
+                        }}>
                         탈퇴하기
                       </button>
                     </>
                   ) : (
                     <button
                       style={{
-                        width: '300px',
+                        width: '512px',
                         background: '#333',
-                        height: '100px',
+                        height: '80px',
                         color: '#fff',
                       }}
                       onClick={() => signUpClub()}>
@@ -280,14 +287,31 @@ export const TitleWrap = styled.div`
 
 export const ClubInfoWrap = styled.div`
   margin-top: 3rem;
+  > p {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: ${props => props.theme.Gray};
+  }
+  > p > span {
+    display: inline-block;
+    width: 9rem;
+    font-weight: 600;
+  }
 `;
 
 export const ClubJoin = styled.div`
   padding: 0;
+  display: flex;
+  align-items: center;
+  margin-top: 11rem;
 `;
 
 export const InterestBtn = styled.button`
   padding: 0;
-  width: 6rem;
-  height: 6rem;
+  width: 8rem;
+  height: 8rem;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
