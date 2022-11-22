@@ -153,11 +153,8 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
     refetch: certNumFetch,
   } = useQuery(
     ['certNumCheck', certNumber],
-    async () => {
-      const {data} = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/members/mailAuth?code=${certNumber}`,
-      );
-
+    async ({queryKey}) => {
+      const {data} = await memberApis.sendCertNum(queryKey[1]);
       return data;
     },
     // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정

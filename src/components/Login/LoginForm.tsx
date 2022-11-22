@@ -1,21 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import useSignUpForm from '../SignUp/useSignUpForm';
 import {getAccessToken, getUserId} from '../../utils';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
-import NavigationButton from '../../common/NavigationButton';
-import GlobalModal from '../../common/GlobalModal';
-import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
+import {useAppDispatch} from '../../Redux/store/store';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import eyeImg from '../../assets/eye.svg';
 import kako_comment_img from '../../assets/kako_comment_img.svg';
 
-import {useSelector} from 'react-redux';
 import {useQuery} from 'react-query';
-import axios from 'axios';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
+import {memberApis} from '../../api/axiosconfig';
+import LoginModalCollection from './LoginModalCollection';
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -24,9 +22,7 @@ function LoginForm() {
   const isSignUp = false;
   const accessToken = getAccessToken();
   const userId = getUserId();
-  const {isGlobalModalOpen, dispatchId} = useAppSelector(
-    state => state.modalReducer,
-  );
+
   // 비밀번호 보이기, 숨기기
   const [passwordType, setPasswordType] = useState({
     type: 'password',
@@ -51,25 +47,17 @@ function LoginForm() {
 
   const {data, isLoading, error} = useQuery(
     ['kakaoAuth', kakaoCode],
-    async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/members/kakao?code=${kakaoCode}`,
-      );
-      localStorage.setItem(
-        'Authorization',
-        JSON.stringify(response.headers.authorization),
-      );
-      return response;
-    },
+    async ({queryKey}) => await memberApis.kakaoLogin(queryKey[1]),
 
     {
       retry: 0,
       enabled: !!kakaoCode,
+
       onSuccess: data => {
-        console.log(data);
         localStorage.setItem('userId', data.data.data);
         dispatch(openGlobalModal('loginComplete'));
       },
+
       onError: (error: any) => {
         console.log('error response', error.response);
       },
@@ -153,24 +141,8 @@ function LoginForm() {
             </StSmallNavBtn>
           </StSmallBtnContainer>
         </ButtonContainer>
+        <LoginModalCollection />
       </RegistStForm>
-
-      {isGlobalModalOpen && dispatchId === 'loginComplete' && (
-        <GlobalModal id="loginComplete" type="alertModal" confirmPath="/">
-          <div>로그인 되었습니다.</div>
-        </GlobalModal>
-      )}
-      {isGlobalModalOpen && dispatchId === 'loggingIn' && (
-        <GlobalModal id="loggingIn" type="alertModal" confirmPath="/">
-          <div>이미 로그인 중 입니다.</div>
-        </GlobalModal>
-      )}
-      {isGlobalModalOpen && dispatchId === 'logIn-401Error' && (
-        <GlobalModal id="logIn-401Error" type="alertModal" confirmPath="/login">
-          <h2>로그인 실패</h2>
-          <div>없는 정보입니다. 회원가입 해주세요.</div>
-        </GlobalModal>
-      )}
     </div>
   );
 }

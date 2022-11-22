@@ -2,17 +2,14 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import {useMutation} from 'react-query';
 import styled from 'styled-components';
+import {memberApis} from '../../api/axiosconfig';
 import GlobalModal from '../../common/GlobalModal';
 import NavigationButton from '../../common/NavigationButton';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
+import {FindPasswordValueType} from '../../types/regist';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
-
-type FindPasswordValueProps = {
-  id: string;
-  email: string;
-};
 
 function FindPasswordForm() {
   const dispatch = useAppDispatch();
@@ -28,14 +25,8 @@ function FindPasswordForm() {
   const [values, setValue] = useState(init);
 
   const {mutate: findPasswordMutate} = useMutation(
-    async (values: FindPasswordValueProps) => {
-      console.log(values);
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/members/findPassword`,
-        values,
-      );
-      return response;
-    },
+    async (values: FindPasswordValueType) =>
+      await memberApis.changePassword(values),
     {
       onSuccess: data => {
         console.log(data);

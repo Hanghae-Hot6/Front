@@ -2,19 +2,16 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import {useMutation, useQuery} from 'react-query';
 import styled from 'styled-components';
+import {memberApis} from '../../api/axiosconfig';
 import GlobalModal from '../../common/GlobalModal';
 import NavigationButton from '../../common/NavigationButton';
 import useInput from '../../Hooks/useInput';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
+import {FindIdValue} from '../../types/regist';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
-
-type FindIdValueProps = {
-  email: string;
-  username: string;
-};
 
 function FindIdForm() {
   const dispatch = useAppDispatch();
@@ -28,12 +25,8 @@ function FindIdForm() {
   const [values, setValue] = useState(init);
 
   const {mutate: findIdMutate} = useMutation(
-    async (values: FindIdValueProps) => {
-      console.log(values);
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/members/findId`,
-        values,
-      );
+    async (values: FindIdValue) => {
+      const response = await memberApis.changeMemberId(values);
       return response;
     },
     {

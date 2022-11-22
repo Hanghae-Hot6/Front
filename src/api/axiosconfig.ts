@@ -1,5 +1,9 @@
 import axios, {AxiosRequestConfig} from 'axios';
-import {SignValueType} from '../types/regist';
+import {
+  FindIdValue,
+  FindPasswordValueType,
+  SignValueType,
+} from '../types/regist';
 import {getAccessToken} from '../utils';
 
 const config: AxiosRequestConfig = {
@@ -30,23 +34,49 @@ export const memberApis = {
   // 회원가입
   signUp: async (payload: SignValueType) =>
     await api.post(`${process.env.REACT_APP_BASE_URL}/members/signup`, payload),
+
   // 로그인
   login: async (payload: SignValueType) =>
     await api.post(`${process.env.REACT_APP_BASE_URL}/members/login`, payload),
+
+  // Kakao OAuth
+  kakaoLogin: async (payload: string | undefined) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/members/kakao?code=${payload}`,
+    );
+    localStorage.setItem(
+      'Authorization',
+      JSON.stringify(response.headers.authorization),
+    );
+    return response;
+  },
 
   //id 중복검사
   idCheck: async (payload: string | undefined) =>
     await api.get(
       `${process.env.REACT_APP_BASE_URL}/members/signup/checkid/${payload}`,
     ),
+
   // email 전송
   sendEmail: async (payload: string | undefined) =>
     await api.get(
       `${process.env.REACT_APP_BASE_URL}/members/mailConfirm?email=${payload}`,
     ),
+
   // 인증번호 전송
   sendCertNum: async (payload: string | undefined) =>
     await api.get(
       `${process.env.REACT_APP_BASE_URL}/members/mailAuth?code=${payload}`,
     ),
+
+  // 비밀번호 변경
+  changePassword: async (payload: FindPasswordValueType) =>
+    await api.post(
+      `${process.env.REACT_APP_BASE_URL}/members/findPassword`,
+      payload,
+    ),
+
+  // 아이디 찾기
+  changeMemberId: async (payload: FindIdValue) =>
+    await api.post(`${process.env.REACT_APP_BASE_URL}/members/findId`, payload),
 };

@@ -7,3 +7,13 @@ export type SignValueType = {
   password?: string;
   passwordCheck?: string;
 };
+
+export type FindPasswordValueType = {
+  id: string;
+  email: string;
+};
+
+export type FindIdValue = {
+  email: string;
+  username: string;
+};
