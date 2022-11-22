@@ -11,6 +11,7 @@ type HeaderProps = {};
 const Header = ({}: HeaderProps) => {
   const accessToken = getAccessToken();
   const userId = getUserId();
+  console.log(userId);
   const [isLogin, setIsLogin] = useState(false);
   // accessToken이 존재하면 Login 상태
   const location = useLocation();

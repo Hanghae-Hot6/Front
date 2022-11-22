@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
 
@@ -28,7 +29,9 @@ function RegistStForm({
       height={height}
       {...props}>
       <StLogoDiv>
-        <img src={logo} alt="" />
+        <Link to={'/'}>
+          <img src={logo} alt="" />
+        </Link>
         <span>{title}</span>
       </StLogoDiv>
       {children}
@@ -46,7 +49,7 @@ const StForm = styled.form<{
   display: flex;
   flex-direction: column;
   justify-content: ${({jc}) => jc || 'space-between'};
-  align-items: center;
+  align-items: flex-start;
   height: ${({height}) => height || '102rem'};
   width: ${({width}) => width || '49.6rem'};
   margin: 0 auto;
