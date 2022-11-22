@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from '../Redux/store/store';
 type modalProps = {
   id?: string;
   type?: string;
+  size?: string;
   confirmPath?: string;
   cancelPath?: string;
   message?: string;
@@ -85,14 +86,16 @@ function GlobalModal({
     <StModal>
       {dispatchId === id && type === 'alertModal' ? (
         <StModalBody {...props}>
-          <div>{children}</div>
+          <StAlertContainer {...props}>{children}</StAlertContainer>
           <button onClick={onConfirmHandler}>확인</button>
         </StModalBody>
       ) : dispatchId === id && type === 'confirmModal' ? (
         <StModalBody {...props}>
-          <div>{children}</div>
-          <button onClick={onConfirmHandler}>확인</button>
-          <button onClick={onCancelHandler}>취소</button>
+          <StConfirmContainer>{children}</StConfirmContainer>
+          <StBtnBox>
+            <button onClick={onConfirmHandler}>확인</button>
+            <button onClick={onCancelHandler}>취소</button>
+          </StBtnBox>
         </StModalBody>
       ) : (
         <StModalBody {...props}>{children}</StModalBody>
@@ -119,25 +122,65 @@ const StModal = styled.div`
   height: 100%;
 `;
 
-const StModalBody = styled.div`
+const StModalBody = styled.div<modalProps>`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  border-radius: 30px;
-  width: 400px;
-  min-height: 200px;
-  max-height: 80%;
+  width: 35rem;
+  height: ${props => {
+    return props.size === 'lg' ? '35rem' : '25rem';
+  }};
   z-index: 999;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -60%);
-  padding: 20px;
+  justify-content: space-between;
+  border: 1px solid ${props => props.theme.MainColor};
+  button {
+    height: 5.5rem;
+    color: white;
+    font-size: 1.8rem;
+    background-color: ${props => props.theme.MainColor};
+    width: ${props => {
+      console.log(props.type);
+      return props.type === 'confirmModal' ? '50%' : '100%';
+    }};
+  }
+`;
+
+const StAlertContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 29.5rem;
+  font-size: 1.8rem;
+  h2 {
+    font-size: 2.3rem;
+    font-weight: bold;
+  }
   div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 11rem;
     font-size: 1.8rem;
   }
+`;
+
+const StConfirmContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 29.5rem;
+  font-size: 1.8rem;
+  h2 {
+    font-size: 2.3rem;
+    font-weight: bold;
+  }
+  div {
+    font-size: 1.8rem;
+  }
+`;
+
+const StBtnBox = styled.div`
+  width: 100%;
 `;

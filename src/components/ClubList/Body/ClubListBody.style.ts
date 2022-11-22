@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-
+import quota_circle from '../../../assets/quota_circle.svg';
+import * as S from 'styled-components';
 // export const Section = styled.section`
 //   width: 200px;
 //   overflow: hidden;
@@ -25,13 +26,14 @@ export const TabList = styled.div`
     width: 100vw;
     margin-left: -32.5rem;
     overflow: hidden;
-    background-color: #5200ff;
+    background-color: #6e6bff;
     height: 7rem;
+
     article {
       overflow: hidden;
       ul {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         position: relative;
         margin: 0 auto;
         width: 1280px;
@@ -40,7 +42,7 @@ export const TabList = styled.div`
         .on {
           background: #ffffff;
           border-radius: 4rem;
-          color: #5200ff;
+          color: #6e6bff;
         }
         li {
           font-weight: 700;
@@ -61,4 +63,110 @@ export const TabList = styled.div`
 export const ContentWrap = styled.div`
   width: 1280px;
   margin: 8rem auto;
+  overflow: hidden;
+`;
+
+export const CategoryTitle = styled.h2<{color: string}>`
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  > span {
+    color: ${props => props.theme.MainColor};
+  }
+  > p {
+    font-weight: 400;
+    margin-top: 1.2rem;
+    font-size: 1.8rem;
+  }
+`;
+
+export const CategoryTop = styled.div`
+  display: flex;
+  gap: 1.5rem;
+`;
+
+export const ImgWrap = styled.div`
+  width: 41.5rem;
+  height: 32.6rem;
+  background-color: #eee;
+  margin-top: 5.5rem;
+  position: relative;
+  > span {
+    color: #fff;
+    font-size: 2rem;
+    line-height: 5rem;
+    padding-left: 1.5rem;
+    width: 5.5rem;
+    height: 5.5rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url(${quota_circle}) no-repeat 0px 0px;
+  }
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+`;
+export const MainImgWrap = styled.div`
+  width: 31.4rem;
+  height: 31.4rem;
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+`;
+export const MainContent = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+`;
+export const MainContentBox = styled.div`
+  width: 31.4rem;
+  height: 49.3rem;
+  border: 1px solid #cacad7;
+  margin-top: 6.5rem;
+`;
+export const Summary = styled.p`
+  margin-top: 1rem;
+  font-size: 1.4rem;
+`;
+
+export const NullClubWrap = styled.div`
+  font-size: 2rem;
+  margin-top: 1rem;
+`;
+
+export const MainContentWrap = styled.div`
+  margin-top: 13rem;
+`;
+
+export const MainTitleWrap = styled.div`
+  padding-left: 2.2rem;
+`;
+
+export const Location = styled.p`
+  margin-top: 1.2rem;
+  margin-bottom: 1.4rem;
+  font-size: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const Time = styled.p`
+  color: gray;
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+`;
+export const People = styled.p`
+  color: gray;
+  font-size: 1.2rem;
 `;

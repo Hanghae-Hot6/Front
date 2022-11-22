@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+import {closeGlobalModal} from '../../Redux/modules/slices/modalSlice';
+import {useAppDispatch} from '../../Redux/store/store';
 
 type TimerProps = {
   initMin: number;
@@ -7,11 +9,14 @@ type TimerProps = {
 };
 
 function Timer({initMin, initSec}: TimerProps) {
+  const dispatch = useAppDispatch();
+
   const [minutes, setMinutes] = useState(initMin);
   const [seconds, setSeconds] = useState(initSec);
   const [isH2Red, setIsH2Red] = useState(false);
 
   useEffect(() => {
+    // 남은시간이 2분 이하면 빨갛게 표시하기 위해
     if (minutes <= 1) {
       setIsH2Red(true);
     } else {
@@ -27,6 +32,7 @@ function Timer({initMin, initSec}: TimerProps) {
         // sec이 0이 됐을때, min도 0이면 타이머 종료
         if (minutes === 0) {
           clearInterval(countdown);
+          dispatch(closeGlobalModal('emailCheck'));
         } else {
           // sec이 0이 됐을때, min이 0보다 크면 min - 1이고, sec은 59초로 바꿈
           setMinutes(minutes - 1);
@@ -36,7 +42,7 @@ function Timer({initMin, initSec}: TimerProps) {
       // 1초마다 한번씩 실행된다.
     }, 1000);
     return () => clearInterval(countdown);
-  }, [minutes, seconds]);
+  }, [dispatch, minutes, seconds]);
 
   return (
     <StH2 isH2Red={isH2Red}>
@@ -47,7 +53,7 @@ function Timer({initMin, initSec}: TimerProps) {
 
 export default Timer;
 
-const StH2 = styled.h2`
-  color: ${(props: {isH2Red: boolean}) =>
-    props.isH2Red === true ? 'red' : 'black'};
+const StH2 = styled.h2<{isH2Red: boolean}>`
+  color: ${({isH2Red}) => (isH2Red === true ? 'red' : 'black')};
+  font-size: 1.8rem;
 `;

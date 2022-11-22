@@ -3,8 +3,9 @@ import * as B from './BannerStyled';
 // import {RiArrowDropLeftLine, RiArrowDropRightLine} from 'react-icons/ri';
 import rightArrow from '../../assets/right_arrow.svg';
 import leftArrow from '../../assets/left_arrow.svg';
+import Banner1 from '../../assets/hero_image.svg';
 const banners = [
-  'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1174&q=80',
+  Banner1,
   'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80',
   'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
 ];
@@ -39,36 +40,40 @@ const Carousel = () => {
   return (
     <B.Base onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <B.Container>
-        {banners.length && (
-          <B.ArrowButton pos="left" onClick={handlePrev}>
-            <img src={leftArrow} alt="leftArrow" />
-          </B.ArrowButton>
-        )}
+        <B.ButtonWrap>
+          {banners.length && (
+            <B.ArrowButton pos="left" onClick={handlePrev}>
+              <img src={leftArrow} alt="leftArrow" />
+            </B.ArrowButton>
+          )}
+          {banners.length && (
+            <B.ArrowButton pos="right" onClick={handleNext}>
+              <img src={rightArrow} alt="rightArrow" />
+            </B.ArrowButton>
+          )}
+        </B.ButtonWrap>
+
         <B.CarouselList>
           {banners.map((url, index) => (
             <B.CarouselListItem activeIndex={activeIndex} key={index}>
               <img src={url} alt={url} />
+              <a href="#">바로가기</a>
+              {banners.length && (
+                <B.Nav>
+                  {Array.from({length: banners.length}).map((_, index) => (
+                    <B.NavItem key={index}>
+                      <B.NavButton
+                        isActive={activeIndex === index}
+                        onClick={() => handleGoTo(index)}
+                      />
+                    </B.NavItem>
+                  ))}
+                </B.Nav>
+              )}
             </B.CarouselListItem>
           ))}
         </B.CarouselList>
-        {banners.length && (
-          <B.ArrowButton pos="right" onClick={handleNext}>
-            <img src={rightArrow} alt="rightArrow" />
-          </B.ArrowButton>
-        )}
       </B.Container>
-      {banners.length && (
-        <B.Nav>
-          {Array.from({length: banners.length}).map((_, index) => (
-            <B.NavItem key={index}>
-              <B.NavButton
-                isActive={activeIndex === index}
-                onClick={() => handleGoTo(index)}
-              />
-            </B.NavItem>
-          ))}
-        </B.Nav>
-      )}
     </B.Base>
   );
 };

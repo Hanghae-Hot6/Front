@@ -8,6 +8,7 @@ type ErrorProps = {
   passwordCheck?: string;
   isIdCheck?: boolean;
   idCheck?: string;
+  emailCheck?: string;
 };
 
 export default function validate(
@@ -20,6 +21,7 @@ export default function validate(
     password,
     passwordCheck,
     idCheck,
+    emailCheck,
   }: ErrorProps,
   isSingUp?: boolean,
   isIdCheck?: boolean,
@@ -36,8 +38,8 @@ export default function validate(
 
     if (!email) {
       errors.email = '이메일이 입력되지 않았습니다.';
-    } else if (email.length >= 30) {
-      errors.email = '30자 이상 작성은 불가능 합니다.';
+    } else if (email.length >= 20) {
+      errors.email = '20자 이상 작성은 불가능 합니다.';
     } else if (
       !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/i.test(email)
     ) {
@@ -86,25 +88,27 @@ export default function validate(
   } else if (!isSingUp) {
     if (!memberId) {
       errors.memberId = '아이디가 입력되지 않았습니다.';
-    } else if (memberId.length > 20) {
-      errors.memberId = '20자 이상 작성은 불가능 합니다.';
-    } else if (memberId.length < 2) {
-      errors.memberId = '2자 이상의 이름을 작성해주세요.';
     }
+    // else if (memberId.length > 20) {
+    //   errors.memberId = '20자 이상 작성은 불가능 합니다.';
+    // } else if (memberId.length < 2) {
+    //   errors.memberId = '2자 이상의 아이디를 작성해주세요.';
+    // }
     if (!password) {
       errors.password = '비밀번호가 입력되지 않았습니다.';
-    } else if (password.length < 8) {
-      errors.password = '8자 이상의 이름을 작성해주세요.';
-    } else if (password.length >= 20) {
-      errors.password = '20자 이상 작성은 불가능 합니다.';
-    } else if (
-      !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(
-        password,
-      )
-    ) {
-      errors.password =
-        '최소 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자가 필요합니다.';
     }
+    // else if (password.length < 8) {
+    //   errors.password = '8자 이상의 비밀번호를 작성해주세요.';
+    // } else if (password.length >= 20) {
+    //   errors.password = '20자 이상 작성은 불가능 합니다.';
+    // } else if (
+    //   !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(
+    //     password,
+    //   )
+    // ) {
+    //   errors.password =
+    //     '최소 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자가 필요합니다.';
+    // }
   }
 
   return errors;

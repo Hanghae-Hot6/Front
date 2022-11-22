@@ -6,9 +6,9 @@ const ClubEpilogue = () => {
     <ClubEpilogueWrap>
       <TitleWrap>
         <h3>
-          저번주 진행된 독서 모임! <span>후기는 어땠을까요?</span>
+          독서 모임! <span>후기는 어땠을까요?</span>
         </h3>
-        <p>11월 3주차에 진행되었던 독서모임! 유저들은 이런 후기를 남겼어요</p>
+        <p>다양한 독서 모임! 회원님들은 이런 후기를 남겼어요!</p>
       </TitleWrap>
       <div>
         <Carousel />

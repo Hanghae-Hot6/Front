@@ -21,7 +21,7 @@ const Container = styled.section`
   flex-direction: column;
   position: relative;
   /* width: 100vw; */
-  height: 100vh;
+  /* height: 100vh; */
   margin: auto;
   /* border: 1px solid black; */
 `;
