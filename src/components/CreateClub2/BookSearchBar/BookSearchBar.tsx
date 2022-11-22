@@ -2,15 +2,9 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {QueryClient, useQuery, useQueryClient} from 'react-query';
 import styled from 'styled-components';
+import {NaverBooksDataType} from '../../../types/bookSearch';
 import CarouselBooks from '../CarouselBooks/CarouselBooks';
 type BookSearchBarProps = {};
-
-export type NaverBooksDataType = {
-  image: string;
-  isbn: string;
-  pubdate: string;
-  title: string;
-};
 
 const BookSearchBar = ({}: BookSearchBarProps) => {
   const [input, setInput] = useState<string>('');

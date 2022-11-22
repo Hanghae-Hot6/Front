@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {NaverBooksDataType} from '../../BookSearchBar/BookSearchBar';
+import {NaverBooksDataType} from '../../../../types/bookSearch';
 
 type CarouselBookChildProps = {
   data: NaverBooksDataType;
