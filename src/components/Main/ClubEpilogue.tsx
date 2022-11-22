@@ -28,7 +28,7 @@ const TitleWrap = styled.div`
     font-size: 2.8rem;
     margin-bottom: 1.2rem;
     span {
-      color: #5200ff;
+      color: ${props => props.theme.MainColor};
     }
   }
   p {

@@ -23,26 +23,25 @@ import * as S from 'styled-components';
 
 export const TabList = styled.div`
   section {
-    width: 100vw;
-    margin-left: -32.5rem;
-    overflow: hidden;
-    background-color: #6e6bff;
+    width: 1280px;
+    background-color: ${props => props.theme.LightPurple};
     height: 7rem;
-
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     article {
-      overflow: hidden;
+      display: flex;
+      justify-content: space-around;
+
       ul {
         display: flex;
         justify-content: space-around;
-        position: relative;
-        margin: 0 auto;
         width: 1280px;
         margin-top: 1.5rem;
         cursor: pointer;
         .on {
           background: #ffffff;
           border-radius: 4rem;
-          color: #6e6bff;
+          color: ${props => props.theme.LightPurple};
         }
         li {
           font-weight: 700;

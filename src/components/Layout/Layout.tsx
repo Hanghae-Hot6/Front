@@ -30,9 +30,16 @@ const Layout = (props: Props) => {
     };
   }, []);
   return (
-    <div>
+    <div style={{overflow: 'hidden'}}>
       <Header />
-      <section style={{width: '1280px', margin: '0 auto', overflow: 'hidden'}}>
+      <section
+        style={{
+          width: '1280px',
+          margin: '0 auto',
+          overflow: 'hidden',
+          minHeight: ' 100vh',
+          height: '100%',
+        }}>
         {props.children}
       </section>
       <Footer />

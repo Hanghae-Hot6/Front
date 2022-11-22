@@ -42,7 +42,7 @@ const PopWrap = styled.div`
 const PopDiv = styled.div`
   div {
     opacity: 0;
-    border: 1px solid #5200ff;
+    border: 1px solid ${props => props.theme.MainColor};
     background-color: #fff;
     box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
     width: 50rem;

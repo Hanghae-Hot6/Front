@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import heartOn from '../assets/heartOn.svg';
 import heartOff from '../assets/heartOff.svg';
+import GlobalModal from '../common/GlobalModal';
 // type ClubDetailProps = {};
 type clubDetailType = {
   accessToken: string;
@@ -127,8 +128,8 @@ const ClubDetail = () => {
 
     {
       onSuccess: data => {
-        alert('탈퇴하시겠습니까?');
-        alert(data);
+        alert('탈퇴 하시겠습니까?');
+        alert('탈퇴 완료');
       },
       onError: error => {
         console.log(error);
@@ -178,7 +179,7 @@ const ClubDetail = () => {
                     {data.leader}
                   </p>
                   <p>
-                    <span>참석인원</span>
+                    <span>참석 인원</span>
                     {data.participantNum}
                   </p>
                 </ClubInfoWrap>
@@ -195,42 +196,18 @@ const ClubDetail = () => {
                   )}
                   {data.subscription ? (
                     <>
-                      <button
-                        style={{
-                          width: '256px',
-                          background: '#fff',
-                          border: '1px solid #5200ff',
-                          height: '80px',
-                          color: '#5200ff',
-                          borderRight: 'none',
-                        }}>
+                      <Btn style={{borderRight: 'none', cursor: 'default'}}>
                         참석중
-                      </button>
-                      <button
-                        style={{
-                          width: '256px',
-                          background: '#fff',
-                          border: '1px solid #5200ff',
-                          height: '80px',
-                          color: '#5200ff',
-                        }}
+                      </Btn>
+                      <Btn
                         onClick={() => {
                           delClub();
                         }}>
                         탈퇴하기
-                      </button>
+                      </Btn>
                     </>
                   ) : (
-                    <button
-                      style={{
-                        width: '512px',
-                        background: '#333',
-                        height: '80px',
-                        color: '#fff',
-                      }}
-                      onClick={() => signUpClub()}>
-                      참석하기
-                    </button>
+                    <JoinBtn onClick={() => signUpClub()}>참석하기</JoinBtn>
                   )}
                 </ClubJoin>
               </div>
@@ -254,6 +231,7 @@ export const ImageWrap = styled.div`
   background-color: #cacad7;
   display: flex;
   margin-right: 9.2rem;
+  overflow: hidden;
   > img {
     display: inline-block;
     margin: 10% auto;
@@ -267,9 +245,10 @@ export const ImageWrap = styled.div`
 export const TitleWrap = styled.div`
   width: 59.2rem;
   border-bottom: 1px solid #dbdbdb;
+
   > h3 {
     color: gray;
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 1.8rem;
   }
   > h2 {
@@ -280,13 +259,13 @@ export const TitleWrap = styled.div`
   > p {
     color: ${props => props.theme.MainColor};
     font-weight: 600;
-    font-size: 2.4rem;
+    font-size: 2rem;
     padding-bottom: 30px;
   }
 `;
 
 export const ClubInfoWrap = styled.div`
-  margin-top: 3rem;
+  margin-top: 6rem;
   > p {
     font-size: 2rem;
     margin-bottom: 3rem;
@@ -294,7 +273,7 @@ export const ClubInfoWrap = styled.div`
   }
   > p > span {
     display: inline-block;
-    width: 9rem;
+    width: 10rem;
     font-weight: 600;
   }
 `;
@@ -303,7 +282,7 @@ export const ClubJoin = styled.div`
   padding: 0;
   display: flex;
   align-items: center;
-  margin-top: 11rem;
+  margin-top: 8.5rem;
 `;
 
 export const InterestBtn = styled.button`
@@ -314,4 +293,29 @@ export const InterestBtn = styled.button`
     width: 100%;
     height: 100%;
   }
+`;
+
+export const Btn = styled.button`
+  width: 256px;
+  background: #fff;
+  border: 1px solid ${props => props.theme.MainColor};
+  height: 80px;
+  color: ${props => props.theme.MainColor};
+  transition: all 0.5s;
+  font-weight: 600;
+  box-sizing: border-box;
+  :hover {
+    color: #fff;
+    background-color: ${props => props.theme.MainColor};
+    border: 1px solid transparent;
+  }
+`;
+
+export const JoinBtn = styled.button`
+  font-size: 2rem;
+  font-weight: 600;
+  width: 512px;
+  background: #222;
+  height: 80px;
+  color: #fff;
 `;

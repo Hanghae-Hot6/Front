@@ -18,6 +18,7 @@ type RecommendationClubType = {
   memberLimit: string;
   summary: string;
   thumbnail: string;
+  visitNum: number;
 };
 const RecommendationClub = () => {
   const {data, status} = useQuery(['getClubsTop5'], async () => {
@@ -130,9 +131,7 @@ const RecommendationClub = () => {
                       <span className="title">{item.clubName}</span>
                       <br />
                       <span className="summary">{item.summary}</span>
-                      <span className="memberLimit">
-                        조회수 {item.memberLimit}
-                      </span>
+                      <span className="visitNum">조회수 {item.visitNum}</span>
                     </p>
                   </Link>
                 </List>
@@ -154,7 +153,7 @@ const TitleWrap = styled.div`
     font-size: 2.8rem;
     margin-bottom: 1.2rem;
     span {
-      color: #5200ff;
+      color: ${props => props.theme.MainColor};
     }
   }
   p {
@@ -170,7 +169,7 @@ const ListWrap = styled.ul`
 const List = styled.li`
   width: 24.8rem;
   height: 36.4rem;
-  border: 1px solid #5200ff;
+  border: 1px solid ${props => props.theme.MainColor};
   background: #f5f4fb;
   position: relative;
   cursor: pointer;
@@ -192,8 +191,8 @@ const List = styled.li`
     }
     > p {
       position: absolute;
-      bottom: -1.2rem;
-      margin-left: 1.8rem;
+      bottom: -1rem;
+      margin-left: 1.5rem;
       margin-right: 1rem;
       height: 11.6rem;
       line-height: 1.5;
@@ -217,8 +216,8 @@ const List = styled.li`
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
-    > p > .memberLimit {
-      color: #5200ff;
+    > p > .visitNum {
+      color: ${props => props.theme.MainColor};
       font-size: 1.4rem;
       font-weight: 400;
     }
