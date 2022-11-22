@@ -25,6 +25,7 @@ type LocationState = {
 };
 const ClubListBody = () => {
   const {state} = useLocation() as LocationState;
+
   const {data, status} = useQuery(['getClubs'], async () => {
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/clubs`);
     return response.data.data;

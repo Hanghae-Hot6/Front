@@ -67,6 +67,8 @@ const BookSearchBar = ({}: BookSearchBarProps) => {
     e.preventDefault();
 
     setShowBookSearchBar(!showBookSearchBar);
+
+    setInput('');
   };
   return (
     <>
@@ -141,7 +143,7 @@ const StInputDiv = styled.div`
   }
   input {
     background: #ffffff;
-    border: 1px solid #5200ff;
+    border: 1px solid ${props => props.theme.MainColor};
     box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
     border-radius: 26px;
     height: 4rem;
@@ -149,7 +151,7 @@ const StInputDiv = styled.div`
     font-size: 1.4rem;
     padding-left: 5rem;
     :focus {
-      border-color: #5200ff;
+      border-color: ${props => props.theme.MainColor};
       outline: none;
     }
   }
