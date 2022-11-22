@@ -84,8 +84,12 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
   } = useQuery(
     ['IdDoubleCheck', values.memberId],
     async ({queryKey}) => {
-      const {data} = await memberApis.idCheck(queryKey[1]);
-      return data;
+      try {
+        const {data} = await memberApis.idCheck(queryKey[1]);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
     },
     // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
     {
@@ -107,7 +111,8 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
         }
       },
       onError: (error: any) => {
-        console.log(error.message);
+        // console.log(error.message);
+        throw error;
       },
     },
   );

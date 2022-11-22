@@ -15,14 +15,15 @@ import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import {useState} from 'react';
 import SignUpModalCollection from './SignUpModalCollection';
 import Timer from '../Login/Timer';
+import React, {useRef} from 'react';
 
 function SignUp() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const isSignUp = true;
   const {isGlobalModalOpen, dispatchId} = useAppSelector(
     state => state.modalReducer,
   );
-  const isSignUp = true;
 
   // 인증번호 모달
   const [certNumValue, setCertNumValue] = useState('');
@@ -79,6 +80,15 @@ function SignUp() {
     }
   };
 
+  const inputRef = useRef<null[] | HTMLInputElement[]>([]);
+
+  const handleFocus = (idx: number) => {
+    console.log(inputRef.current);
+
+    // inputRef.current[idx]!.focus({
+    //   cursor: 'end',
+    // });
+  };
   return (
     <StContainer>
       <RegistStForm
@@ -188,7 +198,7 @@ function SignUp() {
       </RegistStForm>
       <SignUpModalCollection />
       {isGlobalModalOpen && dispatchId === 'emailCheck' && (
-        <GlobalModal id="emailCheck">
+        <GlobalModal id="emailCheck" size="lg">
           <StModalDiv>
             <form
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
@@ -196,11 +206,12 @@ function SignUp() {
                 return emailModalCheckHandler(certNumValue);
               }}>
               <div>
-                <span>이메일 인증번호를 입력해주세요...!</span>
+                <h1>이메일 인증</h1>
+                <span>메일로 전송된 인증번호를 입력해주세요.</span>
 
                 <Timer initMin={5} initSec={0} />
 
-                <input
+                {/* <input
                   type="text"
                   name="certNumber"
                   value={certNumValue}
@@ -209,7 +220,60 @@ function SignUp() {
                     const validateValue = value.trim();
                     setCertNumValue(validateValue);
                   }}
-                />
+                /> */}
+                <StInputBox>
+                  <input
+                    type="text"
+                    name="certNumber0"
+                    // ref={inputRef}
+                    onClick={() => {
+                      handleFocus(0);
+                    }}
+                  />
+                  {/* <input
+                    type="text"
+                    name="certNumber1"
+                    ref={inputRef}
+                    onClick={() => {
+                      handleFocus(1);
+                    }}
+                  /> */}
+                  {/* <input
+                    type="text"
+                    name="certNumber3"
+                    ref={elem => (inputRef.current[2] = elem)}
+                  />
+                  <input
+                    type="text"
+                    name="certNumber4"
+                    ref={elem => (inputRef.current[3] = elem)}
+                  />
+                  <input
+                    type="text"
+                    name="certNumber5"
+                    ref={elem => (inputRef.current[4] = elem)}
+                  />
+                  <input
+                    type="text"
+                    name="certNumber6"
+                    ref={elem => (inputRef.current[5] = elem)}
+                  />
+                  <input
+                    type="text"
+                    name="certNumber7"
+                    ref={elem => (inputRef.current[6] = elem)}
+                  />
+                  <input
+                    type="text"
+                    name="certNumber7"
+                    ref={elem => (inputRef.current[7] = elem)}
+                  />
+                  <input
+                    type="text"
+                    name="certNumber7"
+                    ref={elem => (inputRef.current[8] = elem)}
+                  /> */}
+                </StInputBox>
               </div>
               <div>
                 <button type="submit">확인</button>
@@ -278,10 +342,16 @@ const StModalDiv = styled.div`
     align-items: center;
     height: 100%;
     width: 100%;
-    input {
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    /* input {
       border: 1px solid ${props => props.theme.MainColor};
       height: 3rem;
     }
+     */
     div:nth-child(1) {
       display: flex;
       flex-direction: column;
@@ -295,6 +365,23 @@ const StModalDiv = styled.div`
       button {
         width: 100%;
       }
+    }
+  }
+`;
+
+const StInputBox = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  height: 3rem;
+  padding: 0 7rem;
+  input {
+    display: flex;
+    width: 10%;
+    height: 100%;
+    border: none;
+    border-bottom: 1px solid ${props => props.theme.Gray};
+    :focus {
+      outline: none;
     }
   }
 `;
