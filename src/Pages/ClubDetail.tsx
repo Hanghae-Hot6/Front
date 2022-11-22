@@ -6,13 +6,12 @@ import Layout from '../components/Layout/Layout';
 import {getAccessToken} from '../utils';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
-import {idText} from 'typescript';
 import heartOn from '../assets/heartOn.svg';
 import heartOff from '../assets/heartOff.svg';
 // type ClubDetailProps = {};
 type clubDetailType = {
   accessToken: string;
-  id: number | string;
+  id: number | string | undefined;
   plan: string;
   memberLimit: number;
   summary: string;
@@ -116,6 +115,11 @@ const ClubDetail = () => {
     async () => {
       const response = await axios.delete(
         `${process.env.REACT_APP_BASE_URL}/clubs/${id}/withdraw`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
       );
       return response.data.data;
     },
