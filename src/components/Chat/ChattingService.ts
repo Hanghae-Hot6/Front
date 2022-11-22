@@ -43,7 +43,8 @@ class ChattingService {
     this.stompClient.connect(headers, () => {
       console.log('연결됬음');
       this.stompClient.subscribe(
-        `/sub/chat/room/${roomNo}`,
+        // `/sub/chat/room/${roomNo}`,
+        `/sub/chat/messages/${roomNo}`,
         data => {
           receivingMessage = JSON.parse(data.body);
           // 연결 성공시 발동시킬 콜백 넣기
