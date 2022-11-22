@@ -42,15 +42,19 @@ function ProfileClubList() {
               );
             })}
         </StClubCategory>
-        <StClubLi>
-          <div>
-            <span>title</span>
-            <span>22.11.21</span>
-          </div>
-          <div>참석완료</div>
-        </StClubLi>
-
-        <StClubLi></StClubLi>
+        <StClubListWrapper>
+          <ul>
+            <StClubLi>
+              <div>
+                <span>title</span>
+                <span>22.11.21</span>
+              </div>
+              <div>참석완료</div>
+            </StClubLi>
+            <StClubLi></StClubLi>
+           
+          </ul>
+        </StClubListWrapper>
       </StClubsDiv>
     </>
   );
@@ -65,7 +69,7 @@ const StScheduleDiv = styled.div`
   border: 1px solid ${props => props.theme.MainColor};
   border-radius: 1rem;
   box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
-  padding: 3.5rem;
+  padding: 3rem;
   p {
     font-size: 2rem;
     font-weight: bold;
@@ -78,13 +82,14 @@ const StClubsDiv = styled.div`
   margin-top: 1rem;
   align-self: flex-end;
   border-radius: 1rem;
-  padding: 3.5rem;
+  padding: 3rem;
   border: 1px solid ${props => props.theme.MainColor};
   box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
 `;
 const StClubCategory = styled.ul`
   display: flex;
   .on {
+    color: black;
     :after {
       content: '';
       display: block;
@@ -94,6 +99,7 @@ const StClubCategory = styled.ul`
     }
   }
   li {
+    color: ${props => props.theme.Gray};
     margin-right: 2rem;
     font-size: 2rem;
     font-weight: bold;
@@ -108,6 +114,13 @@ const StClubCategory = styled.ul`
   }
 `;
 
+const StClubListWrapper = styled.div`
+  width: 100%;
+  height: 85%;
+  overflow: auto;
+  padding-right: 0.5rem;
+`;
+
 const StClubLi = styled.li`
   display: flex;
   justify-content: space-between;
@@ -120,7 +133,7 @@ const StClubLi = styled.li`
     border: 1px solid ${props => props.theme.MainColor};
     border-radius: 0.7rem;
     height: 4rem;
-    width: 45rem;
+    width: 43rem;
     padding: 0 2rem;
     margin-top: 1rem;
     font-size: 1.7rem;

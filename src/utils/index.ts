@@ -7,6 +7,11 @@ export const getAccessToken = () => {
 };
 export const getUserId = () => {
   const getUserId = localStorage.getItem('userId');
-  const userId = getUserId;
+  const userId = getUserId
+    ?.substring(0, getUserId.length - 1)
+    .substring(1, getUserId.length);
+  if (!userId) {
+    return null;
+  }
   return userId;
 };
