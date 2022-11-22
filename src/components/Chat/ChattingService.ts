@@ -7,7 +7,7 @@ type MessageObjectType = {
   // Accesstoken: string | undefined;
   type: string;
   chatRoomId: number | string;
-  sender: string;
+  sender: string | null;
 };
 
 type functionType = ({...props}) => void;
@@ -31,6 +31,7 @@ class ChattingService {
 
     headers = {}, // headers에 {} 인증요청 집어 넣기
     callback: any = () => {},
+    userId: string | null,
   ) => {
     let receivingMessage = '';
 
@@ -49,7 +50,7 @@ class ChattingService {
         JSON.stringify({
           type: 'ENTER',
           roomNo: roomNo,
-          sender: 'jae12',
+          sender: userId,
         }),
       );
     });

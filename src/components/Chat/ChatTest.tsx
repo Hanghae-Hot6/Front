@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {useEffect} from 'react';
 import styled from 'styled-components';
-import {getAccessToken} from '../../utils';
+import {getAccessToken, getUserId} from '../../utils';
 import KeyDetector from '../../utils/KeyDetector';
 import ChattingService from './ChattingService';
 
@@ -11,6 +11,8 @@ const ChattingServiceKit = new ChattingService();
 
 const ChatTest = ({}: ChatTestProps) => {
   const [input, setInput] = useState<string>('');
+
+  const userId = getUserId();
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -26,6 +28,7 @@ const ChatTest = ({}: ChatTestProps) => {
         type: 'TALK',
       },
       (receivingMessage: any) => console.log(receivingMessage),
+      userId,
     );
   }, []);
 
@@ -39,7 +42,7 @@ const ChatTest = ({}: ChatTestProps) => {
         chatRoomId: '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
         message: input,
         type: 'TALK',
-        sender: 'jae12',
+        sender: userId,
       },
     );
   }, [input]);
