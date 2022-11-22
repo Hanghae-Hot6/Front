@@ -28,11 +28,12 @@ export const TabList = styled.div`
     overflow: hidden;
     background-color: #6e6bff;
     height: 7rem;
+
     article {
       overflow: hidden;
       ul {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         position: relative;
         margin: 0 auto;
         width: 1280px;

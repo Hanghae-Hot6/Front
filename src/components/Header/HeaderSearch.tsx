@@ -2,24 +2,24 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {QueryClient, useQuery, useQueryClient} from 'react-query';
 import styled from 'styled-components';
-import CarouselBooks from '../../components/CreateClub/CarouselBooks/CarouselBooks';
+
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
+import {NaverBooksDataType} from '../../types/bookSearch';
 import HeaderSearchBooks from './HeaderSearchBooks';
 type BookSearchBarProps = {};
 
-export type NaverBooksDataType = {
-  image: string;
-  isbn: string;
-  pubdate: string;
-  title: string;
-};
+// export type NaverBooksDataType = {
+//   image: string;
+//   isbn: string;
+//   pubdate: string;
+//   title: string;
+// };
 
 const BookSearchBar = ({}: BookSearchBarProps) => {
   const [showBookSearchBar, setShowBookSearchBar] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
 
   const fetch = async ({queryKey}: any) => {
-    console.log(queryKey[1]);
     if (input) {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=12`,

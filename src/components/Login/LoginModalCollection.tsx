@@ -24,6 +24,11 @@ function LoginModalCollection() {
           <div>없는 정보입니다. 회원가입 해주세요.</div>
         </GlobalModal>
       )}
+      {isGlobalModalOpen && dispatchId === 'findPasswordEmptyInput' && (
+        <GlobalModal id="findPasswordEmptyInput" type="alertModal">
+          <div>빈칸을 작성해주세요.</div>
+        </GlobalModal>
+      )}
     </>
   );
 }

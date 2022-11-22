@@ -1,12 +1,14 @@
 import React from 'react';
 import * as T from './CreateClubTitle.style';
 
-type CreateClubTitleProps = {};
+type CreateClubTitleProps = {
+  title: string;
+};
 
-const CreateClubTitle = ({}: CreateClubTitleProps) => {
+const CreateClubTitle = ({title}: CreateClubTitleProps) => {
   return (
     <>
-      <T.H1>모임등록</T.H1>
+      <T.H1>{title}</T.H1>
     </>
   );
 };

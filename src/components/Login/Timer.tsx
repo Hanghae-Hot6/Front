@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {closeGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../Redux/store/store';
+import timer from '../../assets/timer.svg';
 
 type TimerProps = {
   initMin: number;
@@ -46,6 +47,7 @@ function Timer({initMin, initSec}: TimerProps) {
 
   return (
     <StH2 isH2Red={isH2Red}>
+      <img src={timer} alt="" />
       {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
     </StH2>
   );
@@ -54,6 +56,13 @@ function Timer({initMin, initSec}: TimerProps) {
 export default Timer;
 
 const StH2 = styled.h2<{isH2Red: boolean}>`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 20%;
   color: ${({isH2Red}) => (isH2Red === true ? 'red' : 'black')};
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  img {
+    transform: scale(0.9);
+  }
 `;

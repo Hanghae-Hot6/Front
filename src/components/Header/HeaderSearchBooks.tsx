@@ -1,6 +1,7 @@
 import React, {ReactNode, useState} from 'react';
 import styled from 'styled-components';
-import {NaverBooksDataType} from '../../components/CreateClub/BookSearchBar/BookSearchBar';
+import {NaverBooksDataType} from '../../types/bookSearch';
+
 // import CarouselBooksChild from '../../components/CreateClub/CarouselBooks/CarouselBooksChild/CarouselBooksChild';
 import HeaderSearchBooksChild from './HeaderSearchBooksChild';
 

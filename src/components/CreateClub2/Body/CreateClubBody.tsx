@@ -6,7 +6,7 @@ import NavigationButton from '../../../common/NavigationButton';
 import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../../Redux/store/store';
 import {getAccessToken} from '../../../utils';
-import SearchBooks from '../SearchBooks/SearchBooks';
+import SearchBooks from '../../CreateClub2/SearchBooks/SearchBooks';
 import * as B from './CreateClubBody.style';
 import ImagePreview from './ImagePreview/ImagePreview';
 import CreateClubInputDiv from './InputDiv/CreateClubInputDiv';

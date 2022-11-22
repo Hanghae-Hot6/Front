@@ -11,6 +11,8 @@ import styled from 'styled-components';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import ProfileContainer from '../components/Profile/ProfileContainer';
+import GlobalModal from '../common/GlobalModal';
+import ProfileModalCollection from '../components/Profile/ProfileModalCollection';
 
 type ProfilePageProps = {};
 type clubList = {
@@ -73,13 +75,12 @@ const ProfilePage = ({}: ProfilePageProps) => {
   useEffect(() => {
     // 토큰이 없으면 로그인 페이지로 돌려보냄
     if (!accessToken) {
-      navigate('/login');
+      dispatch(openGlobalModal('noAccessToken'));
     } else if (urlId.userId !== userId) {
       // userId와 url의 params가 일치하지 않으면 메인페이지로 돌려보냄
       // strict mode를 끄니까 두 번 실행 되지 않는 것을 확인함.
-      dispatch(openGlobalModal('noAccess'));
+      dispatch(openGlobalModal('noAccessUserId'));
       // alert('접근 권한이 없습니다');
-      // navigate('/');
     }
   }, [accessToken, navigate, urlId.userId, userId, dispatch]);
 
@@ -87,14 +88,12 @@ const ProfilePage = ({}: ProfilePageProps) => {
     <>
       <Header />
       <StSection>
-        <StProfileBox>
-          <ProfileDetail data={data} />
-          <ProfileClubList clubList={data.clubList} />
-        </StProfileBox>
+        <ProfileContainer />
       </StSection>
       <Footer />
 
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ProfileModalCollection />
     </>
   );
 };
@@ -109,14 +108,4 @@ const StSection = styled.section`
   margin: 0 auto;
   margin-top: 9rem;
   background-color: #fdfcff;
-`;
-const StProfileBox = styled.div`
-  display: flex;
-  height: 60.5rem;
-  width: 97.3rem;
-  border-radius: 10px;
-  margin: 18.5rem auto;
-  /* background-color: #fff;
-  border: 1px solid #c1a4ff;
-  box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08); */
 `;

@@ -1,6 +1,6 @@
 import React, {ReactNode, useState} from 'react';
 import styled from 'styled-components';
-import {NaverBooksDataType} from '../BookSearchBar/BookSearchBar';
+import {NaverBooksDataType} from '../../../types/bookSearch';
 
 import CarouselBooksChild from './CarouselBooksChild/CarouselBooksChild';
 

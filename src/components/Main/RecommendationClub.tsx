@@ -8,15 +8,106 @@ import pop4 from '../../assets/pop4.svg';
 import pop5 from '../../assets/pop5.svg';
 import {useQuery} from 'react-query';
 import axios from 'axios';
-const RecommendationClub = () => {
-  // const {data, status} = useQuery(['getClubsTop5'], async () => {
-  //   const response = await axios.get(
-  //     `${process.env.REACT_APP_BASE_URL}/clubs/top5`,
-  //   );
-  //   return response;
-  // });
+import {Link} from 'react-router-dom';
 
-  // console.log(data);
+type RecommendationClubType = {
+  category: string;
+  clubId: number;
+  clubName: string;
+  leader: string;
+  memberLimit: string;
+  summary: string;
+  thumbnail: string;
+};
+const RecommendationClub = () => {
+  const {data, status} = useQuery(['getClubsTop5'], async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/clubs/top5`,
+    );
+    return response.data.data;
+  });
+
+  if (data === undefined) {
+    return (
+      <RecommendationWrap>
+        <TitleWrap>
+          <h3>
+            인기 모임 <span>TOP5</span>
+          </h3>
+          <p>회원님들이 선정한 인기 독서 모임이에요!</p>
+        </TitleWrap>
+        <div>
+          <ListWrap>
+            <List>
+              <a href="#">
+                <span>1</span>
+                <img src={pop1} alt="" />
+                <p>
+                  <span className="title">title</span>
+                  <br />
+                  <span className="summary">작가</span>
+                  <br />
+                  <span className="memberLimit">조회수 100회</span>
+                </p>
+              </a>
+            </List>
+            <List>
+              <a href="#">
+                <span>2</span>
+                <img src={pop2} alt="" />
+                <p>
+                  <span className="title">title</span>
+                  <br />
+                  <span className="summary">작가</span>
+                  <br />
+                  <span className="memberLimit">조회수 100회</span>
+                </p>
+              </a>
+            </List>
+            <List>
+              <a href="#">
+                <span>3</span>
+                <img src={pop3} alt="" />
+                <p>
+                  <span className="title">title</span>
+                  <br />
+                  <span className="summary">작가</span>
+                  <br />
+                  <span className="memberLimit">조회수 100회</span>
+                </p>
+              </a>
+            </List>
+            <List>
+              <a href="#">
+                <span>4</span>
+                <img src={pop4} alt="" />
+                <p>
+                  <span className="title">title</span>
+                  <br />
+                  <span className="summary">작가</span>
+                  <br />
+                  <span className="memberLimit">조회수 100회</span>
+                </p>
+              </a>
+            </List>
+            <List>
+              <a href="#">
+                <span>5</span>
+                <img src={pop5} alt="" />
+                <p>
+                  <span className="title">title</span>
+                  <br />
+                  <span className="summary">작가</span>
+                  <br />
+                  <span className="memberLimit">조회수 100회</span>
+                </p>
+              </a>
+            </List>
+          </ListWrap>
+        </div>
+      </RecommendationWrap>
+    );
+  }
 
   return (
     <RecommendationWrap>
@@ -28,61 +119,25 @@ const RecommendationClub = () => {
       </TitleWrap>
       <div>
         <ListWrap>
-          <List>
-            <span>1</span>
-            <img src={pop1} alt="" />
-            <p>
-              <span className="title">title</span>
-              <br />
-              <span className="author">작가</span>
-              <br />
-              <span className="hits">조회수 100회</span>
-            </p>
-          </List>
-          <List>
-            <span>2</span>
-            <img src={pop2} alt="" />
-            <p>
-              <span className="title">title</span>
-              <br />
-              <span className="author">작가</span>
-              <br />
-              <span className="hits">조회수 100회</span>
-            </p>
-          </List>
-          <List>
-            <span>3</span>
-            <img src={pop3} alt="" />
-            <p>
-              <span className="title">title</span>
-              <br />
-              <span className="author">작가</span>
-              <br />
-              <span className="hits">조회수 100회</span>
-            </p>
-          </List>
-          <List>
-            <span>4</span>
-            <img src={pop4} alt="" />
-            <p>
-              <span className="title">title</span>
-              <br />
-              <span className="author">작가</span>
-              <br />
-              <span className="hits">조회수 100회</span>
-            </p>
-          </List>
-          <List>
-            <span>5</span>
-            <img src={pop5} alt="" />
-            <p>
-              <span className="title">title</span>
-              <br />
-              <span className="author">작가</span>
-              <br />
-              <span className="hits">조회수 100회</span>
-            </p>
-          </List>
+          {data &&
+            data.map((item: RecommendationClubType, index: number) => {
+              return (
+                <List key={index}>
+                  <Link to={`/club_detail/${item.clubId}`}>
+                    <span>{index + 1}</span>
+                    <img src={item.thumbnail} alt={item.thumbnail} />
+                    <p>
+                      <span className="title">{item.clubName}</span>
+                      <br />
+                      <span className="summary">{item.summary}</span>
+                      <span className="memberLimit">
+                        조회수 {item.memberLimit}
+                      </span>
+                    </p>
+                  </Link>
+                </List>
+              );
+            })}
         </ListWrap>
       </div>
     </RecommendationWrap>
@@ -119,42 +174,54 @@ const List = styled.li`
   background: #f5f4fb;
   position: relative;
   cursor: pointer;
-  > span {
-    color: #fff;
-    position: absolute;
-    z-index: 10;
-    font-weight: 700;
-    font-size: 2.4rem;
-    margin-left: 1.2rem;
-    margin-top: 0.8rem;
-  }
-  > img {
-    width: 24.8rem;
-    height: 24.8rem;
-  }
-  > p {
-    position: absolute;
-    bottom: -1.2rem;
-    margin-left: 1.8rem;
-    height: 11.6rem;
-    line-height: 1.5;
-  }
-  > p > span {
-    padding-top: 0.5rem;
-  }
-  > p > .title {
-    font-size: 2.2rem;
-    font-weight: 600;
-  }
-  > p > .author {
-    font-size: 1.8rem;
-    font-weight: 400;
-    color: #767676;
-  }
-  > p > .hits {
-    color: #5200ff;
-    font-size: 1.8rem;
-    font-weight: 400;
+  > a {
+    > span {
+      color: #fff;
+      position: absolute;
+      z-index: 10;
+      font-weight: 700;
+      font-size: 2.4rem;
+      margin-left: 1.2rem;
+      margin-top: 0.8rem;
+    }
+    > img {
+      width: 100%;
+      height: 24.8rem;
+      object-fit: cover;
+      object-position: top;
+    }
+    > p {
+      position: absolute;
+      bottom: -1.2rem;
+      margin-left: 1.8rem;
+      margin-right: 1rem;
+      height: 11.6rem;
+      line-height: 1.5;
+    }
+    > p > span {
+      padding-top: 0.5rem;
+    }
+    > p > .title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    > p > .summary {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #767676;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    > p > .memberLimit {
+      color: #5200ff;
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
   }
 
   ::after {

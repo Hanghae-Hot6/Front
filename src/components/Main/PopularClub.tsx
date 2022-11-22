@@ -9,8 +9,8 @@ const PopularClub = () => {
         <img src={main1} alt="main1" />
         <div>
           <p>
-            줄거리 어쩌구 저쩌구
-            <br /> 작가는 누구고~
+            줄거리 들어갈 자리입니다
+            <br /> 작가 들어갈 자리입니다
           </p>
         </div>
       </PopDiv>
@@ -18,8 +18,8 @@ const PopularClub = () => {
         <img src={main2} alt="main2" />
         <div>
           <p>
-            줄거리 어쩌구 저쩌구
-            <br /> 작가는 누구고~
+            줄거리 들어갈 자리입니다
+            <br /> 작가 들어갈 자리입니다
           </p>
         </div>
       </PopDiv>
