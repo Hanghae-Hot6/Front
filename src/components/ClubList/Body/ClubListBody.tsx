@@ -16,6 +16,9 @@ type Clubs = {
   summary: string;
   memberLimit: number;
   clubId: number;
+  location: string;
+  startDate: string;
+  finishDate: string;
 };
 
 type LocationState = {
@@ -55,6 +58,7 @@ const ClubListBody = () => {
     // '소설',
     // '에세이 시',
   ];
+  console.log(data);
 
   // 성공
   const categoryTap = categoryArray.map((category, index) => {
@@ -102,9 +106,11 @@ const ClubListBody = () => {
                         {club.clubName}
                       </C.CategoryTitle>
                       {/* <C.Summary>{club.summary}</C.Summary> */}
-                      <C.Location>장소</C.Location>
-                      <C.Time>11/30(수) 10:30-12:30</C.Time>
-                      <C.People>현재인원/{club.memberLimit} 모집중</C.People>
+                      <C.Location>장소 : {club.location}</C.Location>
+                      <C.Time>
+                        {club.startDate} ~ {club.finishDate}
+                      </C.Time>
+                      <C.People>최대인원 : {club.memberLimit}명</C.People>
                     </C.MainTitleWrap>
                   </C.MainContentBox>
                 </Link>

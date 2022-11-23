@@ -2,6 +2,8 @@ import React from 'react';
 import main1 from '../../assets/main_reco1.svg';
 import main2 from '../../assets/main_reco2.svg';
 import styled from 'styled-components';
+import {useQuery} from 'react-query';
+import axios from 'axios';
 const PopularClub = () => {
   return (
     <PopWrap>
