@@ -36,9 +36,12 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
   // signUp
   const {mutate: signUpSubmitMutate} = useMutation(
     async (values: SignValueType) => {
-      console.log(values);
-      const response = await memberApis.signUp(values);
-      return response;
+      try {
+        const response = await memberApis.signUp(values);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
     },
     {
       onSuccess: () => {
@@ -170,7 +173,6 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
       // 재시도 횟수 1번
       retry: 1,
       onSuccess: data => {
-        console.log(data);
         if (data) {
           if (data.success) {
             setIsEmailCheck(true);
@@ -231,8 +233,8 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
     for (let b = 0; b < Object.keys(certNumObj).length; b++) {
       certNum = certNum + certNumObj['certNumber' + b];
     }
-
     setCertNumber(certNum);
+
     if (certNumber === '' || undefined) {
       dispatch(openGlobalModal('certNumEmptyAlert'));
     } else {
@@ -251,6 +253,7 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
           // 2.유효성 검사 통과 여부 판별
           if (Object.keys(errors).length === 0) {
             // 통과시 submit
+
             signUpSubmitMutate(values);
           }
         } else {

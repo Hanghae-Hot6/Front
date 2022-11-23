@@ -24,7 +24,7 @@ function ProfileDetail({data}: ProfileDataType) {
           <p>{data?.memberId}</p>
         </div>
         <div>
-          <button onClick={() => dispatch(openGlobalModal('changeProfile'))}>
+          <button onClick={() => dispatch(openGlobalModal('readyFn'))}>
             개인정보 변경
           </button>
         </div>
@@ -37,9 +37,16 @@ function ProfileDetail({data}: ProfileDataType) {
           <p>모임원들과 함께 소통해요!</p>
         </div>
         <div>
-          <button>메세지</button>
+          <button onClick={() => dispatch(openGlobalModal('readyFn'))}>
+            메세지
+          </button>
         </div>
       </StChatDiv>
+      {isGlobalModalOpen && dispatchId === 'readyFn' && (
+        <GlobalModal id="readyFn" type="alertModal">
+          <div>준비중인 기능입니다. 조금만 기다려주세요..!</div>
+        </GlobalModal>
+      )}
 
       {/* {isGlobalModalOpen && dispatchId === 'changeProfile' && (
         <GlobalModal id="changeProfile" size="xlg">

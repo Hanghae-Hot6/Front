@@ -147,7 +147,6 @@ const StModalBody = styled.div<modalProps>`
     font-size: 1.8rem;
     background-color: ${props => props.theme.MainColor};
     width: ${props => {
-      console.log(props.type);
       return props.type === 'confirmModal' ? '50%' : '100%';
     }};
   }

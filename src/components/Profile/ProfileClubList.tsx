@@ -12,7 +12,11 @@ function ProfileClubList({data}: ProfileDataType) {
   const userId = getUserId();
 
   console.log('Clublist =>', data?.clubList);
-  const clubListData = data?.clubList;
+  const beforeSorting = data?.clubList;
+  // 최신순으로 정렬하기 위해
+  const clubListData = beforeSorting?.sort(
+    (a, b) => Date.parse(b.startDate!) - Date.parse(a.startDate!),
+  );
 
   const today = new Date().getTime();
 
@@ -92,24 +96,45 @@ function ProfileClubList({data}: ProfileDataType) {
               ) : (
                 clubListData?.map(item => {
                   return (
-                    <StClubLi key={item.clubId}>
-                      <Link to={`/club_detail/${item?.clubId}`}>
-                        <div>
-                          <span>{item.clubName}</span>
-                          <span>
-                            {item.startDate} ~ {item.finishDate}
-                          </span>
-                        </div>
-                      </Link>
-
+                    <>
                       {today > Date.parse(item?.finishDate!) ? (
-                        <div>참석예정</div>
+                        <StClubLi>
+                          <Link to={`/club_detail/${item?.clubId}`}>
+                            <div>
+                              <span>{item.clubName}</span>
+                              <span>
+                                {item.startDate} ~ {item.finishDate}
+                              </span>
+                            </div>
+                          </Link>
+                          <div>참석 완료</div>
+                        </StClubLi>
                       ) : today < Date.parse(item?.startDate!) ? (
-                        <div>참석완료</div>
+                        <StGrayLi>
+                          <Link to={`/club_detail/${item?.clubId}`}>
+                            <div>
+                              <span>{item.clubName}</span>
+                              <span>
+                                {item.startDate} ~ {item.finishDate}
+                              </span>
+                            </div>
+                          </Link>
+                          <div>진행중</div>
+                        </StGrayLi>
                       ) : (
-                        <div>참석중</div>
+                        <StClubLi>
+                          <Link to={`/club_detail/${item?.clubId}`}>
+                            <div>
+                              <span>{item.clubName}</span>
+                              <span>
+                                {item.startDate} ~ {item.finishDate}
+                              </span>
+                            </div>
+                          </Link>
+                          <div>참석중</div>
+                        </StClubLi>
                       )}
-                    </StClubLi>
+                    </>
                   );
                 })
               )}
@@ -118,7 +143,59 @@ function ProfileClubList({data}: ProfileDataType) {
 
           {index === 1 && (
             <ul>
-              {interestClubsData.data &&
+              {interestClubsData?.data &&
+              interestClubsData?.data?.length === 0 ? (
+                <StClubLi>
+                  <div> 참석중인 모임이 없습니다.</div>
+                </StClubLi>
+              ) : (
+                interestClubsData?.data?.map((item: clubList) => {
+                  return (
+                    <>
+                      {today > Date.parse(item?.finishDate!) ? (
+                        <StClubLi>
+                          <Link to={`/club_detail/${item?.clubId}`}>
+                            <div>
+                              <span>{item.clubName}</span>
+                              <span>
+                                {item.startDate} ~ {item.finishDate}
+                              </span>
+                            </div>
+                          </Link>
+                        </StClubLi>
+                      ) : today < Date.parse(item?.startDate!) ? (
+                        <StGrayLi>
+                          <Link to={`/club_detail/${item?.clubId}`}>
+                            <div>
+                              <span>{item.clubName}</span>
+                              <span>
+                                {item.startDate} ~ {item.finishDate}
+                              </span>
+                            </div>
+                          </Link>
+                        </StGrayLi>
+                      ) : (
+                        <StClubLi>
+                          <Link to={`/club_detail/${item?.clubId}`}>
+                            <div>
+                              <span>{item.clubName}</span>
+                              <span>
+                                {item.startDate} ~ {item.finishDate}
+                              </span>
+                            </div>
+                          </Link>
+                        </StClubLi>
+                      )}
+                    </>
+                  );
+                })
+              )}
+            </ul>
+          )}
+
+          {/* {index === 1 && (
+            <ul>
+              {interestClubsData?.data &&
               interestClubsData?.data?.length === 0 ? (
                 <StClubLi>
                   <div> 참석중인 모임이 없습니다.</div>
@@ -148,11 +225,63 @@ function ProfileClubList({data}: ProfileDataType) {
                 })
               )}
             </ul>
-          )}
-
+          )} */}
           {index === 2 && (
             <ul>
-              {leaderClubsData.data && leaderClubsData?.data?.length === 0 ? (
+              {leaderClubsData?.data && leaderClubsData?.data?.length === 0 ? (
+                <StClubLi>
+                  <div> 참석중인 모임이 없습니다.</div>
+                </StClubLi>
+              ) : (
+                leaderClubsData?.data?.map((item: clubList) => {
+                  return (
+                    <>
+                      {today > Date.parse(item?.finishDate!) ? (
+                        <StClubLi>
+                          <Link to={`/club_detail/${item?.clubId}`}>
+                            <div>
+                              <span>{item.clubName}</span>
+                              <span>
+                                {item.startDate} ~ {item.finishDate}
+                              </span>
+                            </div>
+                          </Link>
+                          <div>참석 완료</div>
+                        </StClubLi>
+                      ) : today < Date.parse(item?.startDate!) ? (
+                        <StGrayLi>
+                          <Link to={`/club_detail/${item?.clubId}`}>
+                            <div>
+                              <span>{item.clubName}</span>
+                              <span>
+                                {item.startDate} ~ {item.finishDate}
+                              </span>
+                            </div>
+                          </Link>
+                          <div>진행중</div>
+                        </StGrayLi>
+                      ) : (
+                        <StClubLi>
+                          <Link to={`/club_detail/${item?.clubId}`}>
+                            <div>
+                              <span>{item.clubName}</span>
+                              <span>
+                                {item.startDate} ~ {item.finishDate}
+                              </span>
+                            </div>
+                          </Link>
+                          <div>참석중</div>
+                        </StClubLi>
+                      )}
+                    </>
+                  );
+                })
+              )}
+            </ul>
+          )}
+          {/* {index === 2 && (
+            <ul>
+              {leaderClubsData?.data && leaderClubsData?.data?.length === 0 ? (
                 <StClubLi>
                   <div> 참석중인 모임이 없습니다.</div>
                 </StClubLi>
@@ -174,14 +303,14 @@ function ProfileClubList({data}: ProfileDataType) {
                       ) : today < Date.parse(item?.startDate!) ? (
                         <div>참석완료</div>
                       ) : (
-                        <div>참석중</div>
+                        <div>진행중</div>
                       )}
                     </StClubLi>
                   );
                 })
               )}
             </ul>
-          )}
+          )} */}
         </StClubListWrapper>
       </StClubsDiv>
     </>
@@ -276,6 +405,18 @@ const StClubLi = styled.li`
   }
 `;
 
+const StGrayLi = styled(StClubLi)`
+  div:nth-child(1) {
+    border: 1px solid ${props => props.theme.Gray};
+    color: ${props => props.theme.Gray};
+  }
+
+  div:nth-child(2) {
+    border: 1px solid ${props => props.theme.Gray};
+    color: ${props => props.theme.Gray};
+  }
+`;
+
 // {clubList.map((club, index) => (
 //   <>
 //     <div>{club.category}</div>
@@ -284,3 +425,22 @@ const StClubLi = styled.li`
 //     <div>{club.summary}</div>
 //   </>
 // ))}
+
+// <StClubLi key={item.clubId}>
+//   <Link to={`/club_detail/${item?.clubId}`}>
+//     <div>
+//       <span>{item.clubName}</span>
+//       <span>
+//         {item.startDate} ~ {item.finishDate}
+//       </span>
+//     </div>
+//   </Link>
+
+//   {today > Date.parse(item?.finishDate!) ? (
+//     <div>참석예정</div>
+//   ) : today < Date.parse(item?.startDate!) ? (
+//     <div>참석완료</div>
+//   ) : (
+//     <div>참석중</div>
+//   )}
+// </StClubLi>

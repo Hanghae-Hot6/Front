@@ -147,7 +147,7 @@ function SignUp() {
           name="email"
           onChange={handleChange}
           value={values.email}
-          maxLength={20}
+          maxLength={30}
           label="E-mail">
           <StCheckBtn
             type="button"

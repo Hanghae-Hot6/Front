@@ -38,8 +38,8 @@ export default function validate(
 
     if (!email) {
       errors.email = '이메일이 입력되지 않았습니다.';
-    } else if (email.length >= 20) {
-      errors.email = '20자 이상 작성은 불가능 합니다.';
+    } else if (email.length >= 30) {
+      errors.email = '30자 이상 작성은 불가능 합니다.';
     } else if (
       !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/i.test(email)
     ) {
@@ -53,19 +53,19 @@ export default function validate(
     } else if (username.length < 2) {
       errors.username = '1자 이상의 이름을 작성해주세요.';
     }
-    if (!address) {
-      errors.address = '주소가 입력되지 않았습니다.';
-    } else if (address.length > 20) {
-      errors.address = '20자 이상 작성은 불가능 합니다.';
-    } else if (address.length < 2) {
-      errors.address = '3자 이상의 이름을 작성해주세요.';
-    }
+    // if (!address) {
+    //   errors.address = '주소가 입력되지 않았습니다.';
+    // } else if (address.length > 20) {
+    //   errors.address = '20자 이상 작성은 불가능 합니다.';
+    // } else if (address.length < 2) {
+    //   errors.address = '3자 이상의 이름을 작성해주세요.';
+    // }
 
-    if (!phoneNumber) {
-      errors.phoneNumber = '전화번호가 입력되지 않았습니다.';
-    } else if (!/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phoneNumber)) {
-      errors.phoneNumber = '전화번호 형식으로 작성해주세요';
-    }
+    // if (!phoneNumber) {
+    //   errors.phoneNumber = '전화번호가 입력되지 않았습니다.';
+    // } else if (!/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phoneNumber)) {
+    //   errors.phoneNumber = '전화번호 형식으로 작성해주세요';
+    // }
     if (!password) {
       errors.password = '비밀번호가 입력되지 않았습니다.';
     } else if (password.length < 8) {
