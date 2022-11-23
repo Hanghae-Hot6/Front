@@ -128,10 +128,11 @@ export const MainContent = styled.div`
   gap: 0.8rem;
 `;
 export const MainContentBox = styled.div`
-  width: 31.4rem;
+  width: 31.6rem;
   height: 49.3rem;
   border: 1px solid #cacad7;
   margin-top: 6.5rem;
+  box-sizing: border-box;
 `;
 export const Summary = styled.p`
   margin-top: 1rem;
@@ -152,9 +153,9 @@ export const MainTitleWrap = styled.div`
 `;
 
 export const Location = styled.p`
-  margin-top: 1.2rem;
-  margin-bottom: 1.4rem;
-  font-size: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

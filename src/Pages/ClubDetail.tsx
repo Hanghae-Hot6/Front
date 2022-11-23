@@ -224,7 +224,7 @@ const ClubDetail = () => {
               </section>
               <section>
                 <h2>
-                  <span>{data.bookName2}</span>를 읽고 내용을 이해해봐요!
+                  <span>아래 책들을</span> 읽고 내용을 이해해봐요!
                 </h2>
 
                 <div>
@@ -288,8 +288,8 @@ export const ImageWrap = styled.div`
   overflow: hidden;
   > img {
     display: inline-block;
-    margin: 10% auto;
-    width: 50.4rem;
+    margin: 5% auto;
+    width: 35rem;
     height: 90%;
     object-fit: cover;
     object-position: top;
@@ -336,13 +336,13 @@ export const ClubJoin = styled.div`
   padding: 0;
   display: flex;
   align-items: center;
-  margin-top: 8.5rem;
+  margin-top: 12.3rem;
 `;
 
 export const InterestBtn = styled.button`
   padding: 0;
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
   img {
     width: 100%;
     height: 100%;
@@ -353,7 +353,7 @@ export const Btn = styled.button`
   width: 25.6rem;
   background: #fff;
   border: 1px solid ${props => props.theme.MainColor};
-  height: 8rem;
+  height: 6rem;
   color: ${props => props.theme.MainColor};
   transition: all 0.5s;
   font-weight: 600;
@@ -368,9 +368,9 @@ export const Btn = styled.button`
 export const JoinBtn = styled.button`
   font-size: 1.8rem;
   font-weight: 600;
-  width: 51.2rem;
+  width: 30rem;
   background: #222;
-  height: 8rem;
+  height: 6rem;
   color: #fff;
 `;
 

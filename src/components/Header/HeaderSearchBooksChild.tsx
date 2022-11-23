@@ -10,7 +10,7 @@ type CarouselBooksChildProps = {
   height?: number;
 };
 
-const CarouselBooksChild = ({
+const HeaderSearchBooksChild = ({
   data,
   width = 40,
   height = 20,
@@ -19,17 +19,18 @@ const CarouselBooksChild = ({
     <Div width={width} height={height}>
       {data?.map((val, index) => {
         return (
-          <HeaderBookChild key={index} data={val} width={20} height={10} />
+          <HeaderBookChild key={index} data={val} width={30} height={12} />
         );
       })}
     </Div>
   );
 };
-export default CarouselBooksChild;
+export default HeaderSearchBooksChild;
 
 const Div = styled.div<{width: number; height: number}>`
   width: ${(props: {width: number}) => props.width}rem;
   height: ${(props: {height: number}) => props.height}rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;

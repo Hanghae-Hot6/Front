@@ -1,3 +1,4 @@
+import {log} from 'console';
 import React from 'react';
 import styled from 'styled-components';
 import {NaverBooksDataType} from '../../types/bookSearch';
@@ -8,7 +9,7 @@ type CarouselBookChildProps = {
   height?: number;
 };
 
-const CarouselBookChild = ({
+const HeaderBookChild = ({
   data,
   width = 40,
   height = 20,
@@ -25,7 +26,7 @@ const CarouselBookChild = ({
     </Div>
   );
 };
-export default CarouselBookChild;
+export default HeaderBookChild;
 
 const Div = styled.div<{width: number; height: number}>`
   /* width: 100%; */
@@ -34,7 +35,8 @@ const Div = styled.div<{width: number; height: number}>`
   display: flex;
   padding: 1rem;
   margin-bottom: 3px;
-  border: 1px solid black;
+  margin-left: 10px;
+  /* border: 1px solid black; */
 `;
 const SmallDiv = styled.div`
   width: 60%;

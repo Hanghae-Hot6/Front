@@ -15,7 +15,7 @@ type CarouselBooksProps = {
   isIndex?: boolean;
 };
 
-const CarouselBooks = ({
+const HeaderSearchBooks = ({
   data,
   width,
   height,
@@ -65,7 +65,7 @@ const CarouselBooks = ({
     </>
   );
 };
-export default CarouselBooks;
+export default HeaderSearchBooks;
 
 const CarouselContainer = styled.div`
   display: flex;
@@ -93,29 +93,37 @@ const Container = styled.div<{
   /* width: 100%; */
   /* height: 100%; */
   overflow: hidden;
-  border: 1px solid black;
-  background-color: aliceblue;
+  border: 1px solid ${props => props.theme.MainColor};
+  background-color: #fff;
+  border-bottom: 0;
+  border-radius: 1.5rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  align-items: center;
 `;
 
 const Content = styled.div`
   display: flex;
   transform: translate(
     ${(props: {carouselLocation: number}) => {
-      return -props.carouselLocation * 42;
+      return -props.carouselLocation * 78.3;
     }}rem
   );
   transition: transform 0.5s;
+  align-items: center;
 `;
 
 const IndexButtonContainer = styled.div`
-  width: 42rem;
+  width: 78.3rem;
   height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  border: 1px solid #111;
+  border: 1px solid ${props => props.theme.MainColor};
   border-top: none;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
 `;
 
 const IndexButton = styled.button`

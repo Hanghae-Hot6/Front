@@ -54,9 +54,14 @@ export const CarouselListItem = styled.li<{currCarousel: number}>`
     img {
       filter: blur(2px);
       -webkit-filter: blur(2px);
+      transform: scale(0.95);
+      border: 1px solid ${props => props.theme.MainColor};
     }
 
     > div {
+      transform: scale(0.95);
+      border: 1px solid ${props => props.theme.MainColor};
+      border-top: none;
       opacity: 1;
     }
   }
