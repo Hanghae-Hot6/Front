@@ -79,4 +79,15 @@ export const memberApis = {
   // 아이디 찾기
   changeMemberId: async (payload: FindIdValue) =>
     await api.post(`${process.env.REACT_APP_BASE_URL}/members/findId`, payload),
+
+  //My page
+  myPageInfo: async () =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/members/mypage`),
+
+  // 내가 개설한 클럽 모임
+  getLeaderClubs: async () =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/members/mypage/leader`),
+
+  getInterestClubs: async () =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/members/mypage/interest`),
 };

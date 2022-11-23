@@ -28,3 +28,21 @@ export type CertNumValuesType = {
   certNumber6: string;
   certNumber7: string;
 };
+
+export type ProfileDataType = {
+  data: {
+    memberId?: string;
+    email?: string;
+    username?: string;
+    address?: string;
+    phoneNumber?: string;
+    clubList?: clubList[];
+  };
+};
+
+export type clubList = {
+  clubId?: number;
+  clubName?: string;
+  startDate?: string;
+  finishDate?: string;
+};

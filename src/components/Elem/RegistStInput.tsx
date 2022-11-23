@@ -7,6 +7,8 @@ type RegistStInputProps = {
   type?: string;
   name?: string;
   value?: string;
+  width?: string;
+  height?: string;
   maxLength?: number;
   placeholder?: string;
   children?: React.ReactNode;
@@ -19,13 +21,15 @@ function RegistStInput({
   type,
   name,
   value,
+  width,
+  height,
   maxLength,
   onChange,
   children,
   ...props
 }: RegistStInputProps) {
   return (
-    <StInputItemsDiv>
+    <StInputItemsDiv {...props}>
       <label htmlFor={id}>{label}</label>
       <input
         type={type}
@@ -43,11 +47,11 @@ function RegistStInput({
 
 export default RegistStInput;
 
-const StInputItemsDiv = styled.div`
+const StInputItemsDiv = styled.div<RegistStInputProps>`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 5.7rem;
+  height: ${({height}) => height || '5.7rem'};
   margin-top: 4.4rem;
   position: relative;
   border-bottom: 1px solid #e0e0e0;

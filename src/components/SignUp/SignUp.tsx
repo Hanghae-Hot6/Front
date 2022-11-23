@@ -234,16 +234,6 @@ function SignUp() {
 
                 <Timer initMin={5} initSec={0} />
 
-                {/* <input
-                  type="text"
-                  name="certNumber"
-                  value={certNumValue}
-                  onChange={e => {
-                    const {value} = e.currentTarget;
-                    const validateValue = value.trim();
-                    setCertNumValue(validateValue);
-                  }}
-                /> */}
                 <StInputBox>
                   <input
                     type="text"

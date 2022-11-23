@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import ProfileClubList from './ProfileClubList';
 import ProfileDetail from './ProfileDetail';
 import logo from '../../assets/logo.svg';
+import {ProfileDataType} from '../../types/regist';
 
-function ProfileContainer() {
+function ProfileContainer({data}: ProfileDataType) {
+  console.log('ProfileContainer', data);
+  const clubList = data?.clubList;
   return (
     <>
       <StContainer>
@@ -15,10 +18,10 @@ function ProfileContainer() {
           </StTitle>
           <StDiv>
             <StUserInfoSection>
-              <ProfileDetail />
+              <ProfileDetail data={data} />
             </StUserInfoSection>
             <StClubInfoSection>
-              <ProfileClubList />
+              <ProfileClubList data={data} />
             </StClubInfoSection>
           </StDiv>
         </StProfileBox>
@@ -63,9 +66,7 @@ const StUserInfoSection = styled.section`
   height: 100%;
   margin-right: 1rem;
   background-color: #fff;
-  border: 1px solid ${props => props.theme.MainColor};
-  border-radius: 1rem;
-  box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
+  justify-content: space-between;
 `;
 const StClubInfoSection = styled.section`
   display: flex;

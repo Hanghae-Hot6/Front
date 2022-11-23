@@ -128,7 +128,11 @@ const StModalBody = styled.div<modalProps>`
   background-color: #fff;
   width: 35rem;
   height: ${props => {
-    return props.size === 'lg' ? '35rem' : '25rem';
+    return props.size === 'lg'
+      ? '35rem'
+      : props.size === 'xlg'
+      ? '60rem'
+      : '25rem';
   }};
   z-index: 999;
   position: absolute;
