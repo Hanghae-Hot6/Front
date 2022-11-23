@@ -18,21 +18,26 @@ type HeadersType =
   | {};
 
 class ChattingService {
+  // 초기 값
+  readonly chatRoomId: string = '';
+
+  // constructor 에는 본 class의 instance를 생성할때 등록할 params 를 정의해 준다
+  // new ChattingServiece(params)
+  constructor(chatRoomId: string) {
+    this.chatRoomId = chatRoomId;
+  }
+
   socket = new sockJS(`${process.env.REACT_APP_BASE_URL}/wss/chat`);
 
   stompClient = Stomp.over(this.socket);
 
-  chatRoomId = '';
+  // chatRoomId = '';
 
   // 방 id 받기
 
-  receiveRoomId = (roomId: string) => {
-    this.chatRoomId = roomId;
-  };
   // 웹소켓 연결 요청 & 구독 요청
 
   onConnect = (
-    roomNo: string, // 채팅룸 고유주소
     token: string | undefined,
     headers: HeadersType = {}, // headers에 {} 인증요청 집어 넣기
     callback: any = () => {},
@@ -42,12 +47,12 @@ class ChattingService {
 
     // this.stompClient.connect(headers, () => {
     this.stompClient.connect({}, () => {
-      console.log('연결됬음');
+      console.log('연결됬음 ' + this.chatRoomId);
 
-      console.log(roomNo);
+      console.log(this.chatRoomId);
 
       this.stompClient.subscribe(
-        `/sub/chat/messages/${roomNo}`,
+        `/sub/chat/messages/${this.chatRoomId}`,
 
         data => {
           receivingMessage = JSON.parse(data.body);
@@ -72,6 +77,17 @@ class ChattingService {
       //     sender: userId,
       //   }),
       // );
+
+      this.stompClient.send(
+        '/pub/chat/message',
+        headers,
+        JSON.stringify({
+          chatRoomId: this.chatRoomId,
+          message: `${userId}님이 접속하셨습니다`,
+          type: 'TALK',
+          sender: userId,
+        }),
+      );
     });
     return receivingMessage;
   };
@@ -84,14 +100,10 @@ class ChattingService {
       headers,
       JSON.stringify(messageObject),
     );
-    // this.stompClient.send('/app/hello', {}, messageObject);
   };
-
-  receiveMessage = () => {};
 
   onDisconnect = () => {
     this.stompClient.disconnect();
-    // this.stompClient = null;
     console.log('disconnected');
   };
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
@@ -9,10 +9,14 @@ import ChattingService from './ChattingService';
 
 type ChatTestProps = {};
 
-const ChattingServiceKit = new ChattingService();
-
 const ChatTest = ({}: ChatTestProps) => {
   const [input, setInput] = useState<string>('');
+
+  // chattingServiceKit 만들기
+
+  const ChattingServiceKit = useMemo(() => {
+    return new ChattingService('');
+  }, []);
 
   const accessToken = getAccessToken();
 
@@ -34,32 +38,12 @@ const ChatTest = ({}: ChatTestProps) => {
   // console.log(chats);
 
   // 채팅방들 보기
-  // const fetchChatRooms = async () => {
-  //   const response = await axios.get(
-  //     `${process.env.REACT_APP_BASE_URL}/chat/rooms`,
-  //     {
-  //       headers: {
-  //         Authorization: accessToken,
-  //         'Content-Type': 'application/json',
-  //       },
-  //     },
-  //   );
-  //   return response;
-  // };
-
-  // const {data: chatRooms, status: chatRoomsStatus} = useQuery(
-  //   'getChatRooms',
-  //   fetchChatRooms,
-  // );
-
-  // console.log(chatRooms?.data.data);
 
   useEffect(() => {
     ChattingServiceKit.onConnect(
-      '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
       getAccessToken(),
       {
-        Authorization: getAccessToken(),
+        Authorization: accessToken,
         type: 'TALK',
       },
 
@@ -87,10 +71,7 @@ const ChatTest = ({}: ChatTestProps) => {
   const handleClick = useCallback(() => {
     console.log(userId);
     ChattingServiceKit.sendMessage(
-      {
-        Authorization: getAccessToken(),
-      },
-
+      {},
       {
         chatRoomId: '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
         message: input,

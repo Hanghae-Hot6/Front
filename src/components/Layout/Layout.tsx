@@ -3,12 +3,14 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import styled from 'styled-components';
 import arrow from '../../assets/arrowUp.svg';
+import ChatBody from '../Chat/ChatBody/ChatBody';
 type Props = {
   children: ReactNode;
 };
 
 const Layout = (props: Props) => {
   const [showButton, setShowButton] = useState(false);
+  const [showChat, setShowChat] = useState(false);
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -29,12 +31,15 @@ const Layout = (props: Props) => {
       window.removeEventListener('scroll', handleShowButton);
     };
   }, []);
+
   return (
     <div>
       <Header />
       <section style={{width: '1280px', margin: '0 auto', overflow: 'hidden'}}>
         {props.children}
       </section>
+
+      {showChat && <ChatBody setShowChat={setShowChat} />}
       <Footer />
 
       {showButton && (
@@ -42,6 +47,14 @@ const Layout = (props: Props) => {
           <img src={arrow} alt={arrow} />
         </TopButton>
       )}
+      {
+        <ChatButton
+          onClick={() => {
+            setShowChat(!showChat);
+          }}>
+          <span>채팅</span>
+        </ChatButton>
+      }
     </div>
   );
 };
@@ -54,6 +67,21 @@ const TopButton = styled.button`
   width: 5.5rem;
   height: 5.5rem;
   bottom: 20rem;
+  right: 12rem;
+  border: 1px solid #5200ff;
+  box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  color: #5200ff;
+  background-color: #fff;
+  z-index: 10;
+`;
+
+const ChatButton = styled.button`
+  position: fixed;
+  font-size: 1rem;
+  width: 5.5rem;
+  height: 5.5rem;
+  bottom: 28rem;
   right: 12rem;
   border: 1px solid #5200ff;
   box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
