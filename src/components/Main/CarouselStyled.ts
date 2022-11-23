@@ -47,11 +47,35 @@ export const CarouselListItem = styled.li<{currCarousel: number}>`
   width: 427px;
   transform: translateX(-${({currCarousel}) => currCarousel * 100}%);
   transition: 200ms ease;
+  position: relative;
+
+  box-sizing: border-box;
+  :hover {
+    img {
+      filter: blur(2px);
+      -webkit-filter: blur(2px);
+    }
+
+    > div {
+      opacity: 1;
+    }
+  }
   img {
     width: 427px;
     height: 458px;
     object-fit: cover;
     object-position: center;
+    transition: all 0.5s ease;
+  }
+  div {
+    opacity: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+    padding: 1rem;
+    transition: all 0.5s ease;
   }
 `;
 

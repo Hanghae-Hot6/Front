@@ -4,6 +4,7 @@ import * as B from './BannerStyled';
 import rightArrow from '../../assets/right_arrow.svg';
 import leftArrow from '../../assets/left_arrow.svg';
 import Banner1 from '../../assets/hero_image.svg';
+import {Link} from 'react-router-dom';
 const banners = [
   Banner1,
   'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80',
@@ -57,19 +58,23 @@ const Carousel = () => {
           {banners.map((url, index) => (
             <B.CarouselListItem activeIndex={activeIndex} key={index}>
               <img src={url} alt={url} />
-              <a href="#">바로가기</a>
-              {banners.length && (
-                <B.Nav>
-                  {Array.from({length: banners.length}).map((_, index) => (
-                    <B.NavItem key={index}>
-                      <B.NavButton
-                        isActive={activeIndex === index}
-                        onClick={() => handleGoTo(index)}
-                      />
-                    </B.NavItem>
-                  ))}
-                </B.Nav>
-              )}
+              <div>
+                <Link to="/club_list" state={0}>
+                  바로가기
+                </Link>
+                {banners.length && (
+                  <B.Nav>
+                    {Array.from({length: banners.length}).map((_, index) => (
+                      <B.NavItem key={index}>
+                        <B.NavButton
+                          isActive={activeIndex === index}
+                          onClick={() => handleGoTo(index)}
+                        />
+                      </B.NavItem>
+                    ))}
+                  </B.Nav>
+                )}
+              </div>
             </B.CarouselListItem>
           ))}
         </B.CarouselList>

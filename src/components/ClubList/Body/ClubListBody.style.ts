@@ -61,7 +61,7 @@ export const TabList = styled.div`
 
 export const ContentWrap = styled.div`
   width: 1280px;
-  margin: 8rem auto;
+  margin: 5rem auto;
   overflow: hidden;
 `;
 
