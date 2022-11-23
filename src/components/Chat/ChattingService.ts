@@ -1,6 +1,7 @@
 import sockJS from 'sockjs-client';
 
 import {Stomp} from '@stomp/stompjs';
+import {isReadable} from 'stream';
 
 type MessageObjectType = {
   message: string;
@@ -28,6 +29,7 @@ class ChattingService {
   }
 
   socket = new sockJS(`${process.env.REACT_APP_BASE_URL}/wss/chat`);
+  // socket = new sockJS(`http://220.76.226.226:8080/wss/chatㅅ`);
 
   stompClient = Stomp.over(this.socket);
 
@@ -49,8 +51,6 @@ class ChattingService {
     this.stompClient.connect({}, () => {
       console.log('연결됬음 ' + this.chatRoomId);
 
-      console.log(this.chatRoomId);
-
       this.stompClient.subscribe(
         `/sub/chat/messages/${this.chatRoomId}`,
 
@@ -68,15 +68,6 @@ class ChattingService {
             }
           : {},
       );
-      // this.stompClient.send(
-      //   '/pub/chat/message',
-      //   headers,
-      //   JSON.stringify({
-      //     type: 'ENTER',
-      //     roomNo: roomNo,
-      //     sender: userId,
-      //   }),
-      // );
 
       this.stompClient.send(
         '/pub/chat/message',

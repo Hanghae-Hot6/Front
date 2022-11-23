@@ -7,22 +7,17 @@ import Theme from '../../../theme/Theme';
 import {getAccessToken, getUserIdFixed} from '../../../utils';
 import ChatRoomBrief from '../ChatRoomBrief/ChatRoomBrief';
 import ChatRoomNotAvaliable from '../ChatRoomNotAvaliable';
-import OnChat from '../OnChat/OnChat';
+import ChatRoom from '../ChatRoom/ChatRoom';
 
 type ChatBodyProps = {
   setShowChat: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-type ChatRoomType = {
+export type ChatRoomType = {
   chatRoomId: string;
   thumbnail: string;
   clubName: string;
   participants: number;
-};
-
-type ChatRoomTypeDepricated = {
-  chatRoomId: string;
-  title: string;
 };
 
 const ChatBody = ({setShowChat}: ChatBodyProps) => {
@@ -49,26 +44,24 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
     fetchChatRooms,
   );
 
-  let myChatRooms: ChatRoomTypeDepricated[] = [];
+  let myChatRooms: ChatRoomType[] = [];
   if (chatRoomsFromQuery?.data.data) {
-    myChatRooms = chatRoomsFromQuery?.data.data as ChatRoomTypeDepricated[];
+    myChatRooms = chatRoomsFromQuery?.data.data as ChatRoomType[];
   }
 
-  const FakeData = [
-    {chatRoomId: 'yes', title: 'yes'},
-    {chatRoomId: 'yes1', title: 'yes1'},
-  ];
+  // console.log(myChatRooms);
 
   // 채팅방 입장 코드
 
   const [enterChatRoom, setEnterChatRoom] = useState<boolean>(false);
-  const [chatRoomNowInfo, setChatRoomNowInfo] = useState<string | undefined>(
-    undefined,
-  );
+  const [chatRoomNowInfo, setChatRoomNowInfo] = useState<
+    ChatRoomType | undefined
+  >(undefined);
 
-  const handleRoomClick = (chatRoomId: string, title: string) => {
+  const handleRoomClick = (chatRoomId: string, chatRoomInfo: ChatRoomType) => {
+    console.log(chatRoomInfo);
     setEnterChatRoom(true);
-    setChatRoomNowInfo(title);
+    setChatRoomNowInfo(chatRoomInfo);
   };
 
   return (
@@ -83,7 +76,7 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
                 }}>
                 뒤로가기
               </button>
-              채팅방 안임 <span>{chatRoomNowInfo}</span>
+              채팅방 안임 <span>{chatRoomNowInfo?.clubName}</span>
               <CloseBtn
                 onClick={() => {
                   setShowChat(false);
@@ -108,7 +101,13 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
 
         <ChatRoomsListDiv>
           {enterChatRoom ? (
-            <OnChat />
+            <>
+              {chatRoomNowInfo ? (
+                <>
+                  <ChatRoom chatRoomNowInfo={chatRoomNowInfo} />
+                </>
+              ) : undefined}
+            </>
           ) : (
             <>
               {chatRoomsStatus === 'success' && myChatRooms.length > 0 ? (
@@ -119,7 +118,7 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
                         handleRoomClick={handleRoomClick}
                         key={val.chatRoomId}
                         chatRoomId={val.chatRoomId}
-                        title={val.title}
+                        chatRoomInfo={val}
                       />
                     );
                   })}
@@ -129,17 +128,6 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
               ) : (
                 <div>서버통신 안되고 있음</div>
               )}
-
-              {/* {FakeData.map(val => {
-                return (
-                  <ChatRoomBrief
-                    handleRoomClick={handleRoomClick}
-                    key={val.chatRoomId}
-                    chatRoomId={val.chatRoomId}
-                    title={val.title}
-                  />
-                );
-              })} */}
             </>
           )}
         </ChatRoomsListDiv>
