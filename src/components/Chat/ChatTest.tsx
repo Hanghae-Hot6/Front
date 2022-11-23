@@ -1,44 +1,77 @@
-import React, {useCallback, useRef, useState} from 'react';
+import axios from 'axios';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {useEffect} from 'react';
+import {useQuery} from 'react-query';
 import styled from 'styled-components';
-import {getAccessToken, getUserId} from '../../utils';
+import {getAccessToken, getUserId, getUserIdFixed} from '../../utils';
 import KeyDetector from '../../utils/KeyDetector';
 import ChattingService from './ChattingService';
 
 type ChatTestProps = {};
 
-const ChattingServiceKit = new ChattingService();
-
 const ChatTest = ({}: ChatTestProps) => {
   const [input, setInput] = useState<string>('');
 
-  const userId = getUserId();
+  // chattingServiceKit 만들기
+
+  const ChattingServiceKit = useMemo(() => {
+    return new ChattingService('');
+  }, []);
+
+  const accessToken = getAccessToken();
+
+  const userId = getUserIdFixed();
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
+  // useEffect(() => {
+  //   console.log(input);
+  // }, [input]);
+
+  // 해당 방 채팅 보기
+  // const fetchChats = async () => {
+
+  // };
+
+  // const {data: chats, status: chatsStatus} = useQuery('getChat', fetchChats);
+
+  // console.log(chats);
+
+  // 채팅방들 보기
 
   useEffect(() => {
     ChattingServiceKit.onConnect(
-      '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
       getAccessToken(),
       {
-        Authorization: getAccessToken(),
+        Authorization: accessToken,
         type: 'TALK',
       },
+
       (receivingMessage: any) => console.log(receivingMessage),
       userId,
     );
   }, []);
 
-  const handleClick = useCallback(() => {
-    ChattingServiceKit.sendMessage(
+  const handleClick2 = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/chat/messages/9d8856fb-1e18-41e3-baa8-310fe5ab731c`,
       {
-        Authorization: getAccessToken(),
-        // 'Content-Type': 'application/json',
+        headers: {
+          Authorization: accessToken,
+          'Content-Type': 'application/json',
+        },
       },
+    );
+
+    console.log(response);
+
+    return response;
+  };
+
+  const handleClick = useCallback(() => {
+    console.log(userId);
+    ChattingServiceKit.sendMessage(
+      {},
       {
         chatRoomId: '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
         message: input,
@@ -46,7 +79,7 @@ const ChatTest = ({}: ChatTestProps) => {
         sender: userId,
       },
     );
-  }, [input]);
+  }, [input, userId]);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -68,6 +101,9 @@ const ChatTest = ({}: ChatTestProps) => {
 
   return (
     <>
+      {/* <MessageSendButton>채팅방들 보기</MessageSendButton> */}
+      <MessageSendButton onClick={handleClick2}>채팅보기</MessageSendButton>
+
       <MessageSendButton ref={buttonRef} onClick={handleClick}>
         메세지보내기
       </MessageSendButton>
