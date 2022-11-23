@@ -55,19 +55,25 @@ export const CarouselListItem = styled.li<{activeIndex: number}>`
     object-fit: cover;
     object-position: center;
   }
-  > a {
-    width: 9.6rem;
-    height: 4.2rem;
-    line-height: 4.2rem;
-    background-color: #111;
-    color: #fff;
-    position: absolute;
-    z-index: 11;
-    display: block;
-    top: 30.5rem;
-    left: 45rem;
-    font-size: 2rem;
-    padding-left: 1.3rem;
+  > div {
+    margin: 0 auto;
+    width: 53%;
+    background-color: #fff;
+    position: relative;
+    > a {
+      width: 9.6rem;
+      height: 4.2rem;
+      line-height: 4.2rem;
+      background-color: #111;
+      color: #fff;
+      position: absolute;
+      z-index: 12;
+      display: block;
+      bottom: 10rem;
+      left: 0;
+      font-size: 2rem;
+      padding-left: 1.3rem;
+    }
   }
 `;
 
@@ -86,7 +92,7 @@ export const Nav = styled.ul`
   position: absolute;
   z-index: 12;
   bottom: 6.4rem;
-  left: 45rem;
+  left: 0;
   list-style: none;
   padding: 0;
   margin: 0 auto;

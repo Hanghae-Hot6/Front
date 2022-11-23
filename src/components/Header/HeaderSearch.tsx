@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 import {NaverBooksDataType} from '../../types/bookSearch';
 import HeaderSearchBooks from './HeaderSearchBooks';
+import {log} from 'console';
 type BookSearchBarProps = {};
 
 // export type NaverBooksDataType = {
@@ -15,14 +16,14 @@ type BookSearchBarProps = {};
 //   title: string;
 // };
 
-const BookSearchBar = ({}: BookSearchBarProps) => {
+const HeaderSearch = ({}: BookSearchBarProps) => {
   const [showBookSearchBar, setShowBookSearchBar] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
 
   const fetch = async ({queryKey}: any) => {
     if (input) {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=12`,
+        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=16`,
       );
 
       return response?.data.data;
@@ -88,7 +89,7 @@ const BookSearchBar = ({}: BookSearchBarProps) => {
           <SearchBox>
             <BoxWrap>
               <Div2>
-                <HeaderSearchBooks data={NewArray} width={42} height={30} />
+                <HeaderSearchBooks data={NewArray} width={78.3} height={40} />
               </Div2>
               <Div3></Div3>
             </BoxWrap>
@@ -98,7 +99,7 @@ const BookSearchBar = ({}: BookSearchBarProps) => {
     </>
   );
 };
-export default BookSearchBar;
+export default HeaderSearch;
 
 const Container = styled.div`
   display: flex;
@@ -113,7 +114,7 @@ const Container = styled.div`
 const SearchBox = styled.div`
   position: absolute;
   bottom: -1rem;
-  width: 42rem;
+  width: 78.3rem;
 `;
 const BoxWrap = styled.div`
   display: flex;
@@ -158,8 +159,8 @@ const StInputDiv = styled.div`
   div {
     cursor: pointer;
     position: absolute;
-    bottom: -4.2rem;
-    right: -2rem;
+    bottom: -4.5rem;
+    right: -19rem;
     z-index: 10;
     width: 3.5rem;
     height: 3rem;

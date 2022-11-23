@@ -1,3 +1,4 @@
+import {log} from 'console';
 import React from 'react';
 import styled from 'styled-components';
 import {NaverBooksDataType} from '../../types/bookSearch';
@@ -8,7 +9,7 @@ type CarouselBookChildProps = {
   height?: number;
 };
 
-const CarouselBookChild = ({
+const HeaderBookChild = ({
   data,
   width = 40,
   height = 20,
@@ -18,14 +19,14 @@ const CarouselBookChild = ({
       <Image src={data?.image} />
       <SmallDiv>
         <Title>{data?.title}</Title>
-        <Author>{data?.isbn}</Author>
+        {/* <Author>{data?.isbn}</Author> */}
         <Price>{data?.pubdate}</Price>
         {/* <Content>{data.}</Content> */}
       </SmallDiv>
     </Div>
   );
 };
-export default CarouselBookChild;
+export default HeaderBookChild;
 
 const Div = styled.div<{width: number; height: number}>`
   /* width: 100%; */
@@ -33,8 +34,10 @@ const Div = styled.div<{width: number; height: number}>`
   height: ${(props: {height: number}) => props.height}rem;
   display: flex;
   padding: 1rem;
-  margin-bottom: 3px;
-  border: 1px solid black;
+  /* margin-bottom: 1rem; */
+  margin-left: 3rem;
+  margin-top: 1rem;
+  /* border: 1px solid black; */
 `;
 const SmallDiv = styled.div`
   width: 60%;
@@ -43,10 +46,22 @@ const SmallDiv = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.span``;
+const Title = styled.span`
+  font-weight: 700;
+  font-size: 1.6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  width: 15rem;
+  margin-bottom: 1rem;
+`;
 const Author = styled.span``;
 const Price = styled.span``;
 const Content = styled.span``;
 const Image = styled.img`
-  height: 100%;
+  width: 8.8rem;
+  height: 10rem;
+  filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
 `;

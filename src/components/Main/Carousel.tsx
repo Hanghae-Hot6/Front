@@ -68,6 +68,7 @@ const Carousel = () => {
               key={index}
               currCarousel={currCarousel}>
               <img src={url} alt={url} />
+              <div>후기입니다</div>
             </C.CarouselListItem>
           ))}
         </C.CarouselList>

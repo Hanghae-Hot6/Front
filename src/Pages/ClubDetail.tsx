@@ -137,6 +137,8 @@ const ClubDetail = () => {
     },
   );
 
+  console.log(data);
+
   useEffect(() => {
     if (status === 'error') {
       return alert('로그인이 필요합니다.'), navigate('/Login');
@@ -155,15 +157,15 @@ const ClubDetail = () => {
             <MainContent>
               <div>
                 <ImageWrap>
-                  <img src={data.bookImage1} alt={data.bookIntro} />
+                  <img src={data.thumbnail} alt={data.bookIntro} />
                 </ImageWrap>
               </div>
 
               <div>
                 <TitleWrap>
                   <h3>{data.category}</h3>
-                  <h2>{data.clubSummary}</h2>
-                  <p>{data.clubName}</p>
+                  <h2>{data.clubName}</h2>
+                  <p>{data.clubSummary}</p>
                 </TitleWrap>
                 <ClubInfoWrap>
                   <p>
@@ -212,6 +214,56 @@ const ClubDetail = () => {
                 </ClubJoin>
               </div>
             </MainContent>
+            <Main>
+              <section>
+                <h2>
+                  <span>{data.bookName1}</span> 베스트 셀러를 읽고 함께 이야기
+                  나눠요
+                </h2>
+                <p>{data.bookIntro}</p>
+              </section>
+              <section>
+                <h2>
+                  <span>아래 책들을</span> 읽고 내용을 이해해봐요!
+                </h2>
+
+                <div>
+                  <div>
+                    <img src={data.bookImage1} alt={data.bookName1} />
+                    <img src={data.bookImage2} alt={data.bookName2} />
+                    <img src={data.bookImage3} alt={data.bookName3} />
+                  </div>
+                </div>
+                <p>{data.bookSummary}</p>
+              </section>
+              <section>
+                <h2>
+                  모임의 <span>일정이에요 !</span>
+                </h2>
+                <textarea readOnly>{data.schedule}</textarea>
+              </section>
+              <section>
+                <h2>
+                  모임에 대한 <span>정보가 궁금하신가요?</span>
+                </h2>
+                <p>
+                  <span>날짜</span>
+                  {data.period}
+                </p>
+                <p>
+                  <span>주최자</span>
+                  {data.leader}
+                </p>
+                <p>
+                  <span>멤버 수</span>
+                  {data.participantNum}
+                </p>
+                <p>
+                  <span>장소</span>
+                  {data.location}
+                </p>
+              </section>
+            </Main>
           </>
         )}
       </Layout>
@@ -223,6 +275,8 @@ export default ClubDetail;
 export const MainContent = styled.div`
   display: flex;
   margin-top: 5rem;
+  padding-bottom: 9.5rem;
+  border-bottom: 1px solid #eee;
 `;
 
 export const ImageWrap = styled.div`
@@ -234,8 +288,8 @@ export const ImageWrap = styled.div`
   overflow: hidden;
   > img {
     display: inline-block;
-    margin: 10% auto;
-    width: 50.4rem;
+    margin: 5% auto;
+    width: 35rem;
     height: 90%;
     object-fit: cover;
     object-position: top;
@@ -267,7 +321,7 @@ export const TitleWrap = styled.div`
 export const ClubInfoWrap = styled.div`
   margin-top: 6rem;
   > p {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 3rem;
     color: ${props => props.theme.Gray};
   }
@@ -282,13 +336,13 @@ export const ClubJoin = styled.div`
   padding: 0;
   display: flex;
   align-items: center;
-  margin-top: 8.5rem;
+  margin-top: 12.3rem;
 `;
 
 export const InterestBtn = styled.button`
   padding: 0;
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
   img {
     width: 100%;
     height: 100%;
@@ -296,10 +350,10 @@ export const InterestBtn = styled.button`
 `;
 
 export const Btn = styled.button`
-  width: 256px;
+  width: 25.6rem;
   background: #fff;
   border: 1px solid ${props => props.theme.MainColor};
-  height: 80px;
+  height: 6rem;
   color: ${props => props.theme.MainColor};
   transition: all 0.5s;
   font-weight: 600;
@@ -312,10 +366,70 @@ export const Btn = styled.button`
 `;
 
 export const JoinBtn = styled.button`
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  width: 512px;
+  width: 30rem;
   background: #222;
-  height: 80px;
+  height: 6rem;
   color: #fff;
+`;
+
+export const Main = styled.main`
+  margin-top: 6.7rem;
+
+  > section {
+    padding-bottom: 5rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5rem;
+    h2 {
+      font-weight: 600;
+      font-size: 2.4rem;
+      margin-bottom: 5rem;
+      > span {
+        color: ${props => props.theme.MainColor};
+      }
+    }
+    p {
+      font-size: 1.8rem;
+      > span {
+        font-weight: 600;
+        width: 10rem;
+        display: inline-block;
+        margin-bottom: 3rem;
+      }
+    }
+    > div {
+      width: 100%;
+      height: 42.6rem;
+      background-color: ${props => props.theme.LightGray};
+      margin-bottom: 5.6rem;
+      > div {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5rem;
+      }
+      > div > img {
+        width: 25.3rem;
+        height: 37rem;
+        filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
+      }
+    }
+    textarea {
+      padding: 0;
+      width: 100%;
+      min-height: 20rem;
+      max-height: 20rem;
+      border: none;
+      resize: none;
+      line-height: 3;
+      font-weight: 600;
+      font-size: 2rem;
+      font-family: 'Pretendard-Regular', sans-serif;
+      :focus {
+        outline: none;
+      }
+    }
+  }
 `;

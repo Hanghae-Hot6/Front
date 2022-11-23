@@ -45,9 +45,9 @@ const RecommendationClub = () => {
                 <img src={pop1} alt="" />
                 <p>
                   <span className="title">title</span>
-                  <br />
+
                   <span className="summary">작가</span>
-                  <br />
+
                   <span className="memberLimit">조회수 100회</span>
                 </p>
               </a>
@@ -58,9 +58,9 @@ const RecommendationClub = () => {
                 <img src={pop2} alt="" />
                 <p>
                   <span className="title">title</span>
-                  <br />
+
                   <span className="summary">작가</span>
-                  <br />
+
                   <span className="memberLimit">조회수 100회</span>
                 </p>
               </a>
@@ -71,9 +71,9 @@ const RecommendationClub = () => {
                 <img src={pop3} alt="" />
                 <p>
                   <span className="title">title</span>
-                  <br />
+
                   <span className="summary">작가</span>
-                  <br />
+
                   <span className="memberLimit">조회수 100회</span>
                 </p>
               </a>
@@ -84,9 +84,9 @@ const RecommendationClub = () => {
                 <img src={pop4} alt="" />
                 <p>
                   <span className="title">title</span>
-                  <br />
+
                   <span className="summary">작가</span>
-                  <br />
+
                   <span className="memberLimit">조회수 100회</span>
                 </p>
               </a>
@@ -97,9 +97,9 @@ const RecommendationClub = () => {
                 <img src={pop5} alt="" />
                 <p>
                   <span className="title">title</span>
-                  <br />
+
                   <span className="summary">작가</span>
-                  <br />
+
                   <span className="memberLimit">조회수 100회</span>
                 </p>
               </a>
@@ -129,7 +129,6 @@ const RecommendationClub = () => {
                     <img src={item.thumbnail} alt={item.thumbnail} />
                     <p>
                       <span className="title">{item.clubName}</span>
-                      <br />
                       <span className="summary">{item.summary}</span>
                       <span className="visitNum">조회수 {item.visitNum}</span>
                     </p>
@@ -198,15 +197,18 @@ const List = styled.li`
       line-height: 1.5;
     }
     > p > span {
-      padding-top: 0.5rem;
     }
     > p > .title {
       font-size: 2.2rem;
       font-weight: 600;
       overflow: hidden;
       text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
     }
     > p > .summary {
+      height: 4.2rem;
       font-size: 1.4rem;
       font-weight: 400;
       color: #767676;
