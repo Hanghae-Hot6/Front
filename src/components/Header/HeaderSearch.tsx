@@ -23,7 +23,7 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
   const fetch = async ({queryKey}: any) => {
     if (input) {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=12`,
+        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=16`,
       );
 
       return response?.data.data;
@@ -36,7 +36,7 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
     isLoading,
     error,
   } = useQuery<NaverBooksDataType[]>(['getBooks', input], fetch);
-  console.log(getBooksData);
+
   let endNum: number;
   let divideBy: number;
 

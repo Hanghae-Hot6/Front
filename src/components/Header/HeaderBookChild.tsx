@@ -19,7 +19,7 @@ const HeaderBookChild = ({
       <Image src={data?.image} />
       <SmallDiv>
         <Title>{data?.title}</Title>
-        <Author>{data?.isbn}</Author>
+        {/* <Author>{data?.isbn}</Author> */}
         <Price>{data?.pubdate}</Price>
         {/* <Content>{data.}</Content> */}
       </SmallDiv>
@@ -34,8 +34,9 @@ const Div = styled.div<{width: number; height: number}>`
   height: ${(props: {height: number}) => props.height}rem;
   display: flex;
   padding: 1rem;
-  margin-bottom: 3px;
-  margin-left: 10px;
+  /* margin-bottom: 1rem; */
+  margin-left: 3rem;
+  margin-top: 1rem;
   /* border: 1px solid black; */
 `;
 const SmallDiv = styled.div`
@@ -45,10 +46,22 @@ const SmallDiv = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.span``;
+const Title = styled.span`
+  font-weight: 700;
+  font-size: 1.6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  width: 15rem;
+  margin-bottom: 1rem;
+`;
 const Author = styled.span``;
 const Price = styled.span``;
 const Content = styled.span``;
 const Image = styled.img`
-  height: 100%;
+  width: 8.8rem;
+  height: 10rem;
+  filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
 `;
