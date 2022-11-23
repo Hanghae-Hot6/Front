@@ -7,7 +7,7 @@ type MessageObjectType = {
   // Accesstoken: string | undefined;
   type: string;
   chatRoomId: number | string;
-  sender: string | null;
+  sender: string | undefined;
 };
 
 type functionType = ({...props}) => void;
@@ -36,15 +36,19 @@ class ChattingService {
     token: string | undefined,
     headers: HeadersType = {}, // headers에 {} 인증요청 집어 넣기
     callback: any = () => {},
-    userId: string | null,
+    userId: string | undefined,
   ) => {
     let receivingMessage = '';
 
-    this.stompClient.connect(headers, () => {
+    // this.stompClient.connect(headers, () => {
+    this.stompClient.connect({}, () => {
       console.log('연결됬음');
+
+      console.log(roomNo);
+
       this.stompClient.subscribe(
-        // `/sub/chat/room/${roomNo}`,
         `/sub/chat/messages/${roomNo}`,
+
         data => {
           receivingMessage = JSON.parse(data.body);
           // 연결 성공시 발동시킬 콜백 넣기
@@ -52,21 +56,22 @@ class ChattingService {
 
           callback(receivingMessage);
         },
+        // {},
         token
           ? {
               Authorization: token,
             }
           : {},
       );
-      this.stompClient.send(
-        '/pub/chat/message',
-        headers,
-        JSON.stringify({
-          type: 'ENTER',
-          roomNo: roomNo,
-          sender: userId,
-        }),
-      );
+      // this.stompClient.send(
+      //   '/pub/chat/message',
+      //   headers,
+      //   JSON.stringify({
+      //     type: 'ENTER',
+      //     roomNo: roomNo,
+      //     sender: userId,
+      //   }),
+      // );
     });
     return receivingMessage;
   };

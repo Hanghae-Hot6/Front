@@ -10,3 +10,10 @@ export const getUserId = () => {
   const userId = getUserId;
   return userId;
 };
+export const getUserIdFixed = () => {
+  const getUserId = localStorage.getItem('userId');
+  const userId = getUserId
+    ?.substring(0, getUserId.length - 1)
+    .substring(1, getUserId.length);
+  return userId;
+};
