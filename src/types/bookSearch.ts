@@ -3,4 +3,5 @@ export type NaverBooksDataType = {
   isbn: string;
   pubdate: string;
   title: string;
+  description?: string;
 };
