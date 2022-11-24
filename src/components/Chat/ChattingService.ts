@@ -28,10 +28,10 @@ class ChattingService {
     this.chatRoomId = chatRoomId;
   }
 
-  socket = new sockJS(`${process.env.REACT_APP_BASE_URL}/wss/chat`);
+  private socket = new sockJS(`${process.env.REACT_APP_BASE_URL}/wss/chat`);
   // socket = new sockJS(`http://220.76.226.226:8080/wss/chatㅅ`);
 
-  stompClient = Stomp.over(this.socket);
+  private stompClient = Stomp.over(this.socket);
 
   // chatRoomId = '';
 
@@ -44,6 +44,7 @@ class ChattingService {
     headers: HeadersType = {}, // headers에 {} 인증요청 집어 넣기
     callback: any = () => {},
     userId: string | undefined,
+    componentAddress: string | undefined = undefined,
   ) => {
     let receivingMessage = '';
 
@@ -69,16 +70,18 @@ class ChattingService {
           : {},
       );
 
-      this.stompClient.send(
-        '/pub/chat/message',
-        headers,
-        JSON.stringify({
-          chatRoomId: this.chatRoomId,
-          message: `${userId}님이 접속하셨습니다`,
-          type: 'TALK',
-          sender: userId,
-        }),
-      );
+      if (componentAddress === 'ChatRoom') {
+        this.stompClient.send(
+          '/pub/chat/message',
+          headers,
+          JSON.stringify({
+            chatRoomId: this.chatRoomId,
+            message: `${userId}님이 접속하셨습니다`,
+            type: 'TALK',
+            sender: userId,
+          }),
+        );
+      }
     });
     return receivingMessage;
   };
@@ -93,7 +96,18 @@ class ChattingService {
     );
   };
 
-  onDisconnect = () => {
+  onDisconnect = (userId: string | undefined) => {
+    // this.stompClient.send(
+    //   '/pub/chat/message',
+    //   {},
+    //   JSON.stringify({
+    //     chatRoomId: this.chatRoomId,
+    //     message: `${userId}님이 접속하셨습니다`,
+    //     type: 'TALK',
+    //     sender: userId,
+    //   }),
+    // );
+
     this.stompClient.disconnect();
     console.log('disconnected');
   };

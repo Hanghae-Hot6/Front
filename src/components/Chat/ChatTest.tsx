@@ -49,6 +49,7 @@ const ChatTest = ({}: ChatTestProps) => {
 
       (receivingMessage: any) => console.log(receivingMessage),
       userId,
+      'ChatTest',
     );
   }, []);
 
@@ -89,7 +90,7 @@ const ChatTest = ({}: ChatTestProps) => {
 
   useEffect(() => {
     return () => {
-      ChattingServiceKit.onDisconnect();
+      ChattingServiceKit.onDisconnect(userId);
     };
   }, []);
 

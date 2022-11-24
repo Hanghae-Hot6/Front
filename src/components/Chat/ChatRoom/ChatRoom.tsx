@@ -5,6 +5,8 @@ import Theme from '../../../theme/Theme';
 import {getAccessToken, getUserIdFixed} from '../../../utils';
 import KeyDetector from '../../../utils/KeyDetector';
 import {ChatRoomType} from '../ChatBody/ChatBody';
+import MyChat from '../ChatDialog/MyChat';
+import OthersChat from '../ChatDialog/OthersChat';
 import ChatInput from '../ChatInput/ChatInput';
 import ChattingService from '../ChattingService';
 
@@ -31,15 +33,13 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
+  // 채팅 서비스 킷 생성
   const ChattingServiceKit = useMemo(() => {
     return new ChattingService(chatRoomNowInfo.chatRoomId);
   }, [chatRoomNowInfo.chatRoomId]);
 
-  // new ChattingService(chatRoomNowInfo.chatRoomId);
-
+  // onConnect시 메시지 받아오기
   useEffect(() => {
-    console.log(chatRoomNowInfo);
-
     ChattingServiceKit.onConnect(
       getAccessToken(),
       {
@@ -52,12 +52,11 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       },
 
       userId,
+      'ChatRoom',
     );
   }, []);
 
-  useEffect(() => {
-    console.log(onConnect);
-  }, [onConnect]);
+  // 메세지 배열안에 모으기
 
   useEffect(() => {
     if (receiveMsg) {
@@ -65,10 +64,13 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     }
   }, [receiveMsg]);
 
+  // 언마운트시 소켓 통신 종료하기
+
   useEffect(() => {
     return () => {
-      console.log(` ${chatRoomNowInfo.clubName} unmounted`);
+      console.log(` ${chatRoomNowInfo.clubName}방에서 나가셨습니다`);
 
+      // 작동을 잘 안함
       if (onConnect) {
         ChattingServiceKit.sendMessage(
           {},
@@ -82,7 +84,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
         setOnConnect(false);
       }
 
-      ChattingServiceKit.onDisconnect();
+      ChattingServiceKit.onDisconnect(userId);
     };
   }, []);
 
@@ -116,25 +118,13 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       <ChattingList>
         {messageList.map((val, index) => {
           if (val.sender === userId) {
-            return (
-              <MyChat key={index}>
-                <span>
-                  {val.sender} {'    '}
-                  {val.message}
-                </span>
-              </MyChat>
-            );
+            return <MyChat key={index} chatObject={val} />;
           } else {
-            return (
-              <OthersChat key={index}>
-                <span>{val.sender}</span>
-                <span>{val.message}</span>
-              </OthersChat>
-            );
+            return <OthersChat key={index} chatObject={val} />;
           }
         })}
       </ChattingList>
-      <ThinLine color={Theme.LightGray2} thick="1px" />
+      <ThinLine color={Theme.LightGray2} thick="2px" marginTopBottom="1rem" />
 
       <ChatInputDiv>
         <ChatInputInput
@@ -156,9 +146,11 @@ export default ChatRoom;
 const ChattingList = styled.div`
   display: flex;
   flex-direction: column;
-
+  height: 40rem;
+  overflow: auto;
   flex: 8;
-  border: 1px solid black;
+  padding: 0 1rem;
+  /* border: 1px solid black; */
 `;
 
 const ChatInputDiv = styled.div`
@@ -175,13 +167,4 @@ const ChatInputInput = styled.input`
 
 const SendButton = styled.button`
   flex: 1;
-`;
-
-const OthersChat = styled.div`
-  margin: 0.4rem 0;
-`;
-const MyChat = styled.div`
-  margin: 0.4rem 0;
-  margin-left: auto;
-  /* border: 1px solid black; */
 `;
