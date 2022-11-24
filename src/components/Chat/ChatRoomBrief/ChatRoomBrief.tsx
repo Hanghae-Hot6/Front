@@ -112,7 +112,7 @@ const ThumbnailWrapper = styled.div`
 `;
 
 const Thumbnail = styled.img`
-  height: 100%;
+  width: 100%;
 `;
 
 const TitleMessageDiv = styled.div`

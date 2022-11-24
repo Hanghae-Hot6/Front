@@ -5,6 +5,8 @@ import Theme from '../../../theme/Theme';
 import {getAccessToken, getUserIdFixed} from '../../../utils';
 import KeyDetector from '../../../utils/KeyDetector';
 import {ChatRoomType} from '../ChatBody/ChatBody';
+import MyChat from '../ChatDialog/MyChat';
+import OthersChat from '../ChatDialog/OthersChat';
 import ChatInput from '../ChatInput/ChatInput';
 import ChattingService from '../ChattingService';
 
@@ -116,21 +118,9 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       <ChattingList>
         {messageList.map((val, index) => {
           if (val.sender === userId) {
-            return (
-              <MyChat key={index}>
-                <span>
-                  {val.sender} {'    '}
-                  {val.message}
-                </span>
-              </MyChat>
-            );
+            return <MyChat key={index} chatObject={val} />;
           } else {
-            return (
-              <OthersChat key={index}>
-                <span>{val.sender}</span>
-                <span>{val.message}</span>
-              </OthersChat>
-            );
+            return <OthersChat key={index} chatObject={val} />;
           }
         })}
       </ChattingList>
@@ -177,13 +167,4 @@ const ChatInputInput = styled.input`
 
 const SendButton = styled.button`
   flex: 1;
-`;
-
-const OthersChat = styled.div`
-  margin: 0.4rem 0;
-`;
-const MyChat = styled.div`
-  margin: 0.4rem 0;
-  margin-left: auto;
-  /* border: 1px solid black; */
 `;
