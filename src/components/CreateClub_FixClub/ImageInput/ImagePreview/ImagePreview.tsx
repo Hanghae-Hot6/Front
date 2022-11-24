@@ -5,16 +5,16 @@ import * as P from './ImagePreview.style';
 
 type ImagePreviewProps = {
   url: string;
-  setSingleImagePreviewUrl: React.Dispatch<React.SetStateAction<string>>;
+  handleImagePreviewDelete: () => void;
 };
 
-const ImagePreview = ({url, setSingleImagePreviewUrl}: ImagePreviewProps) => {
+const ImagePreview = ({url, handleImagePreviewDelete}: ImagePreviewProps) => {
   const [onHover, setOnHover] = useState<boolean>(false);
 
   const handleDelete: React.MouseEventHandler<HTMLButtonElement> = e => {
     e.preventDefault();
-    // console.log('del button');
-    setSingleImagePreviewUrl('');
+
+    handleImagePreviewDelete();
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import {InputType} from '../Body/CreateClubBody';
 import ImagePreview from './ImagePreview/ImagePreview';
@@ -20,8 +20,12 @@ const ImageInput = ({
 }: ImageInputProps) => {
   const [singleImagePreviewUrl, setSingleImagePreviewUrl] =
     useState<string>('');
-  const [showThumbnailPreview, setShowThumbnailPreview] =
-    useState<boolean>(false);
+
+  // input을 돔으로 접근하기
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // const [showThumbnailPreview, setShowThumbnailPreview] =
+  //   useState<boolean>(false);
 
   const handleSingleImageChange: React.ChangeEventHandler<
     HTMLInputElement
@@ -32,6 +36,7 @@ const ImageInput = ({
     if (e.target.files?.length) {
       if (e.target.files?.length > 0) {
         console.log(e.target.files[0]);
+        console.log(typeof e.target.files[0]);
         let reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
         reader.onload = () => {
@@ -43,13 +48,23 @@ const ImageInput = ({
     }
   };
 
-  useEffect(() => {
-    if (singleImagePreviewUrl === '') {
-      setShowThumbnailPreview(false);
-    } else {
-      setShowThumbnailPreview(true);
+  // useEffect(() => {
+  //   if (singleImagePreviewUrl === '') {
+  //     setShowThumbnailPreview(false);
+  //   } else {
+  //     setShowThumbnailPreview(true);
+  //   }
+  // }, [singleImagePreviewUrl]);
+
+  // 이미지 인풋, preview 지우기
+
+  const handleImagePreviewDelete = () => {
+    if (inputRef.current) {
+      inputRef.current.value = '';
     }
-  }, [singleImagePreviewUrl]);
+
+    setSingleImagePreviewUrl('');
+  };
 
   return (
     <>
@@ -58,17 +73,19 @@ const ImageInput = ({
           <Span>썸네일 이미지를 삽입해주세요(선택)</Span>
 
           <input
+            ref={inputRef}
             type="file"
             name="thumbnail"
             accept="image/*"
             onChange={handleSingleImageChange}
+            // value={inputImage}
           />
         </Div>
         {singleImagePreviewUrl && (
           <ThumbnailPreviewDiv>
             <ImagePreview
               url={singleImagePreviewUrl}
-              setSingleImagePreviewUrl={setSingleImagePreviewUrl}
+              handleImagePreviewDelete={handleImagePreviewDelete}
             />
           </ThumbnailPreviewDiv>
         )}
@@ -104,7 +121,6 @@ const Div = styled.div`
   border: 1px solid ${props => props.theme.LightGray};
   display: flex;
 
-  /* flex-direction: column; */
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
