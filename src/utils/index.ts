@@ -22,3 +22,10 @@ export const getUserIdFixed = () => {
     .substring(1, getUserId.length);
   return userId;
 };
+export const getRefreshToken = () => {
+  const getRefreshToken = localStorage.getItem('Refresh-Token');
+  const refreshToken = getRefreshToken
+    ?.substring(0, getRefreshToken.length - 1)
+    .substring(1, getRefreshToken.length);
+  return refreshToken;
+};

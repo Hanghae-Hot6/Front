@@ -61,6 +61,11 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
         'Authorization',
         JSON.stringify(response.headers.authorization),
       );
+      localStorage.setItem(
+        'Refresh-Token',
+        JSON.stringify(response.headers['refresh-token']),
+      );
+      console.log(response);
 
       return response;
     },

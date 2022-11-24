@@ -4,7 +4,7 @@ import {
   FindPasswordValueType,
   SignValueType,
 } from '../types/regist';
-import {getAccessToken} from '../utils';
+import {getAccessToken, getRefreshToken} from '../utils';
 
 const config: AxiosRequestConfig = {
   baseURL: process.env.REACT_APP_BASE_URL,
@@ -19,6 +19,8 @@ const api = axios.create(config);
 
 api.interceptors.request.use(function (config) {
   const accessToken = getAccessToken();
+  const refreshToken = getRefreshToken();
+  console.log(accessToken, refreshToken);
 
   if (!config) {
     config = {};

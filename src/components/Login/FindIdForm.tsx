@@ -26,16 +26,23 @@ function FindIdForm() {
 
   const {mutate: findIdMutate} = useMutation(
     async (values: FindIdValue) => {
-      const response = await memberApis.changeMemberId(values);
-      return response;
+      try {
+        const response = await memberApis.changeMemberId(values);
+        return response;
+      } catch (error: any) {
+        console.log(error);
+        if (error.response.data.status === 401) {
+          dispatch(openGlobalModal('unAuthorizedEmail'));
+        }
+      }
     },
     {
       onSuccess: data => {
         console.log(data);
         dispatch(openGlobalModal('findIdSendMessage'));
       },
-      onError: error => {
-        console.log(error);
+      onError: (error: any) => {
+        throw error;
       },
     },
   );
@@ -96,9 +103,23 @@ function FindIdForm() {
             <div>빈칸을 작성해주세요.</div>
           </GlobalModal>
         )}
+
         {isGlobalModalOpen && dispatchId === 'findIdSendMessage' && (
           <GlobalModal id="findIdSendMessage" type="alertModal">
-            <div>아이디가 전송되었습니다. 이메일을 확인해 주세요!</div>
+            <h2>이메일 발송!</h2>
+            <div>
+              <p>아이디가 전송되었습니다.</p>
+              <p>이메일을 확인해 주세요!</p>
+            </div>
+          </GlobalModal>
+        )}
+        {isGlobalModalOpen && dispatchId === 'unAuthorizedEmail' && (
+          <GlobalModal id="unAuthorizedEmail" type="alertModal">
+            <h2>이메일 오류!</h2>
+            <div>
+              <p>등록되지 않은 이메일 입니다.</p>
+              <p>작성한 이메일을 확인해 주세요!</p>
+            </div>
           </GlobalModal>
         )}
       </RegistStForm>

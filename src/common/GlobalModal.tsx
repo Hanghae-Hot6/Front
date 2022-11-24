@@ -92,7 +92,7 @@ function GlobalModal({
       ) : dispatchId === id && type === 'confirmModal' ? (
         <StModalBody {...props}>
           <StConfirmContainer>{children}</StConfirmContainer>
-          <StBtnBox>
+          <StBtnBox {...props}>
             <button onClick={onConfirmHandler}>확인</button>
             <button onClick={onCancelHandler}>취소</button>
           </StBtnBox>
@@ -146,9 +146,7 @@ const StModalBody = styled.div<modalProps>`
     color: white;
     font-size: 1.8rem;
     background-color: ${props => props.theme.MainColor};
-    width: ${props => {
-      return props.type === 'confirmModal' ? '50%' : '100%';
-    }};
+    width: 100%;
   }
 `;
 
@@ -159,12 +157,18 @@ const StAlertContainer = styled.div`
   flex-direction: column;
   height: 29.5rem;
   font-size: 1.8rem;
+  padding: 1rem;
+  text-align: center;
+
   h2 {
     font-size: 2.3rem;
     font-weight: bold;
+    margin: 1rem 0;
   }
   div {
-    font-size: 1.8rem;
+    p {
+      margin: 0.5rem;
+    }
   }
 `;
 
@@ -178,12 +182,18 @@ const StConfirmContainer = styled.div`
   h2 {
     font-size: 2.3rem;
     font-weight: bold;
+    margin: 1rem 0;
   }
   div {
-    font-size: 1.8rem;
+    p {
+      margin: 0.5rem;
+    }
   }
 `;
 
 const StBtnBox = styled.div`
   width: 100%;
+  button {
+    width: 50%;
+  }
 `;
