@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {InputType} from '../Body/CreateClubBody';
 
-type TextInputProps = {
+type DateInputProps = {
   input: InputType;
   setInput: React.Dispatch<React.SetStateAction<InputType>>;
   name: string;
@@ -11,14 +11,14 @@ type TextInputProps = {
   flex?: number;
 };
 
-const TextInput = ({
+const DateInput = ({
   input,
   name,
   setInput,
   placeholder,
   width = '100%',
   flex,
-}: TextInputProps) => {
+}: DateInputProps) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
     const {name, value} = e.target;
@@ -30,7 +30,7 @@ const TextInput = ({
     <>
       <TextInputDiv width={width} flex={flex}>
         <TextInputInput
-          type="text"
+          type="date"
           name={name}
           onChange={handleChange}
           placeholder={placeholder}
@@ -39,7 +39,7 @@ const TextInput = ({
     </>
   );
 };
-export default TextInput;
+export default DateInput;
 
 const TextInputDiv = styled.div<{
   width: string | undefined;

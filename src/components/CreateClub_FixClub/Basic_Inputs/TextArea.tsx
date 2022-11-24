@@ -7,7 +7,7 @@ type TextAreaProps = {
   setInput: React.Dispatch<React.SetStateAction<InputType>>;
   name: string;
   placeholder?: string;
-  width: string;
+  width?: string;
   height: string;
 };
 
@@ -16,7 +16,7 @@ const TextArea = ({
   name,
   setInput,
   placeholder,
-  width,
+  width = '100%',
   height,
 }: TextAreaProps) => {
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = e => {
