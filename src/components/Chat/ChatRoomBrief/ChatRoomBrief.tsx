@@ -50,7 +50,6 @@ const ChatRoomBrief = ({
   // // 컴포넌트 언마운트시 서버와의 소켓통신을 disconnect한다
   useEffect(() => {
     return () => {
-      console.log('chatroom brief unmounted');
       ChattingServiceKit.onDisconnect(userId);
     };
   }, []);
@@ -63,9 +62,19 @@ const ChatRoomBrief = ({
   return (
     <>
       <ChatRoomDiv onClick={onRoomClick}>
-        <Title>{chatRoomInfo.clubName}</Title>
-        <Sender>{receiveMsg?.sender}</Sender>
-        <Message>{receiveMsg?.message}</Message>
+        <ThumbnailWrapper>
+          <Thumbnail src={chatRoomInfo.thumbnail} />
+        </ThumbnailWrapper>
+
+        <TitleMessageDiv>
+          <Title>{chatRoomInfo.clubName} </Title>
+
+          <Message>{receiveMsg?.message}</Message>
+        </TitleMessageDiv>
+
+        <ParticipantsDiv>
+          <Participants>{chatRoomInfo.participants}</Participants>
+        </ParticipantsDiv>
       </ChatRoomDiv>
     </>
   );
@@ -74,15 +83,43 @@ export default ChatRoomBrief;
 
 const ChatRoomDiv = styled.div`
   width: 100%;
-  min-height: 6rem;
-  margin: 2rem 0;
-  border: 1px solid black;
+  height: 6rem;
+  /* min-height: 6rem; */
+  margin: 1.2rem 0;
+  border: 1px solid ${props => props.theme.LightPurple2};
+  border-radius: 1rem;
   padding: 0 1rem;
 
+  display: flex;
+  align-items: center;
+
   &:hover {
-    background-color: white;
+    background-color: ${props => props.theme.LightPurple2};
     cursor: pointer;
   }
+`;
+
+const ThumbnailWrapper = styled.div`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ${props => props.theme.LightPurple2};
+`;
+
+const Thumbnail = styled.img`
+  height: 100%;
+`;
+
+const TitleMessageDiv = styled.div`
+  /* border: 1px solid black; */
+  height: 100%;
+  width: 23rem;
+  padding: 0 1rem;
 `;
 
 const Title = styled.h1`
@@ -91,7 +128,17 @@ const Title = styled.h1`
   margin: 1rem 0;
 `;
 
-const Sender = styled.span`
-  margin-right: 2rem;
+const Message = styled.span`
+  font-size: 1.1rem;
 `;
-const Message = styled.span``;
+
+const ParticipantsDiv = styled.div`
+  /* border: 1px solid black; */
+  height: 100%;
+  /* padding: 0 1rem; */
+`;
+const Participants = styled.h1`
+  color: ${props => props.theme.Gray};
+  font-size: 1.6rem;
+  margin: 1rem;
+`;

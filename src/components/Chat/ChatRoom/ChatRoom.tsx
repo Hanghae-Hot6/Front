@@ -54,10 +54,6 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     );
   }, []);
 
-  // useEffect(() => {
-  //   console.log(onConnect);
-  // }, [onConnect]);
-
   // 메세지 배열안에 모으기
 
   useEffect(() => {
@@ -72,6 +68,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     return () => {
       console.log(` ${chatRoomNowInfo.clubName}방에서 나가셨습니다`);
 
+      // 작동을 잘 안함
       if (onConnect) {
         ChattingServiceKit.sendMessage(
           {},
@@ -137,7 +134,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
           }
         })}
       </ChattingList>
-      <ThinLine color={Theme.LightGray2} thick="1px" />
+      <ThinLine color={Theme.LightGray2} thick="2px" marginTopBottom="1rem" />
 
       <ChatInputDiv>
         <ChatInputInput
@@ -159,9 +156,11 @@ export default ChatRoom;
 const ChattingList = styled.div`
   display: flex;
   flex-direction: column;
-
+  height: 40rem;
+  overflow: auto;
   flex: 8;
-  border: 1px solid black;
+  padding: 0 1rem;
+  /* border: 1px solid black; */
 `;
 
 const ChatInputDiv = styled.div`

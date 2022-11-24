@@ -59,7 +59,6 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
   >(undefined);
 
   const handleRoomClick = (chatRoomId: string, chatRoomInfo: ChatRoomType) => {
-    console.log(chatRoomInfo);
     setEnterChatRoom(true);
     setChatRoomNowInfo(chatRoomInfo);
   };
@@ -70,18 +69,19 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
         <ChatHeader>
           {enterChatRoom ? (
             <>
-              <button
+              <GoBackBtn
                 onClick={() => {
                   setEnterChatRoom(false);
                 }}>
-                뒤로가기
-              </button>
-              <span>{chatRoomNowInfo?.clubName}</span>
+                <img src="/assets/left_arrow.svg" alt="뒤로가기" />
+              </GoBackBtn>
+
+              <ClubName>{chatRoomNowInfo?.clubName}</ClubName>
               <CloseBtn
                 onClick={() => {
                   setShowChat(false);
                 }}>
-                닫기
+                <img src="/assets/x.svg" alt="닫기" />
               </CloseBtn>
             </>
           ) : (
@@ -97,7 +97,7 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
           )}
         </ChatHeader>
 
-        <ThinLine color={Theme.LightGray} />
+        <ThinLine color={Theme.LightGray} thick="2px" />
 
         <ChatRoomsListDiv>
           {enterChatRoom ? (
@@ -143,18 +143,22 @@ const Chat = styled.div`
   height: 60rem;
   bottom: 20rem;
   right: 12rem;
-  background-color: aliceblue;
+  background-color: ${props => props.theme.White};
+  border: 1px solid ${props => props.theme.LightPurple2};
+  border-radius: 1rem;
 `;
 
 const ChatHeader = styled.div`
   display: flex;
+  height: 7.2rem;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1.8rem;
 `;
 
 const ChatTitle = styled.h1`
-  font-size: 2.4rem;
+  font-size: 1.8rem;
+  font-size: 1200;
 `;
 
 const CloseBtn = styled.button``;
@@ -164,6 +168,14 @@ const ChatRoomsListDiv = styled.div`
   flex-direction: column;
 
   width: 100%;
-  height: 100%;
+  height: 51.4rem;
   padding: 1.4rem 1.2rem;
+`;
+
+// header 부분
+
+const GoBackBtn = styled.button``;
+
+const ClubName = styled.span`
+  font-size: 1.8rem;
 `;
