@@ -5,7 +5,7 @@ import {InputType} from '../Body/CreateClubBody';
 type TextInputProps = {
   input: InputType;
   setInput: React.Dispatch<React.SetStateAction<InputType>>;
-  name: string;
+  name: keyof InputType;
   placeholder?: string;
   width?: string;
   flex?: number;
@@ -28,23 +28,25 @@ const TextInput = ({
 
   return (
     <>
-      <TextInputDiv width={width} flex={flex}>
-        <TextInputInput
-          type="text"
-          name={name}
-          onChange={handleChange}
-          placeholder={placeholder}
-        />
-      </TextInputDiv>
+      <TextInputInput
+        type="text"
+        name={name}
+        onChange={handleChange}
+        placeholder={placeholder}
+        width={width}
+        flex={flex}
+      />
     </>
   );
 };
 export default TextInput;
 
-const TextInputDiv = styled.div<{
+const TextInputInput = styled.input<{
   width: string | undefined;
   flex: number | undefined;
 }>`
+  border: 1px solid ${props => props.theme.LightGray};
+
   ${({width}) => {
     if (width) {
       return `width:${width};`;
@@ -56,13 +58,9 @@ const TextInputDiv = styled.div<{
     }
   }}
   height: 5.8rem;
-  border: 1px solid ${props => props.theme.LightGray};
-  padding: 0 1rem;
-  margin-right: 1rem;
-`;
 
-const TextInputInput = styled.input`
-  border: none;
+  /* border: none; */
+  padding: 0 1rem;
   height: 5.6rem;
   font-size: 2.2rem;
   color: ${props => props.theme.Gray};

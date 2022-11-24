@@ -6,6 +6,8 @@ import DateInput from '../Basic_Inputs/DateInput';
 import SelectInput from '../Basic_Inputs/SelectInput';
 import TextArea from '../Basic_Inputs/TextArea';
 import TextInput from '../Basic_Inputs/TextInput';
+import BooksViewer from '../BooksViewer/BooksViewer';
+import ImageInput from '../ImageInput/ImageInput';
 import ParagraphDiv from '../ParagraphDiv/ParagraphDiv';
 
 type CreateClubBodyProps = {};
@@ -56,6 +58,8 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
 
   return (
     <>
+      {/* Input part 1 */}
+
       <ParagraphDiv>
         <TextInput
           input={input}
@@ -69,8 +73,8 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           setInput={setInput}
           name="category"
           placeholder="카테고리 선택"
-          // width="29.2rem"
-          flex={1}
+          width="29.2rem"
+          // flex={1}
           options={[
             '인문',
             '경영 경제',
@@ -87,38 +91,36 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
         <TextInput
           input={input}
           setInput={setInput}
-          name="clubName"
+          name="book1"
           placeholder="도서명을 입력해주세요"
           // flex={2}
         />
       </ParagraphDiv>
 
-      <ThinLine color={Theme.LightGray2} margin="4rem" />
+      <ParagraphDiv>
+        <ImageInput />
+      </ParagraphDiv>
+
+      <ThinLine color={Theme.LightGray2} />
+
+      {/* input part 2 */}
 
       <ParagraphDiv title="인원">
-        <TextInput
+        {/* <TextInput
           input={input}
           setInput={setInput}
-          name="clubName"
+          name='memberMaxNum'
           placeholder="제목을 입력해 주세요"
           flex={2}
-        />
+        /> */}
         <SelectInput
           input={input}
           setInput={setInput}
           name="category"
-          placeholder="카테고리 선택"
+          placeholder="최대 인원 8명"
           // width="29.2rem"
           flex={1}
-          options={[
-            '인문',
-            '경영 경제',
-            '자기계발',
-            '예술',
-            '자연과학',
-            '사회정치',
-            'IT모바일',
-          ]}
+          options={['2', '3', '4', '5', '6', '7', '8']}
         />
       </ParagraphDiv>
 
@@ -126,7 +128,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
         <DateInput
           input={input}
           setInput={setInput}
-          name="clubName"
+          name="startDate"
           placeholder="제목을 입력해 주세요"
         />
       </ParagraphDiv>
@@ -134,7 +136,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
         <DateInput
           input={input}
           setInput={setInput}
-          name="clubName"
+          name="finishDate"
           placeholder="제목을 입력해 주세요"
         />
       </ParagraphDiv>
@@ -142,7 +144,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
         <TextInput
           input={input}
           setInput={setInput}
-          name="clubName"
+          name="location"
           placeholder="제목을 입력해 주세요"
         />
       </ParagraphDiv>
@@ -151,13 +153,56 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
         <TextArea
           input={input}
           setInput={setInput}
-          name="clubName"
+          name="schedule"
           placeholder="1/1 첫번째 회의 10:30 - 02:00"
           // width="55.8rem"
           height="17.8rem"
         />
       </ParagraphDiv>
-      <ThinLine color={Theme.LightGray2} margin="4rem" />
+      <ThinLine color={Theme.LightGray2} />
+
+      {/* 인트로  */}
+
+      <ParagraphDiv>
+        <TextInput
+          input={input}
+          setInput={setInput}
+          name="clubIntro"
+          placeholder="인트로를 작성해주세요"
+        />
+      </ParagraphDiv>
+      <ParagraphDiv>
+        <TextArea
+          input={input}
+          setInput={setInput}
+          name="clubSummary"
+          placeholder="상세 내용을 작성해주세요"
+          height="40.5rem"
+        />
+      </ParagraphDiv>
+
+      <ThinLine color={Theme.LightGray2} />
+      <ParagraphDiv>
+        <TextInput
+          input={input}
+          setInput={setInput}
+          name="bookIntro"
+          placeholder="책 인트로를 작성해주세요"
+        />
+        <button>도서삭제</button>
+      </ParagraphDiv>
+      <BooksViewer />
+      <ParagraphDiv>
+        <TextArea
+          input={input}
+          setInput={setInput}
+          name="clubSummary"
+          placeholder="책에 대한 간단한 소개와 의견을 작성해주세요"
+          height="40.5rem"
+        />
+      </ParagraphDiv>
+
+      {/* 책 인트로 */}
     </>
   );
 };
