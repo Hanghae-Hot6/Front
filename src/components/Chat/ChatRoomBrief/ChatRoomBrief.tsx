@@ -84,7 +84,6 @@ export default ChatRoomBrief;
 const ChatRoomDiv = styled.div`
   width: 100%;
   height: 6rem;
-  /* min-height: 6rem; */
   margin: 1.2rem 0;
   border: 1px solid ${props => props.theme.LightPurple2};
   border-radius: 1rem;
@@ -112,11 +111,12 @@ const ThumbnailWrapper = styled.div`
 `;
 
 const Thumbnail = styled.img`
-  width: 100%;
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
 `;
 
 const TitleMessageDiv = styled.div`
-  /* border: 1px solid black; */
   height: 100%;
   width: 23rem;
   padding: 0 1rem;

@@ -94,15 +94,17 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     setInput(e.target.value);
   };
   const handleClick = useCallback(() => {
-    ChattingServiceKit.sendMessage(
-      {},
-      {
-        chatRoomId: chatRoomNowInfo.chatRoomId,
-        message: input,
-        type: 'TALK',
-        sender: userId,
-      },
-    );
+    if (input !== '') {
+      ChattingServiceKit.sendMessage(
+        {},
+        {
+          chatRoomId: chatRoomNowInfo.chatRoomId,
+          message: input,
+          type: 'TALK',
+          sender: userId,
+        },
+      );
+    }
 
     setInput('');
   }, [input, userId]);
