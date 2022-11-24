@@ -22,42 +22,39 @@ const HeaderSearchBooksChild = ({
 }: CarouselBooksChildProps) => {
   return (
     <Div width={width} height={height}>
-      {data?.map((val, index) => {
-        return (
-          <Wrap key={index}>
-            <Box width={width} height={height}>
-              <LeftDiv>
-                <Image src={val?.image} />
-                <SmallDiv>
-                  <Title>{val?.title}</Title>
-                  {/* <Author>{data?.isbn}</Author> */}
-                  <Price>{val?.pubdate}</Price>
-                  {/* <Content>{data.}</Content> */}
-                </SmallDiv>
-              </LeftDiv>
-            </Box>
+      {data &&
+        data?.map((val, index) => {
+          return (
+            <Wrap key={index}>
+              <Box width={width} height={height}>
+                <LeftDiv>
+                  {val && <Image src={val?.image} />}
+                  <SmallDiv>
+                    <Title>{val?.title}</Title>
+                    {/* <Author>{data?.isbn}</Author> */}
+                    <Price>{val?.pubdate}</Price>
+                    {/* <Content>{data.}</Content> */}
+                  </SmallDiv>
+                </LeftDiv>
+              </Box>
 
-            <RightBox className="rightBox">
-              <div>
-                <img src={val?.image} alt={val?.title} />
-                <TitleWrap>
-                  <Title>{val?.title}</Title>
-                  <Price>{val?.pubdate}</Price>
-                </TitleWrap>
-              </div>
-              <TextWrap>
-                <p>
-                  미워하는 혹은 앙갚음하고 싶은 누군가가 있는가? 풀지 못한 채
-                  엉킨 관계, 응어리진 마음이 있는가? 여러 갈래로 갈라져 서로를
-                  비난하는 한국 사회와 교회에 회의를 느끼는가? 이런 시대를
-                  살아가는 성도에게 들려줄 설교를 고민하는 목회자나 예비
-                  목회자인가? 혐오를 부추기는 극심한 분열과 배척, 양극화에 시
-                </p>
-              </TextWrap>
-            </RightBox>
-          </Wrap>
-        );
-      })}
+              {val && (
+                <RightBox className="rightBox">
+                  <div>
+                    <img src={val?.image} alt={val?.title} />
+                    <TitleWrap>
+                      <Title>{val?.title}</Title>
+                      <Price>{val?.pubdate}</Price>
+                    </TitleWrap>
+                  </div>
+                  <TextWrap>
+                    <p>{val?.description}</p>
+                  </TextWrap>
+                </RightBox>
+              )}
+            </Wrap>
+          );
+        })}
     </Div>
   );
 };
