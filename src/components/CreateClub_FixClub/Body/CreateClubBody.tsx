@@ -52,6 +52,14 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
   };
   const [input, setInput] = useState<InputType>(initialValue);
 
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    e.preventDefault();
+
+    const {name, value} = e.target;
+
+    setInput({...input, [name]: value});
+  };
+
   useEffect(() => {
     console.log(input);
   }, [input]);
@@ -98,7 +106,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
       </ParagraphDiv>
 
       <ParagraphDiv>
-        <ImageInput />
+        <ImageInput input={input} setInput={setInput} name="thumbnail" />
       </ParagraphDiv>
 
       <ThinLine color={Theme.LightGray2} />
@@ -207,6 +215,3 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
   );
 };
 export default CreateClubBody;
-
-const Div1 = styled.div``;
-const Div2 = styled.div``;
