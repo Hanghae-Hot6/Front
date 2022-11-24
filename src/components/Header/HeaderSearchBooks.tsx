@@ -22,9 +22,10 @@ const HeaderSearchBooks = ({
   ChildComponent,
 }: CarouselBooksProps) => {
   const [carouselLocation, setCarouselLocation] = useState<number>(0);
-
+  const [isActive, setIsActive] = useState<boolean>(false);
   const handleIndexClick: React.MouseEventHandler<HTMLButtonElement> = e => {
     e.preventDefault();
+    setIsActive(!isActive);
     if (e.currentTarget.dataset.index) {
       setCarouselLocation(parseInt(e.currentTarget.dataset.index));
     }
@@ -55,7 +56,8 @@ const HeaderSearchBooks = ({
               <IndexButton
                 key={index}
                 data-index={index}
-                onClick={handleIndexClick}>
+                onClick={handleIndexClick}
+                isActive={carouselLocation === index}>
                 {index + 1}
               </IndexButton>
             );
@@ -117,8 +119,8 @@ const IndexButtonContainer = styled.div`
   width: 78.3rem;
   height: 4rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+  padding-left: 3.2rem;
   background-color: #fff;
   border: 1px solid ${props => props.theme.MainColor};
   border-top: none;
@@ -126,13 +128,14 @@ const IndexButtonContainer = styled.div`
   border-bottom-right-radius: 1.5rem;
 `;
 
-const IndexButton = styled.button`
-  background-color: ${(props: any) => props.theme.Gray};
+const IndexButton = styled.button<{isActive?: boolean}>`
+  background-color: ${({isActive}) => (isActive ? '#333' : '#999')};
   font-size: 18px;
   margin: 0 1rem;
   height: 2.5rem;
   width: 3rem;
   color: #fff;
+  border-radius: 3px;
 `;
 
 const ArrowButton = styled.button`

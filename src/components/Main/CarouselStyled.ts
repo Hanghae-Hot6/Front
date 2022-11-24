@@ -55,12 +55,12 @@ export const CarouselListItem = styled.li<{currCarousel: number}>`
       filter: blur(2px);
       -webkit-filter: blur(2px);
       transform: scale(0.95);
-      border: 1px solid ${props => props.theme.MainColor};
+      border: 1px solid ${props => props.theme.DarkPurple};
     }
 
     > div {
       transform: scale(0.95);
-      border: 1px solid ${props => props.theme.MainColor};
+      border: 1px solid ${props => props.theme.DarkPurple};
       border-top: none;
       opacity: 1;
     }

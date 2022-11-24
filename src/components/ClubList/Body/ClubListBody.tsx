@@ -58,7 +58,7 @@ const ClubListBody = () => {
     // '소설',
     // '에세이 시',
   ];
-  console.log(data);
+  // console.log(data);
 
   // 성공
   const categoryTap = categoryArray.map((category, index) => {
