@@ -137,10 +137,10 @@ const ClubDetail = () => {
     },
   );
 
-  console.log(data);
+  // console.log(status);
 
   useEffect(() => {
-    if (status === 'error') {
+    if (data === null) {
       return alert('로그인이 필요합니다.'), navigate('/Login');
     }
   });
