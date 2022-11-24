@@ -29,8 +29,6 @@ const ChatRoomBrief = ({
     console.log('yes2');
 
     return yes;
-
-    // return new ChattingService('');
   }, [chatRoomId]);
 
   useEffect(() => {
@@ -45,6 +43,7 @@ const ChatRoomBrief = ({
       },
 
       userId,
+      'ChatRoomBrief',
     );
   }, []);
 
@@ -52,7 +51,7 @@ const ChatRoomBrief = ({
   useEffect(() => {
     return () => {
       console.log('chatroom brief unmounted');
-      ChattingServiceKit.onDisconnect();
+      ChattingServiceKit.onDisconnect(userId);
     };
   }, []);
 

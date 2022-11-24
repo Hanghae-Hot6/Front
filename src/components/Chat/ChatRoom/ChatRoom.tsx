@@ -31,15 +31,13 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
+  // 채팅 서비스 킷 생성
   const ChattingServiceKit = useMemo(() => {
     return new ChattingService(chatRoomNowInfo.chatRoomId);
   }, [chatRoomNowInfo.chatRoomId]);
 
-  // new ChattingService(chatRoomNowInfo.chatRoomId);
-
+  // onConnect시 메시지 받아오기
   useEffect(() => {
-    console.log(chatRoomNowInfo);
-
     ChattingServiceKit.onConnect(
       getAccessToken(),
       {
@@ -52,12 +50,15 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       },
 
       userId,
+      'ChatRoom',
     );
   }, []);
 
-  useEffect(() => {
-    console.log(onConnect);
-  }, [onConnect]);
+  // useEffect(() => {
+  //   console.log(onConnect);
+  // }, [onConnect]);
+
+  // 메세지 배열안에 모으기
 
   useEffect(() => {
     if (receiveMsg) {
@@ -65,9 +66,11 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     }
   }, [receiveMsg]);
 
+  // 언마운트시 소켓 통신 종료하기
+
   useEffect(() => {
     return () => {
-      console.log(` ${chatRoomNowInfo.clubName} unmounted`);
+      console.log(` ${chatRoomNowInfo.clubName}방에서 나가셨습니다`);
 
       if (onConnect) {
         ChattingServiceKit.sendMessage(
@@ -82,7 +85,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
         setOnConnect(false);
       }
 
-      ChattingServiceKit.onDisconnect();
+      ChattingServiceKit.onDisconnect(userId);
     };
   }, []);
 

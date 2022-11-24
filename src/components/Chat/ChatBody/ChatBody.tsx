@@ -76,7 +76,7 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
                 }}>
                 뒤로가기
               </button>
-              채팅방 안임 <span>{chatRoomNowInfo?.clubName}</span>
+              <span>{chatRoomNowInfo?.clubName}</span>
               <CloseBtn
                 onClick={() => {
                   setShowChat(false);
