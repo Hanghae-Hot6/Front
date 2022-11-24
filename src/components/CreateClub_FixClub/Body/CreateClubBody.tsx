@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import ThinLine from '../../../common/ThinLine';
 import Theme from '../../../theme/Theme';
+
 import DateInput from '../Basic_Inputs/DateInput';
 import SelectInput from '../Basic_Inputs/SelectInput';
 import TextArea from '../Basic_Inputs/TextArea';
@@ -9,6 +10,7 @@ import TextInput from '../Basic_Inputs/TextInput';
 import BooksViewer from '../BooksViewer/BooksViewer';
 import ImageInput from '../ImageInput/ImageInput';
 import ParagraphDiv from '../ParagraphDiv/ParagraphDiv';
+import SearchBooks from '../SearchBooks/SearchBooks';
 
 type CreateClubBodyProps = {};
 
@@ -96,13 +98,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
       </ParagraphDiv>
 
       <ParagraphDiv>
-        <TextInput
-          input={input}
-          setInput={setInput}
-          name="book1"
-          placeholder="도서명을 입력해주세요"
-          // flex={2}
-        />
+        <SearchBooks input={input} setInput={setInput} />
       </ParagraphDiv>
 
       <ParagraphDiv>

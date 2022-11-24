@@ -24,9 +24,6 @@ const ImageInput = ({
   // input을 돔으로 접근하기
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // const [showThumbnailPreview, setShowThumbnailPreview] =
-  //   useState<boolean>(false);
-
   const handleSingleImageChange: React.ChangeEventHandler<
     HTMLInputElement
   > = e => {
@@ -47,14 +44,6 @@ const ImageInput = ({
       }
     }
   };
-
-  // useEffect(() => {
-  //   if (singleImagePreviewUrl === '') {
-  //     setShowThumbnailPreview(false);
-  //   } else {
-  //     setShowThumbnailPreview(true);
-  //   }
-  // }, [singleImagePreviewUrl]);
 
   // 이미지 인풋, preview 지우기
 
@@ -78,7 +67,6 @@ const ImageInput = ({
             name="thumbnail"
             accept="image/*"
             onChange={handleSingleImageChange}
-            // value={inputImage}
           />
         </Div>
         {singleImagePreviewUrl && (
