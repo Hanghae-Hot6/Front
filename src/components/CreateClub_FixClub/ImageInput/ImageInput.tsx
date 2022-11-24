@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {InputType} from '../Body/CreateClubBody';
 import ImagePreview from './ImagePreview/ImagePreview';
@@ -20,6 +20,8 @@ const ImageInput = ({
 }: ImageInputProps) => {
   const [singleImagePreviewUrl, setSingleImagePreviewUrl] =
     useState<string>('');
+  const [showThumbnailPreview, setShowThumbnailPreview] =
+    useState<boolean>(false);
 
   const handleSingleImageChange: React.ChangeEventHandler<
     HTMLInputElement
@@ -41,6 +43,14 @@ const ImageInput = ({
     }
   };
 
+  useEffect(() => {
+    if (singleImagePreviewUrl === '') {
+      setShowThumbnailPreview(false);
+    } else {
+      setShowThumbnailPreview(true);
+    }
+  }, [singleImagePreviewUrl]);
+
   return (
     <>
       <ImageInputDiv width={width} flex={flex}>
@@ -54,9 +64,14 @@ const ImageInput = ({
             onChange={handleSingleImageChange}
           />
         </Div>
-        <ThumbnailPreviewDiv>
-          <ImagePreview url={singleImagePreviewUrl} />
-        </ThumbnailPreviewDiv>
+        {singleImagePreviewUrl && (
+          <ThumbnailPreviewDiv>
+            <ImagePreview
+              url={singleImagePreviewUrl}
+              setSingleImagePreviewUrl={setSingleImagePreviewUrl}
+            />
+          </ThumbnailPreviewDiv>
+        )}
       </ImageInputDiv>
     </>
   );
