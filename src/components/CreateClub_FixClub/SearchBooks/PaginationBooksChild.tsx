@@ -23,10 +23,10 @@ const PaginationBooksChild = ({
     dispatch(addBook(selectedBook));
   };
 
-  useEffect(() => {
-    // console.log('책 확인');
-    console.log(books);
-  }, [books]);
+  // useEffect(() => {
+  //   // console.log('책 확인');
+  //   console.log(books);
+  // }, [books]);
 
   // const handleBookDelete = (targetBook: NaverBooksDataType) => {
   //   dispatch(delBook(targetBook));

@@ -24,7 +24,7 @@ const ImagePreview = ({url, handleImagePreviewDelete}: ImagePreviewProps) => {
         onMouseLeave={() => setOnHover(false)}>
         {onHover && (
           <ButtonDiv>
-            <DeleteBtn handleDelete={handleDelete} />
+            <DeleteBtn handleDelete={handleDelete}>x</DeleteBtn>
           </ButtonDiv>
         )}
 

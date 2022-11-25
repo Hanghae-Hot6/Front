@@ -4,13 +4,15 @@ import {NaverBooksDataType} from '../../../types/bookSearch';
 
 type BookType = 'book1' | 'book2' | 'book3';
 
-type StateType = {
+type SelectBooksStateType = {
   book1: NaverBooksDataType | undefined;
   book2: NaverBooksDataType | undefined;
   book3: NaverBooksDataType | undefined;
 };
 
-const initialState: StateType = {
+type yo = keyof SelectBooksStateType;
+
+const initialState: SelectBooksStateType = {
   book1: undefined,
   book2: undefined,
   book3: undefined,
@@ -70,8 +72,24 @@ const selectBooksSlice = createSlice({
         }
       });
     },
+    delBooks: (
+      state,
+      action: PayloadAction<(NaverBooksDataType | undefined)[]>,
+    ) => {
+      const yes = Object.keys(state) as BookType[];
+
+      yes.forEach(val => {
+        if (!state[val]) return;
+
+        action.payload.forEach(book => {
+          if (book?.isbn === state[val]?.isbn) {
+            state[val] = undefined;
+          }
+        });
+      });
+    },
   },
 });
 
 export const selectBookReducer = selectBooksSlice.reducer;
-export const {addBook, delBook} = selectBooksSlice.actions;
+export const {addBook, delBook, delBooks} = selectBooksSlice.actions;

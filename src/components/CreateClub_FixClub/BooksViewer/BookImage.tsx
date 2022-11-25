@@ -1,24 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
+import {NaverBooksDataType} from '../../../types/bookSearch';
 
 type BookImageProps = {
-  url: string | undefined;
+  book: NaverBooksDataType;
+  handleBookClick: (book: NaverBooksDataType) => void;
+  border: boolean;
 };
 
-const BookImage = ({url}: BookImageProps) => {
+const BookImage = ({book, handleBookClick, border}: BookImageProps) => {
+  const handleClick = (book: NaverBooksDataType) => {
+    handleBookClick(book);
+  };
+
   return (
     <>
-      <ImageContainer>
-        <Image src={url} alt="no Image" />
+      <ImageContainer
+        border={border}
+        onClick={() => {
+          handleClick(book);
+        }}>
+        <Image src={book.image} alt="no Image" />
       </ImageContainer>
     </>
   );
 };
 export default BookImage;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{border: boolean}>`
   height: 22rem;
   margin: 0 3rem;
+
+  ${props => {
+    if (props.border) {
+      return `border: 1px solid ${props.theme.MainColor};`;
+    }
+  }}
+
+  &:hover {
+    transform: scale(1.03);
+  }
 `;
 
 const Image = styled.img`

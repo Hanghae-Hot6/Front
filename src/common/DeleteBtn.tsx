@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 
 type DeleteBtnProps = {
   handleDelete: React.MouseEventHandler<HTMLButtonElement>;
+  children: ReactNode;
 };
 
-const DeleteBtn = ({handleDelete}: DeleteBtnProps) => {
+const DeleteBtn = ({handleDelete, children}: DeleteBtnProps) => {
   return (
     <>
-      <DeleteButton onClick={handleDelete}> DelBtn</DeleteButton>
+      <DeleteButton onClick={handleDelete}> {children}</DeleteButton>
     </>
   );
 };
