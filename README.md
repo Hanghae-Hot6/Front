@@ -141,7 +141,34 @@
 
 ## 🎯 트러블 슈팅 
 
+<details>
+<summary> 1</summary>
+<div markdown="1">   
+    1
 
+</div>
+</details>
+<details>
+<summary> 2</summary>
+<div markdown="1">   
+    2
+
+</div>
+</details>
+<details>
+<summary> 3</summary>
+<div markdown="1">   
+    3
+ 
+</div>
+</details>
+<details>
+<summary> 4</summary>
+<div markdown="1">   
+    4
+   
+</div>
+</details>
 
 <br>
 <br>
@@ -150,6 +177,34 @@
 
 
 <br>
+<details>
+<summary> 1</summary>
+<div markdown="1">   
+    1
+
+</div>
+</details>
+<details>
+<summary> 2</summary>
+<div markdown="1">   
+    2
+
+</div>
+</details>
+<details>
+<summary> 3</summary>
+<div markdown="1">   
+    3
+ 
+</div>
+</details>
+<details>
+<summary> 4</summary>
+<div markdown="1">   
+    4
+   
+</div>
+</details>
 
 <br>
 
