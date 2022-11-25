@@ -27,8 +27,6 @@ const SelectInput = ({
     const {name, value} = e.target;
 
     setInput({...input, [name]: value});
-
-    console.log(e.target.value);
   };
 
   return (

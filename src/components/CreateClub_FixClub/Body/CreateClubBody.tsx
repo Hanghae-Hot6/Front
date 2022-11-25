@@ -17,39 +17,38 @@ type CreateClubBodyProps = {};
 export type InputType = {
   clubName: string;
   category: string;
+  clubIntro: string;
+  book1: string;
+  book2: string;
+  book3: string;
   thumbnail: Blob | string;
   memberMaxNum: string;
-  memberMinNum: string;
+
   startDate: string;
   finishDate: string;
   location: string;
   schedule: string;
-  clubIntro: string;
+
   clubSummary: string;
-  book1: string;
-  book2: string;
-  book3: string;
-  bookIntro: string;
+
   bookSummary: string;
 };
 
 const CreateClubBody = ({}: CreateClubBodyProps) => {
-  const initialValue = {
+  const initialValue: InputType = {
     clubName: '',
     category: '',
+    clubIntro: '',
+    book1: '',
+    book2: '',
+    book3: '',
     thumbnail: '',
     memberMaxNum: '',
-    memberMinNum: '',
     startDate: '',
     finishDate: '',
     location: '',
     schedule: '',
-    clubIntro: '',
     clubSummary: '',
-    book1: '',
-    book2: '',
-    book3: '',
-    bookIntro: '',
     bookSummary: '',
   };
   const [input, setInput] = useState<InputType>(initialValue);
@@ -120,8 +119,8 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
         <SelectInput
           input={input}
           setInput={setInput}
-          name="category"
-          placeholder="최대 인원 8명"
+          name="memberMaxNum"
+          placeholder="최대 인원 10명"
           // width="29.2rem"
           flex={1}
           options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
@@ -179,7 +178,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
         <TextArea
           input={input}
           setInput={setInput}
-          name="clubSummary"
+          name="bookSummary"
           placeholder="책에 대한 간단한 소개와 의견을 작성해주세요"
           height="40.5rem"
         />
