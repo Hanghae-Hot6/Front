@@ -103,7 +103,7 @@ function ProfileClubList({data}: ProfileDataType) {
                   return (
                     <>
                       {today > Date.parse(item?.finishDate!) ? (
-                        <StGrayLi>
+                        <StGrayLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
                             <div>
                               <span>{item.clubName}</span>
@@ -115,7 +115,7 @@ function ProfileClubList({data}: ProfileDataType) {
                           <div>참석 완료</div>
                         </StGrayLi>
                       ) : today < Date.parse(item?.startDate!) ? (
-                        <StClubLi>
+                        <StClubLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
                             <div>
                               <span>{item.clubName}</span>
@@ -127,7 +127,7 @@ function ProfileClubList({data}: ProfileDataType) {
                           <div>참석 예정</div>
                         </StClubLi>
                       ) : (
-                        <StClubLi>
+                        <StClubLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
                             <div>
                               <span>{item.clubName}</span>
@@ -157,7 +157,7 @@ function ProfileClubList({data}: ProfileDataType) {
                   return (
                     <>
                       {today > Date.parse(item?.finishDate!) ? (
-                        <StGrayLi>
+                        <StGrayLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
                             <div>
                               <span>{item.clubName}</span>
@@ -168,7 +168,7 @@ function ProfileClubList({data}: ProfileDataType) {
                           </Link>
                         </StGrayLi>
                       ) : today < Date.parse(item?.startDate!) ? (
-                        <StClubLi>
+                        <StClubLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
                             <div>
                               <span>{item.clubName}</span>
@@ -179,7 +179,7 @@ function ProfileClubList({data}: ProfileDataType) {
                           </Link>
                         </StClubLi>
                       ) : (
-                        <StClubLi>
+                        <StClubLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
                             <div>
                               <span>{item.clubName}</span>
@@ -208,7 +208,7 @@ function ProfileClubList({data}: ProfileDataType) {
                   return (
                     <>
                       {today > Date.parse(item?.finishDate!) ? (
-                        <StGrayLi>
+                        <StGrayLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
                             <div>
                               <span>{item.clubName}</span>
@@ -220,7 +220,7 @@ function ProfileClubList({data}: ProfileDataType) {
                           <div>참석 완료</div>
                         </StGrayLi>
                       ) : today < Date.parse(item?.startDate!) ? (
-                        <StClubLi>
+                        <StClubLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
                             <div>
                               <span>{item.clubName}</span>
@@ -232,7 +232,7 @@ function ProfileClubList({data}: ProfileDataType) {
                           <div>참석 예정</div>
                         </StClubLi>
                       ) : (
-                        <StClubLi>
+                        <StClubLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
                             <div>
                               <span>{item.clubName}</span>
