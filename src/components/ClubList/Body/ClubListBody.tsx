@@ -6,35 +6,26 @@ import {Link, useLocation} from 'react-router-dom';
 import {useQuery} from 'react-query';
 import axios from 'axios';
 import {CategoryTop} from './ClubListBody.style';
+import {LocationState, Clubs} from '../../../types/clubList';
 
-type Clubs = {
-  id: string | number;
-  thumbnail: string;
-  clubName: string;
-  memberId: string;
-  category: string;
-  summary: string;
-  memberLimit: number;
-  clubId: number;
-  location: string;
-  startDate: string;
-  finishDate: string;
-};
-
-type LocationState = {
-  pathname: string;
-  state: number | null;
-  key: string | undefined;
-};
 const ClubListBody = () => {
   const {state} = useLocation() as LocationState;
-
-  const {data, status} = useQuery(['getClubs'], async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/clubs`);
-    return response.data.data;
-  });
-
   const [index, setIndex] = useState<number>(0);
+
+  const {data, status} = useQuery(
+    ['getClubs'],
+    async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/clubs`,
+      );
+      return response.data.data;
+    },
+    {
+      onError: error => {
+        console.log('getClub에러', error);
+      },
+    },
+  );
 
   useEffect(() => {
     if (state === null) setIndex(index);
@@ -125,16 +116,10 @@ const ClubListBody = () => {
     };
   });
 
-  // 로딩
+  // 로딩스피너
 
   if (status === 'loading') {
     return <div>Loading...</div>;
-  }
-
-  // 에러
-
-  if (status === 'error') {
-    return <div>개설된 모임이 없습니다...</div>;
   }
 
   return (

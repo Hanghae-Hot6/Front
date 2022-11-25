@@ -5,6 +5,7 @@ import {
   SignValueType,
 } from '../types/regist';
 import {getAccessToken, getRefreshToken} from '../utils';
+import ClubDetail from '../Pages/ClubDetailPage';
 
 const config: AxiosRequestConfig = {
   baseURL: process.env.REACT_APP_BASE_URL,
@@ -93,3 +94,6 @@ export const memberApis = {
   getInterestClubs: async () =>
     await api.get(`${process.env.REACT_APP_BASE_URL}/members/mypage/interest`),
 };
+
+// 클럽 관련된 api 모음 클럽 만들기는 제외
+export const clubApi = {};

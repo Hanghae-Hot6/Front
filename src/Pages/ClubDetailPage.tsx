@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useQuery, useMutation} from 'react-query';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
@@ -8,48 +8,16 @@ import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import heartOn from '../assets/heartOn.svg';
 import heartOff from '../assets/heartOff.svg';
-
+import {clubDetailType} from '../types/clubList';
 // type ClubDetailProps = {};
-type clubDetailType = {
-  accessToken: string;
-  id: number | string | undefined;
-  plan: string;
-  memberLimit: number;
-  summary: string;
-  imageUrl: string;
-  bookImage1: string;
-  bookImage2: string;
-  bookImage3: string;
-  bookIntro: string;
-  bookLink1: string;
-  bookLink2: string;
-  bookLink3: string;
-  bookName1: string;
-  bookName2: string;
-  bookName3: string;
-  bookSummary: string;
-  category: string;
-  clubId: number;
-  clubIntro: string;
-  clubName: string;
-  clubSummary: string;
-  interest: boolean;
-  leader: string;
-  location: string;
-  participantNum: number;
-  period: string;
-  schedule: string;
-  subscription: boolean;
-  thumbnail: string;
-};
 
 const ClubDetail = () => {
   // , status, isLoading 추후에 쓰임
   const accessToken = getAccessToken();
   const navigate = useNavigate();
   const {id} = useParams();
-  // 화면에 클럽정보 뿌려주는api
 
+  // 화면에 클럽정보 뿌려주는api
   const {data, status} = useQuery<clubDetailType | undefined>(
     ['getClubDetail', accessToken, id],
     async () => {
@@ -66,6 +34,7 @@ const ClubDetail = () => {
     {
       retry: 0,
       onError: (error: any) => {
+        // 로그인 에러 남바 : 403 or 401
         if (error.response.status === 500) {
           return alert('로그인이 필요합니다.'), navigate('/Login');
         }
@@ -96,6 +65,7 @@ const ClubDetail = () => {
       },
     },
   );
+
   // 관심 모임 api
   const {mutate: interestClub} = useMutation(
     async () => {
@@ -141,7 +111,7 @@ const ClubDetail = () => {
         alert('탈퇴 완료');
       },
       onError: error => {
-        console.log('클럽탈퇴에러', error);
+        console.log('클럽 탈퇴 에러', error);
       },
     },
   );
@@ -154,6 +124,7 @@ const ClubDetail = () => {
   //   }
   // });
 
+  // 로딩스피너 도입하기
   if (status === 'loading') {
     return <div>Loading...</div>;
   }

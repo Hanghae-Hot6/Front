@@ -9,18 +9,10 @@ import pop5 from '../../assets/pop5.svg';
 import {useQuery} from 'react-query';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {RecommendationClubType} from '../../types/clubList';
 
-type RecommendationClubType = {
-  category: string;
-  clubId: number;
-  clubName: string;
-  leader: string;
-  memberLimit: string;
-  summary: string;
-  thumbnail: string;
-  visitNum: number;
-};
 const RecommendationClub = () => {
+  // 데이터 빼주기
   const {data, status} = useQuery(['getClubsTop5'], async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/clubs/top5`,
@@ -28,6 +20,7 @@ const RecommendationClub = () => {
     return response.data.data;
   });
 
+  // 데이터 없을 때 예외처리
   if (data === undefined) {
     return (
       <RecommendationWrap>
