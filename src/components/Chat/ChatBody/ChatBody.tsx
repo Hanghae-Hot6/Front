@@ -11,7 +11,8 @@ import ChatRoom from '../ChatRoom/ChatRoom';
 import left_arrow from '../../../assets/CaretLeft.svg';
 import close_btn from '../../../assets/Xbtn.svg';
 import logo_gray from '../../../assets/logo_gray.svg';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+
 type ChatBodyProps = {
   setShowChat: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -25,7 +26,7 @@ export type ChatRoomType = {
 
 const ChatBody = ({setShowChat}: ChatBodyProps) => {
   const accessToken = getAccessToken();
-
+  const navigate = useNavigate();
   const userId = getUserIdFixed();
 
   // 나의 채팅룸 목록 가져오기
@@ -45,6 +46,16 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
   const {data: chatRoomsFromQuery, status: chatRoomsStatus} = useQuery(
     'getChatRooms',
     fetchChatRooms,
+
+    {
+      retry: 0,
+      onError: (error: any) => {
+        // 로그인 에러 남바 : 403 or 401
+        if (error.response.status === 500) {
+          return alert('로그인이 필요합니다.'), navigate('/Login');
+        }
+      },
+    },
   );
 
   let myChatRooms: ChatRoomType[] = [];
