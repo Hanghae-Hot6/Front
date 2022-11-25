@@ -20,22 +20,46 @@ const selectBooksSlice = createSlice({
   name: 'selectBooksSlice',
   initialState,
   reducers: {
-    addBook: (state, action: PayloadAction<{book: NaverBooksDataType}>) => {
-      if (!action.payload.book) {
+    addBook: (state, action: PayloadAction<NaverBooksDataType>) => {
+      // action이 비어있을때
+      if (!action.payload) {
         return;
       }
+
+      // 3자리가 꽉 찼을때
+
+      if (state.book1 && state.book2 && state.book3) {
+        console.log('책 등록은 3개 까지입니다 ');
+        return;
+      }
+
+      // 책 중복등록 검사
+      let CheckUsed = false;
+      Object.values(state).forEach(val => {
+        if (val?.isbn === action.payload.isbn) {
+          console.log('이 책은 이미 등록이 되어있습니다');
+          CheckUsed = true;
+        }
+      });
+
+      if (CheckUsed) {
+        return;
+      }
+
+      // 차례대로 들어오는 대로 책 넣기
+
       if (!state.book1) {
-        state.book1 = action.payload.book;
+        state.book1 = action.payload;
       } else if (!state.book2) {
-        state.book2 = action.payload.book;
+        state.book2 = action.payload;
       } else {
-        state.book3 = action.payload.book;
+        state.book3 = action.payload;
       }
 
       // state[action.payload.bookNo] = val;
     },
-    delBook: (state, action: PayloadAction<{bookNo: BookType}>) => {
-      state[action.payload.bookNo] = undefined;
+    delBook: (state, action: PayloadAction<BookType>) => {
+      state[action.payload] = undefined;
     },
 
     // addBooks: (

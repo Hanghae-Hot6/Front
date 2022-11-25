@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
+import DeleteBtn from '../../../common/DeleteBtn';
+import {addBook} from '../../../Redux/modules/slices/selectBooksSlice';
+import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import {NaverBooksDataType} from '../../../types/bookSearch';
 
 type PaginationBooksChildProps = {
@@ -13,20 +16,44 @@ const PaginationBooksChild = ({
   borderWidth,
   borderHeight,
 }: PaginationBooksChildProps) => {
+  const books = useAppSelector(state => state.selectBookReducer);
+  const dispatch = useAppDispatch();
+
   const handleBookClick = (selectedBook: NaverBooksDataType) => {
-    console.log(selectedBook);
+    dispatch(addBook(selectedBook));
   };
+
+  useEffect(() => {
+    console.log('책 등록 완료!');
+    console.log(books);
+  }, [books]);
+
+  const handleBookDelete = () => {};
 
   return (
     <Div width={borderWidth} height={borderHeight}>
       {data &&
         data?.map((val, index) => {
+          let CheckClicked = false;
+
+          Object.values(books).forEach(selectedBook => {
+            if (selectedBook?.isbn === val?.isbn) {
+              CheckClicked = true;
+            }
+          });
+
           return (
             <Wrap key={index}>
               <LeftDiv
+                clicked={CheckClicked}
                 onClick={() => {
                   handleBookClick(val);
                 }}>
+                {CheckClicked && (
+                  <DeleteBtnWrapper>
+                    <DeleteBtn handleDelete={handleBookDelete} />
+                  </DeleteBtnWrapper>
+                )}
                 {val && (
                   <ImageWrapper width={borderWidth} height={borderHeight}>
                     <Image src={val?.image} />
@@ -61,6 +88,7 @@ const Wrap = styled.div`
   width: 100%;
   height: calc(100% / 3);
   padding: 1rem 2rem;
+
   /* :hover {
     .rightBox {
       opacity: 1;
@@ -68,11 +96,21 @@ const Wrap = styled.div`
   } */
 `;
 
-const LeftDiv = styled.div`
+const DeleteBtnWrapper = styled.div`
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+`;
+
+const LeftDiv = styled.div<{clicked: boolean}>`
   display: flex;
   position: relative;
+  ${({clicked}) => {
+    if (clicked) {
+      return `border: 1px solid black;`;
+    }
+  }}
 
-  /* border: 1px solid black; */
   &:hover {
     box-shadow: 10px 5px 5px #f1f1f1;
   }
