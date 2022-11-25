@@ -1,9 +1,10 @@
+
 # ODOK
-## ![logo](https://user-images.githubusercontent.com/113868313/203928998-224f3d9f-9ec1-4421-abc9-978c6a4fbed9.png)프로젝트 소개
+![logo](https://user-images.githubusercontent.com/113868313/203928998-224f3d9f-9ec1-4421-abc9-978c6a4fbed9.png)<br>프로젝트 소개
 
 
-![image](https://user-images.githubusercontent.com/72599761/193501894-dc660188-fafa-48b8-bd03-52fb13e6e9ad.png)  독서가 부족한 현대인들을 위해! 갓생을 살고싶은 현대인들을 위해! <br> 
-![image](https://user-images.githubusercontent.com/72599761/193501899-201d9b77-64c1-48bd-9cc5-c21c68319bfd.png)  새로운 사람들과 즐겁게 얘기하며 독서 할 수 있는 웹 어플리케이션 <br> 
+  독서가 부족한 현대인들을 위해! 갓생을 살고싶은 현대인들을 위해! <br> 
+  새로운 사람들과 즐겁게 얘기하며 독서 할 수 있는 웹 어플리케이션 <br> 
 
 ### [ODOK 바로가기](http://hot6-front.s3-website.ap-northeast-2.amazonaws.com/ )
 ### [Front-End Github](https://github.com/Hanghae-Hot6/Front) 
@@ -11,13 +12,30 @@
 <br>
 <hr>
 <br>
+## 👨‍👩‍👧 팀원 소개  
+
+|이름|깃허브 주소|포지션|
+|---|---|---|
+|서지운|[MildColor의 github](https://github.com/MildColor)|Frontend|
+|조재신|[1005jsc의 github](https://github.com/1005jsc)|Frontend|
+|국경훈|[kyunghoonkook의 github](https://github.com/kyunghoonkook)|Frontend|
+|류창민|[ryucm의 github](https://github.com/ryucm)|Backend|
+|조계일|[chokyeil의 github](https://github.com/chokyeil)|Backend|
+|박현도|[atto08의 github](https://github.com/atto08)|Backend|
+|장승주||DESIGNER|
+
+
+<br>
+<hr>
+<br>
+
 
 ## ⚙️ 서비스 아키텍처 
 ![서비스아키텍쳐ver_2](https://user-images.githubusercontent.com/113868313/203928554-51132feb-8af7-4d71-9a89-394840b51b5b.png)
 
 
 <br>
-<hr>
+
 <br>
 
 ## 📅 프로젝트 기간   
@@ -25,7 +43,7 @@
 기간 : 2022년 11월 03일 ~ 2022년 12월 16일(6주)
 
 <br>
-<hr>
+
 <br>
 
 ## 🛠 기술 스택
@@ -54,7 +72,7 @@
 </div>
 
 <br>
-<hr>
+
 <br> 
 
 ## 🗺 API 설계 
@@ -62,7 +80,7 @@
 ### [API 설계 보러가기](https://www.notion.so/ckd12394/5-ODOK-5b66f278ac9044609f709d7a89deee7f)
 
 <br>
-<hr>
+
 <br>
 
 ## ✒ 와이어 프레임 
@@ -70,101 +88,16 @@
 ### [Figma 보러가기](https://www.figma.com/file/PTN0SpVnreH7JxRmfFmA32/%ED%95%AD%ED%95%B499_%EC%98%A4%EB%8F%85?node-id=0%3A1&t=e7SJsG8aMZCz08ou-0)
 
 <br>
-<hr>
 <br>
 
 ## 🔨 기술 도입 이유 - 라이브러리, 기술적 의사 결정
-
-    - Front-end
-    
-    
-    | TypeScript | 프로젝트 내의 데이터 흐름을 체계적으로 만들기 위해 타입스크립트 도입
-    자바스크립트는 다이나믹 타입이기 때문에 런타임시 오류가 남 —> 배포 후 오류가 생길 수 있음
-    타입스크립트는 스태틱 타입이기 때문에 개발 과정 중에 오류를 확인 할 수 있음  | ^4.4.2 |
-    | --- | --- | --- |
-    | Styled-components | css & 자바스크립트 적 연산을 동시에 사용하기 위해 styled-components 사용 | ^5.3.6 |
-    | RTK | 전역 상태 관리를 위해 Redux를 사용, Redux에서 공식적으로 권장하고 있는 Redux 패턴 방법인 Redux toolkit 사용 | ^1.8.6 |
-    | React-Query  | 기존에 서버와 클라이언트 데이터 연동 작업을 Redux thunk로 사용했다. 
-    하지만 Redux, Redux toolkit, Redux thunk가 제공해주는 기초 세팅 작업이 굉장히 불편하였다. 더불어 서버와의 통신 status관리를 개발자가 직접 관리해야 되는 점, 데이터 저장 caching을 직접 짜야 하는 점, 하나의 store에 클라이언트 데이터와 서버 데이터가 공존 하게 되는 점 등과 같이 불편한 점이 많았는데, 이를 개선하기 위해 서버 통신 간 status 관리, 통신 이후 데이터 상태 관리를 간편한 인터페이스로 제공, 서버 & 클라이언트 데이터를 분리, get한 데이터에 대해 update를 하면 자동으로 get수행 하는 등 보다 유연한 작업을 위해 React Query를 도입하게 되었다  | ^3.39.2 |
-    | Axios |  JS 내장 기능이 아니기 때문에 import를 해줘야 하는 번거로움과 무거움이 다소 있지만 다음과 같은 편리한 기능 때문에 도입했다. JSON 데이터 자동 변환 / axios interceptor & 간결한 instance 기능 | ^1.1.3 |
-    | Socket, StompJs | 채팅 기능을 구현하기 위해서는 단방향적인 http통신을 쓰는 것보다 양방향적으로 통신을 가능하게하는 라이브러리가 필요로 했다.  여러가지 양방향 통신 라이브러리중, Spring 서버의 성격과 가장 잘 맞은 SockJs, Stomp라이브러리를 사용하였다  | ^6.1.2 |
-
-- Back-end
-    
-    
-    | Node.js | 1. 사용 배경: 메모리 사용과 관련하여 python, java 보다 효율적이며, jQuery를 통해 원하는 데이터를 추출하기에 용이하기 때문에 선택하였습니다.
-    
-    2. 구조: 
-     - Producer-Consumer 개념을 도입
-     - Producer에서 크롤링을 진행할 url을 parsing하여 Queue에 push
-     - Consumer에서 Queue에 담긴 url을 가져오며 Target Data를 parsing하여 buffer에 push
-     - buffer에 일정양의 Data가 쌓이게 되면 axios를 통해 spring ORM을 통해 DB insert
-     - Data 손실 방지를 위해 parsing한 html은 S3에 archive
-    
-    3. 성능:
-     - 2만여 건의 Data를 수집하였을 때, 약 3~4시간 소요
-     - 40건의 Best Seller Data의 수집에는 62초 소요
-     - Multi Thread를 통해 구축 필요 |
-    | --- | --- |
-    | Redis | 1. 사용 배경: 
-     - RefreshToken 저장
-     - email 인증 번호 유효 기간 설정 |
-    | docker-compose | 1. 사용 배경:
-     - 각 사용자마다 개발환경이 다릅니다.
-     - 개별 환경마다 별도의 DB를 설치가 필요
-      redis와 postgresql의 별도 설치 없이 동일 환경에서 test가 가능하도록 docker-compose를 구성 |
-    | CI-CD | - github action → S3 → Code Deploy → EC2 로 이어지는 CICD 구성
-    - ECR에 docker image를 push하는 CI까지는 성공했으나, ECS 구성 중에 target group에서 지속적인 unhealthy를 해결하지 못 했음 |
-    | WebSocket, Stomp | - WebSocket
-      실시간 채팅 기능 구현을 위해서는 클라이언트와 서버가 실시간으로 데이터를 업데이트 하면서 주고 받아야 하기 때문에  단방향 프로토콜인 HTTP통신 대신 양방향 프로토콜인 Websocket통신 사용
-    - Stomp
-      효율적인 메시징 전송을 위해 pub/sub 구조로 되어있는 Stomp 사용 |
-    | spring email | 1. 사용 배경:
-     - 회원가입 시 본인 인증 필요
-     - 아이디, 비밀번호 찾기
-    2. 비교:
-     - 문자와 email 중 고민을 했었는데, email의 경우 공용 계정 생성이 가능하지만 문자의 경우 관리가 불편할 것 같아 email 선택하였습니다. |
-    | OAuth2.0 | 1. 사용 배경:
-     - 회원 가입의 간편화를 통해 유저들의 사용 편리함 증가 |
-    | PostgreSQL | 1. 사용 배경: 
-     - 대용량 데이터 기반 서비스를 구축 하기 위해서
-     - mysql의 버전 업그레이드를 통해 많이 성능이 향상되었지만, 그래도 postgresql이 join과 병렬 쿼리, MVCC를 지원되므로 대용량 query에서 더 나은 성능이 제공되므로 선택.
-     - 데이터의 무결성과 동시성에 매우 강력하다. |
-    | Amazon S3 | 1. 사용 배경:
-     - 이미지 저장
-     - CICD의 과정 |
-    | Swagger fox | 1. 사용 배경:
-     - Back-end에서 구현이 끝난 것을 일일이 front-end에 전달하는 과정에서 delay 발생
-     - 개발 도중 추가로 개발한 API를 매번 API명세서에 기입하는 과정이 어려워 swagger를 통해 간접적인 소통 |
-
-<details>
-<summary>사용한 패키지 간략한 설명</summary>
-<div markdown="1">
-- redux, redux-toolkit : 리덕스 툴킷 사용<br>  
-- styled-components : 스타일 적용<br>
-- axios : 서버와 비동기 통신<br>
-- react-hook-form : 폼 유효성<br>
-- dotenv : 환경변수 설정<br>
-- recharts : 차트 라이브러리 이용<br>
-- sockjs-client, stompjs: 채팅<br>
-- swiper : 인기 검색어 스와이퍼 기능<br>
-- uuidv4 : 랜덤 아이디값 부여<br>
-- react-slick, slick-carousel : 메인 배너 슬라이드, 상세 페이지 이미지 뷰<br>
-- jwt-decode: 토큰 디코딩<br>
-</div>
-</details>
-
-
-<br>
-<hr>
-<br>
-
-## 
-
-
-<br>
-<hr>
-<br>
+| 스택| 도입 이유 |버전|
+|--|--|--|
+| TypeScript | 프로젝트 내의 데이터 흐름을 체계적으로 만들기 위해 타입스크립트 도입 자바스크립트는 다이나믹 타입이기 때문에 런타임시 오류가 남 —> 배포 후 오류가 생길 수 있음 타입스크립트는 스태틱 타입이기 때문에 개발 과정 중에 오류를 확인 할 수 있음 |^4.4.2|
+|Styled-components  | css & 자바스크립트 적 연산을 동시에 사용하기 위해 styled-components 사용 |^5.3.6
+|React-Query | 기존에 서버와 클라이언트 데이터 연동 작업을 Redux thunk로 사용했다. 하지만 Redux, Redux toolkit, Redux thunk가 제공해주는 기초 세팅 작업이 굉장히 불편하였다. 더불어 서버와의 통신 status관리를 개발자가 직접 관리해야 되는 점, 데이터 저장 caching을 직접 짜야 하는 점, 하나의 store에 클라이언트 데이터와 서버 데이터가 공존 하게 되는 점 등과 같이 불편한 점이 많았는데, 이를 개선하기 위해 서버 통신 간 status 관리, 통신 이후 데이터 상태 관리를 간편한 인터페이스로 제공, 서버 & 클라이언트 데이터를 분리, get한 데이터에 대해 update를 하면 자동으로 get수행 하는 등 보다 유연한 작업을 위해 React Query를 도입하게 되었다 |^3.39.2
+|Axios | JS 내장 기능이 아니기 때문에 import를 해줘야 하는 번거로움과 무거움이 다소 있지만 다음과 같은 편리한 기능 때문에 도입했다. JSON 데이터 자동 변환 / axios interceptor & 간결한 instance 기능 |^1.1.3
+|Socket, StompJs |채팅 기능을 구현하기 위해서는 단방향적인 http통신을 쓰는 것보다 양방향적으로 통신을 가능하게하는 라이브러리가 필요로 했다. 여러가지 양방향 통신 라이브러리중, Spring 서버의 성격과 가장 잘 맞은 SockJs, Stomp라이브러리를 사용하였다 |^6.1.2
 
 ## ✨ 주요 기능  
 |페이지|API 연결, 기능 및 CSS|
@@ -186,63 +119,32 @@
 |반응형|✅모바일<br>✅태블릿 <br>✅PC|
 
 <br>
-<hr>
 <br>
 
 ## 🎯 트러블 슈팅 
 
-### 1. 검색어 자동 완성 API call 1/8로 최소화
-
-|구분|설명|
-|---|---|
-|문제<br>상황|빠르게 많은 텍스트를 input창에 입력하면<br>자동완성 API로 받아오는 응답값에 블링킹 현상이 발생|
-|문제원인|예를 들어 ‘고양이’이라는 단어를 입력하는데<br>api call이 onChange마다 일어나서 16번이 호출이 되었습니다.|
-|문제해결|사용자가 타이핑을 할 때마다 API를 호출하게 되면 짧은 시간 동안 너무 많은 API를 호출하게 되고 이는 네트워크 트래픽 증가로 인해 서버 부하가 발생할 수 있습니다. 검색 성능을 향상 시키기 위해 커스텀 훅 useDebounce를 만들어서 적용했습니다. <br> setTimeout으로 마지막 이벤트 발생 이후 350ms 동안 추가 이벤트가 발생하지 않을 경우 debounce 콜백 함수 실행하도록 코드를 작성했습니다. 이를 통해 타이핑을 할 때마다 axios 통신이 발생하는 것을 방지할 수 있었습니다.|
-|해결결과|예를 들어 ‘고양이’이라는 단어를 입력했을 때 네트워크 트래픽을 보면 onChange로는 api call이 16번 일어났다면, useDebounce를 적용했을 때 api call이 2번으로 줄어들었습니다. 이로써, 네트워크 트래픽량도 1/8로 감소됨을 확인할 수 있었습니다. |
-
-##### Debounce 적용 전/후
-|적용 전|적용 후|
-|---|---|
-|![debounce적용전_네트워크 트래픽](https://user-images.githubusercontent.com/72599761/193569214-0ebc9139-0fb2-4ad7-8c3c-8ecf8d0487b8.gif)|![debounce적용후_네트워크 트래픽](https://user-images.githubusercontent.com/72599761/193569257-4cf4a103-64d7-4b26-87e3-1c8cf2765f47.gif)|
-
-### 2. 찜 API call 1/3로 최소화 
-
-|구분|설명|
-|---|---|
-|문제상황|찜버튼을 누를 때 마다 서버에 API 요청을 보낸다.<br>작정하고 팀을 만들어서 누르면 네트워크 트래픽 양이 증가하여 서버 부하가 생길 수 있다.|
-|문제원인|찜버튼을 누를 때 마다 서버에 API 요청을 보낸다.<br>작정하고 팀을 만들어서 누르면 네트워크 트래픽 양이 증가하여 서버 부하가 생길 수 있다.|
-|문제해결|검색 API 호출을 줄이기 위해 useDebounce 커스텀 훅을 만들어서 사용했는데, input 값에 대해 지연시간을 줘서 반환하는 형태라 찜상태에 따라 api 요청을 다르게 보내는 함수에 적용하기에는 적합하지 않다고 판단.<br>lodash를 사용하기로 결정. throttle은 일정한 주기마다 api call 하므로 의미가 없다고 판단했다. 연속되는 이벤트 중 마지막 이벤트만 적용하기 위해서는 debounce를 사용하는 것이 적합하므로 lodash의 debounce를 적용.|
-|해결결과|Lodash debounce를 적용한 전/후 둘 다 찜버튼을 12번 클릭했다.<br>적용하기 전에는 총 api call이 14번이 일어나고, 적용한 후에는 api call이 5번 일어났다.<br>대략 api call이 1/3로 줄어든 것을 볼 수 있다.<br>이로써 1/3로 네트워크 트래픽 량이 감소한 것을 확인할 수 있었습니다.  |
-
-##### Debounce 적용 전/후
-|적용 전|적용 후|
-|---|---|
-|![찜버튼_네트워크 요청_lodash적용전](https://user-images.githubusercontent.com/72599761/194446442-7dfe2af5-af5c-4e3c-a0a5-6adbd9294c4d.gif)|![찜버튼_네트워크 요청_lodash적용](https://user-images.githubusercontent.com/72599761/194446453-b74bffb5-25fa-40cc-bd7b-267ae8bc9852.gif)|
 
 
 <br>
-<hr>
 <br>
 
 ## 👩‍💻 유저 피드백 및 개선 사항
 
-2022년 09월 29일 수요일 ~ 2022년 10월 1일까지 멍냥마켓 서비스에 대해 실제 유저를 모집하여 가입 유저 수 127명, 63개의 피드백 수집하여 피드백을 반영하여 서비스 개선을 진행했습니다. 
 
-
-#### [[유저 피드백 1] 콘솔 로그 지우기 (2명) ](https://github.com/Hanhae99-final-3team/final_FE/issues/168)
-#### [[유저 피드백 2] 제목, 댓글 글씨 영역을 벗어나는 에러 (6명) ](https://github.com/Hanhae99-final-3team/final_FE/issues/169)
-#### [⭐ [유저 피드백 3] 스크롤바가 유지되는 에러 수정 (6명) ](https://github.com/Hanhae99-final-3team/final_FE/issues/170)
-#### [[유저 피드백 4] 게시글 작성, 수정 글자 제한 (3명) ](https://github.com/Hanhae99-final-3team/final_FE/issues/185)
-#### [[유저 피드백 5] 검색 기능에서 빈 값을 검색할 때 undefined가 나오는 현상 (3명) ](https://github.com/Hanhae99-final-3team/final_FE/issues/186)
-#### [⭐ [유저 피드백 6] 메인 로고 눌렀을 때 초기화 및 메인 텍스트 변경 (3명) ](https://github.com/Hanhae99-final-3team/final_FE/issues/190)
-#### [[유저 피드백 7] 게시글 정렬이 맞지 않는 에러 (4명) ](https://github.com/Hanhae99-final-3team/final_FE/issues/192) 
-#### [⭐⭐⭐ [유저 피드백 8] 아이템 찜 버튼 api call 성능최적화 (1명)](https://github.com/Hanhae99-final-3team/final_FE/issues/202)
 <br>
-<hr>
+
 <br>
 
 ## 🐶 추가하고 싶은 기능 
 
+<details>
+<summary>{토글리스트의 title}</summary>
+<div markdown="1">       
+  {토글리스트의 content}
+</div>
+</details>
+
+ 
 - Front-end
     - 반응형 도입 — 모바일ver
     - 보안 강화 — https
@@ -274,19 +176,4 @@
 <hr>
 <br>
 
-## 👨‍👩‍👧 팀원 소개  
 
-|이름|깃허브 주소|포지션|
-|---|---|---|
-|서지운|[MildColor의 github](https://github.com/MildColor)|Frontend|
-|조재신|[1005jsc의 github](https://github.com/1005jsc)|Frontend|
-|국경훈|[kyunghoonkook의 github](https://github.com/kyunghoonkook)|Frontend|
-|류창민|[ryucm의 github](https://github.com/ryucm)|Backend|
-|조계일|[chokyeil의 github](https://github.com/chokyeil)|Backend|
-|박현도|[atto08의 github](https://github.com/atto08)|Backend|
-|장승주||DESIGNER|
-
-
-<br>
-<hr>
-<br>
