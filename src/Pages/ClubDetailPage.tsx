@@ -157,15 +157,15 @@ const ClubDetail = () => {
             <MainContent>
               <div>
                 <ImageWrap>
-                  <img src={data.thumbnail} alt={data.bookIntro} />
+                  <img src={data.thumbnail} alt={data.bookName1} />
                 </ImageWrap>
               </div>
 
-              <div>
+              <MainWrap>
                 <TitleWrap>
                   <h3>{data.category}</h3>
                   <h2>{data.clubName}</h2>
-                  <p>{data.clubSummary}</p>
+                  <p>{data.clubIntro}</p>
                 </TitleWrap>
                 <ClubInfoWrap>
                   <p>
@@ -212,7 +212,7 @@ const ClubDetail = () => {
                     <JoinBtn onClick={() => signUpClub()}>참석하기</JoinBtn>
                   )}
                 </ClubJoin>
-              </div>
+              </MainWrap>
             </MainContent>
             <Main>
               <section>
@@ -220,7 +220,7 @@ const ClubDetail = () => {
                   <span>{data.bookName1}</span> 베스트 셀러를 읽고 함께 이야기
                   나눠요
                 </h2>
-                <p>{data.bookIntro}</p>
+                <p>{data.clubSummary}</p>
               </section>
               <section>
                 <h2>
@@ -240,7 +240,9 @@ const ClubDetail = () => {
                 <h2>
                   모임의 <span>일정이에요 !</span>
                 </h2>
-                <textarea readOnly>{data.schedule}</textarea>
+                <textarea readOnly value={data.schedule}>
+                  {/* {data.schedule} */}
+                </textarea>
               </section>
               <section>
                 <h2>
@@ -272,6 +274,11 @@ const ClubDetail = () => {
 };
 export default ClubDetail;
 
+export const MainWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 export const MainContent = styled.div`
   display: flex;
   margin-top: 5rem;
@@ -319,10 +326,9 @@ export const TitleWrap = styled.div`
 `;
 
 export const ClubInfoWrap = styled.div`
-  margin-top: 6rem;
   > p {
     font-size: 1.8rem;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
     color: ${props => props.theme.Gray};
   }
   > p > span {
@@ -336,7 +342,6 @@ export const ClubJoin = styled.div`
   padding: 0;
   display: flex;
   align-items: center;
-  margin-top: 12.3rem;
 `;
 
 export const InterestBtn = styled.button`
