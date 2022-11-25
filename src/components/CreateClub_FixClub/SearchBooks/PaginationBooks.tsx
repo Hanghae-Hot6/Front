@@ -131,7 +131,6 @@ const CarouselContainer = styled.div<{
 
 const ContentContainer = styled.div`
   display: flex;
-  /* flex-direction: column; */
   width: 100%;
   height: 80%;
   overflow: hidden;
@@ -148,7 +147,8 @@ const Container2 = styled.div`
 const Container3 = styled.div`
   width: 45%;
   height: 90%;
-  border: 1px solid black;
+
+  /* border: 1px solid black; */
 `;
 
 const Content = styled.div`
@@ -171,7 +171,7 @@ const IndexButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  border: 1px solid ${props => props.theme.MainColor};
+  /* border: 1px solid ${props => props.theme.MainColor}; */
 `;
 
 const IndexButton = styled.button<{isActive?: boolean}>`
