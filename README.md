@@ -155,7 +155,7 @@
 ## 👻 추가하고 싶은 기능 
 
 <details>
-<summary>- Front-end</summary>
+<summary> Front-end</summary>
 <div markdown="1">   
     
     - 반응형 도입 — 모바일ver
