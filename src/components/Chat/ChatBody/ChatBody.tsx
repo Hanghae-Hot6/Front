@@ -127,12 +127,19 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
                   })}
                 </div>
               ) : chatRoomsStatus === 'success' && myChatRooms.length === 0 ? (
-                <ChatRoomNotAvaliable />
-              ) : (
                 <NoneClub>
                   <img src={logo_gray} alt="회색로고" />
                   <p>가입된 모임이 없습니다.</p>
                   <Link to="/club_list">모임 찾기</Link>
+                </NoneClub>
+              ) : null}
+              {chatRoomsStatus === 'loading' ? (
+                <NoneClub>
+                  <div>Loading</div>
+                </NoneClub>
+              ) : accessToken ? null : (
+                <NoneClub>
+                  <div>회원가입을 해주세요.</div>
                 </NoneClub>
               )}
             </>

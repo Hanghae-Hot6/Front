@@ -68,7 +68,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
 
   useEffect(() => {
     return () => {
-      console.log(` ${chatRoomNowInfo.clubName}방에서 나가셨습니다`);
+      // console.log(` ${chatRoomNowInfo.clubName}방에서 나가셨습니다`);
 
       // 작동을 잘 안함
       if (onConnect) {
@@ -114,13 +114,21 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       buttonRef.current!.click();
     }
   };
+  // console.log('메세지', messageList);
+  // const today = new Date();
+  // console.log('지금', today);
 
   return (
     <>
       <ChattingList>
+        {/* {messageList[0].date} */}
         {messageList.map((val, index) => {
           if (val.sender === userId) {
-            return <MyChat key={index} chatObject={val} />;
+            return (
+              <>
+                <MyChat key={index} chatObject={val} />
+              </>
+            );
           } else {
             return <OthersChat key={index} chatObject={val} />;
           }

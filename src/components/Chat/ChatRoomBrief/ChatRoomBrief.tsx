@@ -22,11 +22,11 @@ const ChatRoomBrief = ({
   const [receiveMsg, setReceiveMsg] = useState<ChatType | undefined>(undefined);
 
   const ChattingServiceKit = useMemo(() => {
-    console.log('yes1' + chatRoomId);
+    // console.log('yes1' + chatRoomId);
     // 여기에서 노란색 에러가 뜨고있다
     // 도저히 모르겠다
     const yes = new ChattingService(chatRoomId);
-    console.log('yes2');
+    // console.log('yes2');
 
     return yes;
   }, [chatRoomId]);
@@ -85,13 +85,12 @@ const ChatRoomDiv = styled.div`
   width: 100%;
   height: 6rem;
   margin: 1.2rem 0;
-  border: 1px solid ${props => props.theme.LightPurple2};
+  /* border: 1px solid ${props => props.theme.LightPurple2}; */
   border-radius: 1rem;
   padding: 0 1rem;
-
   display: flex;
   align-items: center;
-
+  box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
   &:hover {
     background-color: ${props => props.theme.LightPurple2};
     cursor: pointer;
@@ -103,11 +102,10 @@ const ThumbnailWrapper = styled.div`
   height: 5rem;
   border-radius: 50%;
   overflow: hidden;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${props => props.theme.LightPurple2};
+  /* border: 1px solid ${props => props.theme.LightPurple2}; */
 `;
 
 const Thumbnail = styled.img`
@@ -118,7 +116,7 @@ const Thumbnail = styled.img`
 
 const TitleMessageDiv = styled.div`
   height: 100%;
-  width: 23rem;
+  width: 20rem;
   padding: 0 1rem;
 `;
 
@@ -126,6 +124,9 @@ const Title = styled.h1`
   font-size: 1.6rem;
   font-weight: 700;
   margin: 1rem 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const Message = styled.span`

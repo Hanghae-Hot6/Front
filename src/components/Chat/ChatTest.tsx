@@ -47,7 +47,7 @@ const ChatTest = ({}: ChatTestProps) => {
         type: 'TALK',
       },
 
-      (receivingMessage: any) => console.log(receivingMessage),
+      (receivingMessage: any) => {},
       userId,
       'ChatTest',
     );
@@ -64,13 +64,13 @@ const ChatTest = ({}: ChatTestProps) => {
       },
     );
 
-    console.log(response);
+    // console.log(response);
 
     return response;
   };
 
   const handleClick = useCallback(() => {
-    console.log(userId);
+    // console.log(userId);
     ChattingServiceKit.sendMessage(
       {},
       {

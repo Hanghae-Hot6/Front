@@ -50,7 +50,7 @@ class ChattingService {
 
     // this.stompClient.connect(headers, () => {
     this.stompClient.connect({}, () => {
-      console.log('연결됬음 ' + this.chatRoomId);
+      // console.log('연결됐음 ' + this.chatRoomId);
 
       this.stompClient.subscribe(
         `/sub/chat/messages/${this.chatRoomId}`,
@@ -109,7 +109,7 @@ class ChattingService {
     // );
 
     this.stompClient.disconnect();
-    console.log('disconnected');
+    // console.log('disconnected');
   };
 }
 
