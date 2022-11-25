@@ -10,6 +10,7 @@
 ### [ODOK 바로가기](http://hot6-front.s3-website.ap-northeast-2.amazonaws.com/ )
 ### [Front-End Github](https://github.com/Hanghae-Hot6/Front) 
 ### [Back-End Github](https://github.com/Hanghae-Hot6/Back) 
+### [Project Notion]([https://github.com/Hanghae-Hot6/Back](https://www.notion.so/ckd12394/5-ODOK-5b66f278ac9044609f709d7a89deee7f)) 
 <br>
 <hr>
 <br>
@@ -79,7 +80,19 @@
 
 ## 🗺 API 설계 
 
-### [API 설계 보러가기](https://www.notion.so/ckd12394/5-ODOK-5b66f278ac9044609f709d7a89deee7f)
+<details>
+<summary>API</summary>
+<div markdown="1">   
+    
+  ![image](https://user-images.githubusercontent.com/113868313/203936279-6962e53b-776e-454c-a077-f79c57c022e7.png)
+  ![image](https://user-images.githubusercontent.com/113868313/203936319-c932153e-2c61-4327-b065-deb6e03bdc01.png)
+  ![image](https://user-images.githubusercontent.com/113868313/203936355-5d833550-0cba-4213-8064-bf55cb766fa6.png)
+  ![image](https://user-images.githubusercontent.com/113868313/203936394-9a2d9cee-5677-4344-aa54-6272748dd76b.png)
+  ![image](https://user-images.githubusercontent.com/113868313/203936442-f38ec82a-195c-47c2-b78b-b859d0058216.png)
+
+</div>
+</details>
+
 
 <br>
 
