@@ -8,6 +8,7 @@ import {getAccessToken, getUserIdFixed} from '../../../utils';
 import ChatRoomBrief from '../ChatRoomBrief/ChatRoomBrief';
 import ChatRoomNotAvaliable from '../ChatRoomNotAvaliable';
 import ChatRoom from '../ChatRoom/ChatRoom';
+import left_arrow from '../../../assets/left_arrow.svg';
 
 type ChatBodyProps = {
   setShowChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -73,7 +74,7 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
                 onClick={() => {
                   setEnterChatRoom(false);
                 }}>
-                <img src="/assets/left_arrow.svg" alt="뒤로가기" />
+                <img src={left_arrow} alt="뒤로가기" />
               </GoBackBtn>
 
               <ClubName>{chatRoomNowInfo?.clubName}</ClubName>
@@ -146,6 +147,7 @@ const Chat = styled.div`
   background-color: ${props => props.theme.White};
   border: 1px solid ${props => props.theme.LightPurple2};
   border-radius: 1rem;
+  z-index: 13;
 `;
 
 const ChatHeader = styled.div`

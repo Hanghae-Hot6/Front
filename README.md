@@ -1,5 +1,5 @@
 
-# ODOK
+
 ![logo](https://user-images.githubusercontent.com/113868313/203928998-224f3d9f-9ec1-4421-abc9-978c6a4fbed9.png)
 
 ## 👉🏻 프로젝트 소개
@@ -116,8 +116,8 @@
 |Socket, StompJs |채팅 기능을 구현하기 위해서는 단방향적인 http통신을 쓰는 것보다 양방향적으로 통신을 가능하게하는 라이브러리가 필요로 했다. 여러가지 양방향 통신 라이브러리중, Spring 서버의 성격과 가장 잘 맞은 SockJs, Stomp라이브러리를 사용하였다 |^6.1.2
 
 ## ✨ 주요 기능  
-|페이지|API 연결, 기능 및 CSS|
-|---|---|
+|페이지|API 연결, 기능 및 CSS|시연 영상
+|---|---|---|
 |로그인 - 서지운|✅카카오 로그인<br>✅로그인|
 |회원가입 - 서지운|✅회원가입<br>✅아이디 중복 체크<br>✅닉네임 중복 체크|
 |마이 페이지 - 서지운|✅로그아웃<br>✅마이페이지 차트<br>|
@@ -128,10 +128,10 @@
 |모임 참석/탈퇴 - 국경훈|✅모임 가입하기 탈퇴하기<br>|
 |모임 작성 페이지 - 조재신|✅|
 |모임 수정 페이지 - 조재신|✅|
-|채팅 - 조재신|✅|
 |모임 삭제 기능 - 서지운|✅|
+|채팅 - 조재신|✅|
 |검색 기능 - 조재신|✅|
-|모달 - 서지운|✅모달 css ✅|
+|모달 - 서지운|✅모달 css |
 |헤더 - 서지운 & 국경훈|✅헤더 css <br> ✅헤더 검색|
 |푸터 - 국경훈|✅푸터 css|
 |반응형 - 전체|✅모바일<br>✅PC|
@@ -141,7 +141,34 @@
 
 ## 🎯 트러블 슈팅 
 
+<details>
+<summary> 1</summary>
+<div markdown="1">   
+    1
 
+</div>
+</details>
+<details>
+<summary> 2</summary>
+<div markdown="1">   
+    2
+
+</div>
+</details>
+<details>
+<summary> 3</summary>
+<div markdown="1">   
+    3
+ 
+</div>
+</details>
+<details>
+<summary> 4</summary>
+<div markdown="1">   
+    4
+   
+</div>
+</details>
 
 <br>
 <br>
@@ -150,6 +177,34 @@
 
 
 <br>
+<details>
+<summary> 1</summary>
+<div markdown="1">   
+    1
+
+</div>
+</details>
+<details>
+<summary> 2</summary>
+<div markdown="1">   
+    2
+
+</div>
+</details>
+<details>
+<summary> 3</summary>
+<div markdown="1">   
+    3
+ 
+</div>
+</details>
+<details>
+<summary> 4</summary>
+<div markdown="1">   
+    4
+   
+</div>
+</details>
 
 <br>
 
