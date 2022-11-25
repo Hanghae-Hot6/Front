@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import BookSearchBar from '../../CreateClub2/BookSearchBar/BookSearchBar';
 import HeaderSearch from '../../Header/HeaderSearch';
@@ -21,12 +21,33 @@ const SearchBooks = ({
 }: SearchBooksProps) => {
   const [showNaverBookSearch, setShowNaverBookSearch] =
     useState<boolean>(false);
+  const [booknameSearch, setBooknameSearch] = useState<string>('');
+  const inputRef = useRef();
+
+  useEffect(() => {
+    console.log(booknameSearch);
+  }, [booknameSearch]);
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    e.preventDefault();
+
+    const {value} = e.target;
+
+    setBooknameSearch(value);
+  };
 
   return (
     <>
       <SearchBooksDiv width={width} flex={flex}>
         <Div>
-          <Span>도서명을 입력해주세요</Span>
+          <BookSearchInput
+            type="text"
+            placeholder="도서명을 입력해 주세요"
+            onChange={handleChange}
+            onClick={() => {
+              setShowNaverBookSearch(!showNaverBookSearch);
+            }}
+          />
           <button
             onClick={() => {
               setShowNaverBookSearch(!showNaverBookSearch);
@@ -34,11 +55,7 @@ const SearchBooks = ({
             {showNaverBookSearch ? '닫기' : '찾아보기'}
           </button>
         </Div>
-        {showNaverBookSearch && (
-          <BookSearchPreviewDiv>
-            <BookSearchBar />
-          </BookSearchPreviewDiv>
-        )}
+        {showNaverBookSearch && <BookSearchPreviewDiv></BookSearchPreviewDiv>}
       </SearchBooksDiv>
     </>
   );
@@ -77,9 +94,13 @@ const Div = styled.div`
   margin-bottom: 1rem;
 `;
 
-const Span = styled.span`
+const BookSearchInput = styled.input`
   font-size: 2.2rem;
   color: ${props => props.theme.Gray};
+  width: 80%;
+  height: 80%;
+  border: none;
+  outline: none;
 `;
 
 const BookSearchPreviewDiv = styled.div`

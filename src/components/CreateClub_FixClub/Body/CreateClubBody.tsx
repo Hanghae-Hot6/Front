@@ -110,13 +110,6 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
       {/* input part 2 */}
 
       <ParagraphDiv title="인원">
-        {/* <TextInput
-          input={input}
-          setInput={setInput}
-          name='memberMaxNum'
-          placeholder="제목을 입력해 주세요"
-          flex={2}
-        /> */}
         <SelectInput
           input={input}
           setInput={setInput}
@@ -124,7 +117,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           placeholder="최대 인원 8명"
           // width="29.2rem"
           flex={1}
-          options={['2', '3', '4', '5', '6', '7', '8']}
+          options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
         />
       </ParagraphDiv>
 
