@@ -11,10 +11,7 @@ const MyChat = ({chatObject}: MyChatProps) => {
     <>
       <MyChatDiv>
         <SpanDiv>
-          <span>
-            {chatObject.sender} {'    '}
-            {chatObject.message}
-          </span>
+          <MessageSpan>{chatObject.message}</MessageSpan>
         </SpanDiv>
       </MyChatDiv>
     </>
@@ -26,11 +23,16 @@ const MyChatDiv = styled.div`
   margin: 0.4rem 0;
   margin-left: auto;
   width: 70%;
-  border: 1px solid black;
   padding: 2rem;
   border-radius: 1rem 1rem 0 1rem;
+  background-color: ${props => props.theme.MainColor};
 `;
 
 const SpanDiv = styled.div`
   float: right;
+  color: ${props => props.theme.White};
+`;
+
+const MessageSpan = styled.span`
+  font-size: 1.2rem;
 `;
