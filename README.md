@@ -138,14 +138,8 @@
 ## 🐶 추가하고 싶은 기능 
 
 <details>
-<summary>{토글리스트의 title}</summary>
+<summary>- Front-end</summary>
 <div markdown="1">       
-  {토글리스트의 content}
-</div>
-</details>
-
- 
-- Front-end
     - 반응형 도입 — 모바일ver
     - 보안 강화 — https
     - infinite carousel
@@ -156,21 +150,12 @@
     - 후기 기능
     - api instance
     - 과거 채팅 무한 스크롤로 불러오기
-    
-- Back-end
-    - Jwt 토큰 만료 예외처리 - JwtFilter 쪽에서
-    - Redis를 연동하여 실시간 채팅 구현 고도화
-    - Node.js의 scheduler를 통해 크롤링의 자동화 진행 → AWS Batch - CloudWatch 사용 예정
-    - 성능개선
-        - JPQL을 통해 성능 개선
-        - postgres를 이용한 full-text search 도입 (데이터가 많아질수록 Like를 사용한 검색은 속도가 느리며, 메모리에 부담을 준다)
-    - https 적용
-    - ECS를 통한 배포
-        - 현재의 배포에는 EC2 서버에 직접 Redis, JDK, Code Deploy를 설치하고 있다. 이것은 docker-compose를 통해 간단 배포로 변경하고 싶습니다.
-        - ECR까지의 CI는 완료된 상태이나 ECS에서 Load Balace의 target group의 health check를 통과하지 못 하는 상태입니다.
-    - 시간이 남는다면 kafka를 크롤링 서버와 log 수집, 실시간 채팅에 도입한 Data Pipeline을 구축해 보고 싶습니다.
-        - Overstack인 것은 알고 있지만, 도전적 과제로서 수행하고 싶습니다!
-        - Just Challenge!
+</div>
+</details>
+
+ 
+
+   
 
 <br>
 <hr>
