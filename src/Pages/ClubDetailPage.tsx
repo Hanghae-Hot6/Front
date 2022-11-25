@@ -157,7 +157,7 @@ const ClubDetail = () => {
             <MainContent>
               <div>
                 <ImageWrap>
-                  <img src={data.thumbnail} alt={data.bookIntro} />
+                  <img src={data.thumbnail} alt={data.bookName1} />
                 </ImageWrap>
               </div>
 
@@ -240,7 +240,9 @@ const ClubDetail = () => {
                 <h2>
                   모임의 <span>일정이에요 !</span>
                 </h2>
-                <textarea readOnly>{data.schedule}</textarea>
+                <textarea readOnly value={data.schedule}>
+                  {/* {data.schedule} */}
+                </textarea>
               </section>
               <section>
                 <h2>
