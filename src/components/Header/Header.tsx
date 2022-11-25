@@ -30,7 +30,7 @@ const Header = ({}: HeaderProps) => {
         <StHeaderSection>
           <StLogo>
             <Link to="/">
-              <img src={logo} alt="logo" /> test
+              <img src={logo} alt="logo" />
             </Link>
           </StLogo>
           <HeaderSearch />
