@@ -13,13 +13,20 @@ const PaginationBooksChild = ({
   borderWidth,
   borderHeight,
 }: PaginationBooksChildProps) => {
+  const handleBookClick = (selectedBook: NaverBooksDataType) => {
+    console.log(selectedBook);
+  };
+
   return (
     <Div width={borderWidth} height={borderHeight}>
       {data &&
         data?.map((val, index) => {
           return (
             <Wrap key={index}>
-              <LeftDiv>
+              <LeftDiv
+                onClick={() => {
+                  handleBookClick(val);
+                }}>
                 {val && (
                   <ImageWrapper width={borderWidth} height={borderHeight}>
                     <Image src={val?.image} />
@@ -61,37 +68,14 @@ const Wrap = styled.div`
   } */
 `;
 
-const Box = styled.div<{width: number; height: number}>`
-  /* width: 100%; */
-  width: 30rem;
-  height: 12rem;
-  display: flex;
-  padding: 1rem;
-  /* border: 1px solid black; */
-  /* margin-bottom: 1rem; */
-  margin-left: 3rem;
-  margin-top: 1rem;
-  /* border: 1px solid black; */
-  /* background-color: #333; */
-`;
 const LeftDiv = styled.div`
   display: flex;
   position: relative;
 
+  /* border: 1px solid black; */
   &:hover {
     box-shadow: 10px 5px 5px #f1f1f1;
-    /* border: 1px solid black; */
   }
-  /* .RightDiv {
-    transition: all 0.5s;
-    opacity: 1;
-    background-color: #333;
-  }
-  :hover {
-    > .RightDiv {
-      opacity: 1;
-    }
-  } */
 `;
 
 const ImageWrapper = styled.div<{width: number; height: number}>`
@@ -136,6 +120,20 @@ const Title = styled.span`
 const Price = styled.span``;
 
 /////////////////////////////////////
+
+const Box = styled.div<{width: number; height: number}>`
+  /* width: 100%; */
+  width: 30rem;
+  height: 12rem;
+  display: flex;
+  padding: 1rem;
+  /* border: 1px solid black; */
+  /* margin-bottom: 1rem; */
+  margin-left: 3rem;
+  margin-top: 1rem;
+  /* border: 1px solid black; */
+  /* background-color: #333; */
+`;
 const Author = styled.span``;
 
 const Content = styled.span``;
