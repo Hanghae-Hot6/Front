@@ -22,7 +22,6 @@ export default MyChat;
 const MyChatDiv = styled.div`
   margin: 0.4rem 0;
   margin-left: auto;
-  width: 70%;
   padding: 2rem;
   border-radius: 1rem 1rem 0 1rem;
   background-color: ${props => props.theme.MainColor};

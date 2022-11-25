@@ -21,7 +21,7 @@ export default OthersChat;
 
 const OthersChatDiv = styled.div`
   margin: 0.4rem 0;
-  width: 70%;
+  margin-right: auto;
   padding: 2rem;
   border-radius: 1rem 1rem 1rem 0;
   background-color: ${props => props.theme.LightGray2};

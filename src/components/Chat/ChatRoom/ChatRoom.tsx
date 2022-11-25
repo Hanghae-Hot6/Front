@@ -9,7 +9,7 @@ import MyChat from '../ChatDialog/MyChat';
 import OthersChat from '../ChatDialog/OthersChat';
 import ChatInput from '../ChatInput/ChatInput';
 import ChattingService from '../ChattingService';
-
+import PaperPlaneRight from '../../../assets/PaperPlaneRight.svg';
 type ChatRoomProps = {
   chatRoomNowInfo: ChatRoomType;
 };
@@ -136,7 +136,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
           value={input}
         />
         <SendButton onClick={handleClick} ref={buttonRef}>
-          전송
+          <img src={PaperPlaneRight} alt="전송버튼" />
         </SendButton>
       </ChatInputDiv>
       <KeyDetector sendKeyValue={handleKeyPress} />
@@ -164,9 +164,16 @@ const ChatInputDiv = styled.div`
 
 const ChatInputInput = styled.input`
   flex: 7;
-  background-color: aliceblue;
+  background-color: ${props => props.theme.LightGray2};
+  border: none;
+  border-radius: 0.8rem;
+  padding: 1.5rem;
+  :focus {
+    outline: none;
+  }
 `;
 
 const SendButton = styled.button`
   flex: 1;
+  background-color: #fff;
 `;

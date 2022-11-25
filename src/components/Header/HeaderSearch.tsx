@@ -4,9 +4,11 @@ import {QueryClient, useQuery, useQueryClient} from 'react-query';
 import styled from 'styled-components';
 
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
+import close_btn from '../../assets/Xbtn.svg';
 import {NaverBooksDataType} from '../../types/bookSearch';
 import HeaderSearchBooks from './HeaderSearchBooks';
 import {log} from 'console';
+
 type BookSearchBarProps = {};
 
 // export type NaverBooksDataType = {
@@ -23,7 +25,7 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
   const fetch = async ({queryKey}: any) => {
     if (input) {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=16`,
+        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=18`,
       );
 
       return response?.data.data;
@@ -82,7 +84,11 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
             onChange={handleChange}
             value={input}
           />
-          <div onClick={handleClick}>{showBookSearchBar ? 'X' : undefined}</div>
+          <div onClick={handleClick}>
+            {showBookSearchBar ? (
+              <img src={close_btn} alt="닫기 버튼" />
+            ) : undefined}
+          </div>
         </StInputDiv>
         {/* <SearchBar type="text" onChange={handleChange} /> */}
         {showBookSearchBar && (
@@ -138,7 +144,7 @@ const StInputDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  img {
+  > img {
     position: absolute;
     left: 1.5rem;
   }

@@ -158,7 +158,7 @@ const ClubDetail = () => {
             <MainContent>
               <div>
                 <ImageWrap>
-                  <img src={data.thumbnail} alt={data.bookName1} />
+                  <img src={data.thumbnail} alt="클럽 썸네일 이미지" />
                 </ImageWrap>
               </div>
 
@@ -230,9 +230,15 @@ const ClubDetail = () => {
 
                 <div>
                   <div>
-                    <img src={data.bookImage1} alt={data.bookName1} />
-                    <img src={data.bookImage2} alt={data.bookName2} />
-                    <img src={data.bookImage3} alt={data.bookName3} />
+                    <a href={data.bookLink1} target="blank">
+                      <img src={data.bookImage1} alt={data.bookName1} />
+                    </a>
+                    <a href={data.bookLink2} target="blank">
+                      <img src={data.bookImage2} alt={data.bookName2} />
+                    </a>
+                    <a href={data.bookLink3} target="blank">
+                      <img src={data.bookImage3} alt={data.bookName2} />
+                    </a>
                   </div>
                 </div>
                 <p>{data.bookSummary}</p>
@@ -294,6 +300,7 @@ export const ImageWrap = styled.div`
   display: flex;
   margin-right: 9.2rem;
   overflow: hidden;
+
   > img {
     display: inline-block;
     margin: 5% auto;
@@ -416,7 +423,7 @@ export const Main = styled.main`
         align-items: center;
         gap: 5rem;
       }
-      > div > img {
+      > div > a > img {
         width: 25.3rem;
         height: 37rem;
         filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
