@@ -1,7 +1,11 @@
+import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
+import NavigationButton from '../../../common/NavigationButton';
 import ThinLine from '../../../common/ThinLine';
+import {useAppSelector} from '../../../Redux/store/store';
 import Theme from '../../../theme/Theme';
+import {getAccessToken} from '../../../utils';
 
 import DateInput from '../Basic_Inputs/DateInput';
 import SelectInput from '../Basic_Inputs/SelectInput';
@@ -53,17 +57,57 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
   };
   const [input, setInput] = useState<InputType>(initialValue);
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    e.preventDefault();
+  // const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+  //   e.preventDefault();
 
-    const {name, value} = e.target;
+  //   const {name, value} = e.target;
 
-    setInput({...input, [name]: value});
-  };
+  //   setInput({...input, [name]: value});
+  // };
+
+  const books = useAppSelector(state => state.selectBookReducer);
 
   useEffect(() => {
     console.log(input);
   }, [input]);
+
+  const handleSubmit = async () => {
+    const accessToken = getAccessToken();
+    const formData = new FormData();
+
+    // 총 14개 키
+
+    formData.append('clubName', input.clubName);
+    formData.append('category', input.category);
+    formData.append('clubIntro', input.clubIntro);
+    if (books.book1?.isbn) {
+      formData.append('book1', books.book1?.isbn);
+    }
+    if (books.book2?.isbn) {
+      formData.append('book2', books.book2?.isbn);
+    }
+    if (books.book3?.isbn) {
+      formData.append('book3', books.book3?.isbn);
+    }
+
+    if (input.thumbnail !== '') {
+      formData.append('thumbnail', input.thumbnail);
+    }
+    formData.append('memberMaxNum', input.memberMaxNum);
+    formData.append('startDate', input.startDate);
+    formData.append('finishDate', input.finishDate);
+    formData.append('location', input.location);
+    formData.append('schedule', input.schedule);
+    formData.append('clubSummary', input.clubSummary);
+    formData.append('bookSummary', input.bookSummary);
+
+    await axios.post(`${process.env.REACT_APP_BASE_URL}/clubs`, formData, {
+      headers: {
+        Authorization: accessToken,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  };
 
   return (
     <>
@@ -183,6 +227,8 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           height="40.5rem"
         />
       </ParagraphDiv>
+
+      <NavigationButton />
 
       {/* 책 인트로 */}
     </>

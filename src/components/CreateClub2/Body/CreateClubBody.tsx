@@ -111,9 +111,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     formData.append('book1', '');
     formData.append('book2', 'a');
     formData.append('book3', 'a');
-    // if(typeof input.imageUrl === Blob){
-    //   formData2.append('thumbnail', input.imageUrl);
-    // }
+
     if (input.thumbnail !== '') {
       formData.append('thumbnail', input.thumbnail);
     }
@@ -124,18 +122,6 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     formData.append('schedule', 'a');
     formData.append('clubSummary', 'a');
     formData.append('bookSummary', 'a');
-
-    // if (status === 'success') {
-    //   formData2.append('book1', getBooksData!.data.data[0]!['isbn']);
-    //   formData2.append('book2', getBooksData!.data.data[1]!['isbn']);
-    //   formData2.append('book3', getBooksData!.data.data[2]!['isbn']);
-    // }
-
-    // let entries = formData2.entries();
-    // for (const pair of entries) {
-    //   // console.log(pair[0] + ', ' + pair[1]);
-    //   console.log(pair[1]);
-    // }
 
     await axios.post(`${process.env.REACT_APP_BASE_URL}/clubs`, formData, {
       headers: {
