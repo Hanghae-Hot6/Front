@@ -92,7 +92,7 @@ const SearchBooks = ({
             placeholder="도서명을 입력해 주세요"
             onChange={handleChange}
             onClick={() => {
-              setShowNaverBookSearch(!showNaverBookSearch);
+              setShowNaverBookSearch(true);
             }}
           />
           <button

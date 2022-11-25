@@ -33,7 +33,7 @@ const ImageContainer = styled.div<{border: boolean}>`
 
   ${props => {
     if (props.border) {
-      return `border: 1px solid ${props.theme.MainColor};`;
+      return `border: 3px solid ${props.theme.MainColor};`;
     }
   }}
 

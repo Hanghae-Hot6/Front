@@ -17,6 +17,8 @@ const BooksViewer = ({}: BooksViewerProps) => {
     (NaverBooksDataType | undefined)[]
   >([]);
 
+  const [deleteToggle, setDeleteToggle] = useState<boolean>(false);
+
   const handleBookClick = (book: NaverBooksDataType) => {
     const yo = [...deleteList, book];
 
@@ -28,6 +30,14 @@ const BooksViewer = ({}: BooksViewerProps) => {
     }
   };
 
+  useEffect(() => {
+    if (deleteList.filter(val => val).length === 0) {
+      setDeleteToggle(false);
+    } else {
+      setDeleteToggle(true);
+    }
+  }, [deleteList.length]);
+
   const handleBooksDelete = () => {
     dispatch(delBooks(deleteList));
   };
@@ -37,7 +47,7 @@ const BooksViewer = ({}: BooksViewerProps) => {
       <BooksViewerDiv>
         <DeleteBtnWrapper>
           <DeleteBtn handleDelete={handleBooksDelete}>
-            <DelBtnSpan>도서삭제</DelBtnSpan>
+            <DelBtnSpan textColor={deleteToggle}>도서삭제</DelBtnSpan>
           </DeleteBtn>
         </DeleteBtnWrapper>
 
@@ -79,16 +89,17 @@ const BooksViewerDiv = styled.div`
 
 const DeleteBtnWrapper = styled.div`
   position: absolute;
-  top: 0.4rem;
-  right: 0.4rem;
+  top: 1rem;
+  right: 1rem;
 `;
 
-const DelBtnSpan = styled.span`
-  color: ${props => {
-    if (true) {
-      return props.theme.MainColor;
+const DelBtnSpan = styled.span<{textColor: boolean}>`
+  font-size: 2rem;
+  ${props => {
+    if (props.textColor) {
+      return `color: ${props.theme.MainColor};`;
     } else {
-      return props.theme.LightGray;
+      return `color: ${props.theme.Gray};`;
     }
   }};
 `;

@@ -16,7 +16,7 @@ const DeleteBtn = ({handleDelete, children}: DeleteBtnProps) => {
 export default DeleteBtn;
 
 const DeleteButton = styled.button`
-  background-color: white;
+  background-color: transparent;
   font-size: 1.4rem;
   font-weight: 700;
 `;

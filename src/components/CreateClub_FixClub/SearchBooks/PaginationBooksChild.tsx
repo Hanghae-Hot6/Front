@@ -111,11 +111,11 @@ const DeleteBtnWrapper = styled.div`
 const LeftDiv = styled.div<{clicked: boolean}>`
   display: flex;
   position: relative;
-  ${({clicked}) => {
+  /* ${({clicked}) => {
     if (clicked) {
       return `border: 1px solid black;`;
     }
-  }}
+  }} */
 
   &:hover {
     box-shadow: 10px 5px 5px #f1f1f1;
@@ -125,19 +125,12 @@ const LeftDiv = styled.div<{clicked: boolean}>`
 const ImageWrapper = styled.div<{width: number; height: number}>`
   width: ${({width}) => 0.07 * width}rem;
   height: ${({height}) => 0.18 * height}rem;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-
-  /* overflow: hidden; */
-  /* height: 80%; */
 
   filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
 `;
 
 const Image = styled.img`
   height: 100%;
-  /* display: block; */
 
   object-fit: contain;
 `;
