@@ -12,6 +12,7 @@ const Theme: DefaultTheme = {
   LightPurple3: '#C1A4FF',
   DarkPurple: '#393983',
   White: '#FFFFFF',
+  AliceBlue: '#F1F1F5',
 };
 
 export default Theme;

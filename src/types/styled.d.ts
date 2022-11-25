@@ -16,6 +16,7 @@ declare module 'styled-components' {
     LightPurple3: string;
     DarkPurple: string;
     White: string;
+    AliceBlue: string;
   }
 }
 

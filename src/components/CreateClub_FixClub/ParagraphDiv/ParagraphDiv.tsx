@@ -22,7 +22,7 @@ export default ParagraphDiv;
 
 const Div = styled.div`
   display: flex;
-
+  /* width: 100%; */
   /* align-items: center; */
   margin: 1rem 0;
 `;

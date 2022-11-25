@@ -7,6 +7,7 @@ import {NaverBooksDataType} from '../../../types/bookSearch';
 import BookSearchBar from '../../CreateClub2/BookSearchBar/BookSearchBar';
 import HeaderSearch from '../../Header/HeaderSearch';
 import {InputType} from '../Body/CreateClubBody';
+import BooksViewer from '../BooksViewer/BooksViewer';
 import PaginationBooks from './PaginationBooks';
 
 type SearchBooksProps = {
@@ -83,7 +84,8 @@ const SearchBooks = ({
 
   return (
     <>
-      <SearchBooksDiv width={width} flex={flex}>
+      {/* <SearchBooksDiv width={width} flex={flex}> */}
+      <SearchBooksDiv>
         <Div>
           <BookSearchInput
             type="text"
@@ -109,28 +111,33 @@ const SearchBooks = ({
             />
           </BookSearchPreviewDiv>
         )}
+
+        {<BooksViewer />}
       </SearchBooksDiv>
     </>
   );
 };
 export default SearchBooks;
 
-const SearchBooksDiv = styled.div<{
-  width: string | undefined;
-  flex: number | undefined;
-}>`
-  ${({width}) => {
+// <{
+//   width: string | undefined;
+//   flex: number | undefined;
+// }>
+
+/* ${({width}) => {
     if (width) {
       return `width:${width};`;
     }
-  }}
-  ${({flex}) => {
+  }} */
+/* ${({flex}) => {
     if (flex) {
       return `flex:${flex};`;
     }
-  }}
-    
-    display: flex;
+  }} */
+
+const SearchBooksDiv = styled.div`
+  width: 100%;
+  display: flex;
 
   flex-direction: column;
 `;
@@ -163,4 +170,5 @@ const BookSearchPreviewDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1rem;
 `;
