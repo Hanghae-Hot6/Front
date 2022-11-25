@@ -75,7 +75,6 @@
 
 ## 🔨 기술 도입 이유 - 라이브러리, 기술적 의사 결정
 
-```
     - Front-end
     
     
@@ -137,7 +136,7 @@
     | Swagger fox | 1. 사용 배경:
      - Back-end에서 구현이 끝난 것을 일일이 front-end에 전달하는 과정에서 delay 발생
      - 개발 도중 추가로 개발한 API를 매번 API명세서에 기입하는 과정이 어려워 swagger를 통해 간접적인 소통 |
-```
+
 <details>
 <summary>사용한 패키지 간략한 설명</summary>
 <div markdown="1">
