@@ -96,7 +96,14 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           ]}
         />
       </ParagraphDiv>
-
+      <ParagraphDiv>
+        <TextInput
+          input={input}
+          setInput={setInput}
+          name="clubIntro"
+          placeholder="인트로를 작성해주세요"
+        />
+      </ParagraphDiv>
       <ParagraphDiv>
         <SearchBooks input={input} setInput={setInput} />
       </ParagraphDiv>
@@ -110,13 +117,6 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
       {/* input part 2 */}
 
       <ParagraphDiv title="인원">
-        {/* <TextInput
-          input={input}
-          setInput={setInput}
-          name='memberMaxNum'
-          placeholder="제목을 입력해 주세요"
-          flex={2}
-        /> */}
         <SelectInput
           input={input}
           setInput={setInput}
@@ -124,32 +124,22 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
           placeholder="최대 인원 8명"
           // width="29.2rem"
           flex={1}
-          options={['2', '3', '4', '5', '6', '7', '8']}
+          options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
         />
       </ParagraphDiv>
 
       <ParagraphDiv title="시작">
-        <DateInput
-          input={input}
-          setInput={setInput}
-          name="startDate"
-          placeholder="제목을 입력해 주세요"
-        />
+        <DateInput input={input} setInput={setInput} name="startDate" />
       </ParagraphDiv>
       <ParagraphDiv title="종료">
-        <DateInput
-          input={input}
-          setInput={setInput}
-          name="finishDate"
-          placeholder="제목을 입력해 주세요"
-        />
+        <DateInput input={input} setInput={setInput} name="finishDate" />
       </ParagraphDiv>
       <ParagraphDiv title="장소">
         <TextInput
           input={input}
           setInput={setInput}
           name="location"
-          placeholder="제목을 입력해 주세요"
+          placeholder="장소를 입력해 주세요"
         />
       </ParagraphDiv>
 
@@ -165,16 +155,10 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
       </ParagraphDiv>
       <ThinLine color={Theme.LightGray2} />
 
+      <StaticTitle>모임에 관한 상세 정보 입니다. </StaticTitle>
+
       {/* 인트로  */}
 
-      <ParagraphDiv>
-        <TextInput
-          input={input}
-          setInput={setInput}
-          name="clubIntro"
-          placeholder="인트로를 작성해주세요"
-        />
-      </ParagraphDiv>
       <ParagraphDiv>
         <TextArea
           input={input}
@@ -186,16 +170,11 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
       </ParagraphDiv>
 
       <ThinLine color={Theme.LightGray2} />
-      <ParagraphDiv>
-        <TextInput
-          input={input}
-          setInput={setInput}
-          name="bookIntro"
-          placeholder="책 인트로를 작성해주세요"
-        />
-        <button>도서삭제</button>
-      </ParagraphDiv>
+
+      <StaticTitle>모임에서 읽을 책입니다. </StaticTitle>
+
       <BooksViewer />
+
       <ParagraphDiv>
         <TextArea
           input={input}
@@ -211,3 +190,9 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
   );
 };
 export default CreateClubBody;
+
+const StaticTitle = styled.h1`
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin: 2.6rem 0;
+`;

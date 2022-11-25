@@ -1,8 +1,13 @@
-import React, {useState} from 'react';
+import axios from 'axios';
+import React, {useEffect, useRef, useState} from 'react';
+import {useQuery} from 'react-query';
 import styled from 'styled-components';
+import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
+import {NaverBooksDataType} from '../../../types/bookSearch';
 import BookSearchBar from '../../CreateClub2/BookSearchBar/BookSearchBar';
 import HeaderSearch from '../../Header/HeaderSearch';
 import {InputType} from '../Body/CreateClubBody';
+import PaginationBooks from './PaginationBooks';
 
 type SearchBooksProps = {
   input: InputType;
@@ -21,12 +26,73 @@ const SearchBooks = ({
 }: SearchBooksProps) => {
   const [showNaverBookSearch, setShowNaverBookSearch] =
     useState<boolean>(false);
+  const [booknameSearch, setBooknameSearch] = useState<string>('');
+
+  // booknameSearch로 네이버에서 북 리스트 받아오기
+
+  const fetch = async ({queryKey}: any) => {
+    if (booknameSearch) {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=16`,
+      );
+
+      return response?.data.data;
+    }
+  };
+
+  const {
+    data: getBooksData,
+    status,
+    isLoading,
+    error,
+  } = useQuery<NaverBooksDataType[]>(
+    ['getCreateClubBooks', booknameSearch],
+    fetch,
+  );
+
+  let endNum: number;
+  let divideBy: number;
+
+  let NewArray: NaverBooksDataType[][] = [];
+  if (status === 'success') {
+    if (getBooksData) {
+      divideBy = 3;
+      endNum = Math.ceil(getBooksData.length / 3);
+      let NewPushArray = [];
+      for (let i = 0; i < endNum; i++) {
+        for (let k = 0; k < 3; k++) {
+          NewPushArray.push(getBooksData[k + 3 * i]);
+        }
+        NewArray.push(NewPushArray);
+        NewPushArray = [];
+      }
+    }
+  }
+
+  useEffect(() => {
+    console.log(booknameSearch);
+  }, [booknameSearch]);
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    e.preventDefault();
+
+    const {value} = e.target;
+
+    setBooknameSearch(value);
+  };
 
   return (
     <>
       <SearchBooksDiv width={width} flex={flex}>
         <Div>
-          <Span>도서명을 입력해주세요</Span>
+          <BookSearchInput
+            type="text"
+            placeholder="도서명을 입력해 주세요"
+            onChange={handleChange}
+            onClick={() => {
+              setShowNaverBookSearch(!showNaverBookSearch);
+            }}
+          />
           <button
             onClick={() => {
               setShowNaverBookSearch(!showNaverBookSearch);
@@ -36,7 +102,11 @@ const SearchBooks = ({
         </Div>
         {showNaverBookSearch && (
           <BookSearchPreviewDiv>
-            <BookSearchBar />
+            <PaginationBooks
+              data={NewArray}
+              borderWidth={80}
+              borderHeight={40}
+            />
           </BookSearchPreviewDiv>
         )}
       </SearchBooksDiv>
@@ -77,14 +147,18 @@ const Div = styled.div`
   margin-bottom: 1rem;
 `;
 
-const Span = styled.span`
+const BookSearchInput = styled.input`
   font-size: 2.2rem;
   color: ${props => props.theme.Gray};
+  width: 80%;
+  height: 80%;
+  border: none;
+  outline: none;
 `;
 
 const BookSearchPreviewDiv = styled.div`
   width: 100%;
-  height: 25.2rem;
+  height: 45.3rem;
   border: 1px solid ${props => props.theme.LightGray};
   display: flex;
   align-items: center;
