@@ -10,7 +10,7 @@
 ### [ODOK 바로가기](http://hot6-front.s3-website.ap-northeast-2.amazonaws.com/ )
 ### [Front-End Github](https://github.com/Hanghae-Hot6/Front) 
 ### [Back-End Github](https://github.com/Hanghae-Hot6/Back) 
-### [Project Notion]([https://github.com/Hanghae-Hot6/Back](https://www.notion.so/ckd12394/5-ODOK-5b66f278ac9044609f709d7a89deee7f)) 
+### [Project Notion](https://www.notion.so/ckd12394/5-ODOK-5b66f278ac9044609f709d7a89deee7f)
 <br>
 <hr>
 <br>
