@@ -140,7 +140,8 @@
 
 <details>
 <summary>- Front-end</summary>
-<div markdown="1">       
+<div markdown="1">   
+    
     - 반응형 도입 — 모바일ver
     - 보안 강화 — https
     - infinite carousel
