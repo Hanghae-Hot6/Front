@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import heartOn from '../assets/heartOn.svg';
 import heartOff from '../assets/heartOff.svg';
-import GlobalModal from '../common/GlobalModal';
+
 // type ClubDetailProps = {};
 type clubDetailType = {
   accessToken: string;
@@ -63,6 +63,14 @@ const ClubDetail = () => {
       );
       return response.data.data;
     },
+    {
+      retry: 0,
+      onError: (error: any) => {
+        if (error.response.status === 500) {
+          return alert('로그인이 필요합니다.'), navigate('/Login');
+        }
+      },
+    },
   );
 
   //모임 가입하기 api
@@ -84,7 +92,7 @@ const ClubDetail = () => {
         alert(data);
       },
       onError: error => {
-        console.log(error);
+        console.log('모임가입에러', error);
       },
     },
   );
@@ -107,7 +115,7 @@ const ClubDetail = () => {
         alert(data);
       },
       onError: error => {
-        console.log(error);
+        console.log('관심 모임 에러', error);
       },
     },
   );
@@ -133,18 +141,18 @@ const ClubDetail = () => {
         alert('탈퇴 완료');
       },
       onError: error => {
-        console.log(error);
+        console.log('클럽탈퇴에러', error);
       },
     },
   );
 
   // console.log(status);
 
-  useEffect(() => {
-    if (data === null) {
-      return alert('로그인이 필요합니다.'), navigate('/Login');
-    }
-  });
+  // useEffect(() => {
+  //   if (status === 'error') {
+  //     return alert('로그인이 필요합니다.'), navigate('/Login');
+  //   }
+  // });
 
   if (status === 'loading') {
     return <div>Loading...</div>;
