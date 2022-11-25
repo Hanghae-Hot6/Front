@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import DeleteBtn from '../../../common/DeleteBtn';
-import {addBook} from '../../../Redux/modules/slices/selectBooksSlice';
+import {addBook, delBook} from '../../../Redux/modules/slices/selectBooksSlice';
 import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import {NaverBooksDataType} from '../../../types/bookSearch';
 
@@ -24,11 +24,13 @@ const PaginationBooksChild = ({
   };
 
   useEffect(() => {
-    console.log('책 등록 완료!');
+    // console.log('책 확인');
     console.log(books);
   }, [books]);
 
-  const handleBookDelete = () => {};
+  // const handleBookDelete = (targetBook: NaverBooksDataType) => {
+  //   dispatch(delBook(targetBook));
+  // };
 
   return (
     <Div width={borderWidth} height={borderHeight}>
@@ -49,11 +51,15 @@ const PaginationBooksChild = ({
                 onClick={() => {
                   handleBookClick(val);
                 }}>
-                {CheckClicked && (
+                {/* {CheckClicked && (
                   <DeleteBtnWrapper>
-                    <DeleteBtn handleDelete={handleBookDelete} />
+                    <DeleteBtn
+                      handleDelete={() => {
+                        handleBookDelete(val);
+                      }}
+                    />
                   </DeleteBtnWrapper>
-                )}
+                )} */}
                 {val && (
                   <ImageWrapper width={borderWidth} height={borderHeight}>
                     <Image src={val?.image} />

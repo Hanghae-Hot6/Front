@@ -155,7 +155,6 @@ const Content = styled.div`
   display: flex;
   transform: translate(
     ${(props: {carouselLocation: number; width: number}) => {
-      console.log(props.carouselLocation);
       return `${-props.carouselLocation * 0.45 * props.width}rem`;
     }}
   );

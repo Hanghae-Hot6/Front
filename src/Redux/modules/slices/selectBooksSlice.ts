@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction, current} from '@reduxjs/toolkit';
 import BooksViewer from '../../../components/CreateClub_FixClub/BooksViewer/BooksViewer';
 import {NaverBooksDataType} from '../../../types/bookSearch';
 
@@ -55,26 +55,21 @@ const selectBooksSlice = createSlice({
       } else {
         state.book3 = action.payload;
       }
-
-      // state[action.payload.bookNo] = val;
-    },
-    delBook: (state, action: PayloadAction<BookType>) => {
-      state[action.payload] = undefined;
     },
 
-    // addBooks: (
-    //   state,
-    //   action: PayloadAction<{bookNo: BookType; books: NaverBooksDataType[]}>,
-    // ) => {
-    //   action.payload.books.forEach(val => {
-    //     state[action.payload.bookNo] = val;
-    //   });
-    // },
-    // delBooks: (state, action: PayloadAction<{bookNos: BookType[]}>) => {
-    //   action.payload.bookNos.forEach(val => {
-    //     state[val] = undefined;
-    //   });
-    // },
+    delBook: (state, action: PayloadAction<NaverBooksDataType>) => {
+      Object.values(state).forEach((val, index) => {
+        if (val?.isbn === action.payload.isbn) {
+          if (index === 0) {
+            state.book1 = undefined;
+          } else if (index === 1) {
+            state.book2 = undefined;
+          } else {
+            state.book3 = undefined;
+          }
+        }
+      });
+    },
   },
 });
 
