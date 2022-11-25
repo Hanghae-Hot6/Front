@@ -196,3 +196,7 @@ div::-webkit-scrollbar-thumb {
 div::-webkit-scrollbar-track {
   background: #e0e0e0; /*스크롤바 뒷 배경 색상*/
 }
+
+textarea {
+  font-family: 'Pretendard-Regular', sans-serif;
+}

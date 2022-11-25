@@ -36,6 +36,7 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
     isLoading,
     error,
   } = useQuery<NaverBooksDataType[]>(['getBooks', input], fetch);
+  console.log(getBooksData);
 
   let endNum: number;
   let divideBy: number;

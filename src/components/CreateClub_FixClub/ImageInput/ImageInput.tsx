@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import {InputType} from '../Body/CreateClubBody';
 import ImagePreview from './ImagePreview/ImagePreview';
+// import ImagePreview from './ImagePreview/ImagePreview';
 
 type ImageInputProps = {
   input: InputType;

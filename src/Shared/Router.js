@@ -1,6 +1,6 @@
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import ChatPage from '../Pages/ChatPage';
-import ClubDetail from '../Pages/ClubDetail';
+import ClubDetailPage from '../Pages/ClubDetailPage';
 import ClubListPage from '../Pages/ClubListPage';
 import CreateClubPage from '../Pages/CreateClubPage';
 import FindIdPage from '../Pages/FindIdPage';
@@ -16,7 +16,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/chat" element={<ChatPage />} />
-        <Route path="/club_detail/:id" element={<ClubDetail />} />
+        <Route path="/club_detail/:id" element={<ClubDetailPage />} />
         <Route path="/club_list" element={<ClubListPage />} />
         <Route path="/create_club" element={<CreateClubPage />} />
         <Route path="/login" element={<LoginPage />} />

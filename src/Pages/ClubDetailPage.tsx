@@ -419,8 +419,8 @@ export const Main = styled.main`
     textarea {
       padding: 0;
       width: 100%;
-      min-height: 20rem;
-      max-height: 20rem;
+      min-height: 35rem;
+      max-height: 45rem;
       border: none;
       resize: none;
       line-height: 3;
