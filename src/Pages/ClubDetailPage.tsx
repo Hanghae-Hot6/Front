@@ -129,6 +129,7 @@ const ClubDetail = () => {
     {
       onSuccess: data => {
         alert('탈퇴 하시겠습니까?');
+        // confirm 으로 바꾸기
         alert('탈퇴 완료');
       },
       onError: error => {

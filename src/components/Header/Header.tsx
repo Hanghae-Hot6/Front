@@ -65,7 +65,7 @@ const Header = ({}: HeaderProps) => {
   );
 };
 export default Header;
-const StHeader = styled.div`
+const StHeader = styled.header`
   width: 99.6vw;
   height: 92px;
   border-bottom: 1px solid #eee;

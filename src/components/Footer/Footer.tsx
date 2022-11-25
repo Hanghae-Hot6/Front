@@ -70,7 +70,7 @@ const Footer = () => {
 };
 export default Footer;
 
-const FooterWrap = styled.section`
+const FooterWrap = styled.footer`
   width: 1280px;
   margin: 5rem auto;
 `;
