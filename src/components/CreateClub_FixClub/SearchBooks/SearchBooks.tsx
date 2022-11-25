@@ -22,7 +22,6 @@ const SearchBooks = ({
   const [showNaverBookSearch, setShowNaverBookSearch] =
     useState<boolean>(false);
   const [booknameSearch, setBooknameSearch] = useState<string>('');
-  const inputRef = useRef();
 
   useEffect(() => {
     console.log(booknameSearch);
