@@ -1,5 +1,5 @@
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
-import ChatPage from '../Pages/ChatPage';
+
 import ClubDetailPage from '../Pages/ClubDetailPage';
 import ClubListPage from '../Pages/ClubListPage';
 import CreateClubPage from '../Pages/CreateClubPage';
@@ -15,7 +15,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/chat" element={<ChatPage />} />
+
         <Route path="/club_detail/:id" element={<ClubDetailPage />} />
         <Route path="/club_list" element={<ClubListPage />} />
         <Route path="/create_club" element={<CreateClubPage />} />

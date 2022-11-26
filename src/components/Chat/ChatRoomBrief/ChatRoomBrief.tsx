@@ -22,7 +22,6 @@ const ChatRoomBrief = ({
   const [receiveMsg, setReceiveMsg] = useState<ChatType | undefined>(undefined);
 
   const ChattingServiceKit = useMemo(() => {
-    // console.log('yes1' + chatRoomId);
     // 여기에서 노란색 에러가 뜨고있다
     // 도저히 모르겠다
     const yes = new ChattingService(chatRoomId);
@@ -85,7 +84,7 @@ const ChatRoomDiv = styled.div`
   width: 100%;
   height: 6rem;
   margin: 1.2rem 0;
-  /* border: 1px solid ${props => props.theme.LightPurple2}; */
+
   border-radius: 1rem;
   padding: 0 1rem;
   display: flex;
@@ -105,7 +104,6 @@ const ThumbnailWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid ${props => props.theme.LightPurple2}; */
 `;
 
 const Thumbnail = styled.img`
@@ -134,9 +132,7 @@ const Message = styled.span`
 `;
 
 const ParticipantsDiv = styled.div`
-  /* border: 1px solid black; */
   height: 100%;
-  /* padding: 0 1rem; */
 `;
 const Participants = styled.h1`
   color: ${props => props.theme.Gray};

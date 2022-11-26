@@ -63,8 +63,6 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
     myChatRooms = chatRoomsFromQuery?.data.data as ChatRoomType[];
   }
 
-  // console.log(myChatRooms);
-
   // 채팅방 입장 코드
 
   const [enterChatRoom, setEnterChatRoom] = useState<boolean>(false);

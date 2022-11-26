@@ -23,17 +23,14 @@ class ChattingService {
   readonly chatRoomId: string = '';
 
   // constructor 에는 본 class의 instance를 생성할때 등록할 params 를 정의해 준다
-  // new ChattingServiece(params)
+
   constructor(chatRoomId: string) {
     this.chatRoomId = chatRoomId;
   }
 
   private socket = new sockJS(`${process.env.REACT_APP_BASE_URL}/wss/chat`);
-  // socket = new sockJS(`http://220.76.226.226:8080/wss/chatㅅ`);
 
   private stompClient = Stomp.over(this.socket);
-
-  // chatRoomId = '';
 
   // 방 id 받기
 
@@ -50,8 +47,6 @@ class ChattingService {
 
     // this.stompClient.connect(headers, () => {
     this.stompClient.connect({}, () => {
-      // console.log('연결됐음 ' + this.chatRoomId);
-
       this.stompClient.subscribe(
         `/sub/chat/messages/${this.chatRoomId}`,
 
@@ -97,19 +92,7 @@ class ChattingService {
   };
 
   onDisconnect = (userId: string | undefined) => {
-    // this.stompClient.send(
-    //   '/pub/chat/message',
-    //   {},
-    //   JSON.stringify({
-    //     chatRoomId: this.chatRoomId,
-    //     message: `${userId}님이 접속하셨습니다`,
-    //     type: 'TALK',
-    //     sender: userId,
-    //   }),
-    // );
-
     this.stompClient.disconnect();
-    // console.log('disconnected');
   };
 }
 
