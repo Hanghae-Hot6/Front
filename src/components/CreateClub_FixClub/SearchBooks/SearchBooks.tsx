@@ -4,7 +4,7 @@ import {useQuery} from 'react-query';
 import styled from 'styled-components';
 import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
 import {NaverBooksDataType} from '../../../types/bookSearch';
-import BookSearchBar from '../../CreateClub2/BookSearchBar/BookSearchBar';
+
 import HeaderSearch from '../../Header/HeaderSearch';
 import {InputType} from '../Body/CreateClubBody';
 import BooksViewer from '../BooksViewer/BooksViewer';

@@ -1,5 +1,5 @@
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
-import ChatPage from '../Pages/ChatPage';
+
 import ClubDetailPage from '../Pages/ClubDetailPage';
 import ClubListPage from '../Pages/ClubListPage';
 import CreateClubPage from '../Pages/CreateClubPage';
