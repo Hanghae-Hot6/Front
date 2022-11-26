@@ -119,22 +119,6 @@ const SearchBooks = ({
 };
 export default SearchBooks;
 
-// <{
-//   width: string | undefined;
-//   flex: number | undefined;
-// }>
-
-/* ${({width}) => {
-    if (width) {
-      return `width:${width};`;
-    }
-  }} */
-/* ${({flex}) => {
-    if (flex) {
-      return `flex:${flex};`;
-    }
-  }} */
-
 const SearchBooksDiv = styled.div`
   width: 100%;
   display: flex;

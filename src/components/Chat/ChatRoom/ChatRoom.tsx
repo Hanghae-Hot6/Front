@@ -32,6 +32,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   const [onConnect, setOnConnect] = useState<boolean>(false);
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const divRef = useRef<HTMLDivElement | null>(null);
 
   // 채팅 서비스 킷 생성
   const ChattingServiceKit = useMemo(() => {
@@ -88,11 +89,24 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     };
   }, []);
 
+  const [messageToDown, setMessageToDown] = useState<boolean>(false);
+  const messageBoxRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToBottom = () => {
+    if (messageBoxRef.current) {
+      messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
+    }
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messageToDown]);
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
 
     setInput(e.target.value);
   };
+
   const handleClick = useCallback(() => {
     if (input !== '') {
       ChattingServiceKit.sendMessage(
@@ -104,6 +118,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
           sender: userId,
         },
       );
+      setMessageToDown(!messageToDown);
     }
 
     setInput('');
@@ -114,14 +129,10 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       buttonRef.current!.click();
     }
   };
-  // console.log('메세지', messageList);
-  // const today = new Date();
-  // console.log('지금', today);
 
   return (
     <>
-      <ChattingList>
-        {/* {messageList[0].date} */}
+      <ChattingList ref={messageBoxRef}>
         {messageList.map((val, index) => {
           if (val.sender === userId) {
             return (
