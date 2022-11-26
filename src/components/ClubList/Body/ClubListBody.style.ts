@@ -112,6 +112,10 @@ export const ImgWrap = styled.div`
     object-position: top;
   }
 `;
+
+export const PopContentBox = styled.div`
+  width: 42rem;
+`;
 export const MainImgWrap = styled.div`
   width: 31.4rem;
   height: 31.4rem;
@@ -137,6 +141,7 @@ export const MainContentBox = styled.div`
 export const Summary = styled.p`
   margin-top: 1rem;
   font-size: 1.4rem;
+  line-height: 1.4;
 `;
 
 export const NullClubWrap = styled.div`

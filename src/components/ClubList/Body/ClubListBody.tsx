@@ -67,7 +67,7 @@ const ClubListBody = () => {
               <div key={club.clubId}>
                 {/* 인기 TOP3 */}
                 <Link to={`/club_detail/${club.clubId}`}>
-                  <div>
+                  <C.PopContentBox>
                     <C.ImgWrap>
                       <span>{id + 1}</span>
                       <img src={club.thumbnail} alt={club.summary} />
@@ -76,7 +76,7 @@ const ClubListBody = () => {
                       {club.clubName}
                     </C.CategoryTitle>
                     <C.Summary>{club.summary}</C.Summary>
-                  </div>
+                  </C.PopContentBox>
                 </Link>
               </div>
             );
