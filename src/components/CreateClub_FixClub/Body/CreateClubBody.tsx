@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+import {useMutation} from 'react-query';
+import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationButton from '../../../common/NavigationButton';
 import ThinLine from '../../../common/ThinLine';
@@ -56,6 +58,9 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     bookSummary: '',
   };
   const [input, setInput] = useState<InputType>(initialValue);
+  const accessToken = getAccessToken();
+
+  const navigate = useNavigate();
 
   // const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
   //   e.preventDefault();
@@ -71,23 +76,55 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     console.log(input);
   }, [input]);
 
+  const {mutate: clubSubmit} = useMutation(
+    async (formData: FormData) => {
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/clubs`, formData, {
+        headers: {
+          Authorization: accessToken,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+    },
+    {
+      onSuccess: () => {
+        window.confirm('모임 개설 성공');
+        navigate('/');
+      },
+      onError: () => {
+        window.confirm('모임 개설이 안되었습니다 입력값들을 다시 확인해보세요');
+
+        console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
+      },
+    },
+  );
+
   const handleSubmit = async () => {
-    const accessToken = getAccessToken();
-    const formData = new FormData();
-
     // 총 14개 키
-
+    const formData = new FormData();
     formData.append('clubName', input.clubName);
     formData.append('category', input.category);
     formData.append('clubIntro', input.clubIntro);
+
     if (books.book1?.isbn) {
       formData.append('book1', books.book1?.isbn);
-    }
-    if (books.book2?.isbn) {
-      formData.append('book2', books.book2?.isbn);
-    }
-    if (books.book3?.isbn) {
-      formData.append('book3', books.book3?.isbn);
+      if (books.book2?.isbn) {
+        formData.append('book2', books.book2?.isbn);
+        if (books.book3?.isbn) {
+          formData.append('book3', books.book3?.isbn);
+        }
+      } else {
+        if (books.book3?.isbn) {
+          formData.append('book2', books.book3?.isbn);
+        }
+      }
+    } else {
+      if (books.book2?.isbn) {
+        formData.append('book1', books.book2?.isbn);
+      } else {
+        if (books.book3?.isbn) {
+          formData.append('book1', books.book3?.isbn);
+        }
+      }
     }
 
     if (input.thumbnail !== '') {
@@ -101,16 +138,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     formData.append('clubSummary', input.clubSummary);
     formData.append('bookSummary', input.bookSummary);
 
-    const response = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/clubs`,
-      formData,
-      {
-        headers: {
-          Authorization: accessToken,
-          'Content-Type': 'multipart/form-data',
-        },
-      },
-    );
+    clubSubmit(formData);
   };
 
   return (

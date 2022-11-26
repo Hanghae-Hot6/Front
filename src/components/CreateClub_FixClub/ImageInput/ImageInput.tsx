@@ -33,8 +33,6 @@ const ImageInput = ({
 
     if (e.target.files?.length) {
       if (e.target.files?.length > 0) {
-        console.log(e.target.files[0]);
-        console.log(typeof e.target.files[0]);
         let reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
         reader.onload = () => {
