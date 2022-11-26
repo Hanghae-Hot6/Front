@@ -101,12 +101,16 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     formData.append('clubSummary', input.clubSummary);
     formData.append('bookSummary', input.bookSummary);
 
-    await axios.post(`${process.env.REACT_APP_BASE_URL}/clubs`, formData, {
-      headers: {
-        Authorization: accessToken,
-        'Content-Type': 'multipart/form-data',
+    const response = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/clubs`,
+      formData,
+      {
+        headers: {
+          Authorization: accessToken,
+          'Content-Type': 'multipart/form-data',
+        },
       },
-    });
+    );
   };
 
   return (
@@ -228,7 +232,11 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
         />
       </ParagraphDiv>
 
-      <NavigationButton />
+      <ParagraphDiv>
+        <NavigationSubmitButton onClickCallback={handleSubmit}>
+          등록하기
+        </NavigationSubmitButton>
+      </ParagraphDiv>
 
       {/* 책 인트로 */}
     </>
@@ -240,4 +248,12 @@ const StaticTitle = styled.h1`
   font-size: 3.2rem;
   font-weight: 800;
   margin: 2.6rem 0;
+`;
+
+const NavigationSubmitButton = styled(NavigationButton)`
+  width: 100%;
+  background-color: ${props => props.theme.MainColor};
+  color: ${props => props.theme.White};
+  margin: 2rem 0;
+  height: 9.2rem;
 `;
