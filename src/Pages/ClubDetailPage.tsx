@@ -209,15 +209,22 @@ const ClubDetail = () => {
 
                 <div>
                   <div>
-                    <a href={data.bookLink1} target="blank">
-                      <img src={data.bookImage1} alt={data.bookName1} />
-                    </a>
-                    <a href={data.bookLink2} target="blank">
-                      <img src={data.bookImage2} alt={data.bookName2} />
-                    </a>
-                    <a href={data.bookLink3} target="blank">
-                      <img src={data.bookImage3} alt={data.bookName2} />
-                    </a>
+                    {data.bookLink1 === '책을 선택하세요' ? null : (
+                      <a href={data.bookLink1} target="blank">
+                        <img src={data.bookImage1} alt={data.bookName1} />
+                      </a>
+                    )}
+
+                    {data.bookLink2 === '책을 선택하세요' ? null : (
+                      <a href={data.bookLink2} target="blank">
+                        <img src={data.bookImage2} alt={data.bookName2} />
+                      </a>
+                    )}
+                    {data.bookLink3 === '책을 선택하세요' ? null : (
+                      <a href={data.bookLink3} target="blank">
+                        <img src={data.bookImage3} alt={data.bookName2} />
+                      </a>
+                    )}
                   </div>
                 </div>
                 <p>{data.bookSummary}</p>
@@ -406,6 +413,7 @@ export const Main = styled.main`
         width: 25.3rem;
         height: 37rem;
         filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
+        object-fit: cover;
       }
     }
     textarea {
