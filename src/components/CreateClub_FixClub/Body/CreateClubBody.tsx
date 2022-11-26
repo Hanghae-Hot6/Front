@@ -62,19 +62,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
 
   const navigate = useNavigate();
 
-  // const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-  //   e.preventDefault();
-
-  //   const {name, value} = e.target;
-
-  //   setInput({...input, [name]: value});
-  // };
-
   const books = useAppSelector(state => state.selectBookReducer);
-
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
 
   const {mutate: clubSubmit} = useMutation(
     async (formData: FormData) => {

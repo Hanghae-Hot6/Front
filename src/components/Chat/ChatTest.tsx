@@ -24,18 +24,12 @@ const ChatTest = ({}: ChatTestProps) => {
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  // useEffect(() => {
-  //   console.log(input);
-  // }, [input]);
-
   // 해당 방 채팅 보기
   // const fetchChats = async () => {
 
   // };
 
   // const {data: chats, status: chatsStatus} = useQuery('getChat', fetchChats);
-
-  // console.log(chats);
 
   // 채팅방들 보기
 
@@ -64,13 +58,10 @@ const ChatTest = ({}: ChatTestProps) => {
       },
     );
 
-    // console.log(response);
-
     return response;
   };
 
   const handleClick = useCallback(() => {
-    // console.log(userId);
     ChattingServiceKit.sendMessage(
       {},
       {
@@ -102,7 +93,6 @@ const ChatTest = ({}: ChatTestProps) => {
 
   return (
     <>
-      {/* <MessageSendButton>채팅방들 보기</MessageSendButton> */}
       <MessageSendButton onClick={handleClick2}>채팅보기</MessageSendButton>
 
       <MessageSendButton ref={buttonRef} onClick={handleClick}>
