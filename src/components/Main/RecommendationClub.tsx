@@ -21,7 +21,7 @@ const RecommendationClub = () => {
   });
 
   // 데이터 없을 때 예외처리
-  if (data === undefined) {
+  if (data && data.length === 0) {
     return (
       <RecommendationWrap>
         <TitleWrap>

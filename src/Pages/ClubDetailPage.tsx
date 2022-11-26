@@ -106,15 +106,21 @@ const ClubDetail = () => {
 
     {
       onSuccess: data => {
-        alert('탈퇴 하시겠습니까?');
-        // confirm 으로 바꾸기
-        alert('탈퇴 완료');
+        alert('탈퇴 되었습니다.');
       },
       onError: error => {
         console.log('클럽 탈퇴 에러', error);
       },
     },
   );
+  // 클럽 탈퇴하기 함수
+  const delClubBtn = () => {
+    if (window.confirm('정말 탈퇴하시겠습니까?')) {
+      delClub();
+    } else {
+      alert('취소 되었습니다.');
+    }
+  };
 
   // console.log(status);
 
@@ -183,7 +189,7 @@ const ClubDetail = () => {
                       </Btn>
                       <Btn
                         onClick={() => {
-                          delClub();
+                          delClubBtn();
                         }}>
                         탈퇴하기
                       </Btn>
