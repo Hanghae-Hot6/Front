@@ -2,12 +2,10 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {QueryClient, useQuery, useQueryClient} from 'react-query';
 import styled from 'styled-components';
-
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 import close_btn from '../../assets/Xbtn.svg';
 import {NaverBooksDataType} from '../../types/bookSearch';
 import HeaderSearchBooks from './HeaderSearchBooks';
-import {log} from 'console';
 
 type BookSearchBarProps = {};
 
@@ -63,6 +61,7 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
     e.preventDefault();
 
     const {value} = e.target;
+    setShowBookSearchBar(true);
 
     setInput(value);
   };
@@ -70,23 +69,28 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
     e.preventDefault();
 
     setShowBookSearchBar(!showBookSearchBar);
-
+    if (showBookSearchBar === true) {
+    }
     setInput('');
   };
   return (
     <>
       <Container>
         <StInputDiv onClick={handleClick}>
-          <img src={MagnifyingGlass} alt="" />
+          <img src={MagnifyingGlass} alt="search" />
           <input
             type="text"
             placeholder="도서 찾기"
             onChange={handleChange}
             value={input}
           />
-          <div onClick={handleClick}>
+          <div>
             {showBookSearchBar ? (
-              <img src={close_btn} alt="닫기 버튼" />
+              <img
+                src={close_btn}
+                alt="닫기 버튼"
+                onClick={() => setShowBookSearchBar(false)}
+              />
             ) : undefined}
           </div>
         </StInputDiv>

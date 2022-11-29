@@ -96,4 +96,10 @@ export const memberApis = {
 };
 
 // 클럽 관련된 api 모음 클럽 만들기는 제외
-export const clubApi = {};
+export const clubApis = {
+  getClubsTop5: async () =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/top5`),
+
+  getClubDetail: async (payload: string | undefined) =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}`),
+};
