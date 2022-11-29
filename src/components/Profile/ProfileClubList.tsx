@@ -1,9 +1,9 @@
 import {link} from 'fs';
 import React, {useState} from 'react';
-import {useQuery} from 'react-query';
+import {useMutation, useQuery} from 'react-query';
 import {Link, useNavigate} from 'react-router-dom';
-import styled, {css} from 'styled-components';
-import {memberApis} from '../../api/axiosconfig';
+import styled from 'styled-components';
+import {clubApis, memberApis} from '../../api/axiosconfig';
 import {clubList, ProfileDataType} from '../../types/regist';
 import {getUserId} from '../../utils';
 
@@ -12,7 +12,6 @@ function ProfileClubList({data}: ProfileDataType) {
   const userId = getUserId();
 
   console.log('Clublist =>', data?.clubList);
-  // 최신순으로 정렬하기 위해
 
   const today = new Date().getTime();
 
@@ -59,6 +58,23 @@ function ProfileClubList({data}: ProfileDataType) {
       },
     },
   );
+
+  const {mutate: deleteMutate} = useMutation(
+    async (clubId: number | undefined) => {
+      try {
+        const response = await clubApis.deleteClub(clubId);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    {
+      onSuccess: () => {},
+      onError: error => {},
+    },
+  );
+
+  // 최신순으로 정렬하기 위해
   const beforeSorting = data?.clubList;
   const beforeSorting2 = leaderClubs?.data;
   const beforeSorting3 = interestClubs?.data;
@@ -241,7 +257,9 @@ function ProfileClubList({data}: ProfileDataType) {
                               </span>
                             </div>
                           </Link>
-                          <div>참석중</div>
+                          <div onClick={() => deleteMutate(item?.clubId)}>
+                            클럽삭제
+                          </div>
                         </StClubLi>
                       )}
                     </>

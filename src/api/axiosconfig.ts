@@ -102,4 +102,7 @@ export const clubApis = {
 
   getClubDetail: async (payload: string | undefined) =>
     await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}`),
+
+  deleteClub: async (payload: number | undefined) =>
+    await api.delete(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}`),
 };
