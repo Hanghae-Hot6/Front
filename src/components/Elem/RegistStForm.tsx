@@ -2,15 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
-
-type RegistStFormProps = {
-  jc?: string | undefined;
-  title?: string;
-  width?: string;
-  height?: string;
-  children?: React.ReactNode;
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
-};
+import {RegistStFormProps} from '../../types/regist';
 
 function RegistStForm({
   jc,

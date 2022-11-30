@@ -1,19 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-type RegistStInputProps = {
-  id?: string;
-  label?: string;
-  type?: string;
-  name?: string;
-  value?: string;
-  width?: string;
-  height?: string;
-  maxLength?: number;
-  placeholder?: string;
-  children?: React.ReactNode;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import {RegistStInputProps} from '../../types/regist';
 
 function RegistStInput({
   id,

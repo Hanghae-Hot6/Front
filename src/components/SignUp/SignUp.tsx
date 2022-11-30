@@ -17,6 +17,7 @@ import SignUpModalCollection from './SignUpModalCollection';
 import Timer from '../Login/Timer';
 import React, {useRef, useEffect} from 'react';
 import {cursorTo} from 'readline';
+import * as S from './SignUp.style';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -110,10 +111,8 @@ function SignUp() {
     }
   };
 
-  useEffect(() => {});
-
   return (
-    <StContainer>
+    <S.StContainer>
       <RegistStForm
         onSubmit={handleSubmit}
         title="간편하게 회원가입"
@@ -135,9 +134,9 @@ function SignUp() {
           onChange={handleChange}
           value={values.memberId}
           label="아이디">
-          <StCheckBtn onClick={IdCheckHandler} type="button">
+          <S.StCheckBtn onClick={IdCheckHandler} type="button">
             중복확인
-          </StCheckBtn>
+          </S.StCheckBtn>
         </RegistStInput>
         <RegistErrorSpan>{errors.memberId || errors.idCheck}</RegistErrorSpan>
 
@@ -149,13 +148,13 @@ function SignUp() {
           value={values.email}
           maxLength={30}
           label="E-mail">
-          <StCheckBtn
+          <S.StCheckBtn
             type="button"
             onClick={() => {
               certEmailHandler();
             }}>
             이메일 인증
-          </StCheckBtn>
+          </S.StCheckBtn>
         </RegistStInput>
         <RegistErrorSpan>{errors.email || errors.emailCheck}</RegistErrorSpan>
 
@@ -209,11 +208,11 @@ function SignUp() {
           label="전화번호"></RegistStInput>
         <RegistErrorSpan>{errors.phoneNumber}</RegistErrorSpan> */}
 
-        <ButtonContainer>
-          <StNavBtn type="submit" bgColor="#5200FF" fontC="white">
+        <S.ButtonContainer>
+          <S.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
             가입완료
-          </StNavBtn>
-          <StNavBtn
+          </S.StNavBtn>
+          <S.StNavBtn
             type="button"
             bgColor="#5200FF"
             fontC="white"
@@ -221,13 +220,13 @@ function SignUp() {
               navigate('/login');
             }}>
             로그인
-          </StNavBtn>
-        </ButtonContainer>
+          </S.StNavBtn>
+        </S.ButtonContainer>
       </RegistStForm>
       <SignUpModalCollection />
       {isGlobalModalOpen && dispatchId === 'emailCheck' && (
         <GlobalModal id="emailCheck" size="lg">
-          <StModalDiv>
+          <S.StModalDiv>
             <form
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
                 e.preventDefault();
@@ -239,7 +238,7 @@ function SignUp() {
 
                 <Timer initMin={5} initSec={0} />
 
-                <StInputBox>
+                <S.StInputBox>
                   <input
                     type="text"
                     name="certNumber0"
@@ -320,7 +319,7 @@ function SignUp() {
                       handleFocus(e, 7);
                     }}
                   />
-                </StInputBox>
+                </S.StInputBox>
               </div>
               <div>
                 <button type="submit">확인</button>
@@ -334,108 +333,11 @@ function SignUp() {
                 </button>
               </div>
             </form>
-          </StModalDiv>
+          </S.StModalDiv>
         </GlobalModal>
       )}
-    </StContainer>
+    </S.StContainer>
   );
 }
 
 export default SignUp;
-
-const StContainer = styled.div``;
-
-const StCheckBtn = styled.button`
-  display: flex;
-  font-size: 1.4rem;
-  height: 2.3rem;
-  color: #5200ff;
-  border: 1px solid ${props => props.theme.MainColor};
-  border-radius: 20px;
-  background-color: white;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  white-space: nowrap;
-`;
-
-const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
-  width: 40rem;
-  height: 6rem;
-  color: ${props => props.fontC};
-  background-color: ${props => props.theme.MainColor};
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 4.3rem;
-`;
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 5.2rem;
-`;
-
-const StModalDiv = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  span {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    h1 {
-      font-size: 2rem;
-      font-weight: bold;
-    }
-
-    /* input {
-      border: 1px solid ${props => props.theme.MainColor};
-      height: 3rem;
-    }
-     */
-    div:nth-child(1) {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-      height: 100%;
-    }
-    div:nth-child(2) {
-      display: flex;
-      width: 100%;
-      button {
-        width: 100%;
-      }
-    }
-  }
-`;
-
-const StInputBox = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  height: 3rem;
-  padding: 0 7rem;
-  input {
-    display: flex;
-    text-align: center;
-    width: 10%;
-    height: 100%;
-    border: none;
-    border-bottom: 1px solid ${props => props.theme.LightGray};
-    font-size: 1.8rem;
-    font-weight: bold;
-    :focus {
-      outline: none;
-    }
-  }
-
-  .On {
-    border-bottom: 1px solid ${props => props.theme.MainColor};
-  }
-`;

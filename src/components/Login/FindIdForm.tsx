@@ -1,18 +1,14 @@
-import axios from 'axios';
 import React, {useState} from 'react';
-import {useMutation, useQuery} from 'react-query';
+import {useMutation} from 'react-query';
 import styled from 'styled-components';
 import {memberApis} from '../../api/axiosConfig';
 import GlobalModal from '../../common/GlobalModal';
-import NavigationButton from '../../common/NavigationButton';
-import useInput from '../../Hooks/useInput';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {FindIdValue} from '../../types/regist';
-import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
-
+import * as L from './Login.style';
 function FindIdForm() {
   const dispatch = useAppDispatch();
   const {isGlobalModalOpen, dispatchId} = useAppSelector(
@@ -76,7 +72,7 @@ function FindIdForm() {
         title="아이디 찾기"
         height="87rem"
         width="55.6rem">
-        <StContainer>
+        <L.StContainer>
           <div>
             <RegistStInput
               id="email"
@@ -94,10 +90,10 @@ function FindIdForm() {
               value={values.username}
               label="실명"></RegistStInput>
           </div>
-          <StNavBtn type="submit" bgColor="#5200FF" fontC="white">
+          <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
             아이디 찾기
-          </StNavBtn>
-        </StContainer>
+          </L.StNavBtn>
+        </L.StContainer>
         {isGlobalModalOpen && dispatchId === 'findIdEmptyInput' && (
           <GlobalModal id="findIdEmptyInput" type="alertModal">
             <div>빈칸을 작성해주세요.</div>
@@ -128,24 +124,3 @@ function FindIdForm() {
 }
 
 export default FindIdForm;
-
-const StContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  width: 100%;
-`;
-
-const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
-  display: flex;
-  width: 100%;
-  height: 6rem;
-  color: ${({fontC}) => fontC};
-  background-color: ${({bgColor}) => bgColor};
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 4.3rem;
-  align-items: center;
-  justify-content: center;
-`;

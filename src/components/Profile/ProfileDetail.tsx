@@ -5,7 +5,6 @@ import profileChatingImg from '../../assets/profileChatingImg.svg';
 import GlobalModal from '../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
-import RegistStInput from '../Elem/RegistStInput';
 
 function ProfileDetail({data}: ProfileDataType) {
   const dispatch = useAppDispatch();

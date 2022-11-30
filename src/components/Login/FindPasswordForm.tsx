@@ -1,22 +1,16 @@
-import axios from 'axios';
 import React, {useState} from 'react';
 import {useMutation} from 'react-query';
-import styled from 'styled-components';
 import {memberApis} from '../../api/axiosConfig';
-import GlobalModal from '../../common/GlobalModal';
-import NavigationButton from '../../common/NavigationButton';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
-import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
+import {useAppDispatch} from '../../Redux/store/store';
 import {FindPasswordValueType} from '../../types/regist';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
 import LoginModalCollection from './LoginModalCollection';
+import * as L from './Login.style';
 
 function FindPasswordForm() {
   const dispatch = useAppDispatch();
-  const {isGlobalModalOpen, dispatchId} = useAppSelector(
-    state => state.modalReducer,
-  );
 
   const init = {
     id: '',
@@ -63,7 +57,7 @@ function FindPasswordForm() {
         title="비밀번호 변경"
         height="87rem"
         width="55.6rem">
-        <StContainer>
+        <L.StContainer>
           <div>
             <RegistStInput
               id="id"
@@ -82,10 +76,10 @@ function FindPasswordForm() {
               label="E-mail"></RegistStInput>
           </div>
 
-          <StNavBtn type="submit" bgColor="#5200FF" fontC="white">
+          <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
             비밀번호 찾기
-          </StNavBtn>
-        </StContainer>
+          </L.StNavBtn>
+        </L.StContainer>
         <LoginModalCollection />
       </RegistStForm>
     </>
@@ -93,24 +87,3 @@ function FindPasswordForm() {
 }
 
 export default FindPasswordForm;
-
-const StContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  width: 100%;
-`;
-
-const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
-  display: flex;
-  width: 100%;
-  height: 6rem;
-  color: ${({fontC}) => fontC};
-  background-color: ${({bgColor}) => bgColor};
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 4.3rem;
-  align-items: center;
-  justify-content: center;
-`;
