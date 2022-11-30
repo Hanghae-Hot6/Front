@@ -9,6 +9,10 @@ export const Base = styled.div`
 export const Container = styled.div`
   position: relative;
   overflow: hidden;
+  div {
+    position: relative;
+    height: 47rem;
+  }
 `;
 
 export const ArrowButton = styled.button<{pos: 'left' | 'right'}>`
@@ -34,22 +38,32 @@ export const ArrowButton = styled.button<{pos: 'left' | 'right'}>`
         `};
 `;
 
-export const CarouselList = styled.ul`
+export const CarouselList = styled.ul<{
+  slidesLength: number;
+  transition: string;
+  currentIndex: number;
+}>`
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  overflow: hidden;
-  width: 100%;
+  position: absolute;
+
+  /* overflow: hidden; */
+  /* width: 100%; */
+  transition: ${({transition}) => transition};
+  transform: ${({slidesLength, currentIndex}) =>
+    `translateX(${(-100 / slidesLength) * (0 + currentIndex)}%)`};
 `;
 
-export const CarouselListItem = styled.li<{currCarousel: number}>`
+export const CarouselListItem = styled.li<{
+  currCarousel: number;
+}>`
   width: 427px;
-  transform: translateX(-${({currCarousel}) => currCarousel * 100}%);
-  transition: 200ms ease;
-  position: relative;
-
+  /* transform: translateX(-${({currCarousel}) => currCarousel * 100}%); */
+  /* position: relative; */
   box-sizing: border-box;
+  position: relative;
   :hover {
     img {
       filter: blur(2px);

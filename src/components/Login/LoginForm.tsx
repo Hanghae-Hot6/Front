@@ -12,7 +12,7 @@ import {useQuery} from 'react-query';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
-import {memberApis} from '../../api/axiosconfig';
+import {memberApis} from '../../api/axiosConfig';
 import LoginModalCollection from './LoginModalCollection';
 
 function LoginForm() {

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {useMutation, useQuery} from 'react-query';
 import {useNavigate} from 'react-router-dom';
-import {memberApis} from '../../api/axiosconfig';
+import {memberApis} from '../../api/axiosConfig';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../Redux/store/store';
 import {CertNumValuesType, SignValueType} from '../../types/regist';

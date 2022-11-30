@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import {useMutation, useQuery} from 'react-query';
 import styled from 'styled-components';
-import {memberApis} from '../../api/axiosconfig';
+import {memberApis} from '../../api/axiosConfig';
 import GlobalModal from '../../common/GlobalModal';
 import NavigationButton from '../../common/NavigationButton';
 import useInput from '../../Hooks/useInput';

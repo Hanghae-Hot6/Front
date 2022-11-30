@@ -21,7 +21,7 @@ const api = axios.create(config);
 api.interceptors.request.use(function (config) {
   const accessToken = getAccessToken();
   const refreshToken = getRefreshToken();
-  console.log(accessToken, refreshToken);
+  // console.log(accessToken, refreshToken);
 
   if (!config) {
     config = {};
@@ -96,4 +96,26 @@ export const memberApis = {
 };
 
 // 클럽 관련된 api 모음 클럽 만들기는 제외
-export const clubApi = {};
+export const clubApis = {
+  getClubsTop5: async () =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/top5`),
+
+  getClubDetail: async (payload: string | undefined) =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}`),
+
+  deleteClub: async (payload: number | undefined) =>
+    await api.delete(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}`),
+  joinClub: async (payload: string | undefined) =>
+    await api.post(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}/join`),
+
+  interestClub: async (payload: string | undefined) =>
+    await api.post(
+      `${process.env.REACT_APP_BASE_URL}/clubs/${payload}/interest`,
+    ),
+  delClub: async (payload: string | undefined) =>
+    await api.delete(
+      `${process.env.REACT_APP_BASE_URL}/clubs/${payload}/withdraw`,
+    ),
+  getClubs: async () =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs`),
+};

@@ -40,7 +40,6 @@ const Layout = (props: Props) => {
         style={{
           width: '1280px',
           margin: '0 auto',
-          overflow: 'hidden',
           minHeight: ' 100vh',
           height: '100%',
         }}>

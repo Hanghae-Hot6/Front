@@ -7,16 +7,13 @@ import pop3 from '../../assets/pop3.svg';
 import pop4 from '../../assets/pop4.svg';
 import pop5 from '../../assets/pop5.svg';
 import {useQuery} from 'react-query';
-import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {RecommendationClubType} from '../../types/clubList';
-
+import {clubApis} from '../../api/axiosConfig';
 const RecommendationClub = () => {
   // 데이터 빼주기
   const {data, status} = useQuery(['getClubsTop5'], async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/clubs/top5`,
-    );
+    const response = await clubApis.getClubsTop5();
     return response.data.data;
   });
 

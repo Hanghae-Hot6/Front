@@ -166,7 +166,12 @@ function SignUp() {
           onChange={handleChange}
           value={values.password}
           label="비밀번호">
-          <img src={eyeImg} alt="" id="password" onClick={handlePasswordType} />
+          <img
+            src={eyeImg}
+            alt="password 보이기"
+            id="password"
+            onClick={handlePasswordType}
+          />
         </RegistStInput>
         <RegistErrorSpan>{errors.password}</RegistErrorSpan>
 
@@ -179,7 +184,7 @@ function SignUp() {
           label="비밀번호 확인">
           <img
             src={eyeImg}
-            alt=""
+            alt="password 보이기"
             id="passwordCheck"
             onClick={handlePasswordType}
           />

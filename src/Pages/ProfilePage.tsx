@@ -15,7 +15,7 @@ import GlobalModal from '../common/GlobalModal';
 import ProfileModalCollection from '../components/Profile/ProfileModalCollection';
 import axios from 'axios';
 import {useQuery} from 'react-query';
-import {memberApis} from '../api/axiosconfig';
+import {memberApis} from '../api/axiosConfig';
 
 type ProfilePageProps = {};
 type clubList = {
@@ -76,8 +76,6 @@ const ProfilePage = ({}: ProfilePageProps) => {
     },
   );
 
-  console.log(ProfileData);
-
   return (
     <>
       <Header />
@@ -94,10 +92,6 @@ const ProfilePage = ({}: ProfilePageProps) => {
 export default ProfilePage;
 
 const StSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   margin: 0 auto;
   background-color: #fdfcff;

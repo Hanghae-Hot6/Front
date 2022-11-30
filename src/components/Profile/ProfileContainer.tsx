@@ -13,7 +13,7 @@ function ProfileContainer({data}: ProfileDataType) {
       <StContainer>
         <StProfileBox>
           <StTitle>
-            <img src={logo} alt="" />
+            <img src={logo} alt="logo" />
             <StSpan>마이페이지</StSpan>
           </StTitle>
           <StDiv>
