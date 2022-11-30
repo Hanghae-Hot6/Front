@@ -4,10 +4,8 @@ import * as C from './ClubListBody.style';
 // import styled from 'styled-components';
 import {Link, useLocation} from 'react-router-dom';
 import {useQuery} from 'react-query';
-import axios from 'axios';
-import {CategoryTop} from './ClubListBody.style';
 import {LocationState, Clubs} from '../../../types/clubList';
-
+import {clubApis} from '../../../api/axiosConfig';
 const ClubListBody = () => {
   const {state} = useLocation() as LocationState;
   const [index, setIndex] = useState<number>(0);
@@ -15,9 +13,7 @@ const ClubListBody = () => {
   const {data, status} = useQuery(
     ['getClubs'],
     async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/clubs`,
-      );
+      const response = await clubApis.getClubs();
       return response.data.data;
     },
     {

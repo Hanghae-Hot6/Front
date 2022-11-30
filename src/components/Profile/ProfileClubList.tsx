@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {useMutation, useQuery} from 'react-query';
 import {Link, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
-import {clubApis, memberApis} from '../../api/axiosconfig';
+import {clubApis, memberApis} from '../../api/axiosConfig';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../Redux/store/store';
 import {clubList, ProfileDataType} from '../../types/regist';

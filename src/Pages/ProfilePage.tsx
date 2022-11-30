@@ -15,7 +15,7 @@ import GlobalModal from '../common/GlobalModal';
 import ProfileModalCollection from '../components/Profile/ProfileModalCollection';
 import axios from 'axios';
 import {useQuery} from 'react-query';
-import {memberApis} from '../api/axiosconfig';
+import {memberApis} from '../api/axiosConfig';
 
 type ProfilePageProps = {};
 type clubList = {

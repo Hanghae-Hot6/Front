@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import {useMutation} from 'react-query';
 import styled from 'styled-components';
-import {memberApis} from '../../api/axiosconfig';
+import {memberApis} from '../../api/axiosConfig';
 import GlobalModal from '../../common/GlobalModal';
 import NavigationButton from '../../common/NavigationButton';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
