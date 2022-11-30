@@ -115,9 +115,6 @@ const StModal = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100%;
 `;
@@ -126,10 +123,17 @@ const StModalBody = styled.div<modalProps>`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  width: 35rem;
-  height: ${props => {
+  /* width: 35rem; */
+  width: ${props => {
     return props.size === 'lg'
       ? '35rem'
+      : props.size === 'xlg'
+      ? '60rem'
+      : '35rem';
+  }};
+  height: ${props => {
+    return props.size === 'lg'
+      ? '40rem'
       : props.size === 'xlg'
       ? '60rem'
       : '25rem';
@@ -138,13 +142,13 @@ const StModalBody = styled.div<modalProps>`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -60%);
+  transform: translate(-50%, -50%);
   justify-content: space-between;
   border: 1px solid ${props => props.theme.MainColor};
   button {
-    height: 5.5rem;
+    height: 4.5rem;
     color: white;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     background-color: ${props => props.theme.MainColor};
     width: 100%;
   }
@@ -155,7 +159,7 @@ const StAlertContainer = styled.div`
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  height: 29.5rem;
+  height: 20.5rem;
   font-size: 1.8rem;
   padding: 1rem;
   text-align: center;
@@ -193,7 +197,12 @@ const StConfirmContainer = styled.div`
 
 const StBtnBox = styled.div`
   width: 100%;
+  font-size: 1.6rem;
+
   button {
     width: 50%;
+    background-color: #fff;
+    color: ${props => props.theme.MainColor};
+    border-top: 1px solid ${props => props.theme.LightGray};
   }
 `;
