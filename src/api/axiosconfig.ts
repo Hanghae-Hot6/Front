@@ -21,7 +21,7 @@ const api = axios.create(config);
 api.interceptors.request.use(function (config) {
   const accessToken = getAccessToken();
   const refreshToken = getRefreshToken();
-  console.log(accessToken, refreshToken);
+  // console.log(accessToken, refreshToken);
 
   if (!config) {
     config = {};
@@ -102,4 +102,18 @@ export const clubApis = {
 
   getClubDetail: async (payload: string | undefined) =>
     await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}`),
+
+  joinClub: async (payload: string | undefined) =>
+    await api.post(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}/join`),
+
+  interestClub: async (payload: string | undefined) =>
+    await api.post(
+      `${process.env.REACT_APP_BASE_URL}/clubs/${payload}/interest`,
+    ),
+  delClub: async (payload: string | undefined) =>
+    await api.delete(
+      `${process.env.REACT_APP_BASE_URL}/clubs/${payload}/withdraw`,
+    ),
+  getClubs: async () =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs`),
 };

@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {useQuery} from 'react-query';
 import {Link, useNavigate} from 'react-router-dom';
 import styled, {css} from 'styled-components';
-import {memberApis} from '../../api/axiosconfig';
+import {memberApis} from '../../api/axiosConfig';
 import {clubList, ProfileDataType} from '../../types/regist';
 import {getUserId} from '../../utils';
 

@@ -33,7 +33,9 @@ const Carousel = () => {
   const moveToNthSlide = (n: number) => {
     setCurrCarousel(n);
   };
-  const slideNextSoulsCarousel = () => {
+  const slideNextSoulsCarousel: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     const soulSliderLength = banners.length;
     const newCurr = currCarousel + 1;
     setCurrCarousel(newCurr);
@@ -42,7 +44,9 @@ const Carousel = () => {
     }
   };
 
-  const slidePrevSoulsCarousel = () => {
+  const slidePrevSoulsCarousel: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     //   3
     const soulSliderLength = banners.length;
     const newCurr = currCarousel - 1;

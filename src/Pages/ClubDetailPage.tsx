@@ -10,7 +10,7 @@ import heartOn from '../assets/heartOn.svg';
 import heartOff from '../assets/heartOff.svg';
 import {clubDetailType} from '../types/clubList';
 // type ClubDetailProps = {};
-import {clubApis} from '../api/axiosconfig';
+import {clubApis} from '../api/axiosConfig';
 const ClubDetail = () => {
   // , status, isLoading 추후에 쓰임
   const accessToken = getAccessToken();
@@ -19,16 +19,9 @@ const ClubDetail = () => {
 
   // 화면에 클럽정보 뿌려주는api
   const {data, status} = useQuery<clubDetailType | undefined>(
-    ['getClubDetail', accessToken, id],
-    async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/clubs/${id}`,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        },
-      );
+    ['getClubDetail', id],
+    async ({queryKey}: any) => {
+      const response = await clubApis.getClubDetail(queryKey[1]);
       return response.data.data;
     },
     {
@@ -44,16 +37,8 @@ const ClubDetail = () => {
 
   //모임 가입하기 api
   const {mutate: signUpClub} = useMutation(
-    async () => {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/join`,
-        id,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        },
-      );
+    async (id: any) => {
+      const response = await clubApis.joinClub(id);
       return response.data.data;
     },
     {
@@ -68,16 +53,8 @@ const ClubDetail = () => {
 
   // 관심 모임 api
   const {mutate: interestClub} = useMutation(
-    async () => {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/interest`,
-        id,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        },
-      );
+    async (id: any) => {
+      const response = await clubApis.interestClub(id);
       return response.data.data;
     },
     {
@@ -92,21 +69,14 @@ const ClubDetail = () => {
 
   // 클럽탈퇴하기
   const {mutate: delClub} = useMutation(
-    async () => {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/clubs/${id}/withdraw`,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        },
-      );
+    async (id: any) => {
+      const response = await clubApis.delClub(id);
       return response.data.data;
     },
 
     {
       onSuccess: data => {
-        alert('탈퇴 되었습니다.');
+        alert('탈퇴되었습니다.');
       },
       onError: error => {
         console.log('클럽 탈퇴 에러', error);
@@ -114,11 +84,11 @@ const ClubDetail = () => {
     },
   );
   // 클럽 탈퇴하기 함수
-  const delClubBtn = () => {
+  const delClubBtn = (id: any) => {
     if (window.confirm('정말 탈퇴하시겠습니까?')) {
-      delClub();
+      delClub(id);
     } else {
-      alert('취소 되었습니다.');
+      alert('취소되었습니다.');
     }
   };
 
@@ -174,11 +144,11 @@ const ClubDetail = () => {
 
                 <ClubJoin>
                   {data.interest ? (
-                    <InterestBtn onClick={() => interestClub()}>
+                    <InterestBtn onClick={() => interestClub(id)}>
                       <img src={heartOn} alt="관심모임등록" />
                     </InterestBtn>
                   ) : (
-                    <InterestBtn onClick={() => interestClub()}>
+                    <InterestBtn onClick={() => interestClub(id)}>
                       <img src={heartOff} alt="관심모임해제" />
                     </InterestBtn>
                   )}
@@ -189,13 +159,13 @@ const ClubDetail = () => {
                       </Btn>
                       <Btn
                         onClick={() => {
-                          delClubBtn();
+                          delClubBtn(id);
                         }}>
                         탈퇴하기
                       </Btn>
                     </>
                   ) : (
-                    <JoinBtn onClick={() => signUpClub()}>참석하기</JoinBtn>
+                    <JoinBtn onClick={() => signUpClub(id)}>참석하기</JoinBtn>
                   )}
                 </ClubJoin>
               </MainWrap>

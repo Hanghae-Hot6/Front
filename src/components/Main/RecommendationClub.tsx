@@ -9,7 +9,7 @@ import pop5 from '../../assets/pop5.svg';
 import {useQuery} from 'react-query';
 import {Link} from 'react-router-dom';
 import {RecommendationClubType} from '../../types/clubList';
-import {clubApis} from '../../api/axiosconfig';
+import {clubApis} from '../../api/axiosConfig';
 const RecommendationClub = () => {
   // 데이터 빼주기
   const {data, status} = useQuery(['getClubsTop5'], async () => {
