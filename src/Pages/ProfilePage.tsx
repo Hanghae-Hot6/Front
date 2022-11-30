@@ -76,8 +76,6 @@ const ProfilePage = ({}: ProfilePageProps) => {
     },
   );
 
-  console.log(ProfileData);
-
   return (
     <>
       <Header />
@@ -94,10 +92,6 @@ const ProfilePage = ({}: ProfilePageProps) => {
 export default ProfilePage;
 
 const StSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   margin: 0 auto;
   background-color: #fdfcff;

@@ -30,7 +30,7 @@ function RegistStForm({
       {...props}>
       <StLogoDiv>
         <Link to={'/'}>
-          <img src={logo} alt="" />
+          <img src={logo} alt="logo" />
         </Link>
         <span>{title}</span>
       </StLogoDiv>

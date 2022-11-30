@@ -47,7 +47,7 @@ function Timer({initMin, initSec}: TimerProps) {
 
   return (
     <StH2 isH2Red={isH2Red}>
-      <img src={timer} alt="" />
+      <img src={timer} alt="timer" />
       {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
     </StH2>
   );

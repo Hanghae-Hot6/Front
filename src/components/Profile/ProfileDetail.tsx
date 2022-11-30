@@ -13,6 +13,7 @@ function ProfileDetail({data}: ProfileDataType) {
   const {isGlobalModalOpen, dispatchId} = useAppSelector(
     state => state.modalReducer,
   );
+
   return (
     <>
       <StUserDiv>

@@ -4,14 +4,15 @@ import {useMutation, useQuery} from 'react-query';
 import {Link, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import {clubApis, memberApis} from '../../api/axiosconfig';
+import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
+import {useAppDispatch} from '../../Redux/store/store';
 import {clubList, ProfileDataType} from '../../types/regist';
 import {getUserId} from '../../utils';
 
 function ProfileClubList({data}: ProfileDataType) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const userId = getUserId();
-
-  console.log('Clublist =>', data?.clubList);
 
   const today = new Date().getTime();
 
@@ -74,6 +75,12 @@ function ProfileClubList({data}: ProfileDataType) {
     },
   );
 
+  const handleDelete = (clubId: number | undefined) => {
+    dispatch(openGlobalModal('clubDelete'));
+
+    deleteMutate(clubId);
+  };
+
   // 최신순으로 정렬하기 위해
   const beforeSorting = data?.clubList;
   const beforeSorting2 = leaderClubs?.data;
@@ -96,7 +103,7 @@ function ProfileClubList({data}: ProfileDataType) {
       <StClubsDiv>
         <StClubCategory className="tabList" role="tablist">
           {tabList &&
-            tabList.map(v => {
+            tabList.map((v, idx) => {
               return (
                 <li
                   key={v.id}
@@ -117,7 +124,7 @@ function ProfileClubList({data}: ProfileDataType) {
               ) : (
                 clubListData?.map(item => {
                   return (
-                    <>
+                    <div key={item.clubId}>
                       {today > Date.parse(item?.finishDate!) ? (
                         <StGrayLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
@@ -155,7 +162,7 @@ function ProfileClubList({data}: ProfileDataType) {
                           <div>참석중</div>
                         </StClubLi>
                       )}
-                    </>
+                    </div>
                   );
                 })
               )}
@@ -171,7 +178,7 @@ function ProfileClubList({data}: ProfileDataType) {
               ) : (
                 interestClubsData?.map((item: clubList) => {
                   return (
-                    <>
+                    <div key={item.clubId}>
                       {today > Date.parse(item?.finishDate!) ? (
                         <StGrayLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
@@ -206,7 +213,7 @@ function ProfileClubList({data}: ProfileDataType) {
                           </Link>
                         </StClubLi>
                       )}
-                    </>
+                    </div>
                   );
                 })
               )}
@@ -222,7 +229,7 @@ function ProfileClubList({data}: ProfileDataType) {
               ) : (
                 leaderClubsData?.map((item: clubList) => {
                   return (
-                    <>
+                    <div key={item.clubId}>
                       {today > Date.parse(item?.finishDate!) ? (
                         <StGrayLi key={item.clubId}>
                           <Link to={`/club_detail/${item?.clubId}`}>
@@ -233,7 +240,9 @@ function ProfileClubList({data}: ProfileDataType) {
                               </span>
                             </div>
                           </Link>
-                          <div>참석 완료</div>
+                          <button onClick={() => handleDelete(item?.clubId)}>
+                            클럽삭제
+                          </button>
                         </StGrayLi>
                       ) : today < Date.parse(item?.startDate!) ? (
                         <StClubLi key={item.clubId}>
@@ -245,7 +254,9 @@ function ProfileClubList({data}: ProfileDataType) {
                               </span>
                             </div>
                           </Link>
-                          <div>참석 예정</div>
+                          <button onClick={() => handleDelete(item?.clubId)}>
+                            클럽삭제
+                          </button>
                         </StClubLi>
                       ) : (
                         <StClubLi key={item.clubId}>
@@ -257,12 +268,12 @@ function ProfileClubList({data}: ProfileDataType) {
                               </span>
                             </div>
                           </Link>
-                          <div onClick={() => deleteMutate(item?.clubId)}>
+                          <button onClick={() => handleDelete(item?.clubId)}>
                             클럽삭제
-                          </div>
+                          </button>
                         </StClubLi>
                       )}
-                    </>
+                    </div>
                   );
                 })
               )}
@@ -360,6 +371,19 @@ const StClubLi = styled.li`
     display: flex;
     font-size: 1.5rem;
   }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid ${props => props.theme.MainColor};
+    border-radius: 0.7rem;
+    height: 4rem;
+    width: 13rem;
+    padding: 0 2rem;
+    margin-top: 1rem;
+    font-size: 1.7rem;
+    background-color: #fff;
+  }
 `;
 
 const StGrayLi = styled(StClubLi)`
@@ -371,5 +395,19 @@ const StGrayLi = styled(StClubLi)`
   div:nth-child(2) {
     border: 1px solid ${props => props.theme.Gray};
     color: ${props => props.theme.Gray};
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid ${props => props.theme.Gray};
+    border-radius: 0.7rem;
+    height: 4rem;
+    width: 13rem;
+    padding: 0 2rem;
+    margin-top: 1rem;
+    font-size: 1.7rem;
+    background-color: #fff;
   }
 `;
