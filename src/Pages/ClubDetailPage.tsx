@@ -9,8 +9,8 @@ import styled from 'styled-components';
 import heartOn from '../assets/heartOn.svg';
 import heartOff from '../assets/heartOff.svg';
 import {clubDetailType} from '../types/clubList';
-// type ClubDetailProps = {};
 import {clubApis} from '../api/axiosConfig';
+
 const ClubDetail = () => {
   // , status, isLoading 추후에 쓰임
   const accessToken = getAccessToken();

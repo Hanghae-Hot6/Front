@@ -7,6 +7,7 @@ import NavigationButton from '../../../common/NavigationButton';
 import ThinLine from '../../../common/ThinLine';
 import {useAppSelector} from '../../../Redux/store/store';
 import Theme from '../../../theme/Theme';
+import {clubDetailType, SubmitClubType} from '../../../types/clubList';
 import {getAccessToken} from '../../../utils';
 
 import DateInput from '../Basic_Inputs/DateInput';
@@ -18,30 +19,12 @@ import ImageInput from '../ImageInput/ImageInput';
 import ParagraphDiv from '../ParagraphDiv/ParagraphDiv';
 import SearchBooks from '../SearchBooks/SearchBooks';
 
-type CreateClubBodyProps = {};
-
-export type InputType = {
-  clubName: string;
-  category: string;
-  clubIntro: string;
-  book1: string;
-  book2: string;
-  book3: string;
-  thumbnail: Blob | string;
-  memberMaxNum: string;
-
-  startDate: string;
-  finishDate: string;
-  location: string;
-  schedule: string;
-
-  clubSummary: string;
-
-  bookSummary: string;
+type CreateClubBodyProps = {
+  fixClubData?: SubmitClubType | undefined;
 };
 
-const CreateClubBody = ({}: CreateClubBodyProps) => {
-  const initialValue: InputType = {
+const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
+  const initialValue: SubmitClubType = {
     clubName: '',
     category: '',
     clubIntro: '',
@@ -57,7 +40,9 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
     clubSummary: '',
     bookSummary: '',
   };
-  const [input, setInput] = useState<InputType>(initialValue);
+  const [input, setInput] = useState<SubmitClubType>(
+    fixClubData ? fixClubData : initialValue,
+  );
   const accessToken = getAccessToken();
 
   const navigate = useNavigate();
@@ -128,7 +113,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
 
     clubSubmit(formData);
   };
-  const yes: React.FormEventHandler<HTMLFormElement> = e => {
+  const handleOnSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     handleSubmit();
   };
@@ -136,7 +121,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
   return (
     <>
       {/* Input part 1 */}
-      <form onSubmit={yes}>
+      <form onSubmit={handleOnSubmit}>
         <ParagraphDiv>
           <TextInput
             input={input}
@@ -151,7 +136,6 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
             name="category"
             placeholder="카테고리 선택"
             width="29.2rem"
-            // flex={1}
             options={[
               '인문',
               '경영 경제',

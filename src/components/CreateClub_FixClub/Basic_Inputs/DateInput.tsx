@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import {InputType} from '../Body/CreateClubBody';
+import {SubmitClubType} from '../../../types/clubList';
 
 type DateInputProps = {
-  input: InputType;
-  setInput: React.Dispatch<React.SetStateAction<InputType>>;
-  name: keyof InputType;
+  input: SubmitClubType;
+  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
+  name: keyof Omit<SubmitClubType, 'thumbnail'>;
   placeholder?: string;
   width?: string;
   flex?: number;
@@ -35,6 +35,7 @@ const DateInput = ({
         onChange={handleChange}
         placeholder={placeholder}
         width={width}
+        value={input[name]}
         flex={flex}
       />
     </>

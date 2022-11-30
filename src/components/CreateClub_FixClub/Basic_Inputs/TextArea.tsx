@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import {InputType} from '../Body/CreateClubBody';
+import {SubmitClubType} from '../../../types/clubList';
 
 type TextAreaProps = {
-  input: InputType;
-  setInput: React.Dispatch<React.SetStateAction<InputType>>;
-  name: keyof InputType;
+  input: SubmitClubType;
+  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
+  name: keyof Omit<SubmitClubType, 'thumbnail'>;
   placeholder?: string;
   width?: string;
   height: string;
@@ -32,6 +32,7 @@ const TextArea = ({
       onChange={handleChange}
       placeholder={placeholder}
       width={width}
+      value={input[name]}
       height={height}
     />
   );

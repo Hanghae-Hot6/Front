@@ -1,13 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
-import {InputType} from '../Body/CreateClubBody';
+import {SubmitClubType} from '../../../types/clubList';
+
 import ImagePreview from './ImagePreview/ImagePreview';
 // import ImagePreview from './ImagePreview/ImagePreview';
 
 type ImageInputProps = {
-  input: InputType;
-  setInput: React.Dispatch<React.SetStateAction<InputType>>;
-  name: keyof InputType;
+  input: SubmitClubType;
+  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
+  name: keyof SubmitClubType;
   width?: string;
   flex?: number;
 };

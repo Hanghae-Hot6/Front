@@ -61,3 +61,20 @@ export type RecommendationClubType = {
   thumbnail: string;
   visitNum: number;
 };
+
+export type SubmitClubType = {
+  clubName: string;
+  category: string;
+  clubIntro: string;
+  book1: string;
+  book2: string;
+  book3: string;
+  thumbnail: Blob | string;
+  memberMaxNum: string;
+  startDate: string;
+  finishDate: string;
+  location: string;
+  schedule: string;
+  clubSummary: string;
+  bookSummary: string;
+};

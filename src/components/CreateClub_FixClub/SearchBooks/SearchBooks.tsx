@@ -4,15 +4,16 @@ import {useQuery} from 'react-query';
 import styled from 'styled-components';
 import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
 import {NaverBooksDataType} from '../../../types/bookSearch';
+import {SubmitClubType} from '../../../types/clubList';
 
 import HeaderSearch from '../../Header/HeaderSearch';
-import {InputType} from '../Body/CreateClubBody';
+
 import BooksViewer from '../BooksViewer/BooksViewer';
 import PaginationBooks from './PaginationBooks';
 
 type SearchBooksProps = {
-  input: InputType;
-  setInput: React.Dispatch<React.SetStateAction<InputType>>;
+  input: SubmitClubType;
+  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
 
   width?: string;
   flex?: number;
@@ -51,6 +52,8 @@ const SearchBooks = ({
     fetch,
   );
 
+  // 16개 받아온 책들 pagination으로 정리하기
+
   let endNum: number;
   let divideBy: number;
 
@@ -84,7 +87,6 @@ const SearchBooks = ({
 
   return (
     <>
-      {/* <SearchBooksDiv width={width} flex={flex}> */}
       <SearchBooksDiv>
         <Div>
           <BookSearchInput

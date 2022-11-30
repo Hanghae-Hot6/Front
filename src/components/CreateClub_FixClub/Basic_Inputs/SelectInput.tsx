@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import {InputType} from '../Body/CreateClubBody';
+import {SubmitClubType} from '../../../types/clubList';
 
 type SelectInputProps = {
-  input: InputType;
-  setInput: React.Dispatch<React.SetStateAction<InputType>>;
-  name: string;
+  input: SubmitClubType;
+  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
+  name: keyof Omit<SubmitClubType, 'thumbnail'>;
   placeholder?: string;
   width?: string;
   flex?: number;
@@ -37,6 +37,7 @@ const SelectInput = ({
         defaultValue={placeholder}
         required
         width={width}
+        value={input[name]}
         flex={flex}>
         <Option value={placeholder} disabled>
           {placeholder}
