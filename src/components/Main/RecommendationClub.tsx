@@ -10,6 +10,7 @@ import {useQuery} from 'react-query';
 import {Link} from 'react-router-dom';
 import {RecommendationClubType} from '../../types/clubList';
 import {clubApis} from '../../api/axiosConfig';
+
 const RecommendationClub = () => {
   // 데이터 빼주기
   const {data, status} = useQuery(['getClubsTop5'], async () => {
@@ -32,7 +33,7 @@ const RecommendationClub = () => {
             <List>
               <a href="#">
                 <span>1</span>
-                <img src={pop1} alt="" />
+                <img src={undefined} alt="popImage1" />
                 <p>
                   <span className="title">title</span>
 
@@ -45,7 +46,7 @@ const RecommendationClub = () => {
             <List>
               <a href="#">
                 <span>2</span>
-                <img src={pop2} alt="" />
+                <img src={undefined} alt="popImage2" />
                 <p>
                   <span className="title">title</span>
 
@@ -58,7 +59,7 @@ const RecommendationClub = () => {
             <List>
               <a href="#">
                 <span>3</span>
-                <img src={pop3} alt="" />
+                <img src={undefined} alt="popImage3" />
                 <p>
                   <span className="title">title</span>
 
@@ -71,7 +72,7 @@ const RecommendationClub = () => {
             <List>
               <a href="#">
                 <span>4</span>
-                <img src={pop4} alt="" />
+                <img src={undefined} alt="popImage4" />
                 <p>
                   <span className="title">title</span>
 
@@ -84,7 +85,7 @@ const RecommendationClub = () => {
             <List>
               <a href="#">
                 <span>5</span>
-                <img src={pop5} alt="" />
+                <img src={undefined} alt="popImage5" />
                 <p>
                   <span className="title">title</span>
 
