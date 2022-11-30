@@ -5,7 +5,6 @@ import {
   SignValueType,
 } from '../types/regist';
 import {getAccessToken, getRefreshToken} from '../utils';
-import ClubDetail from '../Pages/ClubDetailPage';
 
 const config: AxiosRequestConfig = {
   baseURL: process.env.REACT_APP_BASE_URL,
