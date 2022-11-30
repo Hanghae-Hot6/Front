@@ -105,6 +105,7 @@ export const clubApis = {
 
   deleteClub: async (payload: number | undefined) =>
     await api.delete(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}`),
+
   joinClub: async (payload: string | undefined) =>
     await api.post(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}/join`),
 

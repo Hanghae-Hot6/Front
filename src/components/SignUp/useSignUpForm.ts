@@ -1,30 +1,18 @@
-import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {useMutation, useQuery} from 'react-query';
-import {useNavigate} from 'react-router-dom';
 import {memberApis} from '../../api/axiosConfig';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../Redux/store/store';
-import {CertNumValuesType, SignValueType} from '../../types/regist';
+import {
+  CertNumType,
+  EmailCheckType,
+  ErrorsValue,
+  IdCheckType,
+  SignValueType,
+} from '../../types/regist';
 import validate from '../../utils/validate';
 
-type ErrorsValue = {
-  memberId?: string;
-  email?: string;
-  username?: string;
-  address?: string;
-  phoneNumber?: string;
-  password?: string;
-  passwordCheck?: string;
-  idCheck?: string;
-  emailCheck?: string;
-};
-type IdCheckType = boolean | undefined;
-type EmailCheckType = boolean | undefined;
-type CertNumType = string | undefined;
-
 function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<ErrorsValue>({});

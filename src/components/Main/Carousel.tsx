@@ -14,14 +14,21 @@ const Carousel = () => {
   const addItems = 3;
   let slides = setSlides(addItems);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(3);
   const [isMouseIn, setIsMouseIn] = useState(false);
   const [transition, setTransition] = useState('');
   const slidesLength = slides.length;
   const transitionTime = 500;
   const transitionStyle = `transform ${transitionTime}ms ease 0s`;
+  const [isBtnActive, setIsBtnActive] = useState(false);
 
   const handleSwipe = (direction: number) => {
+    setIsBtnActive(true);
+
+    setTimeout(() => {
+      setIsBtnActive(false);
+    }, 500);
+
     let index = currentIndex + direction;
     setCurrentIndex(index);
 
@@ -33,6 +40,7 @@ const Carousel = () => {
       index -= itemsSize;
       replaceSlide(index);
     }
+
     setTransition(transitionStyle);
   };
 
@@ -66,7 +74,6 @@ const Carousel = () => {
   }
 
   function replaceSlide(index: number) {
-    console.log(index);
     setTimeout(() => {
       setTransition('');
       setCurrentIndex(index);
@@ -84,54 +91,22 @@ const Carousel = () => {
     //   clearInterval(intervalId);
     // };
   }, [isMouseIn]);
-  // const [currCarousel, setCurrCarousel] = useState(1);
-  // const [carouselTransition, setCarouselTransition] = useState('');
-  // // banner 앞뒤에 눈속임 배너 추가해주기
-  // const makeNewDataArray = (banners: string[]) => {
-  //   const dataStart = banners[0];
-  //   const dataMiddle = banners[1];
-  //   const dataEnd = banners[banners.length - 1];
-  //   // 2 0 1 2 0 1
-  //   const modifiedArray = [
-  //     dataEnd,
-  //     ...banners,
-  //     dataStart,
-  //     dataMiddle,
-  //     dataEnd,
-  //     ...banners,
-  //   ];
-  //   return modifiedArray;
-  // };
 
-  // const newArray = makeNewDataArray(banners);
-  // const moveToNthSlide = (n: number) => {
-  //   setCurrCarousel(n);
-  // };
-  // const slideNextSoulsCarousel = () => {
-  //   const soulSliderLength = banners.length;
-  //   const newCurr = currCarousel + 1;
-  //   setCurrCarousel(newCurr);
-  //   if (newCurr === soulSliderLength) {
-  //     moveToNthSlide(0);
-  //   }
-  // };
+  const handleGoTo = (index: number) => {
+    setCurrentIndex(index);
+    setTransition(transitionStyle);
+  };
 
-  // const slidePrevSoulsCarousel = () => {
-  //   //   3
-  //   const soulSliderLength = banners.length;
-  //   const newCurr = currCarousel - 1;
-  //   setCurrCarousel(newCurr);
-  //   if (newCurr === -1) {
-  //     moveToNthSlide(soulSliderLength - 1);
-  //   }
-  // };
   // const handleGoTo = (index: number) => setCurrCarousel(index);
 
   return (
     <C.Base>
       <C.Container>
         {banners.length && (
-          <C.ArrowButton pos="left" onClick={() => handleSwipe(-1)}>
+          <C.ArrowButton
+            pos="left"
+            onClick={() => handleSwipe(-1)}
+            disabled={isBtnActive}>
             <img src={leftArrow} alt="leftArrow" />
           </C.ArrowButton>
         )}
@@ -158,21 +133,36 @@ const Carousel = () => {
           </C.CarouselList>
         </div>
         {banners.length && (
-          <C.ArrowButton pos="right" onClick={() => handleSwipe(1)}>
+          <C.ArrowButton
+            pos="right"
+            onClick={() => handleSwipe(1)}
+            disabled={isBtnActive}>
             <img src={rightArrow} alt="rightArrow" />
           </C.ArrowButton>
         )}
       </C.Container>
       {banners.length && (
         <C.Nav>
-          {Array.from({length: banners.length}).map((_, index) => (
-            <C.NavItem key={index}>
-              <C.NavButton
-                isActive={currentIndex === index}
-                // onClick={() => handleGoTo(index)}
-              />
-            </C.NavItem>
-          ))}
+          {Array.from({length: banners.length}).map((_, index) => {
+            let idx = currentIndex - addItems;
+
+            if (idx < 0) {
+              idx += itemsSize;
+            } else if (idx >= itemsSize) {
+              idx -= itemsSize;
+            }
+
+            return (
+              <C.NavItem key={index}>
+                <C.NavButton
+                  isActive={idx === index}
+                  onClick={() => {
+                    handleGoTo(index + 3);
+                  }}
+                />
+              </C.NavItem>
+            );
+          })}
         </C.Nav>
       )}
     </C.Base>

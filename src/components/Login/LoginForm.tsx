@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import useSignUpForm from '../SignUp/useSignUpForm';
 import {getAccessToken, getUserId} from '../../utils';
 import {useLocation, useNavigate} from 'react-router-dom';
-import styled from 'styled-components';
 import {useAppDispatch} from '../../Redux/store/store';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import eyeImg from '../../assets/eye.svg';
@@ -14,6 +13,7 @@ import RegistStInput from '../Elem/RegistStInput';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import {memberApis} from '../../api/axiosConfig';
 import LoginModalCollection from './LoginModalCollection';
+import * as L from './Login.style';
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -108,39 +108,39 @@ function LoginForm() {
         </RegistStInput>
         <RegistErrorSpan>{errors.password}</RegistErrorSpan>
 
-        <ButtonContainer>
-          <StNavBtn
+        <L.ButtonContainer>
+          <L.StNavBtn
             type="submit"
             bgColor="#5200FF"
             fontC="white"
             disabled={!values ? true : false}>
             로그인
-          </StNavBtn>
+          </L.StNavBtn>
           <div style={{width: '100%', margin: '0 auto'}}>
-            <StLoginDivier>또는</StLoginDivier>
+            <L.StLoginDivier>또는</L.StLoginDivier>
           </div>
           <a href={KAKAO_AUTH_URL}>
-            <StNavBtn type="button" bgColor="#FFE600" fontC="#493236">
+            <L.StNavBtn type="button" bgColor="#FFE600" fontC="#493236">
               <img src={kako_comment_img} alt="" />
               카카오로 로그인
-            </StNavBtn>
+            </L.StNavBtn>
           </a>
-          <StSmallBtnContainer>
-            <StSmallNavBtn
+          <L.StSmallBtnContainer>
+            <L.StSmallNavBtn
               type="button"
               onClick={() => navigate('/login/find-id')}>
               아이디 찾기
-            </StSmallNavBtn>
-            <StSmallNavBtn
+            </L.StSmallNavBtn>
+            <L.StSmallNavBtn
               type="button"
               onClick={() => navigate('/login/find-password')}>
               비밀번호 찾기
-            </StSmallNavBtn>
-            <StSmallNavBtn type="button" onClick={() => navigate('/sign')}>
+            </L.StSmallNavBtn>
+            <L.StSmallNavBtn type="button" onClick={() => navigate('/sign')}>
               회원가입
-            </StSmallNavBtn>
-          </StSmallBtnContainer>
-        </ButtonContainer>
+            </L.StSmallNavBtn>
+          </L.StSmallBtnContainer>
+        </L.ButtonContainer>
         <LoginModalCollection />
       </RegistStForm>
     </div>
@@ -148,65 +148,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 5.2rem;
-`;
-
-const StLoginDivier = styled.div`
-  display: flex;
-  align-items: center;
-  color: black;
-  margin: 0 0;
-  font-size: 1.8rem;
-  margin-bottom: 4.3rem;
-  ::before,
-  ::after {
-    content: '';
-    flex-grow: 1;
-    background: rgba(0, 0, 0, 0.35);
-    height: 0.1rem;
-    font-size: 0;
-    line-height: 0;
-    margin: 0 1.6rem;
-  }
-`;
-
-const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
-  display: flex;
-  width: 40rem;
-  height: 6rem;
-  color: ${({fontC}) => fontC};
-  background-color: ${({bgColor}) => bgColor};
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 4.3rem;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    transform: scale(0.8);
-    margin-right: 1rem;
-  }
-`;
-
-const StSmallBtnContainer = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-const StSmallNavBtn = styled.button<{
-  fontC?: string | undefined;
-}>`
-  color: ${({fontC}) => fontC};
-  background-color: white;
-  color: #767676;
-  font-size: 1.8rem;
-  display: flex;
-  justify-content: space-between;
-  width: 33%;
-  justify-content: center;
-  align-items: center;
-`;
