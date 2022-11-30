@@ -31,6 +31,7 @@ const DateInput = ({
       <TextInputInput
         type="date"
         name={name}
+        required
         onChange={handleChange}
         placeholder={placeholder}
         width={width}

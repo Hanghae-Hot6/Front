@@ -22,6 +22,7 @@ function FindIdForm() {
     email: '',
     username: '',
   };
+
   const [values, setValue] = useState(init);
 
   const {mutate: findIdMutate} = useMutation(

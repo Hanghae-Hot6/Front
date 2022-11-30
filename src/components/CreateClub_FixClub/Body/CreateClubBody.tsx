@@ -80,7 +80,6 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
       },
       onError: () => {
         window.confirm('모임 개설이 안되었습니다 입력값들을 다시 확인해보세요');
-
         console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
       },
     },
@@ -88,6 +87,7 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
 
   const handleSubmit = async () => {
     // 총 14개 키
+
     const formData = new FormData();
     formData.append('clubName', input.clubName);
     formData.append('category', input.category);
@@ -128,132 +128,138 @@ const CreateClubBody = ({}: CreateClubBodyProps) => {
 
     clubSubmit(formData);
   };
+  const yes: React.FormEventHandler<HTMLFormElement> = e => {
+    e.preventDefault();
+    handleSubmit();
+  };
 
   return (
     <>
       {/* Input part 1 */}
+      <form onSubmit={yes}>
+        <ParagraphDiv>
+          <TextInput
+            input={input}
+            setInput={setInput}
+            name="clubName"
+            placeholder="제목을 입력해 주세요"
+            flex={2}
+          />
+          <SelectInput
+            input={input}
+            setInput={setInput}
+            name="category"
+            placeholder="카테고리 선택"
+            width="29.2rem"
+            // flex={1}
+            options={[
+              '인문',
+              '경영 경제',
+              '자기계발',
+              '예술',
+              '자연과학',
+              '사회정치',
+              'IT모바일',
+            ]}
+          />
+        </ParagraphDiv>
+        <ParagraphDiv>
+          <TextInput
+            input={input}
+            setInput={setInput}
+            name="clubIntro"
+            placeholder="인트로를 작성해주세요"
+          />
+        </ParagraphDiv>
+        <ParagraphDiv>
+          <SearchBooks input={input} setInput={setInput} />
+        </ParagraphDiv>
 
-      <ParagraphDiv>
-        <TextInput
-          input={input}
-          setInput={setInput}
-          name="clubName"
-          placeholder="제목을 입력해 주세요"
-          flex={2}
-        />
-        <SelectInput
-          input={input}
-          setInput={setInput}
-          name="category"
-          placeholder="카테고리 선택"
-          width="29.2rem"
-          // flex={1}
-          options={[
-            '인문',
-            '경영 경제',
-            '자기계발',
-            '예술',
-            '자연과학',
-            '사회정치',
-            'IT모바일',
-          ]}
-        />
-      </ParagraphDiv>
-      <ParagraphDiv>
-        <TextInput
-          input={input}
-          setInput={setInput}
-          name="clubIntro"
-          placeholder="인트로를 작성해주세요"
-        />
-      </ParagraphDiv>
-      <ParagraphDiv>
-        <SearchBooks input={input} setInput={setInput} />
-      </ParagraphDiv>
+        <ParagraphDiv>
+          <ImageInput input={input} setInput={setInput} name="thumbnail" />
+        </ParagraphDiv>
 
-      <ParagraphDiv>
-        <ImageInput input={input} setInput={setInput} name="thumbnail" />
-      </ParagraphDiv>
+        <ThinLine color={Theme.LightGray2} />
 
-      <ThinLine color={Theme.LightGray2} />
+        {/* input part 2 */}
 
-      {/* input part 2 */}
+        <ParagraphDiv title="인원">
+          <SelectInput
+            input={input}
+            setInput={setInput}
+            name="memberMaxNum"
+            placeholder="최대 인원 10명"
+            // width="29.2rem"
+            flex={1}
+            options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
+          />
+        </ParagraphDiv>
 
-      <ParagraphDiv title="인원">
-        <SelectInput
-          input={input}
-          setInput={setInput}
-          name="memberMaxNum"
-          placeholder="최대 인원 10명"
-          // width="29.2rem"
-          flex={1}
-          options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
-        />
-      </ParagraphDiv>
+        <ParagraphDiv title="시작">
+          <DateInput input={input} setInput={setInput} name="startDate" />
+        </ParagraphDiv>
+        <ParagraphDiv title="종료">
+          <DateInput input={input} setInput={setInput} name="finishDate" />
+        </ParagraphDiv>
+        <ParagraphDiv title="장소">
+          <TextInput
+            input={input}
+            setInput={setInput}
+            name="location"
+            placeholder="장소를 입력해 주세요"
+          />
+        </ParagraphDiv>
 
-      <ParagraphDiv title="시작">
-        <DateInput input={input} setInput={setInput} name="startDate" />
-      </ParagraphDiv>
-      <ParagraphDiv title="종료">
-        <DateInput input={input} setInput={setInput} name="finishDate" />
-      </ParagraphDiv>
-      <ParagraphDiv title="장소">
-        <TextInput
-          input={input}
-          setInput={setInput}
-          name="location"
-          placeholder="장소를 입력해 주세요"
-        />
-      </ParagraphDiv>
+        <ParagraphDiv title="일정">
+          <TextArea
+            input={input}
+            setInput={setInput}
+            name="schedule"
+            placeholder="1/1 첫번째 회의 10:30 - 02:00"
+            // width="55.8rem"
+            height="17.8rem"
+          />
+        </ParagraphDiv>
+        <ThinLine color={Theme.LightGray2} />
 
-      <ParagraphDiv title="일정">
-        <TextArea
-          input={input}
-          setInput={setInput}
-          name="schedule"
-          placeholder="1/1 첫번째 회의 10:30 - 02:00"
-          // width="55.8rem"
-          height="17.8rem"
-        />
-      </ParagraphDiv>
-      <ThinLine color={Theme.LightGray2} />
+        <StaticTitle>모임에 관한 상세 정보 입니다. </StaticTitle>
 
-      <StaticTitle>모임에 관한 상세 정보 입니다. </StaticTitle>
+        {/* 인트로  */}
 
-      {/* 인트로  */}
+        <ParagraphDiv>
+          <TextArea
+            input={input}
+            setInput={setInput}
+            name="clubSummary"
+            placeholder="상세 내용을 작성해주세요"
+            height="40.5rem"
+          />
+        </ParagraphDiv>
 
-      <ParagraphDiv>
-        <TextArea
-          input={input}
-          setInput={setInput}
-          name="clubSummary"
-          placeholder="상세 내용을 작성해주세요"
-          height="40.5rem"
-        />
-      </ParagraphDiv>
+        <ThinLine color={Theme.LightGray2} />
 
-      <ThinLine color={Theme.LightGray2} />
+        <StaticTitle>모임에서 읽을 책입니다. </StaticTitle>
 
-      <StaticTitle>모임에서 읽을 책입니다. </StaticTitle>
+        <BooksViewer />
 
-      <BooksViewer />
+        <ParagraphDiv>
+          <TextArea
+            input={input}
+            setInput={setInput}
+            name="bookSummary"
+            placeholder="책에 대한 간단한 소개와 의견을 작성해주세요"
+            height="40.5rem"
+          />
+        </ParagraphDiv>
 
-      <ParagraphDiv>
-        <TextArea
-          input={input}
-          setInput={setInput}
-          name="bookSummary"
-          placeholder="책에 대한 간단한 소개와 의견을 작성해주세요"
-          height="40.5rem"
-        />
-      </ParagraphDiv>
+        <ParagraphDiv>
+          {/* <NavigationSubmitButton onClickCallback={handleSubmit}>
+            등록하기
+          </NavigationSubmitButton> */}
 
-      <ParagraphDiv>
-        <NavigationSubmitButton onClickCallback={handleSubmit}>
-          등록하기
-        </NavigationSubmitButton>
-      </ParagraphDiv>
-
+          <button>등록하기</button>
+        </ParagraphDiv>
+      </form>
       {/* 책 인트로 */}
     </>
   );

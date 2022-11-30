@@ -30,6 +30,7 @@ const TextInput = ({
     <>
       <TextInputInput
         type="text"
+        required
         name={name}
         onChange={handleChange}
         placeholder={placeholder}

@@ -28,6 +28,7 @@ const TextArea = ({
   return (
     <TextAreaText
       name={name}
+      required
       onChange={handleChange}
       placeholder={placeholder}
       width={width}

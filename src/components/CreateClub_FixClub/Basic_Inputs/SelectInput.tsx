@@ -35,6 +35,7 @@ const SelectInput = ({
         name={name}
         onChange={handleChange}
         defaultValue={placeholder}
+        required
         width={width}
         flex={flex}>
         <Option value={placeholder} disabled>
