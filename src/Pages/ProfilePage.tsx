@@ -65,7 +65,7 @@ const ProfilePage = () => {
         const {data} = await memberApis.myPageInfo();
         return data;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     {

@@ -6,7 +6,6 @@ import {ProfileDataType} from '../../types/regist';
 import * as P from './Profile.style';
 
 function ProfileContainer({data}: ProfileDataType) {
-  console.log('ProfileContainer', data);
   const clubList = data?.clubList;
   return (
     <>

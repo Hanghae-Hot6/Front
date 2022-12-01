@@ -19,8 +19,6 @@ const api = axios.create(config);
 
 api.interceptors.request.use(function (config) {
   const accessToken = getAccessToken();
-  const refreshToken = getRefreshToken();
-  // console.log(accessToken, refreshToken);
 
   if (!config) {
     config = {};
@@ -29,8 +27,49 @@ api.interceptors.request.use(function (config) {
     config.headers = {};
   }
   config.headers.Authorization = accessToken;
+
   return config;
 });
+
+api.interceptors.response.use(
+  res => res,
+  async error => {
+    const {
+      config,
+      response: {status},
+    } = error;
+    console.log(error.response.data.error);
+    if (status === 500) {
+      console.log(error.response.data.error);
+      if (error.response.data.error === 'Internal Server Error') {
+        const originalRequest = config;
+        const accessToken = await getAccessToken();
+        const refreshToken = await getRefreshToken();
+
+        // token refresh 요청
+        const response = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/members/reissue`,
+          {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          },
+        );
+        const {authorization: newAccessToken} = response.headers;
+
+        localStorage.setItem('Authorization', JSON.stringify(newAccessToken));
+
+        axios.defaults.headers.common.Authorization = newAccessToken;
+        originalRequest.headers.Authorization = newAccessToken;
+
+        axios.defaults.headers.common['Authorization'] = newAccessToken;
+        originalRequest.headers.Authorization = newAccessToken;
+        // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
+        return axios(originalRequest);
+      }
+    }
+    return Promise.reject(error);
+  },
+);
 
 export const memberApis = {
   // 회원가입

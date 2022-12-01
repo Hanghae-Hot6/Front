@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {link} from 'fs';
 import React, {useEffect, useState} from 'react';
 import {QueryClient, useMutation, useQuery} from 'react-query';
@@ -8,7 +9,7 @@ import GlobalModal from '../../common/GlobalModal';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {clubList, ProfileDataType} from '../../types/regist';
-import {getUserId} from '../../utils';
+import {getAccessToken, getRefreshToken, getUserId} from '../../utils';
 import * as P from './Profile.style';
 function ProfileClubList({data}: ProfileDataType) {
   const navigate = useNavigate();
@@ -56,9 +57,7 @@ function ProfileClubList({data}: ProfileDataType) {
       try {
         const {data} = await memberApis.getInterestClubs();
         return data;
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error: any) {}
     },
     {
       onError: error => {
