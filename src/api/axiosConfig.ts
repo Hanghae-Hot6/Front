@@ -67,7 +67,7 @@ api.interceptors.response.use(
 
         axios.defaults.headers.common['Authorization'] = newAccessToken;
         originalRequest.headers.Authorization = newAccessToken;
-
+        // toJSON
         return axios({
           ...originalRequest,
           headers: originalRequest.headers.toJSON(),
