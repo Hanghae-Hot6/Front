@@ -1,25 +1,5 @@
 import styled from 'styled-components';
 import quota_circle from '../../../assets/quota_circle.svg';
-import * as S from 'styled-components';
-// export const Section = styled.section`
-//   width: 200px;
-//   overflow: hidden;
-// `;
-
-// export const ToCreateClubButton = styled(NavigationButton)`
-//   display: flex;
-//   position: fixed;
-//   font-size: 1rem;
-//   width: 7.5rem;
-//   height: 7.5rem;
-//   bottom: 2rem;
-//   right: 3rem;
-//   border: 1px solid #5200ff;
-//   box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
-//   border-radius: 50%;
-//   color: #fff;
-//   background-color: #fff;
-// `;
 
 export const TabList = styled.div`
   section {
@@ -131,7 +111,7 @@ export const MainImgWrap = styled.div`
 export const MainContent = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: 0.5rem;
 `;
 export const MainContentBox = styled.div`
   width: 31.6rem;

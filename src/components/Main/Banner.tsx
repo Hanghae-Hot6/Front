@@ -11,7 +11,7 @@ const banners = [
   'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
 ];
 
-const Carousel = () => {
+const Banner = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -83,4 +83,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default Banner;

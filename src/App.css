@@ -165,15 +165,17 @@ html {
   font-size: 62.5%;
   /** rem 코딩 (1rem = 10px) */
 }
-/* 
-@media screen and (max-width: 1440px) {
+
+@media screen and (max-width: 576px) {
+  /* 1rem = 8px */
   html {
-    flex-direction: column;
-    align-items: flex-end;
-    display: none;
-    font-size: 40%;
+    font-size: 50%;
   }
-} */
+  body {
+    min-width: 350px;
+    max-width: 576px;
+  }
+}
 body::-webkit-scrollbar {
   width: 8px; /* 스크롤바의 너비 */
 }
