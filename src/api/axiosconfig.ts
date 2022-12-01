@@ -7,6 +7,7 @@ import {
 import {getAccessToken, getRefreshToken} from '../utils';
 import ClubDetail from '../Pages/ClubDetailPage';
 
+import {review} from '../components/ClubDetail/Review';
 const config: AxiosRequestConfig = {
   baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
@@ -119,4 +120,18 @@ export const clubApis = {
     ),
   getClubs: async () =>
     await api.get(`${process.env.REACT_APP_BASE_URL}/clubs`),
+};
+
+export const reviewApis = {
+  getReview: async (payload: string | undefined) =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}/reviews`),
+  createReview: async (clubId: string | undefined, input: string) =>
+    await api.post(
+      `${process.env.REACT_APP_BASE_URL}/clubs/${clubId}/review`,
+      input,
+    ),
+  deleteReview: async (clubId: string | undefined, reviewId: number) =>
+    await api.post(
+      `${process.env.REACT_APP_BASE_URL}/clubs/${clubId}/review/${reviewId}/`,
+    ),
 };

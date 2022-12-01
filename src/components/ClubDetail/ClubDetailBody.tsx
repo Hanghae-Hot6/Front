@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import * as C from './ClubDetailBody.style';
 import {useQuery, useMutation} from 'react-query';
 import {useParams} from 'react-router-dom';
@@ -8,22 +8,12 @@ import heartOff from '../../assets/heartOff.svg';
 import {clubDetailType} from '../../types/clubList';
 import {clubApis} from '../../api/axiosConfig';
 import {getUserId} from '../../utils';
+import Review from './Review';
 
 const ClubDetailBody = () => {
-  const initialValue = {
-    review: '',
-  };
   const navigate = useNavigate();
   const {id} = useParams();
   const userId = getUserId();
-  const [input, setInput] = useState(initialValue);
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    e.preventDefault();
-    const {name, value} = e.target;
-
-    setInput({...input, [name]: value});
-  };
-  console.log(input);
 
   // 화면에 클럽정보 뿌려주는api
   const {data, status} = useQuery<clubDetailType | undefined>(
@@ -237,26 +227,7 @@ const ClubDetailBody = () => {
               </p>
             </section>
 
-            <section>
-              <h2>
-                모임에 대한 <span>후기를 남겨주세요!</span>
-              </h2>
-              <input
-                name="review"
-                placeholder="후기를 작성해 주세요"
-                width="30rem"
-                onChange={handleChange}
-              />
-
-              <button>작성</button>
-              {/* 이 글에 대한 유저 아이디와 내 로컬아이디 같으면 삭제 버튼 나오게 */}
-              <p>
-                <span>작성자</span>
-                내용
-                <small>작성 날짜</small>
-                <button>삭제</button>
-              </p>
-            </section>
+            <Review subscription={data.subscription} />
           </C.Main>
         </>
       )}
