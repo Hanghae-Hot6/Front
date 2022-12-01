@@ -253,7 +253,7 @@ export const StChatDiv = styled.div`
     align-items: center;
     justify-content: space-evenly;
     p:nth-child(1) {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       color: ${props => props.theme.Gray};
     }
   }

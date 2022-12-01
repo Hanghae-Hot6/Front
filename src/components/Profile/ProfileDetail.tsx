@@ -34,11 +34,11 @@ function ProfileDetail({data}: ProfileDataType) {
           <img src={profileChatingImg} alt="" />
         </div>
         <div>
-          <p>모임원들과 함께 소통해요!</p>
+          <p>불편사항이나 문의사항을 알려주세요.</p>
         </div>
         <div>
-          <button onClick={() => dispatch(openGlobalModal('readyFn'))}>
-            메세지
+          <button onClick={() => dispatch(openGlobalModal('inquiryMail'))}>
+            문의하기
           </button>
         </div>
       </P.StChatDiv>

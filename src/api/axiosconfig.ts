@@ -38,9 +38,7 @@ api.interceptors.response.use(
       config,
       response: {status},
     } = error;
-    console.log(error.response.data.error);
     if (status === 500) {
-      console.log(error.response.data.error);
       if (error.response.data.error === 'Internal Server Error') {
         const originalRequest = config;
         const accessToken = await getAccessToken();
@@ -131,6 +129,9 @@ export const memberApis = {
 
   getInterestClubs: async () =>
     await api.get(`${process.env.REACT_APP_BASE_URL}/members/mypage/interest`),
+
+  postInquiryEmail: async (payload: string) =>
+    await api.post(`${process.env.REACT_APP_BASE_URL}/members/cs`, payload),
 };
 
 // 클럽 관련된 api 모음 클럽 만들기는 제외

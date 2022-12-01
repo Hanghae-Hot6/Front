@@ -159,7 +159,7 @@ const StAlertContainer = styled.div`
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  height: 20.5rem;
+  height: 100%;
   font-size: 1.8rem;
   padding: 1rem;
   text-align: center;
@@ -179,10 +179,12 @@ const StAlertContainer = styled.div`
 const StConfirmContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: column;
-  height: 29.5rem;
+  height: 100%;
   font-size: 1.8rem;
+  padding: 1rem;
+  text-align: center;
   h2 {
     font-size: 2.3rem;
     font-weight: bold;
