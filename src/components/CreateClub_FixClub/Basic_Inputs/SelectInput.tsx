@@ -34,10 +34,10 @@ const SelectInput = ({
       <Select
         name={name}
         onChange={handleChange}
-        defaultValue={placeholder}
+        value={input[name]}
+        // defaultValue={placeholder}
         required
         width={width}
-        value={input[name]}
         flex={flex}>
         <Option value={placeholder} disabled>
           {placeholder}

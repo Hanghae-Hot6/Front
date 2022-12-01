@@ -7,7 +7,7 @@ import NavigationButton from '../../../common/NavigationButton';
 import ThinLine from '../../../common/ThinLine';
 import {useAppSelector} from '../../../Redux/store/store';
 import Theme from '../../../theme/Theme';
-import {clubDetailType, SubmitClubType} from '../../../types/clubList';
+import {SubmitClubType} from '../../../types/clubList';
 import {getAccessToken} from '../../../utils';
 
 import DateInput from '../Basic_Inputs/DateInput';
@@ -40,9 +40,14 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
     clubSummary: '',
     bookSummary: '',
   };
-  const [input, setInput] = useState<SubmitClubType>(
-    fixClubData ? fixClubData : initialValue,
-  );
+  const [input, setInput] = useState<SubmitClubType>(initialValue);
+
+  useEffect(() => {
+    if (fixClubData) {
+      setInput(fixClubData);
+    }
+  }, [fixClubData]);
+
   const accessToken = getAccessToken();
 
   const navigate = useNavigate();

@@ -32,27 +32,31 @@ const FixClubPage = ({}: FixClubPageProps) => {
     },
   );
 
-  console.log(data);
-
-  let fixClubData: SubmitClubType;
+  let fixClubDataYo: SubmitClubType | undefined;
 
   if (data) {
-    // fixClubData = {
-    //   clubName: data.clubName,
-    //   category: data.category,
-    //   clubIntro: data.clubIntro,
-    //   // book1: data.bookLink1,
-    //   // book2: string;
-    //   // book3: string;
-    //   thumbnail: data.thumbnail,
-    //   // memberMaxNum: data.memberLimit,
-    //   // startDate: data.,
-    //   // finishDate: string;
-    //   location: data.location,
-    //   schedule: data.schedule,
-    //   clubSummary: data.clubSummary,
-    //   bookSummary: data.bookSummary,
-    // };
+    let dateFromData = data.period;
+    let startDate = dateFromData.substring(0, 10);
+    let finishDate = dateFromData.substring(13, 23);
+
+    fixClubDataYo = {
+      clubName: data.clubName,
+      category: data.category,
+      clubIntro: data.clubIntro,
+      book1: data.book1,
+      book2: data.book2,
+      book3: data.book3,
+      thumbnail: data.thumbnail,
+      memberMaxNum: data.memberLimit?.toString(),
+      startDate: startDate,
+      finishDate: finishDate,
+      location: data.location,
+      schedule: data.schedule,
+      clubSummary: data.clubSummary,
+      bookSummary: data.bookSummary,
+    };
+  } else {
+    fixClubDataYo = undefined;
   }
 
   return (
@@ -61,7 +65,7 @@ const FixClubPage = ({}: FixClubPageProps) => {
         <CreateClubFixClubPageLayout>
           <CreateClubTitle title="모임 수정하기" />
           <ThinLine color={Theme.MainColor} />
-          <CreateClubBody />
+          <CreateClubBody fixClubData={fixClubDataYo} />
         </CreateClubFixClubPageLayout>
       </Layout>
     </>
