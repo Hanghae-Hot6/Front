@@ -6,9 +6,7 @@ import ClubEpilogue from '../components/Main/ClubEpilogue';
 import PopularClub from '../components/Main/PopularClub';
 import RecommendationClub from '../components/Main/RecommendationClub';
 
-type MainPageProps = {};
-
-const MainPage = ({}: MainPageProps) => {
+const MainPage = () => {
   return (
     <>
       {/**배너슬라이드(기능 완),
