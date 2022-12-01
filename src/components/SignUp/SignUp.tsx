@@ -1,11 +1,6 @@
-import NavigationButton from '../../common/NavigationButton';
 import useSignUpForm from './useSignUpForm';
-import styled from 'styled-components';
 import eyeImg from '../../assets/eye.svg';
-import {
-  closeGlobalModal,
-  openGlobalModal,
-} from '../../Redux/modules/slices/modalSlice';
+import {closeGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import GlobalModal from '../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {useNavigate} from 'react-router-dom';
@@ -15,9 +10,9 @@ import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import {useState} from 'react';
 import SignUpModalCollection from './SignUpModalCollection';
 import Timer from '../Login/Timer';
-import React, {useRef, useEffect} from 'react';
-import {cursorTo} from 'readline';
+import React, {useRef} from 'react';
 import * as S from './SignUp.style';
+import {CertNumValuesType} from '../../types/regist';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -39,7 +34,8 @@ function SignUp() {
   };
 
   // 인증번호 모달
-  const [certNumValue, setCertNumValue] = useState(certNumInit);
+  const [certNumValue, setCertNumValue] =
+    useState<CertNumValuesType>(certNumInit);
 
   // 비밀번호 보이기, 숨기기
   const [passwordType, setPasswordType] = useState({

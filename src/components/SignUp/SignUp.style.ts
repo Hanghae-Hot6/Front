@@ -84,7 +84,7 @@ export const StInputBox = styled.div`
     width: 10%;
     height: 100%;
     border: none;
-    border-bottom: 1px solid ${props => props.theme.LightGray};
+    border-bottom: 2px solid ${props => props.theme.LightGray};
     font-size: 1.8rem;
     font-weight: bold;
     :focus {
@@ -93,6 +93,6 @@ export const StInputBox = styled.div`
   }
 
   .On {
-    border-bottom: 1px solid ${props => props.theme.MainColor};
+    border-bottom: 2px solid ${props => props.theme.MainColor};
   }
 `;

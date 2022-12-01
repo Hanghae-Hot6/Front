@@ -18,7 +18,7 @@ function SignUpModalCollection() {
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'emptyIdAlert' && (
-        <GlobalModal id="emptyIdAlert" type="confirmModal">
+        <GlobalModal id="emptyIdAlert" type="alertModal">
           <div>아이디를 작성해주세요.</div>
         </GlobalModal>
       )}

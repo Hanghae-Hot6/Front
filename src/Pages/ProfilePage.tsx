@@ -35,7 +35,7 @@ type ProfileData = {
   clubList: clubList[];
 };
 
-const ProfilePage = ({}: ProfilePageProps) => {
+const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const urlId = useParams();
@@ -65,7 +65,7 @@ const ProfilePage = ({}: ProfilePageProps) => {
         const {data} = await memberApis.myPageInfo();
         return data;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     {
@@ -77,19 +77,22 @@ const ProfilePage = ({}: ProfilePageProps) => {
   );
 
   return (
-    <>
+    <Stdiv>
       <Header />
       <StSection>
         <ProfileContainer data={ProfileData?.data} />
       </StSection>
       <Footer />
 
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <ProfileModalCollection />
-    </>
+    </Stdiv>
   );
 };
 export default ProfilePage;
+
+const Stdiv = styled.div`
+  overflow: hidden;
+`;
 
 const StSection = styled.section`
   height: 100%;

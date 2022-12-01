@@ -78,6 +78,7 @@ const FooterWrap = styled.footer`
 const FooterLayout = styled.div`
   display: flex;
   justify-content: space-between;
+  overflow: hidden;
 `;
 
 const FooterLeft = styled.div``;
