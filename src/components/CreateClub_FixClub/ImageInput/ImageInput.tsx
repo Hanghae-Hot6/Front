@@ -10,21 +10,28 @@ type ImageInputProps = {
   setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
   name: keyof SubmitClubType;
   width?: string;
+  thumbnail?: string;
   flex?: number;
 };
 
 const ImageInput = ({
   input,
   name,
+  thumbnail,
   setInput,
   width = '100%',
   flex,
 }: ImageInputProps) => {
-  const [singleImagePreviewUrl, setSingleImagePreviewUrl] =
-    useState<string>('');
+  const [singleImagePreviewUrl, setSingleImagePreviewUrl] = useState<
+    string | undefined
+  >('');
 
   // input을 돔으로 접근하기
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    setSingleImagePreviewUrl(thumbnail);
+  }, [thumbnail]);
 
   const handleSingleImageChange: React.ChangeEventHandler<
     HTMLInputElement
@@ -72,6 +79,8 @@ const ImageInput = ({
         {singleImagePreviewUrl && (
           <ThumbnailPreviewDiv>
             <ImagePreview
+              input={input}
+              setInput={setInput}
               url={singleImagePreviewUrl}
               handleImagePreviewDelete={handleImagePreviewDelete}
             />

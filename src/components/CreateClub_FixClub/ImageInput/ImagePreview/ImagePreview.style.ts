@@ -8,9 +8,10 @@ export const Div = styled.div`
   position: relative;
   margin: 1rem 0;
 
-  &:hover {
-    border: 1px solid ${props => props.theme.Black};
-  }
+  /* &:hover {
+    transition: all 0.5s;
+    transform: scale(1.03);
+  } */
 `;
 
 export const Img = styled.img`

@@ -5,7 +5,8 @@ import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationButton from '../../../common/NavigationButton';
 import ThinLine from '../../../common/ThinLine';
-import {useAppSelector} from '../../../Redux/store/store';
+import {addBook} from '../../../Redux/modules/slices/selectBooksSlice';
+import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import Theme from '../../../theme/Theme';
 import {SubmitClubType} from '../../../types/clubList';
 import {getAccessToken} from '../../../utils';
@@ -41,12 +42,20 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
     bookSummary: '',
   };
   const [input, setInput] = useState<SubmitClubType>(initialValue);
+  const dispatch = useAppDispatch();
 
+  // 모임 수정시
   useEffect(() => {
     if (fixClubData) {
       setInput(fixClubData);
+
+      // dispatch(addBook(fixClubData.book1))
     }
   }, [fixClubData]);
+
+  useEffect(() => {
+    console.log(input);
+  }, [input]);
 
   const accessToken = getAccessToken();
 
@@ -165,7 +174,16 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
         </ParagraphDiv>
 
         <ParagraphDiv>
-          <ImageInput input={input} setInput={setInput} name="thumbnail" />
+          <ImageInput
+            input={input}
+            setInput={setInput}
+            name="thumbnail"
+            thumbnail={
+              typeof fixClubData?.thumbnail === 'object'
+                ? undefined
+                : fixClubData?.thumbnail
+            }
+          />
         </ParagraphDiv>
 
         <ThinLine color={Theme.LightGray2} />

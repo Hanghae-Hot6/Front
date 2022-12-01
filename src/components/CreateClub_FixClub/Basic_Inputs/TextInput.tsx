@@ -29,9 +29,6 @@ const TextInput = ({
     setInput({...input, [name]: value});
   };
 
-  console.log(input);
-  console.log(input[name]);
-
   return (
     <>
       <TextInputInput
