@@ -1,20 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import {NaverBooksDataType} from '../../types/bookSearch';
-
-import HeaderBookChild from './HeaderBookChild';
-
+import {ClubSearchType} from '../../types/bookSearch';
+import {Link} from 'react-router-dom';
 type CarouselBooksChildProps = {
-  data: NaverBooksDataType[] | undefined;
+  data: ClubSearchType[] | undefined;
   width?: number;
   height?: number;
 };
 
-type CarouselBookChildProps = {
-  data: NaverBooksDataType;
-  width?: number;
-  height?: number;
-};
+// type CarouselBookChildProps = {
+//   data: NaverBooksDataType;
+//   width?: number;
+//   height?: number;
+// };
 const HeaderSearchBooksChild = ({
   data,
   width = 40,
@@ -28,11 +26,11 @@ const HeaderSearchBooksChild = ({
             <Wrap key={index}>
               <Box width={width} height={height}>
                 <LeftDiv>
-                  {val && <Image src={val?.image} />}
+                  {val && <Image src={val?.thumbnail} />}
                   <SmallDiv>
-                    <Title>{val?.title}</Title>
+                    <Title>{val?.clubName}</Title>
                     {/* <Author>{data?.isbn}</Author> */}
-                    <Price>{val?.pubdate}</Price>
+                    <Text>{val?.category}</Text>
                     {/* <Content>{data.}</Content> */}
                   </SmallDiv>
                 </LeftDiv>
@@ -41,14 +39,22 @@ const HeaderSearchBooksChild = ({
               {val && (
                 <RightBox className="rightBox">
                   <div>
-                    <img src={val?.image} alt={val?.title} />
+                    <img src={val?.thumbnail} alt={val?.clubName} />
                     <TitleWrap>
-                      <Title>{val?.title}</Title>
-                      <Price>{val?.pubdate}</Price>
+                      <Title>{val?.clubName}</Title>
+                      <div>
+                        <Text>{val?.category}</Text>
+                        <Text>모임 리더 : {val?.leader}</Text>
+                        <Text>
+                          모임 기간 : {val?.startDate} ~ {val?.finishDate}
+                        </Text>
+                        <Text>모임 장소 : {val?.location}</Text>
+                        <Link to={`/club_detail/${val.clubId}`}>바로가기</Link>
+                      </div>
                     </TitleWrap>
                   </div>
                   <TextWrap>
-                    <p>{val?.description}</p>
+                    <p>{val?.summary}</p>
                   </TextWrap>
                 </RightBox>
               )}
@@ -91,6 +97,9 @@ const RightBox = styled.div`
     height: 21.6rem;
     filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
     object-fit: cover;
+  }
+  :hover {
+    opacity: 1;
   }
 `;
 const TextWrap = styled.div`
@@ -140,9 +149,7 @@ const Title = styled.span`
   width: 15rem;
   margin-bottom: 1rem;
 `;
-const Author = styled.span``;
-const Price = styled.span``;
-const Content = styled.span``;
+const Text = styled.span``;
 const Image = styled.img`
   width: 8.8rem;
   height: 10rem;
@@ -150,20 +157,16 @@ const Image = styled.img`
   object-fit: cover;
 `;
 const TitleWrap = styled.div`
+  > div {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    gap: 1.2rem;
+  }
   margin-left: 1.5rem;
   margin-top: 1rem;
 `;
 const LeftDiv = styled.div`
   display: flex;
   position: relative;
-  .RightDiv {
-    transition: all 0.5s;
-    opacity: 1;
-    background-color: #333;
-  }
-  :hover {
-    > .RightDiv {
-      opacity: 1;
-    }
-  }
 `;

@@ -1,7 +1,7 @@
 import React, {ReactNode, useState} from 'react';
 import styled from 'styled-components';
 import {NaverBooksDataType} from '../../types/bookSearch';
-
+import {ClubSearchType} from '../../types/bookSearch';
 // import CarouselBooksChild from '../../components/CreateClub/CarouselBooks/CarouselBooksChild/CarouselBooksChild';
 import HeaderSearchBooksChild from './HeaderSearchBooksChild';
 
@@ -9,7 +9,7 @@ type CarouselBooksProps = {
   width?: number;
   height?: number;
   pageViewCount?: number;
-  data?: NaverBooksDataType[][];
+  data?: ClubSearchType[][];
   ChildComponent?: ReactNode;
   isArrow?: boolean;
   isIndex?: boolean;
