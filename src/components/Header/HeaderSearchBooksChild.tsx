@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {ClubSearchType} from '../../types/bookSearch';
 import {Link} from 'react-router-dom';
@@ -18,12 +18,24 @@ const HeaderSearchBooksChild = ({
   width = 40,
   height = 20,
 }: CarouselBooksChildProps) => {
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
   return (
     <Div width={width} height={height}>
       {data &&
         data?.map((val, index) => {
           return (
-            <Wrap key={index}>
+            <Wrap
+              key={index}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}>
               <Box width={width} height={height}>
                 <LeftDiv>
                   {val && <Image src={val?.thumbnail} />}
@@ -37,19 +49,21 @@ const HeaderSearchBooksChild = ({
               </Box>
 
               {val && (
-                <RightBox className="rightBox">
+                <RightBox className="on">
                   <div>
                     <img src={val?.thumbnail} alt={val?.clubName} />
                     <TitleWrap>
                       <Title>{val?.clubName}</Title>
                       <div>
                         <Text>{val?.category}</Text>
-                        <Text>모임 리더 : {val?.leader}</Text>
+                        <Text>모임장 : {val?.leader}</Text>
                         <Text>
                           모임 기간 : {val?.startDate} ~ {val?.finishDate}
                         </Text>
                         <Text>모임 장소 : {val?.location}</Text>
-                        <Link to={`/club_detail/${val.clubId}`}>바로가기</Link>
+                        <Link to={`/club_detail/${val.clubId}`}>
+                          모임 바로가기
+                        </Link>
                       </div>
                     </TitleWrap>
                   </div>
@@ -75,16 +89,14 @@ const Div = styled.div<{width: number; height: number}>`
   position: relative;
 `;
 const Wrap = styled.div`
-  width: 40rem;
+  width: 50rem;
   height: 20rem;
-  :hover {
-    .rightBox {
-      opacity: 1;
-    }
+  :hover > .on {
+    display: block;
   }
 `;
 const RightBox = styled.div`
-  opacity: 0;
+  display: none;
   position: absolute;
   top: 10%;
   right: 5%;
@@ -121,7 +133,7 @@ const TextWrap = styled.div`
 `;
 const Box = styled.div<{width: number; height: number}>`
   /* width: 100%; */
-  width: 30rem;
+  width: 50rem;
   height: 12rem;
   display: flex;
   padding: 1rem;
@@ -161,7 +173,7 @@ const TitleWrap = styled.div`
     display: flex;
     flex-direction: column;
     font-size: 1.2rem;
-    gap: 1.2rem;
+    gap: 0.9rem;
   }
   margin-left: 1.5rem;
   margin-top: 1rem;
@@ -169,4 +181,5 @@ const TitleWrap = styled.div`
 const LeftDiv = styled.div`
   display: flex;
   position: relative;
+  width: 40rem;
 `;
