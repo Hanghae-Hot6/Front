@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {useQuery, useMutation} from 'react-query';
 import {reviewApis} from '../../api/axiosConfig';
 import {useParams} from 'react-router-dom';
-import {log} from 'console';
 export type review = {
   review: string;
 };
@@ -11,7 +10,6 @@ const Review = ({subscription}: {subscription: boolean}) => {
   const [input, setInput] = useState<review>({
     review: '테스트',
   });
-  console.log(subscription);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -19,7 +17,6 @@ const Review = ({subscription}: {subscription: boolean}) => {
 
     setInput({...input, [name]: value});
   };
-  console.log(input);
 
   // 리뷰 만들기 api
   const {mutate: createReview} = useMutation(
@@ -55,6 +52,8 @@ const Review = ({subscription}: {subscription: boolean}) => {
       },
     },
   );
+  console.log(data);
+
   return (
     <>
       <section>

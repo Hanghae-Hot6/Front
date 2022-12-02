@@ -4,9 +4,9 @@ import {QueryClient, useQuery, useQueryClient} from 'react-query';
 import styled from 'styled-components';
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 import close_btn from '../../assets/Xbtn.svg';
-import {NaverBooksDataType} from '../../types/bookSearch';
-import HeaderSearchBooks from './HeaderSearchBooks';
 
+import HeaderSearchBooks from './HeaderSearchBooks';
+import {ClubSearchType} from '../../types/bookSearch';
 type BookSearchBarProps = {};
 
 // export type NaverBooksDataType = {
@@ -23,7 +23,7 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
   const fetch = async ({queryKey}: any) => {
     if (input) {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${queryKey[1]}&start=1&display=18`,
+        `${process.env.REACT_APP_BASE_URL}/clubs/search?clubName=${queryKey[1]}&page=1&size=18`,
       );
 
       return response?.data.data;
@@ -35,12 +35,12 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
     status,
     isLoading,
     error,
-  } = useQuery<NaverBooksDataType[]>(['getBooks', input], fetch);
+  } = useQuery<ClubSearchType[]>(['getBooks', input], fetch);
 
   let endNum: number;
   let divideBy: number;
 
-  let NewArray: NaverBooksDataType[][] = [];
+  let NewArray: ClubSearchType[][] = [];
   if (status === 'success') {
     if (getBooksData) {
       divideBy = 3;
@@ -55,7 +55,6 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
       }
     }
   }
-  // console.log(yo);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -80,7 +79,7 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
           <img src={MagnifyingGlass} alt="search" />
           <input
             type="text"
-            placeholder="도서 찾기"
+            placeholder="찾으실 모임을 입력해주세요."
             onChange={handleChange}
             value={input}
           />
