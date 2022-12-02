@@ -174,14 +174,16 @@ export const clubApis = {
 
 export const reviewApis = {
   getReview: async (payload: string | undefined) =>
-    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/${payload}/reviews`),
-  createReview: async (clubId: string | undefined, input: string) =>
+    await api.get(
+      `${process.env.REACT_APP_BASE_URL}/clubs/${payload}/reviews/getall`,
+    ),
+  createReview: async (id: string | undefined, input: string) =>
     await api.post(
-      `${process.env.REACT_APP_BASE_URL}/clubs/${clubId}/review`,
+      `${process.env.REACT_APP_BASE_URL}/clubs/${id}/reviews/create`,
       input,
     ),
-  deleteReview: async (clubId: string | undefined, reviewId: number) =>
-    await api.post(
-      `${process.env.REACT_APP_BASE_URL}/clubs/${clubId}/review/${reviewId}/`,
+  deleteReview: async (reviewId: number | undefined) =>
+    await api.delete(
+      `${process.env.REACT_APP_BASE_URL}/clubs/${reviewId}/delete`,
     ),
 };
