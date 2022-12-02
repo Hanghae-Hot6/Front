@@ -9,6 +9,7 @@ import {SubmitClubType} from '../../../types/clubList';
 import HeaderSearch from '../../Header/HeaderSearch';
 
 import BooksViewer from '../BooksViewer/BooksViewer';
+import {CreateClubButton} from '../common/CreateClubDesigns';
 import PaginationBooks from './PaginationBooks';
 
 type SearchBooksProps = {
@@ -97,12 +98,12 @@ const SearchBooks = ({
               setShowNaverBookSearch(true);
             }}
           />
-          <button
+          <CreateClubButton
             onClick={() => {
               setShowNaverBookSearch(!showNaverBookSearch);
             }}>
             {showNaverBookSearch ? '닫기' : '찾아보기'}
-          </button>
+          </CreateClubButton>
         </Div>
         {showNaverBookSearch && (
           <BookSearchPreviewDiv>
