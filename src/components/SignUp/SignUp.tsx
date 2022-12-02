@@ -186,24 +186,6 @@ function SignUp() {
         </RegistStInput>
         <RegistErrorSpan>{errors.passwordCheck}</RegistErrorSpan>
 
-        {/* <RegistStInput
-          id="address"
-          type="address"
-          name="address"
-          onChange={handleChange}
-          value={values.address}
-          label="주소"></RegistStInput>
-        <RegistErrorSpan>{errors.address}</RegistErrorSpan>
-
-        <RegistStInput
-          id="phoneNumber"
-          type="tel"
-          name="phoneNumber"
-          onChange={handleChange}
-          value={values.phoneNumber}
-          label="전화번호"></RegistStInput>
-        <RegistErrorSpan>{errors.phoneNumber}</RegistErrorSpan> */}
-
         <S.ButtonContainer>
           <S.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
             가입완료

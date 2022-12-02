@@ -35,6 +35,7 @@ export type RegistStFormProps = {
 
 export type RegistStInputProps = {
   id?: string;
+  mgt?: string;
   label?: string;
   type?: string;
   name?: string;
@@ -44,6 +45,7 @@ export type RegistStInputProps = {
   maxLength?: number;
   placeholder?: string;
   children?: React.ReactNode;
+
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 export type FindPasswordValueType = {

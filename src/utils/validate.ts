@@ -69,7 +69,7 @@ export default function validate(
     if (!password) {
       errors.password = '비밀번호가 입력되지 않았습니다.';
     } else if (password.length < 8) {
-      errors.password = '8자 이상의 이름을 작성해주세요.';
+      errors.password = '8자 이상의 비밀번호를 작성해주세요.';
     } else if (password.length >= 20) {
       errors.password = '20자 이상 작성은 불가능 합니다.';
     } else if (
