@@ -141,6 +141,12 @@ export const memberApis = {
 
   postInquiryEmail: async (payload: string) =>
     await api.post(`${process.env.REACT_APP_BASE_URL}/members/cs`, payload),
+
+  passwordCheck: async (payload: string) =>
+    await api.post(`${process.env.REACT_APP_BASE_URL}/members/auth`, payload),
+
+  modifyProfile: async (payload: SignValueType) =>
+    await api.post(`${process.env.REACT_APP_BASE_URL}/members/modify`, payload),
 };
 
 // 클럽 관련된 api 모음 클럽 만들기는 제외

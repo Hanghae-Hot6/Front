@@ -4,6 +4,7 @@ import {RegistStInputProps} from '../../types/regist';
 
 function RegistStInput({
   id,
+  mgt,
   label,
   type,
   name,
@@ -13,7 +14,6 @@ function RegistStInput({
   maxLength,
   onChange,
   children,
-  mgt,
   ...props
 }: RegistStInputProps) {
   return (

@@ -4,13 +4,17 @@ import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import RegistStInput from '../Elem/RegistStInput';
 import eyeImg from '../../assets/eye.svg';
 import {useAppDispatch} from '../../Redux/store/store';
-import {closeGlobalModal} from '../../Redux/modules/slices/modalSlice';
+import {
+  closeGlobalModal,
+  openGlobalModal,
+} from '../../Redux/modules/slices/modalSlice';
 import {memberApis} from '../../api/axiosConfig';
 import {useMutation} from 'react-query';
 import {ErrorsValue, SignValueType} from '../../types/regist';
 import {profileValidate} from './ProfileValidate';
+import {CheckPasswordModalProps} from '../../types/profile';
 
-function ProfileChange() {
+function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
   const initialValues = {
     password: '',
     passwordCheck: '',
@@ -51,14 +55,26 @@ function ProfileChange() {
   };
 
   const {mutate: chageProfileMutate} = useMutation(
-    async () => {
+    async (values: SignValueType) => {
       try {
-        // const response = await memberApis.
-      } catch (error) {}
+        const response = await memberApis.modifyProfile(values);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
     },
     {
-      onSuccess: data => {},
-      onError: error => {},
+      onSuccess: data => {
+        console.log(data);
+        if (data?.status === 200) {
+          dispatch(closeGlobalModal('profileChange'));
+          dispatch(openGlobalModal('successChangeProfile'));
+        } else {
+        }
+      },
+      onError: error => {
+        throw error;
+      },
     },
   );
 
@@ -71,8 +87,10 @@ function ProfileChange() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    chageProfileMutate(values);
     setValues(initialValues);
   };
+
   return (
     <StProfileChangeForm onSubmit={handleSubmit}>
       <div className="inputsDiv">
@@ -136,7 +154,10 @@ function ProfileChange() {
         <button type="submit">변경</button>
         <button
           type="button"
-          onClick={() => dispatch(closeGlobalModal('profileChange'))}>
+          onClick={() => {
+            setIsPWCorrect(false);
+            dispatch(closeGlobalModal('profileChange'));
+          }}>
           취소
         </button>
       </BtnBox>
@@ -151,7 +172,6 @@ const StProfileChangeForm = styled.form`
   height: 100%;
   flex-direction: column;
   align-items: space-between;
-
   .inputsDiv {
     display: flex;
     height: 100%;

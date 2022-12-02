@@ -79,6 +79,7 @@ const HeaderSearch = ({}: BookSearchBarProps) => {
           <img src={MagnifyingGlass} alt="search" />
           <input
             type="text"
+            id="search-input"
             placeholder="찾으실 모임을 입력해주세요."
             onChange={handleChange}
             value={input}

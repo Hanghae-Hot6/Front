@@ -8,7 +8,6 @@ import ProfileClubList from '../components/Profile/ProfileClubList';
 import {useAppDispatch} from '../Redux/store/store';
 import {openGlobalModal} from '../Redux/modules/slices/modalSlice';
 import styled from 'styled-components';
-import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import ProfileContainer from '../components/Profile/ProfileContainer';
 import GlobalModal from '../common/GlobalModal';
@@ -16,24 +15,18 @@ import ProfileModalCollection from '../components/Profile/ProfileModalCollection
 import axios from 'axios';
 import {useQuery} from 'react-query';
 import {memberApis} from '../api/axiosConfig';
+import Header from '../components/Header/Header';
 
-type ProfilePageProps = {};
-type clubList = {
-  clubName: string;
-  contents: string;
-  category: string;
-  summary: string;
-};
-type ProfileData = {
-  memberId: string;
-  email: string;
-  nickname: string;
-  address: string;
-  phoneNumber: string;
-  password: string;
-  passwordCheck: string;
-  clubList: clubList[];
-};
+// type ProfileData = {
+//   memberId: string;
+//   email: string;
+//   nickname: string;
+//   address: string;
+//   phoneNumber: string;
+//   password: string;
+//   passwordCheck: string;
+//   clubList: clubList[];
+// };
 
 const ProfilePage = () => {
   const navigate = useNavigate();

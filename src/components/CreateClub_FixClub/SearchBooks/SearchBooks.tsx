@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
 import {NaverBooksDataType} from '../../../types/bookSearch';
 
-import HeaderSearch from '../../Header/HeaderSearch';
 import {InputType} from '../Body/CreateClubBody';
 import BooksViewer from '../BooksViewer/BooksViewer';
 import PaginationBooks from './PaginationBooks';

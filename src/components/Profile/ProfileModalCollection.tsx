@@ -13,9 +13,9 @@ function ProfileModalCollection() {
     state => state.modalReducer,
   );
   const dispatch = useAppDispatch();
-  const [isPWCorrect, setIsPWCorrect] = useState(false);
+  const [isPWCorrect, setIsPWCorrect] = useState<boolean>(false);
   const [textAreaValue, setTextAreaValue] = useState<string>('');
-
+  console.log(isPWCorrect);
   const {mutate: sendInquiryMutate} = useMutation(
     async (textAreaValue: string) => {
       try {
@@ -74,8 +74,23 @@ function ProfileModalCollection() {
       )}
       {isGlobalModalOpen && dispatchId === 'profileChange' && (
         <GlobalModal id="profileChange" size="lg">
-          <ProfileCheckPassword />
-          {isPWCorrect && <ProfileChange />}
+          {!isPWCorrect && (
+            <ProfileCheckPassword
+              isPWCorrect={isPWCorrect}
+              setIsPWCorrect={setIsPWCorrect}
+            />
+          )}
+          {isPWCorrect && (
+            <ProfileChange
+              isPWCorrect={isPWCorrect}
+              setIsPWCorrect={setIsPWCorrect}
+            />
+          )}
+        </GlobalModal>
+      )}
+      {isGlobalModalOpen && dispatchId === 'successChangeProfile' && (
+        <GlobalModal id="successChangeProfile" type="alertModal">
+          <div>회원정보가 수정되었습니다!</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'noText' && (
