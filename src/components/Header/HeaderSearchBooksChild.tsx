@@ -110,6 +110,9 @@ const RightBox = styled.div`
     filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
     object-fit: cover;
   }
+  :hover {
+    opacity: 1;
+  }
 `;
 const TextWrap = styled.div`
   padding: 10px 24px;
