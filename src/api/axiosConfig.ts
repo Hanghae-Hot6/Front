@@ -5,9 +5,7 @@ import {
   SignValueType,
 } from '../types/regist';
 import {getAccessToken, getRefreshToken} from '../utils';
-import ClubDetail from '../Pages/ClubDetailPage';
 
-import {review} from '../components/ClubDetail/Review';
 const config: AxiosRequestConfig = {
   baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
@@ -22,7 +20,6 @@ const api = axios.create(config);
 api.interceptors.request.use(function (config) {
   const accessToken = getAccessToken();
   const refreshToken = getRefreshToken();
-  // console.log(accessToken, refreshToken);
 
   if (!config) {
     config = {};
