@@ -18,24 +18,12 @@ const HeaderSearchBooksChild = ({
   width = 40,
   height = 20,
 }: CarouselBooksChildProps) => {
-  const [isHovering, setIsHovering] = useState(false);
-
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
   return (
     <Div width={width} height={height}>
       {data &&
         data?.map((val, index) => {
           return (
-            <Wrap
-              key={index}
-              onMouseOver={handleMouseOver}
-              onMouseOut={handleMouseOut}>
+            <Wrap key={index}>
               <Box width={width} height={height}>
                 <LeftDiv>
                   {val && <Image src={val?.thumbnail} />}
@@ -109,9 +97,6 @@ const RightBox = styled.div`
     height: 21.6rem;
     filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
     object-fit: cover;
-  }
-  :hover {
-    opacity: 1;
   }
 `;
 const TextWrap = styled.div`
