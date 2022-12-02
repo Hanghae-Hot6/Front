@@ -5,7 +5,7 @@
 > 독서가 부족한 현대인들을 위해! 갓생을 살고싶은 현대인들을 위해! <br>
 > 새로운 사람들과 즐겁게 얘기하며 독서 할 수 있는 웹 어플리케이션 <br>
 
-### [ODOK 바로가기](http://hot6-front.s3-website.ap-northeast-2.amazonaws.com/)
+### [ODOK 바로가기](http://o-dok.com/)
 
 ### [Front-End Github](https://github.com/Hanghae-Hot6/Front)
 
