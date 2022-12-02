@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import {InputType} from '../Body/CreateClubBody';
+import {SubmitClubType} from '../../../types/clubList';
 
 type TextInputProps = {
-  input: InputType;
-  setInput: React.Dispatch<React.SetStateAction<InputType>>;
-  name: keyof InputType;
+  input: SubmitClubType;
+  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
+  name: keyof Omit<SubmitClubType, 'thumbnail'>;
   placeholder?: string;
   width?: string;
   flex?: number;
+  fixClubData?: SubmitClubType | undefined;
+  //
 };
 
 const TextInput = ({
@@ -18,6 +20,7 @@ const TextInput = ({
   placeholder,
   width = '100%',
   flex,
+  fixClubData,
 }: TextInputProps) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -36,6 +39,7 @@ const TextInput = ({
         placeholder={placeholder}
         width={width}
         flex={flex}
+        value={input[name]}
       />
     </>
   );
