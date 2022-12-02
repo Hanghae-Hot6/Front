@@ -7,13 +7,12 @@ import heartOn from '../../assets/heartOn.svg';
 import heartOff from '../../assets/heartOff.svg';
 import {clubDetailType} from '../../types/clubList';
 import {clubApis} from '../../api/axiosConfig';
-import {getUserId} from '../../utils';
+
 import Review from './Review';
 
 const ClubDetailBody = () => {
   const navigate = useNavigate();
   const {id} = useParams();
-  const userId = getUserId();
 
   // 화면에 클럽정보 뿌려주는api
   const {data, status} = useQuery<clubDetailType | undefined>(
