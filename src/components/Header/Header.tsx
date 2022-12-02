@@ -42,6 +42,7 @@ const Header = ({}: HeaderProps) => {
                   onClickCallback={() => {
                     localStorage.removeItem('Authorization');
                     localStorage.removeItem('userId');
+                    localStorage.removeItem('Refresh-Token');
                   }}>
                   로그아웃
                 </NavigationButton>

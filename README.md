@@ -5,7 +5,7 @@
 > 독서가 부족한 현대인들을 위해! 갓생을 살고싶은 현대인들을 위해! <br>
 > 새로운 사람들과 즐겁게 얘기하며 독서 할 수 있는 웹 어플리케이션 <br>
 
-### [ODOK 바로가기](http://hot6-front.s3-website.ap-northeast-2.amazonaws.com/)
+### [ODOK 바로가기](http://o-dok.com/)
 
 ### [Front-End Github](https://github.com/Hanghae-Hot6/Front)
 
@@ -117,7 +117,7 @@
 
 ## ✨ 주요 기능
 
-| 페이지                    | API 연결, 기능 및 CSS                                  | 시연 영상 |
+| 페이지                    | API 연결, 기능 및 CSS                                  | 시연|
 | ------------------------- | ------------------------------------------------------ | --------- |
 | 로그인 - 서지운           | ✅카카오 로그인<br>✅로그인                            |
 | 회원가입 - 서지운         | ✅회원가입<br>✅아이디 중복 체크<br>✅닉네임 중복 체크 |
@@ -216,7 +216,7 @@
     
     - 반응형 도입 — 모바일ver
     - 보안 강화 — https
-    - infinite carousel
+    - infinite carousel -- 완
     - infinite scroll — 모바일ver
     - 검색, 좋아요등 서버에 부하가 올 수 있는 api call 최적화
     - 이미지 용량 최적화
