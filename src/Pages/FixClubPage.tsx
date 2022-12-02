@@ -65,7 +65,7 @@ const FixClubPage = ({}: FixClubPageProps) => {
         <CreateClubFixClubPageLayout>
           <CreateClubTitle title="모임 수정하기" />
           <ThinLine color={Theme.MainColor} />
-          <CreateClubBody fixClubData={fixClubDataYo} />
+          <CreateClubBody fixClubData={fixClubDataYo} clubId={data?.clubId} />
         </CreateClubFixClubPageLayout>
       </Layout>
     </>

@@ -12,21 +12,9 @@ import BooksViewer from '../BooksViewer/BooksViewer';
 import {CreateClubButton} from '../common/CreateClubDesigns';
 import PaginationBooks from './PaginationBooks';
 
-type SearchBooksProps = {
-  input: SubmitClubType;
-  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
+type SearchBooksProps = {};
 
-  width?: string;
-  flex?: number;
-};
-
-const SearchBooks = ({
-  input,
-
-  setInput,
-  width = '100%',
-  flex,
-}: SearchBooksProps) => {
+const SearchBooks = ({}: SearchBooksProps) => {
   const [showNaverBookSearch, setShowNaverBookSearch] =
     useState<boolean>(false);
   const [booknameSearch, setBooknameSearch] = useState<string>('');
@@ -73,10 +61,6 @@ const SearchBooks = ({
       }
     }
   }
-
-  useEffect(() => {
-    console.log(booknameSearch);
-  }, [booknameSearch]);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
