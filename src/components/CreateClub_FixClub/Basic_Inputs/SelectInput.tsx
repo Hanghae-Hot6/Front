@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {SubmitClubType} from '../../../types/clubList';
+import CaretDown from '../../../assets/CaretDown.svg';
 
 type SelectInputProps = {
   input: SubmitClubType;
@@ -10,6 +11,7 @@ type SelectInputProps = {
   width?: string;
   flex?: number;
   options: string[];
+  marginLeft?: string;
 };
 
 const SelectInput = ({
@@ -20,6 +22,7 @@ const SelectInput = ({
   width,
   flex,
   options,
+  marginLeft,
 }: SelectInputProps) => {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
     e.preventDefault();
@@ -38,6 +41,7 @@ const SelectInput = ({
         // defaultValue={placeholder}
         required
         width={width}
+        marginLeft={marginLeft}
         flex={flex}>
         <Option value={placeholder} disabled>
           {placeholder}
@@ -57,8 +61,15 @@ export default SelectInput;
 
 const Select = styled.select<{
   width: string | undefined;
+  marginLeft: string | undefined;
   flex: number | undefined;
 }>`
+  /* 화살표 디자인하기 */
+  -webkit-appearance: none; /* for chrome */
+  -moz-appearance: none; /*for firefox*/
+  appearance: none;
+  background: url(${CaretDown}) no-repeat right 1rem center;
+
   ${({width}) => {
     if (width) {
       return `width:${width};`;
@@ -69,12 +80,21 @@ const Select = styled.select<{
       return `flex:${flex};`;
     }
   }}
-  height: 5.8rem;
   border: 1px solid ${props => props.theme.LightGray};
   padding: 0 1rem;
   font-size: 2.2rem;
   color: ${props => props.theme.Gray};
-  margin-left: 1rem;
+  ${({marginLeft}) => {
+    if (marginLeft) {
+      return `margin-left: ${marginLeft};`;
+    } else {
+      return ``;
+    }
+  }};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Option = styled.option`

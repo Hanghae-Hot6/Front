@@ -150,6 +150,7 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
             name="category"
             placeholder="카테고리 선택"
             width="29.2rem"
+            marginLeft="1rem"
             options={[
               '인문',
               '경영 경제',
