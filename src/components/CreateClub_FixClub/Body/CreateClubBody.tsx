@@ -104,7 +104,13 @@ const CreateClubBody = ({
   }, []);
 
   // 모임 수정시
+
   useEffect(() => {
+    console.log('첫 렌더링');
+  }, []);
+
+  useEffect(() => {
+    console.log('fixClubData');
     if (!!fixClubData) {
       fixClubDataAccepted(fixClubData);
     }
@@ -360,7 +366,7 @@ const CreateClubBody = ({
             등록하기
           </NavigationSubmitButton> */}
 
-          <button>등록하기</button>
+          <SubmitButton>등록하기</SubmitButton>
         </ParagraphDiv>
       </form>
       {/* 책 인트로 */}
@@ -375,10 +381,11 @@ const StaticTitle = styled.h1`
   margin: 2.6rem 0;
 `;
 
-const NavigationSubmitButton = styled(NavigationButton)`
+const SubmitButton = styled.button`
   width: 100%;
   background-color: ${props => props.theme.MainColor};
   color: ${props => props.theme.White};
   margin: 2rem 0;
   height: 9.2rem;
+  font-size: 2.6rem;
 `;
