@@ -13,10 +13,11 @@ function RegistStInput({
   maxLength,
   onChange,
   children,
+  mgt,
   ...props
 }: RegistStInputProps) {
   return (
-    <StInputItemsDiv {...props}>
+    <StInputItemsDiv {...props} mgt={mgt} height={height}>
       <label htmlFor={id}>{label}</label>
       <input
         type={type}
@@ -39,7 +40,7 @@ const StInputItemsDiv = styled.div<RegistStInputProps>`
   align-items: center;
   width: 100%;
   height: ${({height}) => height || '5.7rem'};
-  margin-top: 4.4rem;
+  margin-top: ${({mgt}) => mgt || '4.4rem'};
   position: relative;
   border-bottom: 1px solid #e0e0e0;
 

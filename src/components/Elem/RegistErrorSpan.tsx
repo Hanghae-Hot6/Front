@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 
 type RegistErrorProps = {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 function RegistErrorSpan({children, ...props}: RegistErrorProps) {

@@ -6,13 +6,14 @@ import styled from 'styled-components';
 import {useMutation} from 'react-query';
 import {memberApis} from '../../api/axiosConfig';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
+import ProfileCheckPassword from './ProfileCheckPassword';
 
 function ProfileModalCollection() {
   const {isGlobalModalOpen, dispatchId} = useAppSelector(
     state => state.modalReducer,
   );
   const dispatch = useAppDispatch();
-
+  const [isPWCorrect, setIsPWCorrect] = useState(false);
   const [textAreaValue, setTextAreaValue] = useState<string>('');
 
   const {mutate: sendInquiryMutate} = useMutation(
@@ -72,8 +73,9 @@ function ProfileModalCollection() {
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'profileChange' && (
-        <GlobalModal id="profileChange" size="xlg">
-          <ProfileChange />
+        <GlobalModal id="profileChange" size="lg">
+          <ProfileCheckPassword />
+          {isPWCorrect && <ProfileChange />}
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'noText' && (

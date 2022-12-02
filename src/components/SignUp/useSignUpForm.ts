@@ -122,7 +122,6 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
     ['emailCheck', values.email],
 
     async ({queryKey}) => {
-      console.log(queryKey[1]);
       const {data} = await memberApis.sendEmail(queryKey[1]);
       return data;
     },
