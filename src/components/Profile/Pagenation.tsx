@@ -24,10 +24,6 @@ function Pagenation({
     setPageArr(sliceArr);
   }, [index, maxPageNum, pageRange]);
 
-  console.log('page', page);
-  console.log('slice', index * pageRange, index * pageRange + pageRange);
-  console.log('pageArr', pageArr);
-
   return (
     <>
       <StNav>
@@ -47,7 +43,6 @@ function Pagenation({
               key={num + 1}
               className={num === page ? 'on' : ''}
               onClick={() => {
-                console.log('num', num);
                 setPage(num);
               }}>
               {num}
@@ -59,7 +54,6 @@ function Pagenation({
             setPage(page + 1);
             if (page > index * pageRange + pageRange - 1) {
               setIndex(prev => prev + 1);
-              console.log(index);
             }
           }}
           disabled={page === maxPageNum}>
@@ -80,15 +74,18 @@ const StNav = styled.nav`
   height: 3rem;
   button {
     text-align: center;
+    padding: 0;
     margin: 0 5px;
-    background-color: ${props => props.theme.MainColor};
-    color: #fff;
     border-radius: 20%;
-  }
-
-  .on {
+    width: 2rem;
+    height: 2rem;
     background-color: #fff;
     color: ${props => props.theme.MainColor};
     border: 1px solid ${props => props.theme.MainColor};
+  }
+
+  .on {
+    background-color: ${props => props.theme.MainColor};
+    color: #fff;
   }
 `;

@@ -29,7 +29,6 @@ const Router = () => {
         <Route path="/login/find-id" element={<FindIdPage />} />
         <Route path="/login/find-password" element={<FindPasswordPage />} />
         <Route path="/profile/:userId" element={<ProfilePage />}>
-          {/* <Route path="participation" element={<FindPasswordPage />} /> */}
           <Route path="interest" element={<InterestClubs />} />
           <Route path="leader" element={<LeaderClubs />} />
         </Route>

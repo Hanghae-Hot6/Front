@@ -96,7 +96,7 @@ export const StClubCategory = styled.ul`
 export const StClubListWrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 85%;
+  height: 90%;
   justify-content: space-between;
   flex-direction: column;
 `;

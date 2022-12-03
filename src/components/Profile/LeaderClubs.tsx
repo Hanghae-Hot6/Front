@@ -78,6 +78,7 @@ function LeaderClubs() {
   }
 
   useEffect(() => setPageRange(maxPageNum), [maxPageNum]);
+
   const handleDelete = (clubId: number | undefined) => {
     setDeleteId(clubId);
     dispatch(openGlobalModal('clubDelete'));
