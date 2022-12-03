@@ -4,6 +4,9 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 5.2rem;
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
 `;
 
 export const StLoginDivier = styled.div`
@@ -36,7 +39,10 @@ export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   margin-bottom: 4.3rem;
   align-items: center;
   justify-content: center;
-
+  @media screen and (max-width: 576px) {
+    height: 6rem;
+    width: 100%;
+  }
   img {
     transform: scale(0.8);
     margin-right: 1rem;
@@ -70,17 +76,3 @@ export const StContainer = styled.div`
   height: 100%;
   width: 100%;
 `;
-
-
-// const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
-//   display: flex;
-//   width: 100%;
-//   height: 6rem;
-//   color: ${({fontC}) => fontC};
-//   background-color: ${({bgColor}) => bgColor};
-//   font-size: 2rem;
-//   font-weight: 700;
-//   margin-bottom: 4.3rem;
-//   align-items: center;
-//   justify-content: center;
-// `;

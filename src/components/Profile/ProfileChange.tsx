@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled, {keyframes} from 'styled-components';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import RegistStInput from '../Elem/RegistStInput';
@@ -83,14 +83,24 @@ function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
     const {name, value} = e.currentTarget;
     setValues({...values, [name]: value});
     setErrors(profileValidate({...values}));
-    console.log(errors);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (values?.password?.trim() === '') {
+      return setErrors({
+        ...errors,
+        password: '비밀번호가 입력되지 않았습니다.',
+      });
+    }
     chageProfileMutate(values);
     setValues(initialValues);
   };
+
+  useEffect(() => {
+    setErrors(profileValidate({...values}));
+    return () => {};
+  }, [values]);
 
   return (
     <StProfileChangeForm onSubmit={handleSubmit}>

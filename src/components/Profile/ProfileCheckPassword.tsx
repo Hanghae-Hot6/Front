@@ -37,6 +37,7 @@ function ProfileCheckPassword({
   const {mutate: passwordCheck} = useMutation(
     async (passwordValue: string) => {
       try {
+        console.log(passwordValue);
         const response = await memberApis.passwordCheck(passwordValue);
         return response;
       } catch (error: any) {
@@ -73,7 +74,7 @@ function ProfileCheckPassword({
   };
 
   return (
-    <StProfileChangeForm onSubmit={handleSubmit}>
+    <StProfileChangeForm onSubmit={handleSubmit} isPWCorrect={isPWCorrect}>
       <div className="inputsDiv">
         <h2>개인정보 수정</h2>
         <RegistStInput
@@ -129,12 +130,15 @@ const slideForm = keyframes`
     transform: translateX(50%);
   }
 `;
-const StProfileChangeForm = styled.form`
+const StProfileChangeForm = styled.form<{isPWCorrect: boolean}>`
   display: flex;
   height: 100%;
   flex-direction: column;
   align-items: space-between;
   /* animation: ${slideForm} 0.5s ease-in-out; */
+  /* animation: ${props =>
+    props.isPWCorrect === true ? `${slideForm} 0.5s ease in out` : ''}; */
+  /* transition: all 2s ease-in-out; */
 
   .inputsDiv {
     display: flex;

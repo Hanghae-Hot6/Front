@@ -94,10 +94,11 @@ export const StClubCategory = styled.ul`
 `;
 
 export const StClubListWrapper = styled.div`
+  display: flex;
   width: 100%;
   height: 85%;
-  overflow: auto;
-  padding-right: 0.5rem;
+  justify-content: space-between;
+  flex-direction: column;
 `;
 
 export const StClubLi = styled.li`
