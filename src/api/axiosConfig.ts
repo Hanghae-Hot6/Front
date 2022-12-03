@@ -64,9 +64,6 @@ api.interceptors.response.use(
           ?.substring(0, getNewAccessToken.length - 1)
           .substring(1, getNewAccessToken.length);
 
-        // axios.defaults.headers.common.Authorization = newAccessToken;
-        // originalRequest.headers.Authorization = newAccessToken;
-
         axios.defaults.headers.common['Authorization'] = newAccessToken;
         originalRequest.headers.Authorization = newAccessToken;
 
