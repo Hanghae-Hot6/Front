@@ -31,6 +31,7 @@ const selectBooksSlice = createSlice({
       // 3자리가 꽉 찼을때
 
       if (state.book1 && state.book2 && state.book3) {
+        console.log(current(state));
         console.log('책 등록은 3개 까지입니다 ');
         return;
       }
@@ -41,7 +42,7 @@ const selectBooksSlice = createSlice({
         if (action.payload.isbn && val?.isbn === action.payload.isbn) {
           // if (val?.isbn === action.payload.isbn) {
           console.log(current(state));
-          console.log(action.payload.isbn);
+
           console.log(action.payload.isbn + '이 책은 이미 등록이 되어있습니다');
           CheckUsed = true;
         }

@@ -40,6 +40,9 @@ const BooksViewer = ({}: BooksViewerProps) => {
 
   const handleBooksDelete: React.MouseEventHandler<HTMLButtonElement> = e => {
     e.preventDefault();
+
+    setDeleteList([]);
+
     dispatch(delBooks(deleteList));
   };
 

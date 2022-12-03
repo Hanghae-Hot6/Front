@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {useMutation} from 'react-query';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationButton from '../../../common/NavigationButton';
 import ThinLine from '../../../common/ThinLine';
+import FixClubPage from '../../../Pages/FixClubPage';
 import {
   addBook,
   emptyBooks,
@@ -63,54 +64,43 @@ const CreateClubBody = ({
     }
   };
 
-  const fixClubDataAccepted = async (
-    fixClubData: SubmitClubType | undefined,
-  ) => {
-    console.log('fixClubDataAccepted');
-    if (fixClubData) {
-      setInput(fixClubData);
+  const fixClubDataAccepted = useCallback(
+    async (fixClubData: SubmitClubType | undefined) => {
+      console.log('fixClubDataAccepted');
+      if (fixClubData) {
+        setInput(fixClubData);
 
-      let book1;
-      let book2;
-      let book3;
+        let book1;
+        let book2;
+        let book3;
 
-      // redux에 책 데이터(NaverBooksDataType) 등록하기
-      if (fixClubData.book1 !== '책을 선택하세요') {
-        book1 = await getSingleNaverBookData(fixClubData.book1);
-        dispatch(addBook(book1[0]));
-      } else {
-        book1 = undefined;
+        // redux에 책 데이터(NaverBooksDataType) 등록하기
+        if (fixClubData.book1 !== '책을 선택하세요') {
+          book1 = await getSingleNaverBookData(fixClubData.book1);
+          dispatch(addBook(book1[0]));
+        }
+        if (fixClubData.book2 !== '책을 선택하세요') {
+          book2 = await getSingleNaverBookData(fixClubData.book2);
+          dispatch(addBook(book2[0]));
+        }
+        if (fixClubData.book3 !== '책을 선택하세요') {
+          book3 = await getSingleNaverBookData(fixClubData.book3);
+          dispatch(addBook(book3[0]));
+        }
       }
-      if (fixClubData.book2 !== '책을 선택하세요') {
-        book2 = await getSingleNaverBookData(fixClubData.book2);
-        dispatch(addBook(book2[0]));
-      } else {
-        book2 = undefined;
-      }
-      if (fixClubData.book3 !== '책을 선택하세요') {
-        book3 = await getSingleNaverBookData(fixClubData.book3);
-        dispatch(addBook(book3[0]));
-      } else {
-        book3 = undefined;
-      }
-    }
-  };
+    },
+    [],
+  );
 
-  //
+  // unmount시 redux에 있는 책 데이터들 모두 날리기
   useEffect(() => {
     return () => {
       dispatch(emptyBooks());
     };
   }, []);
 
-  // 모임 수정시
-
   useEffect(() => {
-    console.log('첫 렌더링');
-  }, []);
-
-  useEffect(() => {
-    console.log('fixClubData');
+    console.log('fixClubData UseEffect');
     if (!!fixClubData) {
       fixClubDataAccepted(fixClubData);
     }
@@ -366,13 +356,16 @@ const CreateClubBody = ({
             등록하기
           </NavigationSubmitButton> */}
 
-          <SubmitButton>등록하기</SubmitButton>
+          <SubmitButton>
+            {!!fixClubData ? '모임 수정하기' : '등록하기'}
+          </SubmitButton>
         </ParagraphDiv>
       </form>
       {/* 책 인트로 */}
     </>
   );
 };
+
 export default CreateClubBody;
 
 const StaticTitle = styled.h1`

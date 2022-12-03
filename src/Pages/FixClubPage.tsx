@@ -22,6 +22,7 @@ const FixClubPage = ({}: FixClubPageProps) => {
       return response.data.data;
     },
     {
+      refetchOnWindowFocus: false,
       retry: 0,
       onError: (error: any) => {
         // 로그인 에러 남바 : 403 or 401
@@ -65,7 +66,9 @@ const FixClubPage = ({}: FixClubPageProps) => {
         <CreateClubFixClubPageLayout>
           <CreateClubTitle title="모임 수정하기" />
           <ThinLine color={Theme.MainColor} />
-          <CreateClubBody fixClubData={fixClubDataYo} clubId={data?.clubId} />
+          {status === 'success' && (
+            <CreateClubBody fixClubData={fixClubDataYo} clubId={data?.clubId} />
+          )}
         </CreateClubFixClubPageLayout>
       </Layout>
     </>
