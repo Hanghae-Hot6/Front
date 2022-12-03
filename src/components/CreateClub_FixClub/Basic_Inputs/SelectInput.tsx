@@ -38,12 +38,11 @@ const SelectInput = ({
         name={name}
         onChange={handleChange}
         value={input[name]}
-        // defaultValue={placeholder}
         required
         width={width}
         marginLeft={marginLeft}
         flex={flex}>
-        <Option value={placeholder} disabled>
+        <Option value="" disabled>
           {placeholder}
         </Option>
         {options.map((val, index) => {

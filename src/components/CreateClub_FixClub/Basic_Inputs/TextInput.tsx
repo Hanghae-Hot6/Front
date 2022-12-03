@@ -10,6 +10,7 @@ type TextInputProps = {
   width?: string;
   flex?: number;
   fixClubData?: SubmitClubType | undefined;
+  maxLength?: number;
   //
 };
 
@@ -20,6 +21,7 @@ const TextInput = ({
   placeholder,
   width = '100%',
   flex,
+  maxLength = 30,
   fixClubData,
 }: TextInputProps) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
@@ -34,6 +36,7 @@ const TextInput = ({
       <TextInputInput
         type="text"
         required
+        maxLength={maxLength}
         name={name}
         onChange={handleChange}
         placeholder={placeholder}

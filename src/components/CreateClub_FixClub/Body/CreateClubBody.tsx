@@ -100,15 +100,10 @@ const CreateClubBody = ({
   }, []);
 
   useEffect(() => {
-    console.log('fixClubData UseEffect');
     if (!!fixClubData) {
       fixClubDataAccepted(fixClubData);
     }
   }, [fixClubData]);
-
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
 
   const accessToken = getAccessToken();
 
@@ -143,11 +138,6 @@ const CreateClubBody = ({
 
   const {mutate: clubFix} = useMutation(
     async (val: (FormData | number)[]) => {
-      if (clubId) {
-        console.log(clubId);
-        console.log(`${process.env.REACT_APP_BASE_URL}/clubs/${val[1]}`);
-      }
-
       await axios.post(
         `${process.env.REACT_APP_BASE_URL}/clubs/${val[1]}`,
         val[0],
@@ -287,7 +277,7 @@ const CreateClubBody = ({
             input={input}
             setInput={setInput}
             name="memberMaxNum"
-            placeholder="최대 인원 10명"
+            placeholder="최대 인원 10명까지"
             // width="29.2rem"
             flex={1}
             options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
