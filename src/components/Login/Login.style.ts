@@ -41,7 +41,7 @@ export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   justify-content: center;
   @media screen and (max-width: 576px) {
     height: 6rem;
-    width: 100%;
+    width: 40rem;
   }
   img {
     transform: scale(0.8);

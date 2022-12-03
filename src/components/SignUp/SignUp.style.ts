@@ -42,7 +42,7 @@ export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   margin-bottom: 4.3rem;
   @media screen and (max-width: 576px) {
     height: 6rem;
-    width: 100%;
+    width: 40rem;
   }
 `;
 
