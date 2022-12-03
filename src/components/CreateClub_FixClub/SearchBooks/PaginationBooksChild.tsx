@@ -23,15 +23,6 @@ const PaginationBooksChild = ({
     dispatch(addBook(selectedBook));
   };
 
-  // useEffect(() => {
-  //   // console.log('책 확인');
-  //   console.log(books);
-  // }, [books]);
-
-  // const handleBookDelete = (targetBook: NaverBooksDataType) => {
-  //   dispatch(delBook(targetBook));
-  // };
-
   return (
     <Div width={borderWidth} height={borderHeight}>
       {data &&
@@ -51,15 +42,6 @@ const PaginationBooksChild = ({
                 onClick={() => {
                   handleBookClick(val);
                 }}>
-                {/* {CheckClicked && (
-                  <DeleteBtnWrapper>
-                    <DeleteBtn
-                      handleDelete={() => {
-                        handleBookDelete(val);
-                      }}
-                    />
-                  </DeleteBtnWrapper>
-                )} */}
                 {val && (
                   <ImageWrapper width={borderWidth} height={borderHeight}>
                     <Image src={val?.image} />
@@ -70,10 +52,6 @@ const PaginationBooksChild = ({
                   <Price>{val?.pubdate}</Price>
                 </SmallDiv>
               </LeftDiv>
-
-              {/* <Box width={borderWidth} height={borderHeight}>
-               
-              </Box> */}
             </Wrap>
           );
         })}

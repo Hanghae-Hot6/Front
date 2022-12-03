@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {SubmitClubType} from '../../../types/clubList';
 
@@ -10,6 +10,7 @@ type TextInputProps = {
   width?: string;
   flex?: number;
   fixClubData?: SubmitClubType | undefined;
+  maxLength?: number;
   //
 };
 
@@ -20,8 +21,11 @@ const TextInput = ({
   placeholder,
   width = '100%',
   flex,
+  maxLength = 36,
   fixClubData,
 }: TextInputProps) => {
+  const [toggleValue, setToggleValue] = useState<boolean>(false);
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
     const {name, value} = e.target;
@@ -29,17 +33,27 @@ const TextInput = ({
     setInput({...input, [name]: value});
   };
 
+  useEffect(() => {
+    if (input[name]) {
+      setToggleValue(true);
+    } else {
+      setToggleValue(false);
+    }
+  }, [input[name]]);
+
   return (
     <>
       <TextInputInput
         type="text"
         required
+        maxLength={maxLength}
         name={name}
         onChange={handleChange}
         placeholder={placeholder}
         width={width}
         flex={flex}
         value={input[name]}
+        toggleValue={toggleValue}
       />
     </>
   );
@@ -49,6 +63,7 @@ export default TextInput;
 const TextInputInput = styled.input<{
   width: string | undefined;
   flex: number | undefined;
+  toggleValue: boolean;
 }>`
   border: 1px solid ${props => props.theme.LightGray};
 
@@ -64,11 +79,24 @@ const TextInputInput = styled.input<{
   }}
   height: 5.8rem;
 
+  &::placeholder {
+    color: ${props => props.theme.Gray};
+  }
+  /* color: ${props => props.theme.Black}; */
+
   /* border: none; */
   padding: 0 1rem;
   height: 5.6rem;
   font-size: 2.2rem;
-  color: ${props => props.theme.Gray};
+
+  /* ${props => {
+    if (props.toggleValue) {
+      return `color: ${props.theme.Black};`;
+    } else {
+      return `color: ${props.theme.LightGray};`;
+    }
+  }} */
+
   &:focus {
     outline: none;
   }

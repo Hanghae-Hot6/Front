@@ -1,11 +1,15 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {useMutation} from 'react-query';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationButton from '../../../common/NavigationButton';
 import ThinLine from '../../../common/ThinLine';
-import {addBook} from '../../../Redux/modules/slices/selectBooksSlice';
+import FixClubPage from '../../../Pages/FixClubPage';
+import {
+  addBook,
+  emptyBooks,
+} from '../../../Redux/modules/slices/selectBooksSlice';
 import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import Theme from '../../../theme/Theme';
 import {SubmitClubType} from '../../../types/clubList';
@@ -22,46 +26,96 @@ import SearchBooks from '../SearchBooks/SearchBooks';
 
 type CreateClubBodyProps = {
   fixClubData?: SubmitClubType | undefined;
+  clubId?: undefined | number;
 };
 
-const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
-  const initialValue: SubmitClubType = {
-    clubName: '',
-    category: '',
-    clubIntro: '',
-    book1: '',
-    book2: '',
-    book3: '',
-    thumbnail: '',
-    memberMaxNum: '',
-    startDate: '',
-    finishDate: '',
-    location: '',
-    schedule: '',
-    clubSummary: '',
-    bookSummary: '',
-  };
+const initialValue: SubmitClubType = {
+  clubName: '',
+  category: '',
+  clubIntro: '',
+  book1: '',
+  book2: '',
+  book3: '',
+  thumbnail: '',
+  memberMaxNum: '',
+  startDate: '',
+  finishDate: '',
+  location: '',
+  schedule: '',
+  clubSummary: '',
+  bookSummary: '',
+};
+
+const CreateClubBody = ({
+  fixClubData = undefined,
+  clubId = undefined,
+}: CreateClubBodyProps) => {
   const [input, setInput] = useState<SubmitClubType>(initialValue);
   const dispatch = useAppDispatch();
 
-  // 모임 수정시
-  useEffect(() => {
-    if (fixClubData) {
-      setInput(fixClubData);
-
-      // dispatch(addBook(fixClubData.book1))
+  const getSingleNaverBookData = async (bookIsbn: string) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/book/search?keyword=${bookIsbn}&start=1&display=16`,
+      );
+      return response.data.data;
+    } catch (err) {
+      return undefined;
     }
-  }, [fixClubData]);
+  };
+
+  const fixClubDataAccepted = useCallback(
+    async (fixClubData: SubmitClubType | undefined) => {
+      console.log('fixClubDataAccepted');
+      if (fixClubData) {
+        setInput(fixClubData);
+
+        let book1;
+        let book2;
+        let book3;
+
+        // redux에 책 데이터(NaverBooksDataType) 등록하기
+        if (fixClubData.book1 !== '책을 선택하세요') {
+          book1 = await getSingleNaverBookData(fixClubData.book1);
+          dispatch(addBook(book1[0]));
+        }
+        if (fixClubData.book2 !== '책을 선택하세요') {
+          book2 = await getSingleNaverBookData(fixClubData.book2);
+          dispatch(addBook(book2[0]));
+        }
+        if (fixClubData.book3 !== '책을 선택하세요') {
+          book3 = await getSingleNaverBookData(fixClubData.book3);
+          dispatch(addBook(book3[0]));
+        }
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     console.log(input);
   }, [input]);
+
+  // unmount시 redux에 있는 책 데이터들 모두 날리기
+  useEffect(() => {
+    return () => {
+      dispatch(emptyBooks());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!!fixClubData) {
+      fixClubDataAccepted(fixClubData);
+    }
+  }, [fixClubData]);
 
   const accessToken = getAccessToken();
 
   const navigate = useNavigate();
 
   const books = useAppSelector(state => state.selectBookReducer);
+
+  // 모임개설
 
   const {mutate: clubSubmit} = useMutation(
     async (formData: FormData) => {
@@ -78,7 +132,34 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
         navigate('/');
       },
       onError: () => {
-        window.confirm('모임 개설이 안되었습니다 입력값들을 다시 확인해보세요');
+        window.confirm('모임 개설이 안되었습니다 에러를 확인해보세요');
+        console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
+      },
+    },
+  );
+
+  // 모임수정
+
+  const {mutate: clubFix} = useMutation(
+    async (val: (FormData | number)[]) => {
+      await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/clubs/${val[1]}`,
+        val[0],
+        {
+          headers: {
+            Authorization: accessToken,
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+    },
+    {
+      onSuccess: () => {
+        window.confirm('모임 수정 성공');
+        navigate('/');
+      },
+      onError: () => {
+        window.confirm('모임 수정이 안되었습니다 에러를 확인해보세요');
         console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
       },
     },
@@ -125,7 +206,11 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
     formData.append('clubSummary', input.clubSummary);
     formData.append('bookSummary', input.bookSummary);
 
-    clubSubmit(formData);
+    if (!!fixClubData) {
+      clubFix([formData, clubId!]);
+    } else {
+      clubSubmit(formData);
+    }
   };
   const handleOnSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -167,11 +252,12 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
             input={input}
             setInput={setInput}
             name="clubIntro"
-            placeholder="인트로를 작성해주세요"
+            maxLength={50}
+            placeholder="인트로를 작성해주세요 (글자제한 50자)"
           />
         </ParagraphDiv>
         <ParagraphDiv>
-          <SearchBooks input={input} setInput={setInput} />
+          <SearchBooks />
         </ParagraphDiv>
 
         <ParagraphDiv>
@@ -196,7 +282,7 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
             input={input}
             setInput={setInput}
             name="memberMaxNum"
-            placeholder="최대 인원 10명"
+            placeholder="최대 인원 10명까지"
             // width="29.2rem"
             flex={1}
             options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
@@ -239,7 +325,7 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
             input={input}
             setInput={setInput}
             name="clubSummary"
-            placeholder="상세 내용을 작성해주세요"
+            placeholder="상세 내용을 작성해주세요 "
             height="40.5rem"
           />
         </ParagraphDiv>
@@ -265,13 +351,16 @@ const CreateClubBody = ({fixClubData = undefined}: CreateClubBodyProps) => {
             등록하기
           </NavigationSubmitButton> */}
 
-          <button>등록하기</button>
+          <SubmitButton>
+            {!!fixClubData ? '모임 수정하기' : '등록하기'}
+          </SubmitButton>
         </ParagraphDiv>
       </form>
       {/* 책 인트로 */}
     </>
   );
 };
+
 export default CreateClubBody;
 
 const StaticTitle = styled.h1`
@@ -280,10 +369,11 @@ const StaticTitle = styled.h1`
   margin: 2.6rem 0;
 `;
 
-const NavigationSubmitButton = styled(NavigationButton)`
+const SubmitButton = styled.button`
   width: 100%;
   background-color: ${props => props.theme.MainColor};
   color: ${props => props.theme.White};
   margin: 2rem 0;
   height: 9.2rem;
+  font-size: 2.6rem;
 `;

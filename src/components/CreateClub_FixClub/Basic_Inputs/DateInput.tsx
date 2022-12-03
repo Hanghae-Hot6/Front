@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {SubmitClubType} from '../../../types/clubList';
 
@@ -19,12 +19,22 @@ const DateInput = ({
   width = '100%',
   flex,
 }: DateInputProps) => {
+  const [toggleDateValue, setToggleDateValue] = useState<boolean>(false);
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
     const {name, value} = e.target;
 
     setInput({...input, [name]: value});
   };
+
+  useEffect(() => {
+    if (input[name]) {
+      setToggleDateValue(true);
+    } else {
+      setToggleDateValue(false);
+    }
+  }, [input[name]]);
 
   return (
     <>
@@ -37,6 +47,7 @@ const DateInput = ({
         width={width}
         value={input[name]}
         flex={flex}
+        toggleDateValue={toggleDateValue}
       />
     </>
   );
@@ -46,6 +57,7 @@ export default DateInput;
 const TextInputInput = styled.input<{
   width: string | undefined;
   flex: number | undefined;
+  toggleDateValue: boolean;
 }>`
   ${({width}) => {
     if (width) {
@@ -61,7 +73,15 @@ const TextInputInput = styled.input<{
   border: 1px solid ${props => props.theme.LightGray};
   padding: 0 1rem;
   font-size: 2.2rem;
-  color: ${props => props.theme.Gray};
+
+  ${props => {
+    if (props.toggleDateValue) {
+      return `color: ${props.theme.Black};`;
+    } else {
+      return `color: ${props.theme.Gray};`;
+    }
+  }}
+
   &:focus {
     outline: none;
   }

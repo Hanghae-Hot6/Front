@@ -1,18 +1,12 @@
-import React from 'react';
-import {ReactQueryDevtools} from 'react-query/devtools';
-import ProfileDetail from '../components/Profile/ProfileDetail';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {getAccessToken, getUserId} from '../utils';
-import ProfileClubList from '../components/Profile/ProfileClubList';
 import {useAppDispatch} from '../Redux/store/store';
 import {openGlobalModal} from '../Redux/modules/slices/modalSlice';
 import styled from 'styled-components';
 import Footer from '../components/Footer/Footer';
 import ProfileContainer from '../components/Profile/ProfileContainer';
-import GlobalModal from '../common/GlobalModal';
 import ProfileModalCollection from '../components/Profile/ProfileModalCollection';
-import axios from 'axios';
 import {useQuery} from 'react-query';
 import {memberApis} from '../api/axiosConfig';
 import Header from '../components/Header/Header';

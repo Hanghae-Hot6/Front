@@ -28,55 +28,6 @@ const PaginationBooks = ({
     }
   };
 
-  const fakeData: NaverBooksDataType[][] = [
-    [
-      {
-        image: '',
-        isbn: 'sdf',
-        pubdate: 'sdf',
-        title: 'sdf',
-        description: 'sdf',
-      },
-      {
-        image: '',
-        isbn: 'sdf',
-        pubdate: 'sdf',
-        title: 'sdf',
-        description: 'sdf',
-      },
-      {
-        image: '',
-        isbn: 'sdf',
-        pubdate: 'sdf',
-        title: 'sdf',
-        description: 'sdf',
-      },
-    ],
-    [
-      {
-        image: '',
-        isbn: 'sdf',
-        pubdate: 'sdf',
-        title: 'sdf',
-        description: 'sdf',
-      },
-      {
-        image: '',
-        isbn: 'sdf',
-        pubdate: 'sdf',
-        title: 'sdf',
-        description: 'sdf',
-      },
-      {
-        image: '',
-        isbn: 'sdf',
-        pubdate: 'sdf',
-        title: 'sdf',
-        description: 'sdf',
-      },
-    ],
-  ];
-
   return (
     <>
       <CarouselContainer borderWidth={borderWidth} borderHeight={borderHeight}>

@@ -1,11 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import NavigationButton from '../common/NavigationButton';
 import ThinLine from '../common/ThinLine';
 import CreateClubBody from '../components/CreateClub_FixClub/Body/CreateClubBody';
 import {CreateClubFixClubPageLayout} from '../components/CreateClub_FixClub/Layout/CreateClubFixClubPageLayout';
 import CreateClubTitle from '../components/CreateClub_FixClub/Title/CreateClubTitle';
-
 import Layout from '../components/Layout/Layout';
 import Theme from '../theme/Theme';
 

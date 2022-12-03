@@ -10,21 +10,9 @@ import BooksViewer from '../BooksViewer/BooksViewer';
 import {CreateClubButton} from '../common/CreateClubDesigns';
 import PaginationBooks from './PaginationBooks';
 
-type SearchBooksProps = {
-  input: SubmitClubType;
-  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
+type SearchBooksProps = {};
 
-  width?: string;
-  flex?: number;
-};
-
-const SearchBooks = ({
-  input,
-
-  setInput,
-  width = '100%',
-  flex,
-}: SearchBooksProps) => {
+const SearchBooks = ({}: SearchBooksProps) => {
   const [showNaverBookSearch, setShowNaverBookSearch] =
     useState<boolean>(false);
   const [booknameSearch, setBooknameSearch] = useState<string>('');
@@ -72,10 +60,6 @@ const SearchBooks = ({
     }
   }
 
-  useEffect(() => {
-    console.log(booknameSearch);
-  }, [booknameSearch]);
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
 
@@ -92,12 +76,14 @@ const SearchBooks = ({
             type="text"
             placeholder="도서명을 입력해 주세요"
             onChange={handleChange}
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               setShowNaverBookSearch(true);
             }}
           />
           <CreateClubButton
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               setShowNaverBookSearch(!showNaverBookSearch);
             }}>
             {showNaverBookSearch ? '닫기' : '찾아보기'}
