@@ -3,7 +3,7 @@ import {useQuery, useMutation} from 'react-query';
 import {reviewApis} from '../../api/axiosConfig';
 import {useParams} from 'react-router-dom';
 import {getUserId} from '../../utils';
-import styled from 'styled-components';
+import * as R from './Review.style';
 
 export type review = {
   comment: string;
@@ -66,7 +66,6 @@ const Review = ({subscription}: {subscription: boolean}) => {
       },
     },
   );
-  console.log(typeof input.comment);
 
   return (
     <>
@@ -76,29 +75,29 @@ const Review = ({subscription}: {subscription: boolean}) => {
         </h2>
         {subscription ? (
           <>
-            <ReviewCreate
+            <R.ReviewCreate
               name="comment"
               value={input.comment}
               placeholder="후기를 작성해 주세요"
               onChange={handleChange}
             />
             {input.comment === '' ? (
-              <Btn
+              <R.Btn
                 onClick={() => alert('내용을 입력해 주세요')}
                 style={{height: '5rem'}}>
                 작성
-              </Btn>
+              </R.Btn>
             ) : (
-              <Btn
+              <R.Btn
                 onClick={() => createReview({id, input})}
                 style={{height: '5rem'}}>
                 작성
-              </Btn>
+              </R.Btn>
             )}
           </>
         ) : (
           <>
-            <ReviewCreate
+            <R.ReviewCreate
               placeholder="모임에 가입해야 후기를 작성할 수 있어요 !"
               readOnly
             />
@@ -109,7 +108,7 @@ const Review = ({subscription}: {subscription: boolean}) => {
           // eslint-disable-next-line array-callback-return
           data.map((item: reviewItem, idx: number) => {
             return (
-              <ReviewWrap key={idx}>
+              <R.ReviewWrap key={idx}>
                 <div>
                   <div>
                     <small>{item.memberId}</small>
@@ -117,14 +116,16 @@ const Review = ({subscription}: {subscription: boolean}) => {
                   </div>
 
                   {userId === item.memberId ? (
-                    <Btn onClick={() => deleteReview(item?.reviewId)}>삭제</Btn>
+                    <R.Btn onClick={() => deleteReview(item?.reviewId)}>
+                      삭제
+                    </R.Btn>
                   ) : null}
                 </div>
 
                 <small>{item.comment}</small>
 
                 {/* 이 글에 대한 유저 아이디와 내 로컬아이디 같으면 삭제 버튼 나오게 */}
-              </ReviewWrap>
+              </R.ReviewWrap>
             );
           })}
       </section>
@@ -133,55 +134,3 @@ const Review = ({subscription}: {subscription: boolean}) => {
 };
 
 export default Review;
-
-export const ReviewCreate = styled.input`
-  width: 50rem;
-  height: 50px;
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  :focus {
-    outline: none;
-  }
-`;
-
-export const ReviewWrap = styled.p`
-  margin-top: 15px;
-  padding: 10px;
-  padding-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  > div {
-    border-bottom: 1px dashed #ccc;
-    margin-bottom: 5px;
-    padding-bottom: 8px;
-  }
-  > div {
-    display: flex;
-    justify-content: space-between;
-  }
-  > div > div > small {
-    margin-right: 10px;
-  }
-  > div > div > small:last-child {
-    font-size: 12px;
-    color: #777;
-  }
-`;
-
-export const Btn = styled.button`
-  width: 5rem;
-  height: 2rem;
-  color: #fff;
-  border-radius: 5px;
-  margin-left: 10px;
-  background-color: ${props => props.theme.MainColor};
-  border: 1px solid transparent;
-  transition: all 0.5s;
-  :hover {
-    border: 1px solid ${props => props.theme.MainColor};
-    color: ${props => props.theme.MainColor};
-    background-color: #fff;
-  }
-`;
