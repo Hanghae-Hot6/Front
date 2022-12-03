@@ -23,6 +23,8 @@ function LoginForm() {
   const accessToken = getAccessToken();
   const userId = getUserId();
 
+  console.log(`${process.env.REACT_APP_BASE_URL}`);
+
   // 비밀번호 보이기, 숨기기
   const [passwordType, setPasswordType] = useState({
     type: 'password',

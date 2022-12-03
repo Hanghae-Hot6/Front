@@ -87,7 +87,7 @@ export const memberApis = {
 
   // 로그인
   login: async (payload: SignValueType) =>
-    await api.post(`${process.env.REACT_APP_BASE_URL}/members/login`, payload),
+    await api.post(`members/login`, payload),
 
   // Kakao OAuth
   kakaoLogin: async (payload: string | undefined) => {
