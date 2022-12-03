@@ -53,7 +53,8 @@ const StForm = styled.form<{
     height: 100%;
     width: 100%;
     border: 0;
-    padding: 2rem;
+    padding: 1rem;
+    margin: 0 auto;
   }
 `;
 const StLogoDiv = styled.div`

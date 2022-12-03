@@ -34,6 +34,8 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 5.2rem;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const StModalDiv = styled.div`
