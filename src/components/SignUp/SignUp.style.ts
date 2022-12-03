@@ -21,6 +21,17 @@ export const StCheckBtn = styled.button`
   white-space: nowrap;
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 5.2rem;
+  align-items: center;
+  justify-content: center;
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
+`;
+
 export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   width: 40rem;
   height: 6rem;
@@ -29,13 +40,10 @@ export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 4.3rem;
-`;
-export const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 5.2rem;
-  align-items: center;
-  justify-content: center;
+  @media screen and (max-width: 576px) {
+    height: 6rem;
+    width: 100%;
+  }
 `;
 
 export const StModalDiv = styled.div`
