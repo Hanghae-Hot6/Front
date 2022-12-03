@@ -248,7 +248,8 @@ const CreateClubBody = ({
             input={input}
             setInput={setInput}
             name="clubIntro"
-            placeholder="인트로를 작성해주세요"
+            maxLength={50}
+            placeholder="인트로를 작성해주세요 (글자제한 50자)"
           />
         </ParagraphDiv>
         <ParagraphDiv>
@@ -320,7 +321,7 @@ const CreateClubBody = ({
             input={input}
             setInput={setInput}
             name="clubSummary"
-            placeholder="상세 내용을 작성해주세요"
+            placeholder="상세 내용을 작성해주세요 "
             height="40.5rem"
           />
         </ParagraphDiv>

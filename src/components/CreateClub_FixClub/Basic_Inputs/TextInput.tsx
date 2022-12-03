@@ -21,7 +21,7 @@ const TextInput = ({
   placeholder,
   width = '100%',
   flex,
-  maxLength = 30,
+  maxLength = 36,
   fixClubData,
 }: TextInputProps) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
@@ -66,6 +66,10 @@ const TextInputInput = styled.input<{
     }
   }}
   height: 5.8rem;
+
+  /* &::placeholder {
+    color: red;
+  } */
 
   /* border: none; */
   padding: 0 1rem;

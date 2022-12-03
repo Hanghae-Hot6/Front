@@ -9,6 +9,7 @@ type TextAreaProps = {
   placeholder?: string;
   width?: string;
   height: string;
+  maxLength?: number;
 };
 
 const TextArea = ({
@@ -17,6 +18,7 @@ const TextArea = ({
   setInput,
   placeholder,
   width = '100%',
+  maxLength = 2000,
   height,
 }: TextAreaProps) => {
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = e => {
@@ -33,6 +35,7 @@ const TextArea = ({
       placeholder={placeholder}
       width={width}
       value={input[name]}
+      maxLength={maxLength}
       height={height}
     />
   );
