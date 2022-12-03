@@ -5,6 +5,9 @@ export type clubDetailType = {
   memberLimit: number;
   summary: string;
   imageUrl: string;
+  book1: string;
+  book2: string;
+  book3: string;
   bookImage1: string;
   bookImage2: string;
   bookImage3: string;
@@ -29,6 +32,7 @@ export type clubDetailType = {
   schedule: string;
   subscription: boolean;
   thumbnail: string;
+  memberMaxNum: string;
 };
 
 export type LocationState = {
@@ -60,4 +64,21 @@ export type RecommendationClubType = {
   summary: string;
   thumbnail: string;
   visitNum: number;
+};
+
+export type SubmitClubType = {
+  clubName: string;
+  category: string;
+  clubIntro: string;
+  book1: string;
+  book2: string;
+  book3: string;
+  thumbnail: Blob | string;
+  memberMaxNum: string;
+  startDate: string;
+  finishDate: string;
+  location: string;
+  schedule: string;
+  clubSummary: string;
+  bookSummary: string;
 };
