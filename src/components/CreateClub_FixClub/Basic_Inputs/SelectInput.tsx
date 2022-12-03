@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {SubmitClubType} from '../../../types/clubList';
 import CaretDown from '../../../assets/CaretDown.svg';
@@ -24,6 +24,8 @@ const SelectInput = ({
   options,
   marginLeft,
 }: SelectInputProps) => {
+  const [toggleValue, setToggleValue] = useState<boolean>(false);
+
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
     e.preventDefault();
 
@@ -31,6 +33,14 @@ const SelectInput = ({
 
     setInput({...input, [name]: value});
   };
+
+  useEffect(() => {
+    if (input[name]) {
+      setToggleValue(true);
+    } else {
+      setToggleValue(false);
+    }
+  }, [input[name]]);
 
   return (
     <>
@@ -41,10 +51,11 @@ const SelectInput = ({
         required
         width={width}
         marginLeft={marginLeft}
-        flex={flex}>
-        <Option value="" disabled>
+        flex={flex}
+        toggleValue={toggleValue}>
+        <PlaceholderOption value="" disabled>
           {placeholder}
-        </Option>
+        </PlaceholderOption>
         {options.map((val, index) => {
           return (
             <Option key={index} value={val}>
@@ -62,6 +73,7 @@ const Select = styled.select<{
   width: string | undefined;
   marginLeft: string | undefined;
   flex: number | undefined;
+  toggleValue: boolean;
 }>`
   /* 화살표 디자인하기 */
   -webkit-appearance: none; /* for chrome */
@@ -82,7 +94,7 @@ const Select = styled.select<{
   border: 1px solid ${props => props.theme.LightGray};
   padding: 0 1rem;
   font-size: 2.2rem;
-  color: ${props => props.theme.Gray};
+
   ${({marginLeft}) => {
     if (marginLeft) {
       return `margin-left: ${marginLeft};`;
@@ -90,6 +102,14 @@ const Select = styled.select<{
       return ``;
     }
   }};
+
+  ${props => {
+    if (props.toggleValue) {
+      return `color: ${props.theme.Black};`;
+    } else {
+      return `color: ${props.theme.Gray};`;
+    }
+  }}
 
   &:focus {
     outline: none;
@@ -101,4 +121,8 @@ const Option = styled.option`
   height: 5.6rem;
   font-size: 2.2rem;
   color: ${props => props.theme.Black};
+`;
+
+const PlaceholderOption = styled(Option)`
+  color: ${props => props.theme.Gray};
 `;

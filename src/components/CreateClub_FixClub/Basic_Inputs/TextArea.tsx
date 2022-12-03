@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {SubmitClubType} from '../../../types/clubList';
 
@@ -21,12 +21,22 @@ const TextArea = ({
   maxLength = 2000,
   height,
 }: TextAreaProps) => {
+  const [toggleValue, setToggleValue] = useState<boolean>(false);
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = e => {
     e.preventDefault();
     const {name, value} = e.target;
 
     setInput({...input, [name]: value});
   };
+
+  useEffect(() => {
+    if (input[name]) {
+      setToggleValue(true);
+    } else {
+      setToggleValue(false);
+    }
+  }, [input[name]]);
+
   return (
     <TextAreaText
       name={name}
@@ -37,12 +47,17 @@ const TextArea = ({
       value={input[name]}
       maxLength={maxLength}
       height={height}
+      toggleValue={toggleValue}
     />
   );
 };
 export default TextArea;
 
-const TextAreaText = styled.textarea<{width: string; height: string}>`
+const TextAreaText = styled.textarea<{
+  width: string;
+  height: string;
+  toggleValue: boolean;
+}>`
   width: ${({width}) => width};
   height: ${({height}) => height};
   border: 1px solid ${props => props.theme.LightGray};
@@ -50,10 +65,20 @@ const TextAreaText = styled.textarea<{width: string; height: string}>`
   outline: none;
   font-size: 2.2rem;
   padding: 1rem 1rem;
-  color: ${props => props.theme.Gray};
-  font-weight: 600;
+
+  &::placeholder {
+    color: ${props => props.theme.Gray};
+  }
 
   &:hover {
     outline: none;
   }
+
+  ${props => {
+    if (props.toggleValue) {
+      return `color: ${props.theme.Black};`;
+    } else {
+      return `color: ${props.theme.LightGray};`;
+    }
+  }}
 `;

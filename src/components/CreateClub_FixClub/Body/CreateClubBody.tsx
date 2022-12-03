@@ -92,6 +92,10 @@ const CreateClubBody = ({
     [],
   );
 
+  useEffect(() => {
+    console.log(input);
+  }, [input]);
+
   // unmount시 redux에 있는 책 데이터들 모두 날리기
   useEffect(() => {
     return () => {
