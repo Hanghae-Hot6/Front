@@ -7,11 +7,10 @@ export const Div = styled.div`
 
   position: relative;
   margin: 1rem 0;
-
-  /* &:hover {
-    transition: all 0.5s;
+  transition: all 0.5s;
+  &:hover {
     transform: scale(1.03);
-  } */
+  }
 `;
 
 export const Img = styled.img`

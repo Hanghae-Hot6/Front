@@ -78,12 +78,14 @@ const SearchBooks = ({}: SearchBooksProps) => {
             type="text"
             placeholder="도서명을 입력해 주세요"
             onChange={handleChange}
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               setShowNaverBookSearch(true);
             }}
           />
           <CreateClubButton
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               setShowNaverBookSearch(!showNaverBookSearch);
             }}>
             {showNaverBookSearch ? '닫기' : '찾아보기'}
