@@ -1,10 +1,10 @@
 import React, {ReactNode, useState, useEffect} from 'react';
-import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import styled from 'styled-components';
 import arrow from '../../assets/arrowUp.svg';
 import ChatBody from '../Chat/ChatBody/ChatBody';
 import chatBtn from '../../assets/chatBtn.svg';
+import Header from '../Header/Header';
 type Props = {
   children: ReactNode;
 };

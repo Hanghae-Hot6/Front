@@ -2,11 +2,9 @@ import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
-import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
+
 import {NaverBooksDataType} from '../../../types/bookSearch';
 import {SubmitClubType} from '../../../types/clubList';
-
-import HeaderSearch from '../../Header/HeaderSearch';
 
 import BooksViewer from '../BooksViewer/BooksViewer';
 import {CreateClubButton} from '../common/CreateClubDesigns';
