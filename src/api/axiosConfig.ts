@@ -80,7 +80,7 @@ api.interceptors.response.use(
 export const memberApis = {
   // 회원가입
   signUp: async (payload: SignValueType) =>
-    await api.post(`${process.env.REACT_APP_BASE_URL}/members/signup`, payload),
+    await api.post(`members/signup`, payload),
 
   // 로그인
   login: async (payload: SignValueType) =>
@@ -100,52 +100,40 @@ export const memberApis = {
 
   //id 중복검사
   idCheck: async (payload: string | undefined) =>
-    await api.get(
-      `${process.env.REACT_APP_BASE_URL}/members/signup/checkid/${payload}`,
-    ),
+    await api.get(`members/signup/checkid/${payload}`),
 
   // email 전송
   sendEmail: async (payload: string | undefined) =>
-    await api.get(
-      `${process.env.REACT_APP_BASE_URL}/members/mailConfirm?email=${payload}`,
-    ),
+    await api.get(`members/mailConfirm?email=${payload}`),
 
   // 인증번호 전송
   sendCertNum: async (payload: string | undefined) =>
-    await api.get(
-      `${process.env.REACT_APP_BASE_URL}/members/mailAuth?code=${payload}`,
-    ),
+    await api.get(`members/mailAuth?code=${payload}`),
 
-  // 비밀번호 변경
+  // 비밀번호 찾기
   changePassword: async (payload: FindPasswordValueType) =>
-    await api.post(
-      `${process.env.REACT_APP_BASE_URL}/members/findPassword`,
-      payload,
-    ),
+    await api.post(`members/findPassword`, payload),
 
   // 아이디 찾기
   changeMemberId: async (payload: FindIdValue) =>
-    await api.post(`${process.env.REACT_APP_BASE_URL}/members/findId`, payload),
+    await api.post(`members/findId`, payload),
 
   //My page
-  myPageInfo: async () =>
-    await api.get(`${process.env.REACT_APP_BASE_URL}/members/mypage`),
+  myPageInfo: async () => await api.get(`members/mypage`),
 
   // 내가 개설한 클럽 모임
-  getLeaderClubs: async () =>
-    await api.get(`${process.env.REACT_APP_BASE_URL}/members/mypage/leader`),
+  getLeaderClubs: async () => await api.get(`members/mypage/leader`),
 
-  getInterestClubs: async () =>
-    await api.get(`${process.env.REACT_APP_BASE_URL}/members/mypage/interest`),
+  getInterestClubs: async () => await api.get(`members/mypage/interest`),
 
   postInquiryEmail: async (payload: string) =>
-    await api.post(`${process.env.REACT_APP_BASE_URL}/members/cs`, payload),
+    await api.post(`members/cs`, payload),
 
   passwordCheck: async (payload: string) =>
-    await api.post(`${process.env.REACT_APP_BASE_URL}/members/auth`, payload),
+    await api.post(`members/auth`, payload),
 
   modifyProfile: async (payload: SignValueType) =>
-    await api.post(`${process.env.REACT_APP_BASE_URL}/members/modify`, payload),
+    await api.post(`members/modify`, payload),
 };
 
 // 클럽 관련된 api 모음 클럽 만들기는 제외

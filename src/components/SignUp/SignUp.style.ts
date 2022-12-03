@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
-export const StContainer = styled.div``;
+export const StContainer = styled.div`
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%; */
+`;
 
 export const StCheckBtn = styled.button`
-  display: flex;
   font-size: 1.4rem;
   height: 2.3rem;
   color: #5200ff;
@@ -51,11 +56,6 @@ export const StModalDiv = styled.div`
       font-weight: bold;
     }
 
-    /* input {
-      border: 1px solid ${props => props.theme.MainColor};
-      height: 3rem;
-    }
-     */
     div:nth-child(1) {
       display: flex;
       flex-direction: column;

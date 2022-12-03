@@ -66,10 +66,11 @@ function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
     {
       onSuccess: data => {
         console.log(data);
-        if (data?.status === 200) {
+        if (data?.status === 200 && data.data.success === true) {
           dispatch(closeGlobalModal('profileChange'));
           dispatch(openGlobalModal('successChangeProfile'));
         } else {
+          dispatch(closeGlobalModal('profileChange'));
         }
       },
       onError: error => {
@@ -150,6 +151,10 @@ function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
           onChange={handleChange}></RegistStInput>
         <RegistErrorSpan>{errors.phoneNumber}</RegistErrorSpan>
       </div>
+      <ProcessDiv isPWCorrect={isPWCorrect}>
+        <span></span>
+        <span></span>
+      </ProcessDiv>
       <BtnBox>
         <button type="submit">변경</button>
         <button
@@ -189,6 +194,11 @@ const StProfileChangeForm = styled.form`
       font-size: 1.5rem;
       white-space: nowrap;
     }
+    span {
+      margin-top: 1rem;
+      font-size: 1.3rem;
+      color: red;
+    }
   }
 `;
 
@@ -201,5 +211,27 @@ const BtnBox = styled.div`
     color: ${props => props.theme.MainColor};
     border: 1px solid ${props => props.theme.MainColor};
     padding: 0;
+  }
+`;
+const ProcessDiv = styled.div<{isPWCorrect: boolean}>`
+  display: flex;
+  margin: 0 auto;
+  span:nth-child(1) {
+    width: 2.5rem;
+    height: 0.6rem;
+    background-color: ${props =>
+      props.isPWCorrect === false
+        ? props.theme.MainColor
+        : props.theme.LightGray};
+    margin: 0.5rem 0.3rem;
+  }
+  span:nth-child(2) {
+    width: 2.5rem;
+    height: 0.6rem;
+    background-color: ${props =>
+      props.isPWCorrect === true
+        ? props.theme.MainColor
+        : props.theme.LightGray};
+    margin: 0.5rem 0.3rem;
   }
 `;

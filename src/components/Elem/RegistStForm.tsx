@@ -48,6 +48,13 @@ const StForm = styled.form<{
   border: 1px solid #c1a4ff;
   padding: 4.8rem;
   background-color: #fff;
+
+  @media screen and (max-width: 576px) {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    padding: 2rem;
+  }
 `;
 const StLogoDiv = styled.div`
   display: flex;

@@ -66,9 +66,11 @@ export const StContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   height: 100%;
   width: 100%;
 `;
+
 
 // const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
 //   display: flex;
