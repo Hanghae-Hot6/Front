@@ -89,7 +89,7 @@ function ProfileClubList({data}: ProfileDataType) {
             }}></Outlet>
         )}
         {index === 0 && (
-          <ul>
+          <P.StUl>
             {clubListData && clubListData?.length === 0 ? (
               <P.StClubLi>
                 <div> 참석중인 모임이 없습니다.</div>
@@ -139,7 +139,7 @@ function ProfileClubList({data}: ProfileDataType) {
                 );
               })
             )}
-          </ul>
+          </P.StUl>
         )}
 
         {index === 0 && (

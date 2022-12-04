@@ -2,7 +2,7 @@ import React, {Dispatch, SetStateAction} from 'react';
 import {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {PaginatePropsTypes} from '../../types/profile';
-
+import * as P from './Profile.style';
 function Pagenation({
   page,
   pageRange,
@@ -26,7 +26,7 @@ function Pagenation({
 
   return (
     <>
-      <StNav>
+      <P.StNav>
         <button
           onClick={() => {
             setPage(page - 1);
@@ -59,33 +59,9 @@ function Pagenation({
           disabled={page === maxPageNum}>
           {'>'}
         </button>
-      </StNav>
+      </P.StNav>
     </>
   );
 }
 
 export default Pagenation;
-const StNav = styled.nav`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 3rem;
-  button {
-    text-align: center;
-    padding: 0;
-    margin: 0 5px;
-    border-radius: 20%;
-    width: 2rem;
-    height: 2rem;
-    background-color: #fff;
-    color: ${props => props.theme.MainColor};
-    border: 1px solid ${props => props.theme.MainColor};
-  }
-
-  .on {
-    background-color: ${props => props.theme.MainColor};
-    color: #fff;
-  }
-`;

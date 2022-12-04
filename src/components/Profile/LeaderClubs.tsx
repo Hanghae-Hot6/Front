@@ -5,12 +5,12 @@ import {Link, useNavigate} from 'react-router-dom';
 import {clubApis, memberApis} from '../../api/axiosConfig';
 import {clubList} from '../../types/regist';
 import {getUserId} from '../../utils';
-import * as P from './Profile.style';
 import GlobalModal from '../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import Pagenation from './Pagenation';
 import styled from 'styled-components';
+import * as P from './Profile.style';
 
 function LeaderClubs() {
   const userId = getUserId();
@@ -93,8 +93,8 @@ function LeaderClubs() {
   );
 
   return (
-    <StOutletWrapper>
-      <ul>
+    <P.StOutletWrapper>
+      <P.StUl>
         {leaderClubsData && leaderClubsData?.length === 0 ? (
           <P.StClubLi>
             <div> 참석중인 모임이 없습니다.</div>
@@ -160,7 +160,7 @@ function LeaderClubs() {
             <div>정말 삭제하시겠습니까?</div>
           </GlobalModal>
         )}
-      </ul>
+      </P.StUl>
       <Pagenation
         page={page}
         pageRange={pageRange}
@@ -169,16 +169,8 @@ function LeaderClubs() {
         maxPageNum={maxPageNum}
         setPage={setPage}
         setPageRange={setPageRange}></Pagenation>
-    </StOutletWrapper>
+    </P.StOutletWrapper>
   );
 }
 
 export default LeaderClubs;
-
-const StOutletWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`;

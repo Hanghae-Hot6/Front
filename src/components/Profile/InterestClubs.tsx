@@ -52,8 +52,8 @@ function InterestClubs() {
       Date.parse(b.startDate!) - Date.parse(a.startDate!),
   );
   return (
-    <StOutletWrapper>
-      <ul>
+    <P.StOutletWrapper>
+      <P.StUl>
         {interestClubsData && interestClubsData?.length === 0 ? (
           <P.StClubLi>
             <div> 참석중인 모임이 없습니다.</div>
@@ -102,7 +102,7 @@ function InterestClubs() {
               );
             })
         )}
-      </ul>
+      </P.StUl>
       <Pagenation
         page={page}
         pageRange={pageRange}
@@ -111,16 +111,8 @@ function InterestClubs() {
         maxPageNum={maxPageNum}
         setPage={setPage}
         setPageRange={setPageRange}></Pagenation>
-    </StOutletWrapper>
+    </P.StOutletWrapper>
   );
 }
 
 export default InterestClubs;
-
-const StOutletWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`;
