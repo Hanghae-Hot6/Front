@@ -7,13 +7,13 @@ import heartOn from '../../assets/heartOn.svg';
 import heartOff from '../../assets/heartOff.svg';
 import {clubDetailType} from '../../types/clubList';
 import {clubApis} from '../../api/axiosConfig';
-
+import {getAccessToken} from '../../utils';
 import Review from './Review';
 
 const ClubDetailBody = () => {
   const navigate = useNavigate();
   const {id} = useParams();
-
+  const accessToken = getAccessToken();
   // 화면에 클럽정보 뿌려주는api
   const {data, status} = useQuery<clubDetailType | undefined>(
     ['getClubDetail', id],
@@ -23,7 +23,14 @@ const ClubDetailBody = () => {
     },
     {
       retry: 0,
+      onSuccess() {
+        if (localStorage.length === 0) {
+          return alert('로그인이 필요합니다.'), navigate('/Login');
+        }
+      },
       onError: (error: any) => {
+        console.log('에러', error);
+
         // 로그인 에러 남바 : 403 or 401
         if (error.response.status === 500) {
           return alert('로그인이 필요합니다.'), navigate('/Login');
