@@ -9,7 +9,7 @@ const PopularClub = () => {
     <PopWrap>
       <PopDiv>
         <img src={main1} alt="main1" />
-        <div>
+        <div className="main1">
           <p>
             곤충이 없는 미래에는 인류의 문명도 없다 발아래에서 소멸하는 우주에
             관한 곤충학자의 경고, 그리고 절실한 호소 레이철 카슨의 『침묵의 봄』
@@ -35,7 +35,7 @@ const PopularClub = () => {
       </PopDiv>
       <PopDiv>
         <img src={main2} alt="main2" />
-        <div>
+        <div className="main2">
           <p>
             RABBIT JUMP 더 높은 도약을 준비하는 검은 토끼의 해 세계화의 종말,
             갈등과 분열, 그리고 전쟁. 수십 년간 이어져 온 평화와 공존의 시대는
@@ -99,6 +99,16 @@ const PopDiv = styled.div`
   :hover {
     div {
       opacity: 1;
+    }
+  }
+  .main1 {
+    @media screen and (max-width: 576px) {
+      top: 25%;
+    }
+  }
+  .main2 {
+    @media screen and (max-width: 576px) {
+      top: 75%;
     }
   }
 `;

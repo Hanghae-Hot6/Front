@@ -134,6 +134,10 @@ const RecommendationWrap = styled.div`
   @media screen and (max-width: 576px) {
     overflow-y: hidden;
     overflow-x: scroll;
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 const TitleWrap = styled.div`

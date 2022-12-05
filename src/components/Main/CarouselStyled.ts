@@ -28,6 +28,9 @@ export const ArrowButton = styled.button<{pos: 'left' | 'right'}>`
   border: none;
   margin: 0;
   cursor: pointer;
+  img {
+    width: 5.5rem;
+  }
   ${({pos}: {pos: 'left' | 'right'}) =>
     pos === 'left'
       ? css`

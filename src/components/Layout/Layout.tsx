@@ -168,6 +168,9 @@ const BtnWrap = styled.div`
   > button:hover {
     transform: translate3d(5px, 5px, -5px);
   }
+  @media screen and (max-width: 576px) {
+    right: 1rem;
+  }
 `;
 const LayoutWrap = styled.section`
   width: 1280px;
@@ -176,5 +179,6 @@ const LayoutWrap = styled.section`
   height: 100%;
   @media screen and (max-width: 576px) {
     width: 90vw;
+    min-height: 90vh;
   }
 `;
