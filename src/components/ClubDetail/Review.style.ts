@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ReviewCreate = styled.input`
   width: 50rem;
-  height: 50px;
+  height: 5rem;
   border: 1px solid #ccc;
   padding: 15px;
   margin-bottom: 15px;
@@ -41,7 +41,7 @@ export const ReviewWrap = styled.section`
 
 export const Btn = styled.button`
   width: 5rem;
-  height: 2rem;
+  height: 2.5rem;
   color: #fff;
   border-radius: 5px;
   margin-left: 10px;

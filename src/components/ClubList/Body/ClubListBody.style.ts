@@ -46,6 +46,10 @@ export const TabList = styled.div`
       overflow-y: hidden;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+      -ms-overflow-style: none;
+      ::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 `;
@@ -58,6 +62,10 @@ export const ContentWrap = styled.div`
     width: 90vw;
     overflow-x: scroll;
     overflow-y: hidden;
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
@@ -85,6 +93,10 @@ export const CategoryTop = styled.div`
     width: 90vw;
     overflow-x: scroll;
     overflow-y: hidden;
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
