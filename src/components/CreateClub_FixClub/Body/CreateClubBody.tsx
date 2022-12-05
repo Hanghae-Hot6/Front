@@ -66,7 +66,6 @@ const CreateClubBody = ({
 
   const fixClubDataAccepted = useCallback(
     async (fixClubData: SubmitClubType | undefined) => {
-      console.log('fixClubDataAccepted');
       if (fixClubData) {
         setInput(fixClubData);
 
@@ -142,7 +141,7 @@ const CreateClubBody = ({
 
   const {mutate: clubFix} = useMutation(
     async (val: (FormData | number)[]) => {
-      await axios.post(
+      await axios.put(
         `${process.env.REACT_APP_BASE_URL}/clubs/${val[1]}`,
         val[0],
         {
@@ -196,7 +195,11 @@ const CreateClubBody = ({
     }
 
     if (input.thumbnail !== '') {
-      formData.append('thumbnail', input.thumbnail);
+      if (typeof input.thumbnail === 'string') {
+        formData.append('beforeThumbnail', input.thumbnail);
+      } else {
+        formData.append('thumbnail', input.thumbnail);
+      }
     }
     formData.append('memberMaxNum', input.memberMaxNum);
     formData.append('startDate', input.startDate);
