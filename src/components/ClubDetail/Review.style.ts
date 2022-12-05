@@ -10,6 +10,9 @@ export const ReviewCreate = styled.input`
   :focus {
     outline: none;
   }
+  @media screen and (max-width: 576px) {
+    width: 80vw;
+  }
 `;
 
 export const ReviewWrap = styled.section`
