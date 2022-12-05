@@ -13,17 +13,6 @@ import Header from '../components/Header/Header';
 import ChatBody from '../components/Chat/ChatBody/ChatBody';
 import chatBtn from '../assets/chatBtn.svg';
 
-// type ProfileData = {
-//   memberId: string;
-//   email: string;
-//   nickname: string;
-//   address: string;
-//   phoneNumber: string;
-//   password: string;
-//   passwordCheck: string;
-//   clubList: clubList[];
-// };
-
 const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -45,7 +34,7 @@ const ProfilePage = () => {
   }, [accessToken, navigate, urlId.userId, userId, dispatch]);
 
   const {
-    data: ProfileData,
+    data: profileData,
     isLoading,
     error,
   } = useQuery(
@@ -54,8 +43,9 @@ const ProfilePage = () => {
       try {
         const {data} = await memberApis.myPageInfo();
         return data;
-      } catch (error) {
-        // console.log(error);
+      } catch (error: any) {
+        // if (error.status === 404){
+        // } console.log(error);
       }
     },
     {
@@ -70,7 +60,7 @@ const ProfilePage = () => {
     <Stdiv>
       <Header />
       <StSection>
-        <ProfileContainer data={ProfileData?.data} />
+        <ProfileContainer data={profileData?.data} />
       </StSection>
       {showChat && <ChatBody setShowChat={setShowChat} />}
       <Footer />

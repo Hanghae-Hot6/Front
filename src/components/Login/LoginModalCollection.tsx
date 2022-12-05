@@ -18,10 +18,16 @@ function LoginModalCollection() {
           <div>이미 로그인 중 입니다.</div>
         </GlobalModal>
       )}
-      {isGlobalModalOpen && dispatchId === 'logIn-401Error' && (
-        <GlobalModal id="logIn-401Error" type="alertModal" confirmPath="/login">
+      {isGlobalModalOpen && dispatchId === 'logIn-400Error' && (
+        <GlobalModal id="logIn-400Error" type="alertModal" confirmPath="/login">
           <h2>로그인 실패</h2>
-          <div>없는 정보입니다. 회원가입 해주세요.</div>
+          <div>패스워드가 일치하지 않습니다.</div>
+        </GlobalModal>
+      )}
+      {isGlobalModalOpen && dispatchId === 'logIn-404Error' && (
+        <GlobalModal id="logIn-404Error" type="alertModal" confirmPath="/login">
+          <h2>로그인 실패</h2>
+          <div>아이디가 일치하지 않습니다.</div>
         </GlobalModal>
       )}
       {isGlobalModalOpen && dispatchId === 'findPasswordEmptyInput' && (

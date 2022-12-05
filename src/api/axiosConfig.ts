@@ -41,8 +41,8 @@ api.interceptors.response.use(
       response: {status},
     } = error;
 
-    if (status === 500) {
-      if (error.response.data.error === 'Internal Server Error') {
+    if (status === 401) {
+      if (error.response.data.code === 'NOT_VALID_TOKEN') {
         const originalRequest = config;
         const accessToken = await getAccessToken();
         const refreshToken = await getRefreshToken();
@@ -127,6 +127,14 @@ export const memberApis = {
 
   getInterestClubs: async () => await api.get(`members/mypage/interest`),
 
+  //My page
+  // myPageInfo: async () => await api.get(`mypage`),
+
+  // // 내가 개설한 클럽 모임
+  // getLeaderClubs: async () => await api.get(`mypage/leader`),
+
+  // getInterestClubs: async () => await api.get(`mypage/interest`),
+
   postInquiryEmail: async (payload: string) =>
     await api.post(`members/cs`, payload),
 
@@ -136,6 +144,16 @@ export const memberApis = {
   modifyProfile: async (payload: SignValueType) =>
     await api.post(`members/modify`, payload),
 };
+
+// export const myPageAips = {
+//   //My page
+//   myPageInfo: async () => await api.get(`mypage`),
+
+//   // 내가 개설한 클럽 모임
+//   getLeaderClubs: async () => await api.get(`mypage/leader`),
+
+//   getInterestClubs: async () => await api.get(`mypage/interest`),
+// };
 
 // 클럽 관련된 api 모음 클럽 만들기는 제외
 export const clubApis = {

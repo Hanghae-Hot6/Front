@@ -63,8 +63,10 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
         dispatch(openGlobalModal('loginComplete'));
       },
       onError: (error: any) => {
-        if (error.response.status === 401) {
-          dispatch(openGlobalModal('logIn-401Error'));
+        if (error.response.status === 400) {
+          dispatch(openGlobalModal('logIn-400Error'));
+        } else if (error.response.status === 404) {
+          dispatch(openGlobalModal('logIn-404Error'));
         }
         console.log('error response', error.response);
       },
@@ -122,9 +124,14 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
     ['emailCheck', values.email],
 
     async ({queryKey}) => {
-      const {data} = await memberApis.sendEmail(queryKey[1]);
-      return data;
+      try {
+        const {data} = await memberApis.sendEmail(queryKey[1]);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
     },
+
     // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
     {
       refetchOnWindowFocus: false,
@@ -141,7 +148,7 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
         }
       },
       onError: (error: any) => {
-        console.log(error.message);
+        throw error;
       },
     },
   );

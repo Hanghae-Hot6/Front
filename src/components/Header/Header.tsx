@@ -7,6 +7,7 @@ import logo from '../../assets/logo.svg';
 import hamBtn from '../../assets/hamBtn.svg';
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 import HeaderSearch from './HeaderSearch';
+import HeaderHamburgSlider from './HeaderHamburgSlider';
 
 const Header = () => {
   const [on, setOn] = useState<boolean>(false);
@@ -64,9 +65,10 @@ const Header = () => {
                 </>
               )}
             </StNavBtnsDiv>
-            <StNavHamBtns>
-              <div onClick={handleClick}>
-                <div className={on ? 'on' : 'off'}>
+            <StNavHamBtns onClick={handleClick}>
+              <div></div>
+              {/* <div onClick={handleClick}>
+              <div className={on ? 'on' : 'off'}>
                   {isLogin ? (
                     <>
                       <NavigationButton
@@ -92,10 +94,19 @@ const Header = () => {
                     </>
                   )}
                 </div>
-              </div>
+              </div> */}
             </StNavHamBtns>
           </div>
         </StHeaderSection>
+        {on && (
+          <HeaderHamburgSlider
+            on={on}
+            userId={userId}
+            isLogin={isLogin}
+            setOn={setOn}
+            setIsLogin={setIsLogin}
+          />
+        )}
       </StHeader>
     </>
   );
@@ -198,12 +209,6 @@ const StNavHamBtns = styled.div`
       width: 33px;
       height: 33px;
       background-image: url(${hamBtn});
-    }
-    div > .off > * {
-      display: none;
-    }
-    div > .on > * {
-      display: block;
     }
   }
   button {
