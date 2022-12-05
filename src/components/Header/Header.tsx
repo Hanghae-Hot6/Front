@@ -36,63 +36,65 @@ const Header = () => {
               <img src={logo} alt="logo" />
             </Link>
           </StLogo>
-          <HeaderSearch />
-          <StNavBtnsDiv>
-            {isLogin ? (
-              <>
-                <NavigationButton
-                  path={`/login`}
-                  onClickCallback={() => {
-                    localStorage.removeItem('Authorization');
-                    localStorage.removeItem('userId');
-                    localStorage.removeItem('Refresh-Token');
-                  }}>
-                  로그아웃
-                </NavigationButton>
-                <NavigationButton path={`/profile/${userId}`}>
-                  마이페이지
-                </NavigationButton>
-                <NavigationButton path={`/create_club`}>
-                  모임개설
-                </NavigationButton>
-              </>
-            ) : (
-              <>
-                <NavigationButton path="/login">로그인</NavigationButton>
-                <NavigationButton path="/sign">회원가입</NavigationButton>
-              </>
-            )}
-          </StNavBtnsDiv>
-          <StNavHamBtns>
-            <div onClick={handleClick}>
-              <div className={on ? 'on' : 'off'}>
-                {isLogin ? (
-                  <>
-                    <NavigationButton
-                      path={`/login`}
-                      onClickCallback={() => {
-                        localStorage.removeItem('Authorization');
-                        localStorage.removeItem('userId');
-                        localStorage.removeItem('Refresh-Token');
-                      }}>
-                      로그아웃
-                    </NavigationButton>
-                    <NavigationButton path={`/profile/${userId}`}>
-                      마이페이지
-                    </NavigationButton>
-                    <NavigationButton path={`/create_club`}>
-                      모임개설
-                    </NavigationButton>
-                  </>
-                ) : (
-                  <>
-                    <NavigationButton path="/login">로그인</NavigationButton>
-                    <NavigationButton path="/sign">회원가입</NavigationButton>
-                  </>
-                )}
+          <div className="btnWrap">
+            <HeaderSearch />
+            <StNavBtnsDiv>
+              {isLogin ? (
+                <>
+                  <NavigationButton
+                    path={`/login`}
+                    onClickCallback={() => {
+                      localStorage.removeItem('Authorization');
+                      localStorage.removeItem('userId');
+                      localStorage.removeItem('Refresh-Token');
+                    }}>
+                    로그아웃
+                  </NavigationButton>
+                  <NavigationButton path={`/profile/${userId}`}>
+                    마이페이지
+                  </NavigationButton>
+                  <NavigationButton path={`/create_club`}>
+                    모임개설
+                  </NavigationButton>
+                </>
+              ) : (
+                <>
+                  <NavigationButton path="/login">로그인</NavigationButton>
+                  <NavigationButton path="/sign">회원가입</NavigationButton>
+                </>
+              )}
+            </StNavBtnsDiv>
+            <StNavHamBtns>
+              <div onClick={handleClick}>
+                <div className={on ? 'on' : 'off'}>
+                  {isLogin ? (
+                    <>
+                      <NavigationButton
+                        path={`/login`}
+                        onClickCallback={() => {
+                          localStorage.removeItem('Authorization');
+                          localStorage.removeItem('userId');
+                          localStorage.removeItem('Refresh-Token');
+                        }}>
+                        로그아웃
+                      </NavigationButton>
+                      <NavigationButton path={`/profile/${userId}`}>
+                        마이페이지
+                      </NavigationButton>
+                      <NavigationButton path={`/create_club`}>
+                        모임개설
+                      </NavigationButton>
+                    </>
+                  ) : (
+                    <>
+                      <NavigationButton path="/login">로그인</NavigationButton>
+                      <NavigationButton path="/sign">회원가입</NavigationButton>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
-          </StNavHamBtns>
+            </StNavHamBtns>
+          </div>
         </StHeaderSection>
       </StHeader>
     </>
@@ -120,14 +122,16 @@ const StHeaderSection = styled.section`
   img {
     transform: scale(0.95);
   }
+  > .btnWrap {
+    display: flex;
+    justify-content: end;
+  }
   @media screen and (max-width: 576px) {
     width: 90vw;
   }
 `;
 
 const StLogo = styled.div`
-  display: flex;
-  justify-content: start;
   width: 33%;
 `;
 // const StInputDiv = styled.div`
