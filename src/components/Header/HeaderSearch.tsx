@@ -122,7 +122,7 @@ const Container = styled.div`
   width: 33%;
   @media screen and (max-width: 576px) {
     cursor: pointer;
-    margin-left: 52vw;
+    margin-left: 40vw;
     width: 10vw;
   }
 `;
