@@ -154,7 +154,7 @@ export const Main = styled.div`
     > div {
       @media screen and (max-width: 576px) {
         width: 90vw;
-        height: 30rem;
+        height: 172px;
       }
       width: 100%;
       height: 42.6rem;
@@ -176,8 +176,8 @@ export const Main = styled.div`
         filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
         object-fit: cover;
         @media screen and (max-width: 576px) {
-          width: 15rem;
-          height: 25rem;
+          width: 90px;
+          height: 140px;
         }
       }
     }
