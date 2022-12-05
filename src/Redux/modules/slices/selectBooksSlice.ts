@@ -92,23 +92,6 @@ const selectBooksSlice = createSlice({
         });
       });
 
-      // let yo: (NaverBooksDataType | undefined)[] = [];
-      // Object.values(state).forEach(val => {
-      //   if (val) {
-      //     yo.push(val);
-      //   }
-      // });
-
-      // yo.forEach((val, index) => {
-      //   if (index === 0) {
-      //     state.book1 = val;
-      //   } else if (index === 1) {
-      //     state.book2 = val;
-      //   } else {
-      //     state.book3 = val;
-      //   }
-      // });
-
       console.log(current(state));
     },
     emptyBooks: state => {
