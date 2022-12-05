@@ -98,6 +98,9 @@ const TopButton = styled.button`
   transition: all 0.2s;
   margin-left: 0.8rem;
   margin-top: 1.4rem;
+  @media screen and (max-width: 576px) {
+    margin-top: 4rem;
+  }
 `;
 
 const ChatButton = styled.button`
@@ -112,9 +115,13 @@ const ChatButton = styled.button`
   /* background-image: url(${chatBtn});
   background-position: center center;
   background-repeat: no-repeat; */
+  @media screen and (max-width: 576px) {
+    margin-top: 1.4rem;
+  }
 `;
 
 const BtnWrap = styled.div`
+  background-color: #fff;
   position: fixed;
   top: 64.5%;
   right: 11.3rem;

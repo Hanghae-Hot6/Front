@@ -70,7 +70,7 @@ const CategorySection = styled.section`
     }
     div {
       margin-left: 180px;
-      padding-left: 100px;
+      padding-left: 120px;
       display: flex;
     }
   }

@@ -170,6 +170,8 @@ const StInputDiv = styled.div`
     }
     @media screen and (max-width: 576px) {
       width: 0;
+      border: none;
+      box-shadow: none;
     }
   }
   div {
