@@ -7,14 +7,12 @@ type WindowSizeType = {
 
 const useWindowSizeDetector = () => {
   const [windowSize, setWindowSize] = useState<WindowSizeType>({
-    width: 0,
-    height: 0,
+    width: window.innerWidth,
+    height: window.innerHeight,
   });
 
   const handleResize = () => {
     setWindowSize({width: window.innerWidth, height: window.innerHeight});
-    // console.log(window.innerWidth);
-    // console.log(window.innerHeight);
   };
 
   useEffect(() => {
