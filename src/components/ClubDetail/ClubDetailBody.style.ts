@@ -97,6 +97,9 @@ export const InterestBtn = styled.button`
     width: 100%;
     height: 100%;
   }
+  @media screen and (max-width: 576px) {
+    background-color: ${props => props.theme.MainColor};
+  }
 `;
 
 export const Btn = styled.button`
