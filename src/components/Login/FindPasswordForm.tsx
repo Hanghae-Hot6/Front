@@ -8,10 +8,11 @@ import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
 import LoginModalCollection from './LoginModalCollection';
 import * as L from './Login.style';
+import {useNavigate} from 'react-router-dom';
 
 function FindPasswordForm() {
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
   const init = {
     id: '',
     email: '',
@@ -20,15 +21,25 @@ function FindPasswordForm() {
   const [values, setValue] = useState(init);
 
   const {mutate: findPasswordMutate} = useMutation(
-    async (values: FindPasswordValueType) =>
-      await memberApis.changePassword(values),
+    async (values: FindPasswordValueType) => {
+      try {
+        const response = await memberApis.changePassword(values);
+        return response;
+      } catch (error: any) {
+        if (error.response.data.status === 401) {
+          dispatch(openGlobalModal('unAuthorizedEmail'));
+        }
+      }
+    },
     {
       onSuccess: data => {
         console.log(data);
-        dispatch(openGlobalModal(''));
+        if (data?.status === 200 && data.data.success === true) {
+          dispatch(openGlobalModal('sendNewPassword'));
+        }
       },
       onError: error => {
-        console.log(error);
+        throw error;
       },
     },
   );
@@ -76,9 +87,18 @@ function FindPasswordForm() {
               label="E-mail"></RegistStInput>
           </div>
 
-          <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
-            비밀번호 찾기
-          </L.StNavBtn>
+          <div>
+            <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
+              비밀번호 찾기
+            </L.StNavBtn>
+            <L.StNavBtn
+              type="button"
+              bgColor="#5200FF"
+              fontC="white"
+              onClick={() => navigate('/login')}>
+              로그인
+            </L.StNavBtn>
+          </div>
         </L.StContainer>
         <LoginModalCollection />
       </RegistStForm>

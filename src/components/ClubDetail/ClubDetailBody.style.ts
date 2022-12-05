@@ -11,6 +11,9 @@ export const MainContent = styled.div`
   margin-top: 5rem;
   padding-bottom: 9.5rem;
   border-bottom: 1px solid #eee;
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+  }
 `;
 
 export const ImageWrap = styled.div`
@@ -20,7 +23,9 @@ export const ImageWrap = styled.div`
   display: flex;
   margin-right: 9.2rem;
   overflow: hidden;
-
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+  }
   > img {
     display: inline-block;
     margin: 5% auto;
@@ -34,11 +39,16 @@ export const ImageWrap = styled.div`
 export const TitleWrap = styled.div`
   width: 59.2rem;
   border-bottom: 1px solid #dbdbdb;
-
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+  }
   > h3 {
     color: gray;
     font-size: 1.8rem;
     margin-bottom: 1.8rem;
+    @media screen and (max-width: 576px) {
+      margin-top: 1.8rem;
+    }
   }
   > h2 {
     font-weight: 600;
@@ -55,6 +65,9 @@ export const TitleWrap = styled.div`
 
 export const ClubInfoWrap = styled.div`
   > p {
+    @media screen and (max-width: 576px) {
+      margin-top: 1.8rem;
+    }
     font-size: 1.8rem;
     margin-bottom: 4rem;
     color: ${props => props.theme.Gray};
@@ -70,6 +83,10 @@ export const ClubJoin = styled.div`
   padding: 0;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+    justify-content: center;
+  }
 `;
 
 export const InterestBtn = styled.button`
@@ -79,6 +96,9 @@ export const InterestBtn = styled.button`
   img {
     width: 100%;
     height: 100%;
+  }
+  @media screen and (max-width: 576px) {
+    background-color: ${props => props.theme.MainColor};
   }
 `;
 
@@ -107,7 +127,7 @@ export const JoinBtn = styled.button`
   color: #fff;
 `;
 
-export const Main = styled.main`
+export const Main = styled.div`
   margin-top: 6.7rem;
 
   > section {
@@ -132,11 +152,18 @@ export const Main = styled.main`
       }
     }
     > div {
+      @media screen and (max-width: 576px) {
+        width: 90vw;
+        height: 172px;
+      }
       width: 100%;
       height: 42.6rem;
       background-color: ${props => props.theme.LightGray};
       margin-bottom: 5.6rem;
       > div {
+        @media screen and (max-width: 576px) {
+          width: 90vw;
+        }
         height: 100%;
         display: flex;
         justify-content: center;
@@ -148,6 +175,10 @@ export const Main = styled.main`
         height: 37rem;
         filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
         object-fit: cover;
+        @media screen and (max-width: 576px) {
+          width: 90px;
+          height: 140px;
+        }
       }
     }
     textarea {

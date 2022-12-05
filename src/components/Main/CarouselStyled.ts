@@ -3,7 +3,7 @@ import styled, {css} from 'styled-components';
 export const Base = styled.div`
   /* width: 1910px; */
   /* margin-left: -315px; */
-  margin-top: 100px;
+  margin-top: 5rem;
 `;
 
 export const Container = styled.div`
@@ -11,7 +11,7 @@ export const Container = styled.div`
   overflow: hidden;
   div {
     position: relative;
-    height: 47rem;
+    height: 470px;
   }
 `;
 
@@ -28,6 +28,9 @@ export const ArrowButton = styled.button<{pos: 'left' | 'right'}>`
   border: none;
   margin: 0;
   cursor: pointer;
+  img {
+    width: 5.5rem;
+  }
   ${({pos}: {pos: 'left' | 'right'}) =>
     pos === 'left'
       ? css`

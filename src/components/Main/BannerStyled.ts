@@ -23,6 +23,9 @@ export const ArrowButton = styled.button<{pos: 'left' | 'right'}>`
   border: none;
   margin: 0;
   cursor: pointer;
+  img {
+    width: 5.5rem;
+  }
   ${({pos}: {pos: 'left' | 'right'}) =>
     pos === 'left'
       ? css`
@@ -54,6 +57,9 @@ export const CarouselListItem = styled.li<{activeIndex: number}>`
     height: 458px;
     object-fit: cover;
     object-position: center;
+    @media screen and (max-width: 576px) {
+      object-position: 60%;
+    }
   }
   > div {
     margin: 0 auto;
@@ -73,6 +79,9 @@ export const CarouselListItem = styled.li<{activeIndex: number}>`
       left: 0;
       font-size: 2rem;
       padding-left: 1.3rem;
+      @media screen and (max-width: 576px) {
+        left: -50px;
+      }
     }
   }
 `;
@@ -101,6 +110,9 @@ export const Nav = styled.ul`
   ${NavItem} + ${NavItem} {
     margin-left: 4px;
   }
+  @media screen and (max-width: 576px) {
+    left: -50px;
+  }
 `;
 
 export const ButtonWrap = styled.div`
@@ -111,4 +123,7 @@ export const ButtonWrap = styled.div`
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: 10;
+  @media screen and (max-width: 576px) {
+    width: 100vw;
+  }
 `;

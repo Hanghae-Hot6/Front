@@ -5,9 +5,7 @@ import Layout from '../components/Layout/Layout';
 import RegistLayout from '../components/Layout/RegistLayout';
 import SignUp from '../components/SignUp/SignUp';
 
-type SignPageProps = {};
-
-const SignPage = ({}: SignPageProps) => {
+const SignPage = () => {
   return (
     <RegistLayout>
       <SignUp />

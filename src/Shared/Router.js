@@ -1,4 +1,6 @@
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
+import InterestClubs from '../components/Profile/ProfileOutlet/InterestClubs';
+import LeaderClubs from '../components/Profile/ProfileOutlet/LeaderClubs';
 
 import ClubDetailPage from '../Pages/ClubDetailPage';
 import ClubListPage from '../Pages/ClubListPage';
@@ -26,7 +28,10 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login/find-id" element={<FindIdPage />} />
         <Route path="/login/find-password" element={<FindPasswordPage />} />
-        <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/profile/:userId" element={<ProfilePage />}>
+          <Route path="interest" element={<InterestClubs />} />
+          <Route path="leader" element={<LeaderClubs />} />
+        </Route>
         <Route path="/sign" element={<SignPage />} />
       </Routes>
     </BrowserRouter>

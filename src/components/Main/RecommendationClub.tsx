@@ -131,6 +131,16 @@ const RecommendationClub = () => {
 export default RecommendationClub;
 const RecommendationWrap = styled.div`
   margin-top: 11rem;
+  > div {
+    @media screen and (max-width: 576px) {
+      overflow-y: hidden;
+      overflow-x: scroll;
+      -ms-overflow-style: none;
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
 `;
 const TitleWrap = styled.div`
   h3 {
@@ -150,6 +160,9 @@ const TitleWrap = styled.div`
 const ListWrap = styled.ul`
   display: flex;
   gap: 1.6rem;
+  @media screen and (max-width: 576px) {
+    width: 1000px;
+  }
 `;
 const List = styled.li`
   width: 24.8rem;
@@ -164,9 +177,9 @@ const List = styled.li`
       position: absolute;
       z-index: 10;
       font-weight: 700;
-      font-size: 2.4rem;
-      margin-left: 1.2rem;
-      margin-top: 0.8rem;
+      font-size: 24px;
+      margin-left: 12px;
+      margin-top: 8px;
     }
     > img {
       width: 100%;
@@ -214,8 +227,8 @@ const List = styled.li`
   ::after {
     display: block;
     content: '';
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 55px;
+    height: 55px;
     position: absolute;
     left: 0;
     top: 0;

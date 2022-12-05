@@ -4,11 +4,12 @@ import {getAccessToken, getUserId} from '../../utils';
 import {Link, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
+import hamBtn from '../../assets/hamBtn.svg';
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 import HeaderSearch from './HeaderSearch';
-type HeaderProps = {};
 
-const Header = ({}: HeaderProps) => {
+const Header = () => {
+  const [on, setOn] = useState<boolean>(false);
   const accessToken = getAccessToken();
   const userId = getUserId();
 
@@ -23,7 +24,9 @@ const Header = ({}: HeaderProps) => {
       setIsLogin(false);
     }
   }, []);
-
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
+    setOn(!on);
+  };
   return (
     <>
       <StHeader>
@@ -33,33 +36,65 @@ const Header = ({}: HeaderProps) => {
               <img src={logo} alt="logo" />
             </Link>
           </StLogo>
-          <HeaderSearch />
-          <StNavBtnsDiv>
-            {isLogin ? (
-              <>
-                <NavigationButton
-                  path={`/login`}
-                  onClickCallback={() => {
-                    localStorage.removeItem('Authorization');
-                    localStorage.removeItem('userId');
-                    localStorage.removeItem('Refresh-Token');
-                  }}>
-                  로그아웃
-                </NavigationButton>
-                <NavigationButton path={`/profile/${userId}`}>
-                  마이페이지
-                </NavigationButton>
-                <NavigationButton path={`/create_club`}>
-                  모임개설
-                </NavigationButton>
-              </>
-            ) : (
-              <>
-                <NavigationButton path="/login">로그인</NavigationButton>
-                <NavigationButton path="/sign">회원가입</NavigationButton>
-              </>
-            )}
-          </StNavBtnsDiv>
+          <div className="btnWrap">
+            <HeaderSearch />
+            <StNavBtnsDiv>
+              {isLogin ? (
+                <>
+                  <NavigationButton
+                    path={`/login`}
+                    onClickCallback={() => {
+                      localStorage.removeItem('Authorization');
+                      localStorage.removeItem('userId');
+                      localStorage.removeItem('Refresh-Token');
+                    }}>
+                    로그아웃
+                  </NavigationButton>
+                  <NavigationButton path={`/profile/${userId}`}>
+                    마이페이지
+                  </NavigationButton>
+                  <NavigationButton path={`/create_club`}>
+                    모임개설
+                  </NavigationButton>
+                </>
+              ) : (
+                <>
+                  <NavigationButton path="/login">로그인</NavigationButton>
+                  <NavigationButton path="/sign">회원가입</NavigationButton>
+                </>
+              )}
+            </StNavBtnsDiv>
+            <StNavHamBtns>
+              <div onClick={handleClick}>
+                <div className={on ? 'on' : 'off'}>
+                  {isLogin ? (
+                    <>
+                      <NavigationButton
+                        path={`/login`}
+                        onClickCallback={() => {
+                          localStorage.removeItem('Authorization');
+                          localStorage.removeItem('userId');
+                          localStorage.removeItem('Refresh-Token');
+                        }}>
+                        로그아웃
+                      </NavigationButton>
+                      <NavigationButton path={`/profile/${userId}`}>
+                        마이페이지
+                      </NavigationButton>
+                      <NavigationButton path={`/create_club`}>
+                        모임개설
+                      </NavigationButton>
+                    </>
+                  ) : (
+                    <>
+                      <NavigationButton path="/login">로그인</NavigationButton>
+                      <NavigationButton path="/sign">회원가입</NavigationButton>
+                    </>
+                  )}
+                </div>
+              </div>
+            </StNavHamBtns>
+          </div>
         </StHeaderSection>
       </StHeader>
     </>
@@ -87,11 +122,17 @@ const StHeaderSection = styled.section`
   img {
     transform: scale(0.95);
   }
+  > .btnWrap {
+    display: flex;
+    justify-content: end;
+  }
+  @media screen and (max-width: 576px) {
+    overflow: hidden;
+    width: 90vw;
+  }
 `;
 
 const StLogo = styled.div`
-  display: flex;
-  justify-content: start;
   width: 33%;
 `;
 // const StInputDiv = styled.div`
@@ -123,7 +164,9 @@ const StNavBtnsDiv = styled.div`
   width: 33%;
   display: flex;
   justify-content: end;
-
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
   button {
     color: black;
     font-weight: 600;
@@ -131,6 +174,47 @@ const StNavBtnsDiv = styled.div`
     font-size: 16px;
     height: 4rem;
     width: 12rem;
+    white-space: nowrap;
+  }
+  button:nth-child(3) {
+    color: white;
+    font-weight: 600;
+    background-color: black;
+    font-size: 16px;
+    height: 4rem;
+    width: 10rem;
+  }
+`;
+
+const StNavHamBtns = styled.div`
+  width: 33%;
+  display: none;
+  justify-content: end;
+  @media screen and (max-width: 576px) {
+    height: 33px;
+
+    display: flex;
+    > div {
+      cursor: pointer;
+      width: 33px;
+      height: 33px;
+      background-image: url(${hamBtn});
+    }
+    div > .off > * {
+      display: none;
+    }
+    div > .on > * {
+      display: block;
+    }
+  }
+  button {
+    color: black;
+    font-weight: 600;
+    background-color: #fff;
+    font-size: 16px;
+    height: 4rem;
+    width: 12rem;
+    white-space: nowrap;
   }
   button:nth-child(3) {
     color: white;

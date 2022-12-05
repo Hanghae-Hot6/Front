@@ -1,26 +1,39 @@
-import axios from 'axios';
-import {link} from 'fs';
-import React, {useEffect, useState} from 'react';
-import {QueryClient, useMutation, useQuery} from 'react-query';
-import {Link, useNavigate} from 'react-router-dom';
-import styled from 'styled-components';
-import {clubApis, memberApis} from '../../api/axiosConfig';
-import GlobalModal from '../../common/GlobalModal';
-import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
-import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
-import {clubList, ProfileDataType} from '../../types/regist';
-import {getAccessToken, getRefreshToken, getUserId} from '../../utils';
+import {useState, useEffect} from 'react';
+import {Link, Outlet, useNavigate} from 'react-router-dom';
+import {ProfileDataType} from '../../types/regist';
+import {getUserId} from '../../utils';
+import Pagenation from './Pagenation';
 import * as P from './Profile.style';
+
 function ProfileClubList({data}: ProfileDataType) {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const userId = getUserId();
-  const {isGlobalModalOpen, dispatchId} = useAppSelector(
-    state => state.modalReducer,
-  );
+  // 총 item 갯수
+  const total = data?.clubList?.length || 1;
 
-  const [deleteId, setDeleteId] = useState<number | undefined>(0);
+  //페이지당 게시물 수
+  const [limit, setLimit] = useState(8);
+  //현재 페이지 번호
+  const [page, setPage] = useState(1);
 
+  // page가 n이라면 n번째 게시물의 위치(index)
+  const offset = (page - 1) * limit;
+
+  // 최대 페이지 갯수
+  const maxPageNum = Math.ceil(total! / limit);
+
+  // 한번에 표시할 페이지 갯수
+  const [pageRange, setPageRange] = useState(1);
+
+  // 등분할 페이지 갯수
+  const dividingPageNum = Math.ceil(maxPageNum / pageRange);
+
+  //등분할 페이지 갯수가 1보다 작거나 같은 경우는 최대페이지 갯수를 페이지 범위로 설정한다.
+  if (dividingPageNum < 1) {
+    setPageRange(maxPageNum);
+  }
+
+  useEffect(() => setPageRange(maxPageNum), [maxPageNum]);
   const today = new Date().getTime();
 
   const tabList = [
@@ -30,274 +43,117 @@ function ProfileClubList({data}: ProfileDataType) {
   ];
   const [index, setIndex] = useState(0);
 
-  const {
-    data: leaderClubs,
-    isLoading,
-    error,
-    refetch: leaderRefetch,
-  } = useQuery(
-    ['getLeaderClubs', userId],
-    async () => {
-      try {
-        const {data} = await memberApis.getLeaderClubs();
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    {
-      onError: error => {
-        throw error;
-      },
-    },
-  );
-  const {data: interestClubs} = useQuery(
-    ['getInterestClubs', userId],
-    async () => {
-      try {
-        const {data} = await memberApis.getInterestClubs();
-        return data;
-      } catch (error: any) {}
-    },
-    {
-      onError: error => {
-        throw error;
-      },
-    },
-  );
-
-  const {mutate: deleteMutate} = useMutation(
-    async (clubId: number | undefined) => {
-      try {
-        const response = await clubApis.deleteClub(clubId);
-        return response;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    {
-      onSuccess: () => {
-        leaderRefetch();
-      },
-      onError: error => {},
-    },
-  );
-
-  const handleDelete = (clubId: number | undefined) => {
-    dispatch(openGlobalModal('clubDelete'));
-    setDeleteId(clubId);
-    // QueryClient.invalidateQueries(`getLeaderClubs`);
-  };
-
   // 최신순으로 정렬하기 위해
   const beforeSorting = data?.clubList;
-  const beforeSorting2 = leaderClubs?.data;
-  const beforeSorting3 = interestClubs?.data;
 
   const clubListData = beforeSorting?.sort(
     (a, b) => Date.parse(b.startDate!) - Date.parse(a.startDate!),
   );
-  const leaderClubsData = beforeSorting2?.sort(
-    (a: {startDate: string}, b: {startDate: string}) =>
-      Date.parse(b.startDate!) - Date.parse(a.startDate!),
-  );
-  const interestClubsData = beforeSorting3?.sort(
-    (a: {startDate: string}, b: {startDate: string}) =>
-      Date.parse(b.startDate!) - Date.parse(a.startDate!),
-  );
 
   return (
-    <>
-      <P.StClubsDiv>
-        <P.StClubCategory className="tabList" role="tablist">
-          {tabList &&
-            tabList.map((v, idx) => {
-              return (
-                <li
-                  key={v.id}
-                  className={index === v.id ? 'on' : undefined}
-                  onClick={() => setIndex(v.id)}>
-                  {v.tabName}
-                </li>
-              );
-            })}
-        </P.StClubCategory>
-        <P.StClubListWrapper>
-          {index === 0 && (
-            <ul>
-              {clubListData && clubListData?.length === 0 ? (
-                <P.StClubLi>
-                  <div> 참석중인 모임이 없습니다.</div>
-                </P.StClubLi>
-              ) : (
-                clubListData?.map(item => {
-                  return (
-                    <div key={item.clubId}>
-                      {today > Date.parse(item?.finishDate!) ? (
-                        <P.StGrayLi key={item.clubId}>
-                          <Link to={`/club_detail/${item?.clubId}`}>
-                            <div>
-                              <span>{item.clubName}</span>
-                              <span>
-                                {item.startDate} ~ {item.finishDate}
-                              </span>
-                            </div>
-                          </Link>
-                          <div>참석 완료</div>
-                        </P.StGrayLi>
-                      ) : today < Date.parse(item?.startDate!) ? (
-                        <P.StClubLi key={item.clubId}>
-                          <Link to={`/club_detail/${item?.clubId}`}>
-                            <div>
-                              <span>{item.clubName}</span>
-                              <span>
-                                {item.startDate} ~ {item.finishDate}
-                              </span>
-                            </div>
-                          </Link>
-                          <div>참석 예정</div>
-                        </P.StClubLi>
-                      ) : (
-                        <P.StClubLi key={item.clubId}>
-                          <Link to={`/club_detail/${item?.clubId}`}>
-                            <div>
-                              <span>{item.clubName}</span>
-                              <span>
-                                {item.startDate} ~ {item.finishDate}
-                              </span>
-                            </div>
-                          </Link>
-                          <div>참석중</div>
-                        </P.StClubLi>
-                      )}
-                    </div>
-                  );
-                })
-              )}
-            </ul>
-          )}
-
-          {index === 1 && (
-            <ul>
-              {interestClubsData && interestClubsData?.length === 0 ? (
-                <P.StClubLi>
-                  <div> 참석중인 모임이 없습니다.</div>
-                </P.StClubLi>
-              ) : (
-                interestClubsData?.map((item: clubList) => {
-                  return (
-                    <div key={item.clubId}>
-                      {today > Date.parse(item?.finishDate!) ? (
-                        <P.StGrayLi key={item.clubId}>
-                          <Link to={`/club_detail/${item?.clubId}`}>
-                            <div>
-                              <span>{item.clubName}</span>
-                              <span>
-                                {item.startDate} ~ {item.finishDate}
-                              </span>
-                            </div>
-                          </Link>
-                        </P.StGrayLi>
-                      ) : today < Date.parse(item?.startDate!) ? (
-                        <P.StClubLi key={item.clubId}>
-                          <Link to={`/club_detail/${item?.clubId}`}>
-                            <div>
-                              <span>{item.clubName}</span>
-                              <span>
-                                {item.startDate} ~ {item.finishDate}
-                              </span>
-                            </div>
-                          </Link>
-                        </P.StClubLi>
-                      ) : (
-                        <P.StClubLi key={item.clubId}>
-                          <Link to={`/club_detail/${item?.clubId}`}>
-                            <div>
-                              <span>{item.clubName}</span>
-                              <span>
-                                {item.startDate} ~ {item.finishDate}
-                              </span>
-                            </div>
-                          </Link>
-                        </P.StClubLi>
-                      )}
-                    </div>
-                  );
-                })
-              )}
-            </ul>
-          )}
-
-          {index === 2 && (
-            <ul>
-              {leaderClubsData && leaderClubsData?.length === 0 ? (
-                <P.StClubLi>
-                  <div> 참석중인 모임이 없습니다.</div>
-                </P.StClubLi>
-              ) : (
-                leaderClubsData?.map((item: clubList) => {
-                  return (
-                    <div key={item.clubId}>
-                      {today > Date.parse(item?.finishDate!) ? (
-                        <P.StGrayLi key={item.clubId}>
-                          <Link to={`/club_detail/${item?.clubId}`}>
-                            <div>
-                              <span>{item.clubName}</span>
-                              <span>
-                                {item.startDate} ~ {item.finishDate}
-                              </span>
-                            </div>
-                          </Link>
-                          <button onClick={() => handleDelete(item?.clubId)}>
-                            클럽삭제
-                          </button>
-                        </P.StGrayLi>
-                      ) : today < Date.parse(item?.startDate!) ? (
-                        <P.StClubLi key={item.clubId}>
-                          <Link to={`/club_detail/${item?.clubId}`}>
-                            <div>
-                              <span>{item.clubName}</span>
-                              <span>
-                                {item.startDate} ~ {item.finishDate}
-                              </span>
-                            </div>
-                          </Link>
-                          <button onClick={() => handleDelete(item?.clubId)}>
-                            클럽삭제
-                          </button>
-                        </P.StClubLi>
-                      ) : (
-                        <P.StClubLi key={item.clubId}>
-                          <Link to={`/club_detail/${item?.clubId}`}>
-                            <div>
-                              <span>{item.clubName}</span>
-                              <span>
-                                {item.startDate} ~ {item.finishDate}
-                              </span>
-                            </div>
-                          </Link>
-                          <button onClick={() => handleDelete(item?.clubId)}>
-                            클럽삭제
-                          </button>
-                        </P.StClubLi>
-                      )}
-                    </div>
-                  );
-                })
-              )}
-            </ul>
-          )}
-        </P.StClubListWrapper>
-        {isGlobalModalOpen && dispatchId === 'clubDelete' && (
-          <GlobalModal
-            id="clubDelete"
-            type="confirmModal"
-            onConfirmCallback={() => deleteMutate(deleteId)}>
-            <div>정말 삭제하시겠습니까?</div>
-          </GlobalModal>
+    <P.StClubsDiv>
+      <P.StClubCategory className="tabList" role="tablist">
+        {tabList &&
+          tabList.map((v, idx) => {
+            return (
+              <li
+                key={v.id}
+                className={index === v.id ? 'on' : undefined}
+                onClick={() => {
+                  setIndex(v.id);
+                  if (v.id === 0) {
+                    navigate(`/profile/${userId}`);
+                  } else if (v.id === 1) {
+                    navigate(`/profile/${userId}/interest`);
+                  } else if (v.id === 2) {
+                    navigate(`/profile/${userId}/leader`);
+                  }
+                }}>
+                {v.tabName}
+              </li>
+            );
+          })}
+      </P.StClubCategory>
+      <P.StClubListWrapper>
+        {index !== 0 && (
+          <Outlet
+            context={{
+              page,
+              pageRange,
+              limit,
+              total,
+              maxPageNum,
+              offset,
+              setPage,
+              setPageRange,
+            }}></Outlet>
         )}
-      </P.StClubsDiv>
-    </>
+        {index === 0 && (
+          <P.StUl>
+            {clubListData && clubListData?.length === 0 ? (
+              <P.StClubLi>
+                <div> 참석중인 모임이 없습니다.</div>
+              </P.StClubLi>
+            ) : (
+              clubListData?.slice(offset, offset + limit).map(item => {
+                return (
+                  <div key={item.clubId}>
+                    {today > Date.parse(item?.finishDate!) ? (
+                      <P.StGrayLi key={item.clubId}>
+                        <Link to={`/club_detail/${item?.clubId}`}>
+                          <div>
+                            <span>{item.clubName}</span>
+                            <span>
+                              {item.startDate} ~ {item.finishDate}
+                            </span>
+                          </div>
+                        </Link>
+                        <div>참석 완료</div>
+                      </P.StGrayLi>
+                    ) : today < Date.parse(item?.startDate!) ? (
+                      <P.StClubLi key={item.clubId}>
+                        <Link to={`/club_detail/${item?.clubId}`}>
+                          <div>
+                            <span>{item.clubName}</span>
+                            <span>
+                              {item.startDate} ~ {item.finishDate}
+                            </span>
+                          </div>
+                        </Link>
+                        <div>참석 예정</div>
+                      </P.StClubLi>
+                    ) : (
+                      <P.StClubLi key={item.clubId}>
+                        <Link to={`/club_detail/${item?.clubId}`}>
+                          <div>
+                            <span>{item.clubName}</span>
+                            <span>
+                              {item.startDate} ~ {item.finishDate}
+                            </span>
+                          </div>
+                        </Link>
+                        <div>참석중</div>
+                      </P.StClubLi>
+                    )}
+                  </div>
+                );
+              })
+            )}
+          </P.StUl>
+        )}
+
+        {index === 0 && (
+          <Pagenation
+            page={page}
+            pageRange={pageRange}
+            limit={limit}
+            total={total}
+            maxPageNum={maxPageNum}
+            setPage={setPage}
+            setPageRange={setPageRange}></Pagenation>
+        )}
+      </P.StClubListWrapper>
+    </P.StClubsDiv>
   );
 }
 

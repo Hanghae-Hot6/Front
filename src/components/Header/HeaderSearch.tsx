@@ -119,7 +119,13 @@ const Container = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
+  margin-right: 200px;
   width: 33%;
+  @media screen and (max-width: 576px) {
+    cursor: pointer;
+    margin-right: 0px;
+    width: 10vw;
+  }
 `;
 const SearchBox = styled.div`
   position: absolute;
@@ -164,6 +170,11 @@ const StInputDiv = styled.div`
     :focus {
       border-color: ${props => props.theme.MainColor};
       outline: none;
+    }
+    @media screen and (max-width: 576px) {
+      width: 0;
+      border: none;
+      box-shadow: none;
     }
   }
   div {

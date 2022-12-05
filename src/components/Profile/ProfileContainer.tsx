@@ -1,4 +1,3 @@
-import React from 'react';
 import ProfileClubList from './ProfileClubList';
 import ProfileDetail from './ProfileDetail';
 import logo from '../../assets/logo.svg';
@@ -6,7 +5,6 @@ import {ProfileDataType} from '../../types/regist';
 import * as P from './Profile.style';
 
 function ProfileContainer({data}: ProfileDataType) {
-  const clubList = data?.clubList;
   return (
     <>
       <P.StContainer>
@@ -15,10 +13,12 @@ function ProfileContainer({data}: ProfileDataType) {
             <img src={logo} alt="logo" />
             <P.StSpan>마이페이지</P.StSpan>
           </P.StTitle>
+
           <P.StInfoDiv>
             <P.StUserInfoSection>
               <ProfileDetail data={data} />
             </P.StUserInfoSection>
+
             <P.StClubInfoSection>
               <ProfileClubList data={data} />
             </P.StClubInfoSection>

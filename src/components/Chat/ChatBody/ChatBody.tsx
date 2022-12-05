@@ -226,6 +226,7 @@ const ChatRoomsListDiv = styled.div`
   width: 100%;
   height: 51.4rem;
   padding: 1.4rem 1.2rem;
+  overflow: scroll;
 `;
 
 // header 부분
@@ -236,4 +237,6 @@ const GoBackBtn = styled.button`
 
 const ClubName = styled.span`
   font-size: 1.8rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;

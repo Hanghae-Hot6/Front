@@ -7,11 +7,9 @@ type Props = {
 
 function RegistLayout(props: Props) {
   return (
-    <>
-      <StLayout>
-        <StSection>{props.children}</StSection>
-      </StLayout>
-    </>
+    <StLayout>
+      <StSection>{props.children}</StSection>
+    </StLayout>
   );
 }
 
@@ -25,10 +23,9 @@ const StLayout = styled.div`
   height: 100vh;
 `;
 
-const StSection = styled.div`
+const StSection = styled.section`
   display: flex;
   width: 128rem;
-  margin: 0 auto;
   justify-content: center;
   align-items: center;
   width: 100%;
