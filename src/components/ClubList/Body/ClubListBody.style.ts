@@ -52,6 +52,11 @@ export const ContentWrap = styled.div`
   width: 1280px;
   margin: 5rem auto;
   overflow: hidden;
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
 `;
 
 export const CategoryTitle = styled.h2<{color: string}>`
@@ -74,6 +79,11 @@ export const CategoryTitle = styled.h2<{color: string}>`
 export const CategoryTop = styled.div`
   display: flex;
   gap: 1.5rem;
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
 `;
 
 export const ImgWrap = styled.div`
@@ -84,11 +94,11 @@ export const ImgWrap = styled.div`
   position: relative;
   > span {
     color: #fff;
-    font-size: 2rem;
+    font-size: 20px;
     line-height: 5rem;
     padding-left: 1.5rem;
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 55px;
+    height: 55px;
     position: absolute;
     left: 0;
     top: 0;
@@ -116,6 +126,9 @@ export const MainImgWrap = styled.div`
     object-fit: cover;
     object-position: top;
   }
+  @media screen and (max-width: 576px) {
+    width: 89.8vw;
+  }
 `;
 export const MainContent = styled.div`
   display: flex;
@@ -128,6 +141,9 @@ export const MainContentBox = styled.div`
   border: 1px solid #cacad7;
   margin-top: 6.5rem;
   box-sizing: border-box;
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+  }
 `;
 export const Summary = styled.p`
   margin-top: 1rem;
