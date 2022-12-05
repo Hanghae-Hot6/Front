@@ -48,7 +48,7 @@ const FixClubPage = ({}: FixClubPageProps) => {
       book2: data.book2,
       book3: data.book3,
       thumbnail: data.thumbnail,
-      memberMaxNum: data.memberLimit?.toString(),
+      memberMaxNum: data.memberLimit ? data.memberLimit.toString() : '',
       startDate: startDate,
       finishDate: finishDate,
       location: data.location,
