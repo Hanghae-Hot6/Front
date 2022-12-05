@@ -5,33 +5,35 @@ const Category = () => {
   // 해당 카테고리 탭이 펼쳐지게
   return (
     <CategorySection>
-      <LinkSt to={'/club_list'} state={0}>
-        인문
-      </LinkSt>
-      <LinkSt to={'/club_list'} state={1}>
-        경영/경제
-      </LinkSt>
-      <LinkSt to={'/club_list'} state={2}>
-        자기계발
-      </LinkSt>
-      <LinkSt to={'/club_list'} state={3}>
-        예술
-      </LinkSt>
-      <LinkSt to={'/club_list'} state={4}>
-        자연과학
-      </LinkSt>
-      <LinkSt to={'/club_list'} state={5}>
-        사회정치
-      </LinkSt>
-      <LinkSt to={'/club_list'} state={6}>
-        IT 모바일
-      </LinkSt>
-      {/* <LinkSt to={'/club_list'} state={7}>
+      <div>
+        <LinkSt to={'/club_list'} state={0}>
+          인문
+        </LinkSt>
+        <LinkSt to={'/club_list'} state={1}>
+          경영/경제
+        </LinkSt>
+        <LinkSt to={'/club_list'} state={2}>
+          자기계발
+        </LinkSt>
+        <LinkSt to={'/club_list'} state={3}>
+          예술
+        </LinkSt>
+        <LinkSt to={'/club_list'} state={4}>
+          자연과학
+        </LinkSt>
+        <LinkSt to={'/club_list'} state={5}>
+          사회정치
+        </LinkSt>
+        <LinkSt to={'/club_list'} state={6}>
+          IT 모바일
+        </LinkSt>
+        {/* <LinkSt to={'/club_list'} state={7}>
         소설
       </LinkSt>
       <LinkSt to={'/club_list'} state={8}>
         에세이/시
       </LinkSt> */}
+      </div>
     </CategorySection>
   );
 };
@@ -42,6 +44,17 @@ const CategorySection = styled.section`
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+
+  @media screen and (max-width: 576px) {
+    width: 96vw;
+    height: 10rem;
+    padding-bottom: 15rem;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    div {
+      display: flex;
+    }
+  }
 `;
 const LinkSt = styled(Link)`
   display: inline-block;

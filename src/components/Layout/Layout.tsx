@@ -34,7 +34,7 @@ const Layout = (props: Props) => {
   }, []);
 
   return (
-    <div style={{overflow: 'hidden'}}>
+    <div>
       <Header />
       <LayoutWrap>{props.children}</LayoutWrap>
 
@@ -175,6 +175,6 @@ const LayoutWrap = styled.section`
   min-height: 100vh;
   height: 100%;
   @media screen and (max-width: 576px) {
-    width: 100vw;
+    width: 90vw;
   }
 `;

@@ -131,6 +131,10 @@ const RecommendationClub = () => {
 export default RecommendationClub;
 const RecommendationWrap = styled.div`
   margin-top: 11rem;
+  @media screen and (max-width: 576px) {
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
 `;
 const TitleWrap = styled.div`
   h3 {
@@ -150,6 +154,9 @@ const TitleWrap = styled.div`
 const ListWrap = styled.ul`
   display: flex;
   gap: 1.6rem;
+  @media screen and (max-width: 576px) {
+    width: 1000px;
+  }
 `;
 const List = styled.li`
   width: 24.8rem;
