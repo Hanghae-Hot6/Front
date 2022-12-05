@@ -4,12 +4,10 @@ import * as B from './BannerStyled';
 import rightArrow from '../../assets/right_arrow.svg';
 import leftArrow from '../../assets/left_arrow.svg';
 import Banner1 from '../../assets/hero_image.svg';
+import Banner2 from '../../assets/hero_2.svg';
+import Banner3 from '../../assets/hero_3.svg';
 import {Link} from 'react-router-dom';
-const banners = [
-  Banner1,
-  'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80',
-  'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-];
+const banners = [Banner1, Banner2, Banner3];
 
 const Banner = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);

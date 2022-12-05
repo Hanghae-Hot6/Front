@@ -177,9 +177,9 @@ const List = styled.li`
       position: absolute;
       z-index: 10;
       font-weight: 700;
-      font-size: 2.4rem;
-      margin-left: 1.2rem;
-      margin-top: 0.8rem;
+      font-size: 24px;
+      margin-left: 12px;
+      margin-top: 8px;
     }
     > img {
       width: 100%;
@@ -227,8 +227,8 @@ const List = styled.li`
   ::after {
     display: block;
     content: '';
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 55px;
+    height: 55px;
     position: absolute;
     left: 0;
     top: 0;

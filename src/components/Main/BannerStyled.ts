@@ -76,6 +76,9 @@ export const CarouselListItem = styled.li<{activeIndex: number}>`
       left: 0;
       font-size: 2rem;
       padding-left: 1.3rem;
+      @media screen and (max-width: 576px) {
+        left: -50px;
+      }
     }
   }
 `;
@@ -103,6 +106,9 @@ export const Nav = styled.ul`
   justify-content: center;
   ${NavItem} + ${NavItem} {
     margin-left: 4px;
+  }
+  @media screen and (max-width: 576px) {
+    left: -50px;
   }
 `;
 
