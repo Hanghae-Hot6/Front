@@ -51,11 +51,12 @@ const CategorySection = styled.section`
     padding-bottom: 15rem;
     overflow-x: scroll;
     overflow-y: hidden;
-    -ms-overflow-style: none;
+    /* -ms-overflow-style: none; */
     ::-webkit-scrollbar {
       display: none;
     }
     div {
+      margin-left: 40px;
       display: flex;
     }
   }

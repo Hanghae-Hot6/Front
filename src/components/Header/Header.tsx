@@ -134,6 +134,7 @@ const StNavBtnsDiv = styled.div`
     font-size: 16px;
     height: 4rem;
     width: 12rem;
+    white-space: nowrap;
   }
   button:nth-child(3) {
     color: white;
