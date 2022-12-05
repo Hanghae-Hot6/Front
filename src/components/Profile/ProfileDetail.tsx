@@ -33,6 +33,11 @@ function ProfileDetail({data}: ProfileDataType) {
           </button>
         </div>
       </P.StUserDiv>
+      <P.StInquiryMobileDiv>
+        <button onClick={() => dispatch(openGlobalModal('inquiryMail'))}>
+          문의하기
+        </button>
+      </P.StInquiryMobileDiv>
       <P.StChatDiv>
         <div>
           <img src={profileChatingImg} alt="" />

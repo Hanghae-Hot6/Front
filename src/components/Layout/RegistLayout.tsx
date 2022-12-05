@@ -7,11 +7,9 @@ type Props = {
 
 function RegistLayout(props: Props) {
   return (
-    <>
-      <StLayout>
-        <StSection>{props.children}</StSection>
-      </StLayout>
-    </>
+    <StLayout>
+      <StSection>{props.children}</StSection>
+    </StLayout>
   );
 }
 

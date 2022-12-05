@@ -321,11 +321,11 @@ export const StUserDiv = styled.div`
   border: 1px solid ${props => props.theme.MainColor};
   border-radius: 1rem;
   box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
-  padding: 2rem;
+  padding: 1rem 2rem;
   @media screen and (max-width: 576px) {
     display: flex;
 
-    height: 100%;
+    height: 13rem;
     width: 100%;
     border: 0;
     box-shadow: none;
@@ -345,7 +345,7 @@ export const StUserDiv = styled.div`
       font-weight: bold;
       font-size: 1.6rem;
       @media screen and (max-width: 576px) {
-        width: 11rem;
+        width: 12rem;
         height: 3rem;
         color: #5200ff;
         border: 1px solid ${props => props.theme.MainColor};
@@ -394,6 +394,11 @@ export const StUserDiv = styled.div`
     @media screen and (max-width: 576px) {
       display: flex;
       flex-direction: column;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      padding-left: 2rem;
+
+      height: 100%;
     }
   }
   .web-profile-change {
@@ -578,4 +583,25 @@ export const StOutletWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+`;
+
+export const StInquiryMobileDiv = styled.div`
+  display: none;
+  @media screen and (max-width: 576px) {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0rem 2rem 1rem 2rem;
+    button {
+      width: 100%;
+      height: 6rem;
+      border-radius: 0.7rem;
+      background-color: ${props => props.theme.MainColor};
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+  }
 `;

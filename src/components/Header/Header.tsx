@@ -7,9 +7,8 @@ import logo from '../../assets/logo.svg';
 import hamBtn from '../../assets/hamBtn.svg';
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 import HeaderSearch from './HeaderSearch';
-type HeaderProps = {};
 
-const Header = ({}: HeaderProps) => {
+const Header = () => {
   const [on, setOn] = useState<boolean>(false);
   const accessToken = getAccessToken();
   const userId = getUserId();
