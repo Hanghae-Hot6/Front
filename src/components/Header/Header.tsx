@@ -87,6 +87,9 @@ const StHeaderSection = styled.section`
   img {
     transform: scale(0.95);
   }
+  @media screen and (max-width: 576px) {
+    width: 100vw;
+  }
 `;
 
 const StLogo = styled.div`
