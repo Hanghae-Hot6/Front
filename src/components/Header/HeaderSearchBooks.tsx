@@ -77,6 +77,9 @@ const CarouselContainer = styled.div`
   position: absolute;
   top: 0;
   /* border: 1px solid black; */
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
 `;
 
 const FlexDiv = styled.div`

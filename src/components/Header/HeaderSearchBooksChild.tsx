@@ -75,12 +75,23 @@ const Div = styled.div<{width: number; height: number}>`
   flex-direction: column;
   justify-content: center;
   position: relative;
+  @media screen and (max-width: 576px) {
+    position: inherit;
+    width: 100%;
+    height: 100%;
+  }
 `;
 const Wrap = styled.div`
   width: 50rem;
   height: 20rem;
+  @media screen and (max-width: 576px) {
+    width: 120%;
+  }
   :hover > .on {
     display: block;
+    @media screen and (max-width: 576px) {
+      display: none;
+    }
   }
 `;
 const RightBox = styled.div`
@@ -89,6 +100,9 @@ const RightBox = styled.div`
   top: 10%;
   right: 5%;
   transition: all 0.5s;
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
   > div {
     display: flex;
   }
