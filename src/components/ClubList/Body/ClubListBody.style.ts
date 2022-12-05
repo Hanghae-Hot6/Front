@@ -11,7 +11,10 @@ export const TabList = styled.div`
     article {
       display: flex;
       justify-content: space-around;
-
+      @media screen and (max-width: 576px) {
+        margin-left: 50vw;
+        padding-bottom: 15px;
+      }
       ul {
         display: flex;
         justify-content: space-around;
@@ -36,6 +39,11 @@ export const TabList = styled.div`
           transition: all 0.5s;
         }
       }
+    }
+    @media screen and (max-width: 576px) {
+      width: 90vw;
+      overflow-x: scroll;
+      overflow-y: hidden;
     }
   }
 `;
