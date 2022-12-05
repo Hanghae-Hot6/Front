@@ -12,7 +12,7 @@ export const TabList = styled.div`
       display: flex;
       justify-content: space-around;
       @media screen and (max-width: 576px) {
-        margin-left: 50vw;
+        margin-left: 75vw;
         padding-bottom: 15px;
       }
       ul {
@@ -44,6 +44,8 @@ export const TabList = styled.div`
       width: 90vw;
       overflow-x: scroll;
       overflow-y: hidden;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 `;
