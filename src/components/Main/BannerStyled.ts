@@ -111,4 +111,7 @@ export const ButtonWrap = styled.div`
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: 10;
+  @media screen and (max-width: 576px) {
+    width: 100vw;
+  }
 `;

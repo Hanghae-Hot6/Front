@@ -63,7 +63,12 @@ const PopWrap = styled.div`
   margin-top: 7rem;
   position: relative;
   img {
+    width: 100%;
     cursor: pointer;
+  }
+  @media screen and (max-width: 576px) {
+    gap: 20px;
+    flex-direction: column;
   }
 `;
 

@@ -18,6 +18,7 @@ export const TabList = styled.div`
         width: 1280px;
         margin-top: 1.5rem;
         cursor: pointer;
+
         .on {
           background: #ffffff;
           border-radius: 4rem;

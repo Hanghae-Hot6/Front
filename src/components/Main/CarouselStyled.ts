@@ -11,7 +11,7 @@ export const Container = styled.div`
   overflow: hidden;
   div {
     position: relative;
-    height: 47rem;
+    height: 470px;
   }
 `;
 
