@@ -39,8 +39,6 @@ const ClubDetailBody = () => {
     },
   );
 
-  console.log(data);
-
   //모임 가입하기 api
   const {mutate: signUpClub} = useMutation(
     async (id: any) => {

@@ -107,7 +107,7 @@ export const JoinBtn = styled.button`
   color: #fff;
 `;
 
-export const Main = styled.main`
+export const Main = styled.div`
   margin-top: 6.7rem;
 
   > section {

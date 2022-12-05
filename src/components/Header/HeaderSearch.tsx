@@ -121,7 +121,7 @@ const Container = styled.div`
   align-items: center;
   width: 33%;
   @media screen and (max-width: 576px) {
-    width: 100vw;
+    width: 10vw;
   }
 `;
 const SearchBox = styled.div`

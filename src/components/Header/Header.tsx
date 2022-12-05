@@ -88,7 +88,7 @@ const StHeaderSection = styled.section`
     transform: scale(0.95);
   }
   @media screen and (max-width: 576px) {
-    width: 100vw;
+    width: 90vw;
   }
 `;
 

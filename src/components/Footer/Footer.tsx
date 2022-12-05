@@ -74,7 +74,7 @@ const FooterWrap = styled.footer`
   width: 1280px;
   margin: 5rem auto;
   @media screen and (max-width: 576px) {
-    width: 100vw;
+    width: 90vw;
   }
 `;
 

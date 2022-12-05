@@ -12,12 +12,15 @@ export const ReviewCreate = styled.input`
   }
 `;
 
-export const ReviewWrap = styled.p`
+export const ReviewWrap = styled.section`
   margin-top: 15px;
   padding: 10px;
   padding-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  small {
+    font-size: 18px;
+  }
   > div {
     border-bottom: 1px dashed #ccc;
     margin-bottom: 5px;
