@@ -121,6 +121,8 @@ const Container = styled.div`
   align-items: center;
   width: 33%;
   @media screen and (max-width: 576px) {
+    cursor: pointer;
+    margin-left: 52vw;
     width: 10vw;
   }
 `;
