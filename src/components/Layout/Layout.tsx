@@ -36,15 +36,7 @@ const Layout = (props: Props) => {
   return (
     <div style={{overflow: 'hidden'}}>
       <Header />
-      <section
-        style={{
-          width: '1280px',
-          margin: '0 auto',
-          minHeight: ' 100vh',
-          height: '100%',
-        }}>
-        {props.children}
-      </section>
+      <LayoutWrap>{props.children}</LayoutWrap>
 
       {showChat && <ChatBody setShowChat={setShowChat} />}
       <Footer />
@@ -175,5 +167,14 @@ const BtnWrap = styled.div`
   }
   > button:hover {
     transform: translate3d(5px, 5px, -5px);
+  }
+`;
+const LayoutWrap = styled.section`
+  width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+  height: 100%;
+  @media screen and (max-width: 576px) {
+    width: 100vw;
   }
 `;
