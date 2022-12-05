@@ -2,28 +2,17 @@ import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
-import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
-import {NaverBooksDataType} from '../../../types/bookSearch';
 
-import {InputType} from '../Body/CreateClubBody';
+import {NaverBooksDataType} from '../../../types/bookSearch';
+import {SubmitClubType} from '../../../types/clubList';
+
 import BooksViewer from '../BooksViewer/BooksViewer';
+import {CreateClubButton} from '../common/CreateClubDesigns';
 import PaginationBooks from './PaginationBooks';
 
-type SearchBooksProps = {
-  input: InputType;
-  setInput: React.Dispatch<React.SetStateAction<InputType>>;
+type SearchBooksProps = {};
 
-  width?: string;
-  flex?: number;
-};
-
-const SearchBooks = ({
-  input,
-
-  setInput,
-  width = '100%',
-  flex,
-}: SearchBooksProps) => {
+const SearchBooks = ({}: SearchBooksProps) => {
   const [showNaverBookSearch, setShowNaverBookSearch] =
     useState<boolean>(false);
   const [booknameSearch, setBooknameSearch] = useState<string>('');
@@ -50,6 +39,8 @@ const SearchBooks = ({
     fetch,
   );
 
+  // 16개 받아온 책들 pagination으로 정리하기
+
   let endNum: number;
   let divideBy: number;
 
@@ -69,10 +60,6 @@ const SearchBooks = ({
     }
   }
 
-  useEffect(() => {
-    console.log(booknameSearch);
-  }, [booknameSearch]);
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
 
@@ -83,23 +70,24 @@ const SearchBooks = ({
 
   return (
     <>
-      {/* <SearchBooksDiv width={width} flex={flex}> */}
       <SearchBooksDiv>
         <Div>
           <BookSearchInput
             type="text"
             placeholder="도서명을 입력해 주세요"
             onChange={handleChange}
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               setShowNaverBookSearch(true);
             }}
           />
-          <button
-            onClick={() => {
+          <CreateClubButton
+            onClick={e => {
+              e.preventDefault();
               setShowNaverBookSearch(!showNaverBookSearch);
             }}>
             {showNaverBookSearch ? '닫기' : '찾아보기'}
-          </button>
+          </CreateClubButton>
         </Div>
         {showNaverBookSearch && (
           <BookSearchPreviewDiv>

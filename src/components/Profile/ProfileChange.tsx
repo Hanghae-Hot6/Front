@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled, {keyframes} from 'styled-components';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import RegistStInput from '../Elem/RegistStInput';
@@ -13,6 +13,7 @@ import {useMutation} from 'react-query';
 import {ErrorsValue, SignValueType} from '../../types/regist';
 import {profileValidate} from './ProfileValidate';
 import {CheckPasswordModalProps} from '../../types/profile';
+import * as P from './Profile.style';
 
 function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
   const initialValues = {
@@ -66,10 +67,11 @@ function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
     {
       onSuccess: data => {
         console.log(data);
-        if (data?.status === 200) {
+        if (data?.status === 200 && data.data.success === true) {
           dispatch(closeGlobalModal('profileChange'));
           dispatch(openGlobalModal('successChangeProfile'));
         } else {
+          dispatch(closeGlobalModal('profileChange'));
         }
       },
       onError: error => {
@@ -82,17 +84,27 @@ function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
     const {name, value} = e.currentTarget;
     setValues({...values, [name]: value});
     setErrors(profileValidate({...values}));
-    console.log(errors);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (values?.password?.trim() === '') {
+      return setErrors({
+        ...errors,
+        password: '비밀번호가 입력되지 않았습니다.',
+      });
+    }
     chageProfileMutate(values);
     setValues(initialValues);
   };
 
+  useEffect(() => {
+    setErrors(profileValidate({...values}));
+    return () => {};
+  }, [values]);
+
   return (
-    <StProfileChangeForm onSubmit={handleSubmit}>
+    <P.StProfileChangeForm onSubmit={handleSubmit}>
       <div className="inputsDiv">
         <h2>개인정보 수정</h2>
         <RegistStInput
@@ -150,7 +162,11 @@ function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
           onChange={handleChange}></RegistStInput>
         <RegistErrorSpan>{errors.phoneNumber}</RegistErrorSpan>
       </div>
-      <BtnBox>
+      <P.ProcessDiv isPWCorrect={isPWCorrect}>
+        <span></span>
+        <span></span>
+      </P.ProcessDiv>
+      <P.BtnBox>
         <button type="submit">변경</button>
         <button
           type="button"
@@ -160,46 +176,9 @@ function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
           }}>
           취소
         </button>
-      </BtnBox>
-    </StProfileChangeForm>
+      </P.BtnBox>
+    </P.StProfileChangeForm>
   );
 }
 
 export default ProfileChange;
-
-const StProfileChangeForm = styled.form`
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: space-between;
-  .inputsDiv {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    h2 {
-      font-size: 1.8rem;
-      font-weight: bold;
-    }
-    input {
-      font-size: 1.5rem;
-    }
-    label {
-      font-size: 1.5rem;
-      white-space: nowrap;
-    }
-  }
-`;
-
-const BtnBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  button {
-    width: 50%;
-    background-color: #fff;
-    color: ${props => props.theme.MainColor};
-    border: 1px solid ${props => props.theme.MainColor};
-    padding: 0;
-  }
-`;

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {InputType} from '../Body/CreateClubBody';
+import {SubmitClubType} from '../../../types/clubList';
+import CaretDown from '../../../assets/CaretDown.svg';
 
 type SelectInputProps = {
-  input: InputType;
-  setInput: React.Dispatch<React.SetStateAction<InputType>>;
-  name: string;
+  input: SubmitClubType;
+  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
+  name: keyof Omit<SubmitClubType, 'thumbnail'>;
   placeholder?: string;
   width?: string;
   flex?: number;
   options: string[];
+  marginLeft?: string;
 };
 
 const SelectInput = ({
@@ -20,7 +22,10 @@ const SelectInput = ({
   width,
   flex,
   options,
+  marginLeft,
 }: SelectInputProps) => {
+  const [toggleValue, setToggleValue] = useState<boolean>(false);
+
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
     e.preventDefault();
 
@@ -29,18 +34,28 @@ const SelectInput = ({
     setInput({...input, [name]: value});
   };
 
+  useEffect(() => {
+    if (input[name]) {
+      setToggleValue(true);
+    } else {
+      setToggleValue(false);
+    }
+  }, [input[name]]);
+
   return (
     <>
       <Select
         name={name}
         onChange={handleChange}
-        defaultValue={placeholder}
+        value={input[name]}
         required
         width={width}
-        flex={flex}>
-        <Option value={placeholder} disabled>
+        marginLeft={marginLeft}
+        flex={flex}
+        toggleValue={toggleValue}>
+        <PlaceholderOption value="" disabled>
           {placeholder}
-        </Option>
+        </PlaceholderOption>
         {options.map((val, index) => {
           return (
             <Option key={index} value={val}>
@@ -56,8 +71,16 @@ export default SelectInput;
 
 const Select = styled.select<{
   width: string | undefined;
+  marginLeft: string | undefined;
   flex: number | undefined;
+  toggleValue: boolean;
 }>`
+  /* 화살표 디자인하기 */
+  -webkit-appearance: none; /* for chrome */
+  -moz-appearance: none; /*for firefox*/
+  appearance: none;
+  background: url(${CaretDown}) no-repeat right 1rem center;
+
   ${({width}) => {
     if (width) {
       return `width:${width};`;
@@ -68,12 +91,29 @@ const Select = styled.select<{
       return `flex:${flex};`;
     }
   }}
-  height: 5.8rem;
   border: 1px solid ${props => props.theme.LightGray};
   padding: 0 1rem;
   font-size: 2.2rem;
-  color: ${props => props.theme.Gray};
-  margin-left: 1rem;
+
+  ${({marginLeft}) => {
+    if (marginLeft) {
+      return `margin-left: ${marginLeft};`;
+    } else {
+      return ``;
+    }
+  }};
+
+  ${props => {
+    if (props.toggleValue) {
+      return `color: ${props.theme.Black};`;
+    } else {
+      return `color: ${props.theme.Gray};`;
+    }
+  }}
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Option = styled.option`
@@ -81,4 +121,8 @@ const Option = styled.option`
   height: 5.6rem;
   font-size: 2.2rem;
   color: ${props => props.theme.Black};
+`;
+
+const PlaceholderOption = styled(Option)`
+  color: ${props => props.theme.Gray};
 `;

@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
-export const StContainer = styled.div``;
+export const StContainer = styled.div`
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%; */
+`;
 
 export const StCheckBtn = styled.button`
-  display: flex;
   font-size: 1.4rem;
   height: 2.3rem;
   color: #5200ff;
@@ -16,6 +21,17 @@ export const StCheckBtn = styled.button`
   white-space: nowrap;
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 5.2rem;
+  align-items: center;
+  justify-content: center;
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
+`;
+
 export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   width: 40rem;
   height: 6rem;
@@ -24,11 +40,10 @@ export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 4.3rem;
-`;
-export const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 5.2rem;
+  @media screen and (max-width: 576px) {
+    height: 6rem;
+    width: 40rem;
+  }
 `;
 
 export const StModalDiv = styled.div`
@@ -51,11 +66,6 @@ export const StModalDiv = styled.div`
       font-weight: bold;
     }
 
-    /* input {
-      border: 1px solid ${props => props.theme.MainColor};
-      height: 3rem;
-    }
-     */
     div:nth-child(1) {
       display: flex;
       flex-direction: column;

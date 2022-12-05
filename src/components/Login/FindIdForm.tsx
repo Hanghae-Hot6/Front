@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useMutation} from 'react-query';
+import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import {memberApis} from '../../api/axiosConfig';
 import GlobalModal from '../../common/GlobalModal';
@@ -9,8 +10,11 @@ import {FindIdValue} from '../../types/regist';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
 import * as L from './Login.style';
+import LoginModalCollection from './LoginModalCollection';
 function FindIdForm() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const {isGlobalModalOpen, dispatchId} = useAppSelector(
     state => state.modalReducer,
   );
@@ -36,7 +40,9 @@ function FindIdForm() {
     {
       onSuccess: data => {
         console.log(data);
-        dispatch(openGlobalModal('findIdSendMessage'));
+        if (data?.status === 200 && data.data.success === true) {
+          dispatch(openGlobalModal('findIdSendMessage'));
+        }
       },
       onError: (error: any) => {
         throw error;
@@ -59,11 +65,6 @@ function FindIdForm() {
       findIdMutate(values);
     }
   };
-
-  // const usernameRange = value => value.length > 2 && value.length < 7;
-  // const contentRange = value => value.length > 0;
-  // const username = useInput(comment.username, usernameRange);
-  // const content = useInput(comment.comment, contentRange);
 
   return (
     <>
@@ -91,34 +92,20 @@ function FindIdForm() {
               value={values.username}
               label="실명"></RegistStInput>
           </div>
-          <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
-            아이디 찾기
-          </L.StNavBtn>
+          <div>
+            <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
+              아이디 찾기
+            </L.StNavBtn>
+            <L.StNavBtn
+              type="button"
+              bgColor="#5200FF"
+              fontC="white"
+              onClick={() => navigate('/login')}>
+              로그인
+            </L.StNavBtn>
+          </div>
         </L.StContainer>
-        {isGlobalModalOpen && dispatchId === 'findIdEmptyInput' && (
-          <GlobalModal id="findIdEmptyInput" type="alertModal">
-            <div>빈칸을 작성해주세요.</div>
-          </GlobalModal>
-        )}
-
-        {isGlobalModalOpen && dispatchId === 'findIdSendMessage' && (
-          <GlobalModal id="findIdSendMessage" type="alertModal">
-            <h2>이메일 발송!</h2>
-            <div>
-              <p>아이디가 전송되었습니다.</p>
-              <p>이메일을 확인해 주세요!</p>
-            </div>
-          </GlobalModal>
-        )}
-        {isGlobalModalOpen && dispatchId === 'unAuthorizedEmail' && (
-          <GlobalModal id="unAuthorizedEmail" type="alertModal">
-            <h2>이메일 오류!</h2>
-            <div>
-              <p>등록되지 않은 이메일 입니다.</p>
-              <p>작성한 이메일을 확인해 주세요!</p>
-            </div>
-          </GlobalModal>
-        )}
+        <LoginModalCollection />
       </RegistStForm>
     </>
   );

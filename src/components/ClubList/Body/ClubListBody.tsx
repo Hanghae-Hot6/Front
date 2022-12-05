@@ -6,6 +6,7 @@ import {Link, useLocation} from 'react-router-dom';
 import {useQuery} from 'react-query';
 import {LocationState, Clubs} from '../../../types/clubList';
 import {clubApis} from '../../../api/axiosConfig';
+
 const ClubListBody = () => {
   const {state} = useLocation() as LocationState;
   const [index, setIndex] = useState<number>(0);

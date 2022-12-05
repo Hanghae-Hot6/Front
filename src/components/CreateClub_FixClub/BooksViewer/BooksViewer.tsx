@@ -38,7 +38,11 @@ const BooksViewer = ({}: BooksViewerProps) => {
     }
   }, [deleteList.length]);
 
-  const handleBooksDelete = () => {
+  const handleBooksDelete: React.MouseEventHandler<HTMLButtonElement> = e => {
+    e.preventDefault();
+
+    setDeleteList([]);
+
     dispatch(delBooks(deleteList));
   };
 
@@ -56,6 +60,7 @@ const BooksViewer = ({}: BooksViewerProps) => {
           if (!book) {
             return;
           }
+
           deleteList.forEach(val => {
             if (val?.isbn === book.isbn) {
               DeleteBookCheck = true;
@@ -63,6 +68,7 @@ const BooksViewer = ({}: BooksViewerProps) => {
           });
 
           return (
+            // <></>
             <BookImage
               key={book.isbn}
               border={DeleteBookCheck}

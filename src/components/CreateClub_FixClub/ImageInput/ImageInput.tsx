@@ -1,29 +1,38 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
-import {InputType} from '../Body/CreateClubBody';
+import {SubmitClubType} from '../../../types/clubList';
+import {CreateClubButton} from '../common/CreateClubDesigns';
+
 import ImagePreview from './ImagePreview/ImagePreview';
 // import ImagePreview from './ImagePreview/ImagePreview';
 
 type ImageInputProps = {
-  input: InputType;
-  setInput: React.Dispatch<React.SetStateAction<InputType>>;
-  name: keyof InputType;
+  input: SubmitClubType;
+  setInput: React.Dispatch<React.SetStateAction<SubmitClubType>>;
+  name: keyof SubmitClubType;
   width?: string;
+  thumbnail?: string;
   flex?: number;
 };
 
 const ImageInput = ({
   input,
   name,
+  thumbnail,
   setInput,
   width = '100%',
   flex,
 }: ImageInputProps) => {
-  const [singleImagePreviewUrl, setSingleImagePreviewUrl] =
-    useState<string>('');
+  const [singleImagePreviewUrl, setSingleImagePreviewUrl] = useState<
+    string | undefined
+  >('');
 
   // input을 돔으로 접근하기
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    setSingleImagePreviewUrl(thumbnail);
+  }, [thumbnail]);
 
   const handleSingleImageChange: React.ChangeEventHandler<
     HTMLInputElement
@@ -54,13 +63,22 @@ const ImageInput = ({
     setSingleImagePreviewUrl('');
   };
 
+  const handleInputClick: React.MouseEventHandler<HTMLButtonElement> = e => {
+    e.preventDefault();
+    const yes: HTMLElement = e.currentTarget
+      .nextElementSibling as HTMLInputElement;
+    yes.click();
+  };
+
   return (
     <>
       <ImageInputDiv width={width} flex={flex}>
         <Div>
           <Span>썸네일 이미지를 삽입해주세요(선택)</Span>
-
-          <input
+          <CreateClubButton onClick={handleInputClick}>
+            이미지 삽입
+          </CreateClubButton>
+          <Input
             ref={inputRef}
             type="file"
             name="thumbnail"
@@ -71,6 +89,8 @@ const ImageInput = ({
         {singleImagePreviewUrl && (
           <ThumbnailPreviewDiv>
             <ImagePreview
+              input={input}
+              setInput={setInput}
               url={singleImagePreviewUrl}
               handleImagePreviewDelete={handleImagePreviewDelete}
             />
@@ -126,4 +146,8 @@ const ThumbnailPreviewDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Input = styled.input`
+  display: none;
 `;

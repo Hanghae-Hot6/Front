@@ -31,6 +31,7 @@ const selectBooksSlice = createSlice({
       // 3자리가 꽉 찼을때
 
       if (state.book1 && state.book2 && state.book3) {
+        console.log(current(state));
         console.log('책 등록은 3개 까지입니다 ');
         return;
       }
@@ -38,8 +39,11 @@ const selectBooksSlice = createSlice({
       // 책 중복등록 검사
       let CheckUsed = false;
       Object.values(state).forEach(val => {
-        if (val?.isbn === action.payload.isbn) {
-          console.log('이 책은 이미 등록이 되어있습니다');
+        if (action.payload.isbn && val?.isbn === action.payload.isbn) {
+          // if (val?.isbn === action.payload.isbn) {
+          console.log(current(state));
+
+          console.log(action.payload.isbn + '이 책은 이미 등록이 되어있습니다');
           CheckUsed = true;
         }
       });
@@ -107,8 +111,14 @@ const selectBooksSlice = createSlice({
 
       console.log(current(state));
     },
+    emptyBooks: state => {
+      state = initialState;
+      console.log(state);
+      console.log('redux emptyBooks');
+    },
   },
 });
 
 export const selectBookReducer = selectBooksSlice.reducer;
-export const {addBook, delBook, delBooks} = selectBooksSlice.actions;
+export const {addBook, delBook, delBooks, emptyBooks} =
+  selectBooksSlice.actions;

@@ -7,9 +7,9 @@ export const Div = styled.div`
 
   position: relative;
   margin: 1rem 0;
-
+  transition: all 0.5s;
   &:hover {
-    border: 1px solid ${props => props.theme.Black};
+    transform: scale(1.03);
   }
 `;
 

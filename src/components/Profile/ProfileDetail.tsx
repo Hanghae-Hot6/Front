@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import {ProfileDataType} from '../../types/regist';
 import profileImg from '../../assets/profileImg.svg';
 import profileChatingImg from '../../assets/profileChatingImg.svg';
@@ -42,23 +41,6 @@ function ProfileDetail({data}: ProfileDataType) {
           </button>
         </div>
       </P.StChatDiv>
-
-      {/* {isGlobalModalOpen && dispatchId === 'changeProfile' && (
-        <GlobalModal id="changeProfile" size="xlg">
-          <StModalDiv>
-            <form
-              onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-                e.preventDefault();
-              }}>
-              <RegistStInput height="3rem" />
-              <RegistStInput height="3rem" />
-              <RegistStInput height="3rem" />
-              <RegistStInput height="3rem" />
-              <button type="submit">확인</button>
-            </form>
-          </StModalDiv>
-        </GlobalModal>
-      )} */}
     </>
   );
 }

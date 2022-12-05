@@ -1,21 +1,17 @@
-import React from 'react';
-import {ReactQueryDevtools} from 'react-query/devtools';
-import ProfileDetail from '../components/Profile/ProfileDetail';
 import {useNavigate, useParams} from 'react-router-dom';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {getAccessToken, getUserId} from '../utils';
-import ProfileClubList from '../components/Profile/ProfileClubList';
 import {useAppDispatch} from '../Redux/store/store';
 import {openGlobalModal} from '../Redux/modules/slices/modalSlice';
 import styled from 'styled-components';
 import Footer from '../components/Footer/Footer';
 import ProfileContainer from '../components/Profile/ProfileContainer';
-import GlobalModal from '../common/GlobalModal';
 import ProfileModalCollection from '../components/Profile/ProfileModalCollection';
-import axios from 'axios';
 import {useQuery} from 'react-query';
 import {memberApis} from '../api/axiosConfig';
 import Header from '../components/Header/Header';
+import ChatBody from '../components/Chat/ChatBody/ChatBody';
+import chatBtn from '../assets/chatBtn.svg';
 
 // type ProfileData = {
 //   memberId: string;
@@ -34,6 +30,7 @@ const ProfilePage = () => {
   const urlId = useParams();
   const accessToken = getAccessToken();
   const userId = getUserId();
+  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     // 토큰이 없으면 로그인 페이지로 돌려보냄
@@ -75,8 +72,16 @@ const ProfilePage = () => {
       <StSection>
         <ProfileContainer data={ProfileData?.data} />
       </StSection>
+      {showChat && <ChatBody setShowChat={setShowChat} />}
       <Footer />
-
+      <BtnWrap style={{height: '70px'}}>
+        <ChatButton
+          onClick={() => {
+            setShowChat(!showChat);
+          }}>
+          <img src={chatBtn} alt="chatBtn" />
+        </ChatButton>
+      </BtnWrap>
       <ProfileModalCollection />
     </Stdiv>
   );
@@ -91,4 +96,73 @@ const StSection = styled.section`
   height: 100%;
   margin: 0 auto;
   background-color: #fdfcff;
+`;
+
+const ChatButton = styled.button`
+  width: 5.5rem;
+  height: 5.5rem;
+  box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  color: #5200ff;
+  background-color: #5200ff;
+  margin-left: 0.8rem;
+  margin-top: 0.7rem;
+  /* background-image: url(${chatBtn});
+  background-position: center center;
+  background-repeat: no-repeat; */
+`;
+const BtnWrap = styled.div`
+  position: fixed;
+  top: 80%;
+  right: 11.3rem;
+  box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.2);
+  width: 7rem;
+  border-radius: 30px;
+  transition: all 0.5s;
+  :hover {
+    transform: matrix3d(
+        1,
+        0,
+        0,
+        0,
+        0,
+        0.866025,
+        0.5,
+        0,
+        0,
+        -0.5,
+        0.866025,
+        0,
+        0,
+        0,
+        0,
+        1
+      )
+      matrix3d(
+        0.866025,
+        0,
+        -0.5,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0.5,
+        0,
+        0.866025,
+        0,
+        0,
+        0,
+        0,
+        1
+      )
+      translate3d(2px, 2px, -2px);
+  }
+  button {
+    box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s;
+  }
+  > button:hover {
+    transform: translate3d(5px, 5px, -5px);
+  }
 `;
