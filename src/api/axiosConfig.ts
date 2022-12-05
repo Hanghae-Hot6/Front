@@ -40,6 +40,7 @@ api.interceptors.response.use(
       config,
       response: {status},
     } = error;
+
     if (status === 500) {
       if (error.response.data.error === 'Internal Server Error') {
         const originalRequest = config;

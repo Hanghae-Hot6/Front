@@ -21,8 +21,13 @@ function ProfileDetail({data}: ProfileDataType) {
         <div>
           <p>{data?.username}</p>
           <p>{data?.memberId}</p>
+          <div className="mobile-profile-change">
+            <button onClick={() => dispatch(openGlobalModal('profileChange'))}>
+              개인정보 변경
+            </button>
+          </div>
         </div>
-        <div>
+        <div className="web-profile-change">
           <button onClick={() => dispatch(openGlobalModal('profileChange'))}>
             개인정보 변경
           </button>

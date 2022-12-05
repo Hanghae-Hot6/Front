@@ -1,6 +1,6 @@
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
-import InterestClubs from '../components/Profile/InterestClubs';
-import LeaderClubs from '../components/Profile/LeaderClubs';
+import InterestClubs from '../components/Profile/ProfileOutlet/InterestClubs';
+import LeaderClubs from '../components/Profile/ProfileOutlet/LeaderClubs';
 
 import ClubDetailPage from '../Pages/ClubDetailPage';
 import ClubListPage from '../Pages/ClubListPage';

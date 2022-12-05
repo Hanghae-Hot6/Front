@@ -211,8 +211,10 @@ export const StClubLi = styled.li`
     }
   }
   span:nth-child(1) {
-    display: flex;
+    display: block;
     font-size: 1.5rem;
+    width: 19rem;
+    height: auto;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -231,7 +233,9 @@ export const StClubLi = styled.li`
 
   span:nth-child(2) {
     display: flex;
+    white-space: nowrap;
     font-size: 1.5rem;
+    width: 18rem;
     @media screen and (max-width: 576px) {
       margin: 0 0 0.5rem 0;
       display: block;
@@ -319,17 +323,55 @@ export const StUserDiv = styled.div`
   box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
   padding: 2rem;
   @media screen and (max-width: 576px) {
+    display: flex;
+
     height: 100%;
     width: 100%;
     border: 0;
     box-shadow: none;
   }
+  .mobile-profile-change {
+    display: none;
+
+    @media screen and (max-width: 576px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      border-radius: 0.7rem;
+      background-color: #fff;
+      font-weight: bold;
+      font-size: 1.6rem;
+      @media screen and (max-width: 576px) {
+        width: 11rem;
+        height: 3rem;
+        color: #5200ff;
+        border: 1px solid ${props => props.theme.MainColor};
+        border-radius: 20px;
+        background-color: white;
+        text-align: center;
+      }
+    }
+  }
+
   div:nth-child(1) {
     display: flex;
     width: 100%;
     height: 50%;
     justify-content: center;
+    @media screen and (max-width: 576px) {
+      align-items: center;
+      width: 40%;
+      height: 100%;
+    }
     img {
+      @media screen and (max-width: 576px) {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
   }
   div:nth-child(2) {
@@ -348,13 +390,21 @@ export const StUserDiv = styled.div`
       font-size: 1.6rem;
       color: ${props => props.theme.Gray};
     }
+
+    @media screen and (max-width: 576px) {
+      display: flex;
+      flex-direction: column;
+    }
   }
-  div:nth-child(3) {
+  .web-profile-change {
     display: flex;
     width: 100%;
     height: 30%;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 576px) {
+      display: none;
+    }
     button {
       width: 100%;
       height: 70%;
@@ -364,15 +414,6 @@ export const StUserDiv = styled.div`
       color: ${props => props.theme.MainColor};
       font-weight: bold;
       font-size: 1.6rem;
-      @media screen and (max-width: 576px) {
-        width: 11rem;
-        height: 3rem;
-        color: #5200ff;
-        border: 1px solid ${props => props.theme.MainColor};
-        border-radius: 20px;
-        background-color: white;
-        text-align: center;
-      }
     }
   }
 `;
