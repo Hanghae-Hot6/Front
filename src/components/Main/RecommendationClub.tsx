@@ -131,12 +131,14 @@ const RecommendationClub = () => {
 export default RecommendationClub;
 const RecommendationWrap = styled.div`
   margin-top: 11rem;
-  @media screen and (max-width: 576px) {
-    overflow-y: hidden;
-    overflow-x: scroll;
-    -ms-overflow-style: none;
-    ::-webkit-scrollbar {
-      display: none;
+  > div {
+    @media screen and (max-width: 576px) {
+      overflow-y: hidden;
+      overflow-x: scroll;
+      -ms-overflow-style: none;
+      ::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 `;

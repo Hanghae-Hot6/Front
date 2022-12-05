@@ -46,17 +46,16 @@ const CategorySection = styled.section`
   margin-top: 2rem;
 
   @media screen and (max-width: 576px) {
-    width: 100vw;
+    width: 90vw;
     height: 10rem;
-    padding-bottom: 15rem;
     overflow-x: scroll;
     overflow-y: hidden;
-    /* -ms-overflow-style: none; */
+    -ms-overflow-style: none;
     ::-webkit-scrollbar {
       display: none;
     }
     div {
-      margin-left: 40px;
+      margin-left: 180px;
       display: flex;
     }
   }

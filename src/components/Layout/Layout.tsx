@@ -175,10 +175,8 @@ const BtnWrap = styled.div`
 const LayoutWrap = styled.section`
   width: 1280px;
   margin: 0 auto;
-  min-height: 100vh;
   height: 100%;
   @media screen and (max-width: 576px) {
     width: 90vw;
-    min-height: 90vh;
   }
 `;
