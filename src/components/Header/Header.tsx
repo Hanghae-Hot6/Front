@@ -128,6 +128,7 @@ const StHeaderSection = styled.section`
     justify-content: end;
   }
   @media screen and (max-width: 576px) {
+    overflow: hidden;
     width: 90vw;
   }
 `;
