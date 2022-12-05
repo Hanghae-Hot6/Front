@@ -87,6 +87,9 @@ const StHeaderSection = styled.section`
   img {
     transform: scale(0.95);
   }
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+  }
 `;
 
 const StLogo = styled.div`
@@ -131,6 +134,7 @@ const StNavBtnsDiv = styled.div`
     font-size: 16px;
     height: 4rem;
     width: 12rem;
+    white-space: nowrap;
   }
   button:nth-child(3) {
     color: white;

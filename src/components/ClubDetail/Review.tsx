@@ -73,36 +73,38 @@ const Review = ({subscription}: {subscription: boolean}) => {
         <h2>
           모임에 대한 <span>후기를 남겨주세요!</span>
         </h2>
-        {subscription ? (
-          <>
-            <R.ReviewCreate
-              name="comment"
-              value={input.comment}
-              placeholder="후기를 작성해 주세요"
-              onChange={handleChange}
-            />
-            {input.comment === '' ? (
-              <R.Btn
-                onClick={() => alert('내용을 입력해 주세요')}
-                style={{height: '5rem'}}>
-                작성
-              </R.Btn>
-            ) : (
-              <R.Btn
-                onClick={() => createReview({id, input})}
-                style={{height: '5rem'}}>
-                작성
-              </R.Btn>
-            )}
-          </>
-        ) : (
-          <>
-            <R.ReviewCreate
-              placeholder="모임에 가입해야 후기를 작성할 수 있어요 !"
-              readOnly
-            />
-          </>
-        )}
+        <R.ReviewCreateWrap>
+          {subscription ? (
+            <>
+              <R.ReviewCreate
+                name="comment"
+                value={input.comment}
+                placeholder="후기를 작성해 주세요"
+                onChange={handleChange}
+              />
+              {input.comment === '' ? (
+                <R.Btn
+                  onClick={() => alert('내용을 입력해 주세요')}
+                  style={{height: '5rem'}}>
+                  작성
+                </R.Btn>
+              ) : (
+                <R.Btn
+                  onClick={() => createReview({id, input})}
+                  style={{height: '5rem'}}>
+                  작성
+                </R.Btn>
+              )}
+            </>
+          ) : (
+            <>
+              <R.ReviewCreate
+                placeholder="모임에 가입해야 후기를 작성할 수 있어요 !"
+                readOnly
+              />
+            </>
+          )}
+        </R.ReviewCreateWrap>
 
         {data &&
           // eslint-disable-next-line array-callback-return

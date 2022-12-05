@@ -34,17 +34,9 @@ const Layout = (props: Props) => {
   }, []);
 
   return (
-    <div style={{overflow: 'hidden'}}>
+    <div>
       <Header />
-      <section
-        style={{
-          width: '1280px',
-          margin: '0 auto',
-          minHeight: ' 100vh',
-          height: '100%',
-        }}>
-        {props.children}
-      </section>
+      <LayoutWrap>{props.children}</LayoutWrap>
 
       {showChat && <ChatBody setShowChat={setShowChat} />}
       <Footer />
@@ -106,6 +98,9 @@ const TopButton = styled.button`
   transition: all 0.2s;
   margin-left: 0.8rem;
   margin-top: 1.4rem;
+  @media screen and (max-width: 576px) {
+    margin-top: 4rem;
+  }
 `;
 
 const ChatButton = styled.button`
@@ -120,9 +115,13 @@ const ChatButton = styled.button`
   /* background-image: url(${chatBtn});
   background-position: center center;
   background-repeat: no-repeat; */
+  @media screen and (max-width: 576px) {
+    margin-top: 1.4rem;
+  }
 `;
 
 const BtnWrap = styled.div`
+  background-color: #fff;
   position: fixed;
   top: 64.5%;
   right: 11.3rem;
@@ -130,6 +129,7 @@ const BtnWrap = styled.div`
   width: 7rem;
   border-radius: 30px;
   transition: all 0.5s;
+  z-index: 2;
   :hover {
     transform: matrix3d(
         1,
@@ -175,5 +175,16 @@ const BtnWrap = styled.div`
   }
   > button:hover {
     transform: translate3d(5px, 5px, -5px);
+  }
+  @media screen and (max-width: 576px) {
+    right: 1rem;
+  }
+`;
+const LayoutWrap = styled.section`
+  width: 1280px;
+  margin: 0 auto;
+  height: 100%;
+  @media screen and (max-width: 576px) {
+    width: 90vw;
   }
 `;

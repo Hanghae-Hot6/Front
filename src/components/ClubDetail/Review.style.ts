@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ReviewCreate = styled.input`
   width: 50rem;
-  height: 50px;
+  height: 5rem;
   border: 1px solid #ccc;
   padding: 15px;
   margin-bottom: 15px;
@@ -10,14 +10,20 @@ export const ReviewCreate = styled.input`
   :focus {
     outline: none;
   }
+  @media screen and (max-width: 576px) {
+    width: 75vw;
+  }
 `;
 
-export const ReviewWrap = styled.p`
+export const ReviewWrap = styled.section`
   margin-top: 15px;
   padding: 10px;
   padding-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  small {
+    font-size: 18px;
+  }
   > div {
     border-bottom: 1px dashed #ccc;
     margin-bottom: 5px;
@@ -38,7 +44,7 @@ export const ReviewWrap = styled.p`
 
 export const Btn = styled.button`
   width: 5rem;
-  height: 2rem;
+  height: 2.5rem;
   color: #fff;
   border-radius: 5px;
   margin-left: 10px;
@@ -49,5 +55,13 @@ export const Btn = styled.button`
     border: 1px solid ${props => props.theme.MainColor};
     color: ${props => props.theme.MainColor};
     background-color: #fff;
+  }
+`;
+
+export const ReviewCreateWrap = styled.section`
+  @media screen and (max-width: 576px) {
+    display: flex;
+    width: 90vw;
+    justify-content: space-between;
   }
 `;

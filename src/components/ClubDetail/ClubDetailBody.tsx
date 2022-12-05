@@ -7,13 +7,13 @@ import heartOn from '../../assets/heartOn.svg';
 import heartOff from '../../assets/heartOff.svg';
 import {clubDetailType} from '../../types/clubList';
 import {clubApis} from '../../api/axiosConfig';
-
+import {getUserId} from '../../utils';
 import Review from './Review';
 
 const ClubDetailBody = () => {
   const navigate = useNavigate();
   const {id} = useParams();
-
+  const userId = getUserId();
   // 화면에 클럽정보 뿌려주는api
   const {data, status} = useQuery<clubDetailType | undefined>(
     ['getClubDetail', id],
@@ -23,7 +23,14 @@ const ClubDetailBody = () => {
     },
     {
       retry: 0,
+      onSuccess() {
+        if (localStorage.length === 0) {
+          return alert('로그인이 필요합니다.'), navigate('/Login');
+        }
+      },
       onError: (error: any) => {
+        console.log('에러', error);
+
         // 로그인 에러 남바 : 403 or 401
         if (error.response.status === 500) {
           return alert('로그인이 필요합니다.'), navigate('/Login');
@@ -31,8 +38,6 @@ const ClubDetailBody = () => {
       },
     },
   );
-
-  console.log(data);
 
   //모임 가입하기 api
   const {mutate: signUpClub} = useMutation(
@@ -147,12 +152,21 @@ const ClubDetailBody = () => {
                     <C.Btn style={{borderRight: 'none', cursor: 'default'}}>
                       참석중
                     </C.Btn>
-                    <C.Btn
-                      onClick={() => {
-                        delClubBtn(id);
-                      }}>
-                      탈퇴하기
-                    </C.Btn>
+                    {userId === data.leader ? (
+                      <C.Btn
+                        onClick={() => {
+                          navigate(`/fix_club/${id}`);
+                        }}>
+                        수정하기
+                      </C.Btn>
+                    ) : (
+                      <C.Btn
+                        onClick={() => {
+                          delClubBtn(id);
+                        }}>
+                        탈퇴하기
+                      </C.Btn>
+                    )}
                   </>
                 ) : (
                   <C.JoinBtn onClick={() => signUpClub(id)}>참석하기</C.JoinBtn>

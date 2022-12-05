@@ -120,6 +120,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 33%;
+  @media screen and (max-width: 576px) {
+    width: 10vw;
+  }
 `;
 const SearchBox = styled.div`
   position: absolute;
@@ -164,6 +167,11 @@ const StInputDiv = styled.div`
     :focus {
       border-color: ${props => props.theme.MainColor};
       outline: none;
+    }
+    @media screen and (max-width: 576px) {
+      width: 0;
+      border: none;
+      box-shadow: none;
     }
   }
   div {

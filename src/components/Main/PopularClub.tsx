@@ -1,15 +1,15 @@
 import React from 'react';
 import main1 from '../../assets/main_reco1.svg';
 import main2 from '../../assets/main_reco2.svg';
+import main1_M from '../../assets/main_pop1.svg';
+import main2_M from '../../assets/main_pop2.svg';
 import styled from 'styled-components';
-import {useQuery} from 'react-query';
-import axios from 'axios';
+
 const PopularClub = () => {
   return (
     <PopWrap>
       <PopDiv>
-        <img src={main1} alt="main1" />
-        <div>
+        <div className="main1">
           <p>
             곤충이 없는 미래에는 인류의 문명도 없다 발아래에서 소멸하는 우주에
             관한 곤충학자의 경고, 그리고 절실한 호소 레이철 카슨의 『침묵의 봄』
@@ -33,9 +33,8 @@ const PopularClub = () => {
           </p>
         </div>
       </PopDiv>
-      <PopDiv>
-        <img src={main2} alt="main2" />
-        <div>
+      <PopDivRight>
+        <div className="main2">
           <p>
             RABBIT JUMP 더 높은 도약을 준비하는 검은 토끼의 해 세계화의 종말,
             갈등과 분열, 그리고 전쟁. 수십 년간 이어져 온 평화와 공존의 시대는
@@ -50,7 +49,7 @@ const PopularClub = () => {
             더욱 빨라지는 2023 대한민국. 소비자들은 어떤 선택을 할 것인가?
           </p>
         </div>
-      </PopDiv>
+      </PopDivRight>
     </PopWrap>
   );
 };
@@ -60,14 +59,26 @@ export default PopularClub;
 const PopWrap = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 7rem;
+  margin-top: 5rem;
   position: relative;
   img {
+    width: 100%;
     cursor: pointer;
+  }
+  @media screen and (max-width: 576px) {
+    gap: 20px;
+    flex-direction: column;
   }
 `;
 
 const PopDiv = styled.div`
+  margin: 0 auto;
+  width: 635px;
+  height: 300px;
+  background-image: url(${main1});
+  background-size: initial;
+  background-repeat: no-repeat;
+  background-position: center center;
   div {
     opacity: 0;
     border: 1px solid ${props => props.theme.MainColor};
@@ -81,6 +92,11 @@ const PopDiv = styled.div`
     transition: all 0.5s;
     padding: 2rem;
     overflow: hidden;
+    @media screen and (max-width: 576px) {
+      width: 65vw;
+      height: 174px;
+      left: 14%;
+    }
     p {
       font-size: 1.6rem;
       line-height: 1.6;
@@ -95,5 +111,28 @@ const PopDiv = styled.div`
     div {
       opacity: 1;
     }
+  }
+  .main1 {
+    @media screen and (max-width: 576px) {
+      top: 20%;
+    }
+  }
+  .main2 {
+    @media screen and (max-width: 576px) {
+      top: 70%;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+    height: 174px;
+    background-image: url(${main1_M});
+  }
+`;
+const PopDivRight = styled(PopDiv)`
+  background-image: url(${main2});
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+    height: 174px;
+    background-image: url(${main2_M});
   }
 `;
