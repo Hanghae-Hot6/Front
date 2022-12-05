@@ -12,7 +12,7 @@ export const TabList = styled.div`
       display: flex;
       justify-content: space-around;
       @media screen and (max-width: 576px) {
-        margin-left: 75vw;
+        margin-left: 80vw;
         padding-bottom: 15px;
       }
       ul {

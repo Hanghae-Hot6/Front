@@ -11,7 +11,7 @@ export const ReviewCreate = styled.input`
     outline: none;
   }
   @media screen and (max-width: 576px) {
-    width: 80vw;
+    width: 75vw;
   }
 `;
 
@@ -55,5 +55,13 @@ export const Btn = styled.button`
     border: 1px solid ${props => props.theme.MainColor};
     color: ${props => props.theme.MainColor};
     background-color: #fff;
+  }
+`;
+
+export const ReviewCreateWrap = styled.section`
+  @media screen and (max-width: 576px) {
+    display: flex;
+    width: 90vw;
+    justify-content: space-between;
   }
 `;
