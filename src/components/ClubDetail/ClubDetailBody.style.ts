@@ -39,7 +39,9 @@ export const ImageWrap = styled.div`
 export const TitleWrap = styled.div`
   width: 59.2rem;
   border-bottom: 1px solid #dbdbdb;
-
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+  }
   > h3 {
     color: gray;
     font-size: 1.8rem;
