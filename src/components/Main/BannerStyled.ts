@@ -57,6 +57,9 @@ export const CarouselListItem = styled.li<{activeIndex: number}>`
     height: 458px;
     object-fit: cover;
     object-position: center;
+    @media screen and (max-width: 576px) {
+      object-position: 60%;
+    }
   }
   > div {
     margin: 0 auto;
