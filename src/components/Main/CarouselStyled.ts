@@ -122,3 +122,21 @@ export const Nav = styled.ul`
     margin-left: 4px;
   }
 `;
+
+export const Review = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  span {
+    font-size: 1.6rem;
+  }
+  span > small {
+    color: lightGray;
+    margin-left: 5px;
+    font-size: 1rem;
+  }
+`;
+export const Writer = styled.span`
+  margin-top: 0.7rem;
+`;
+export const Comment = styled.span``;
