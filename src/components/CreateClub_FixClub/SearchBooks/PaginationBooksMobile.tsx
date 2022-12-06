@@ -14,8 +14,8 @@ const PaginationBooksMobile = ({
   data,
   borderWidth = 80,
   borderHeight = 40,
-  widthPortion = 45,
-}: PaginationBooksMobileProps) => {
+}: // widthPortion = 45,
+PaginationBooksMobileProps) => {
   const [carouselLocation, setCarouselLocation] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
   const handleIndexClick: React.MouseEventHandler<HTMLButtonElement> = e => {
@@ -31,12 +31,11 @@ const PaginationBooksMobile = ({
   return (
     <>
       <CarouselContainer borderWidth={borderWidth} borderHeight={borderHeight}>
-        <Container2 widthPortion={widthPortion}>
+        <Container2>
           <ContentContainer id="yes">
             <div style={{position: 'relative'}}>
               <Content
                 id="parent"
-                widthPortion={widthPortion}
                 dataLength={6}
                 carouselLocation={carouselLocation}
                 width={borderWidth}>
@@ -50,16 +49,9 @@ const PaginationBooksMobile = ({
                       dataLength={data.length}
                       borderWidth={borderWidth}
                       borderHeight={borderHeight}
-                      widthPortion={widthPortion}
                     />
                   );
                 })}
-                {/* <div
-                  style={{
-                    width: '40%',
-                    border: '2px solid black',
-                    height: '100%',
-                  }}></div> */}
               </Content>
             </div>
           </ContentContainer>
@@ -94,11 +86,10 @@ const CarouselContainer = styled.div<{
 
   width: ${({borderWidth: width}) => width}rem;
   height: ${({borderHeight: height}) => height}rem;
-  /* border: 1px solid black; */
+  /* border: 2px solid black; */
 `;
 
-const Container2 = styled.div<{widthPortion: number}>`
-  /* width: ${({widthPortion}) => widthPortion}%; */
+const Container2 = styled.div`
   width: 100%;
   height: 90%;
 `;
@@ -108,6 +99,7 @@ const ContentContainer = styled.div`
   height: 86%;
   overflow: hidden;
   background-color: #fff;
+  /* border: 1px solid green; */
 `;
 
 const Content = styled.div`
@@ -118,20 +110,14 @@ const Content = styled.div`
       dataLength: number;
       carouselLocation: number;
       width: number;
-      widthPortion: number;
     }) => {
+      console.log(props.dataLength);
       return `${(-props.carouselLocation * 100) / props.dataLength}%`;
     }}
   );
 
-  /* width: ${props => props.dataLength * 100}%; */
-  /* width: 220%; */
-  /* width: 120rem; */
-
   transition: transform 0.5s;
   align-items: center;
-
-  border: 1px solid green;
 `;
 
 const IndexButtonContainer = styled.div`
