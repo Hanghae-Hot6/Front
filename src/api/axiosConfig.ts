@@ -191,4 +191,6 @@ export const reviewApis = {
     await api.delete(
       `${process.env.REACT_APP_BASE_URL}/clubs/${reviewId}/delete`,
     ),
+  getAllReview: async () =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/reviews`),
 };
