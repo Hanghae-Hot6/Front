@@ -84,8 +84,8 @@ export const CarouselListItem = styled.li<{
     }
   }
   img {
-    width: 427px;
-    height: 458px;
+    width: 42.7rem;
+    height: 45.8rem;
     object-fit: cover;
     object-position: center;
     transition: all 0.5s ease;
@@ -95,7 +95,7 @@ export const CarouselListItem = styled.li<{
     position: absolute;
     left: -100px;
     bottom: 10px;
-    width: 427px;
+    width: 42.7rem;
     height: 100px;
     background-color: #fff;
     padding: 1rem;
