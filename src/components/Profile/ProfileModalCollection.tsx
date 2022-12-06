@@ -15,15 +15,12 @@ function ProfileModalCollection() {
   const dispatch = useAppDispatch();
   const [isPWCorrect, setIsPWCorrect] = useState<boolean>(false);
   const [textAreaValue, setTextAreaValue] = useState<string>('');
-  console.log(isPWCorrect);
   const {mutate: sendInquiryMutate} = useMutation(
     async (textAreaValue: string) => {
       try {
         const response = await memberApis.postInquiryEmail(textAreaValue);
         return response;
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     },
     {
       onSuccess: data => {

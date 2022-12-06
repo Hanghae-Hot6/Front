@@ -96,6 +96,10 @@ export const memberApis = {
       'Authorization',
       JSON.stringify(response.headers.authorization),
     );
+    localStorage.setItem(
+      'Refresh-Token',
+      JSON.stringify(response.headers['refresh-token']),
+    );
     return response;
   },
 
@@ -105,44 +109,36 @@ export const memberApis = {
 
   // email 전송
   sendEmail: async (payload: string | undefined) =>
-    await api.get(`members/mailConfirm?email=${payload}`),
+    await api.get(`mail/confirm?email=${payload}`),
 
   // 인증번호 전송
   sendCertNum: async (payload: string | undefined) =>
-    await api.get(`members/mailAuth?code=${payload}`),
+    await api.get(`mail/auth?code=${payload}`),
 
   // 비밀번호 찾기
   changePassword: async (payload: FindPasswordValueType) =>
-    await api.post(`members/findPassword`, payload),
+    await api.post(`mail/findPassword`, payload),
 
   // 아이디 찾기
   changeMemberId: async (payload: FindIdValue) =>
-    await api.post(`members/findId`, payload),
-
-  //My page
-  myPageInfo: async () => await api.get(`members/mypage`),
-
-  // 내가 개설한 클럽 모임
-  getLeaderClubs: async () => await api.get(`members/mypage/leader`),
-
-  getInterestClubs: async () => await api.get(`members/mypage/interest`),
-
-  //My page
-  // myPageInfo: async () => await api.get(`mypage`),
-
-  // // 내가 개설한 클럽 모임
-  // getLeaderClubs: async () => await api.get(`mypage/leader`),
-
-  // getInterestClubs: async () => await api.get(`mypage/interest`),
+    await api.post(`mail/findId`, payload),
 
   postInquiryEmail: async (payload: string) =>
-    await api.post(`members/cs`, payload),
+    await api.post(`mail/cs`, payload),
 
   passwordCheck: async (payload: string) =>
     await api.post(`members/auth`, payload),
 
+  // My page
+  myPageInfo: async () => await api.get(`mypage`),
+
+  // 내가 개설한 클럽 모임
+  getLeaderClubs: async () => await api.get(`mypage/leader`),
+
+  getInterestClubs: async () => await api.get(`mypage/interest`),
+
   modifyProfile: async (payload: SignValueType) =>
-    await api.post(`members/modify`, payload),
+    await api.post(`mypage/modify`, payload),
 };
 
 // export const myPageAips = {

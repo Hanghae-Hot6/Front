@@ -16,7 +16,7 @@ const PaginationBooksChild = ({
   borderWidth,
   borderHeight,
 }: PaginationBooksChildProps) => {
-  const books = useAppSelector(state => state.selectBookReducer);
+  const books = useAppSelector(state => state.selectBooksReducer);
   const dispatch = useAppDispatch();
 
   const handleBookClick = (selectedBook: NaverBooksDataType) => {

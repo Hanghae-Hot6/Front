@@ -1,6 +1,4 @@
-import React, {Dispatch, SetStateAction} from 'react';
 import {useState, useEffect} from 'react';
-import styled from 'styled-components';
 import {PaginatePropsTypes} from '../../types/profile';
 import * as P from './Profile.style';
 function Pagenation({

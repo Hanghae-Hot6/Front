@@ -37,16 +37,12 @@ function ProfileCheckPassword({
   const {mutate: passwordCheck} = useMutation(
     async (passwordValue: string) => {
       try {
-        console.log(passwordValue);
         const response = await memberApis.passwordCheck(passwordValue);
         return response;
-      } catch (error: any) {
-        console.log(error);
-      }
+      } catch (error: any) {}
     },
     {
       onSuccess: data => {
-        console.log(data);
         if (data?.status === 200 && data.data.success === true) {
           setMessage(data.data.error);
           setIsPWCorrect(true);
@@ -62,14 +58,12 @@ function ProfileCheckPassword({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {value} = e.currentTarget;
-    console.log(value);
     setPasswordValue(value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // setIsPWCorrect(true);
-    console.log(passwordValue);
     passwordCheck(passwordValue);
   };
 

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery} from 'react-query';
 import {Link} from 'react-router-dom';
-import styled from 'styled-components';
 import {memberApis} from '../../../api/axiosConfig';
 import {clubList} from '../../../types/regist';
 import {getUserId} from '../../../utils';
@@ -17,7 +16,6 @@ function InterestClubs() {
     async () => {
       try {
         const response = await memberApis.getInterestClubs();
-        console.log(response);
         return response.data;
       } catch (error: any) {}
     },

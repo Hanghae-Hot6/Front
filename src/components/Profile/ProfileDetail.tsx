@@ -1,16 +1,11 @@
 import {ProfileDataType} from '../../types/regist';
 import profileImg from '../../assets/profileImg.svg';
 import profileChatingImg from '../../assets/profileChatingImg.svg';
-import GlobalModal from '../../common/GlobalModal';
-import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
+import {useAppDispatch} from '../../Redux/store/store';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import * as P from './Profile.style';
 function ProfileDetail({data}: ProfileDataType) {
   const dispatch = useAppDispatch();
-  const isSignUp = true;
-  const {isGlobalModalOpen, dispatchId} = useAppSelector(
-    state => state.modalReducer,
-  );
 
   return (
     <>

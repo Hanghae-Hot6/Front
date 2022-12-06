@@ -97,9 +97,6 @@ const ChatButton = styled.button`
   background-color: #5200ff;
   margin-left: 0.8rem;
   margin-top: 0.7rem;
-  /* background-image: url(${chatBtn});
-  background-position: center center;
-  background-repeat: no-repeat; */
 `;
 const BtnWrap = styled.div`
   position: fixed;

@@ -14,9 +14,7 @@ export const useInput = ({initialState, validator}: useInputParamType) => {
 
     let willUpdate = true;
     if (typeof validator === 'function') {
-      console.log(value);
       willUpdate = validator({value});
-      console.log(willUpdate);
     }
     if (willUpdate) {
       setValue(value);
