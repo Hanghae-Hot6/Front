@@ -61,7 +61,7 @@ export const StUserInfoSection = styled.section`
   @media screen and (max-width: 576px) {
     width: 100%;
     margin: 0;
-    height: 20rem;
+    height: 30rem;
   }
 `;
 export const StClubInfoSection = styled.section`
@@ -419,6 +419,11 @@ export const StUserDiv = styled.div`
       color: ${props => props.theme.MainColor};
       font-weight: bold;
       font-size: 1.6rem;
+      transition: all 0.2s ease-in-out;
+      :hover {
+        background-color: ${props => props.theme.MainColor};
+        color: #fff;
+      }
     }
   }
 `;
@@ -464,6 +469,12 @@ export const StChatDiv = styled.div`
       color: #fff;
       font-weight: bold;
       font-size: 1.6rem;
+      transition: all 0.2s ease-in-out;
+      :hover {
+        background-color: #fff;
+        color: ${props => props.theme.MainColor};
+        border: 1px solid ${props => props.theme.MainColor};
+      }
     }
   }
   @media screen and (max-width: 576px) {
@@ -593,7 +604,7 @@ export const StInquiryMobileDiv = styled.div`
     height: 100%;
     justify-content: center;
     align-items: center;
-    padding: 0rem 2rem 1rem 2rem;
+    padding: 1rem 2rem 2rem 2rem;
     button {
       width: 100%;
       height: 6rem;
@@ -602,6 +613,7 @@ export const StInquiryMobileDiv = styled.div`
       color: #fff;
       font-weight: bold;
       font-size: 1.6rem;
+      transition: all 0.2s ease-in-out;
     }
   }
 `;

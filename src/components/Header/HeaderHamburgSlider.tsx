@@ -37,9 +37,19 @@ function HeaderHamburgSlider({
 
   useEffect(() => {
     if (accessToken) {
-      setIsLogin(true);
+      if (accessToken.split(' ')[0] !== 'Bearer') {
+        localStorage.removeItem('Authorization');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('Refresh-Token');
+        alert('로그인 해주세요.');
+        navigate('/login');
+        return;
+      } else {
+      }
     } else {
-      setIsLogin(false);
+      alert('로그인 해주세요.');
+      navigate('/login');
+      return;
     }
   }, []);
 
@@ -141,7 +151,14 @@ function HeaderHamburgSlider({
         <StSliderBody>
           {isSearch && (
             <>
-              <SliderProfileDiv>
+              <SliderProfileDiv
+                onClick={() => {
+                  if (isLogin) {
+                    navigate(`/profile/${userId}`);
+                  } else {
+                    return;
+                  }
+                }}>
                 <img src={profileImg} alt={profileImg} />
                 {isLogin ? (
                   <div>
@@ -252,6 +269,7 @@ const SliderProfileDiv = styled.div`
   width: 100%;
   height: 12rem;
   border: 0;
+  cursor: pointer;
   img {
     display: block;
     height: 100%;
