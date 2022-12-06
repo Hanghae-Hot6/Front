@@ -85,6 +85,7 @@ const FlexDiv = styled.div`
     align-items: center;
     height: 90%;
     width: 100%;
+    overflow: hidden;
   }
 `;
 
@@ -100,6 +101,7 @@ const Container = styled.div<{
     height: 100%;
     width: 100%;
     align-items: flex-start;
+    overflow: hidden;
   }
 `;
 
@@ -132,6 +134,9 @@ const IndexButtonContainer = styled.div`
   border-top: none;
   border-bottom-left-radius: 1.5rem;
   border-bottom-right-radius: 1.5rem;
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+  }
 `;
 
 const IndexButton = styled.button<{isActive?: boolean}>`
