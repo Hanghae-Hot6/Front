@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import DeleteBtn from '../../../common/DeleteBtn';
-import {delBooks} from '../../../Redux/modules/slices/selectBooksSlice';
+import {
+  delBooks,
+  emptyBooks,
+} from '../../../Redux/modules/slices/selectBooksSlice';
 import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import {NaverBooksDataType} from '../../../types/bookSearch';
 import BookImage from './BookImage';
@@ -9,7 +12,9 @@ import BookImage from './BookImage';
 type BooksViewerProps = {};
 
 const BooksViewer = ({}: BooksViewerProps) => {
-  const books = useAppSelector(state => state.selectBookReducer);
+  const books = useAppSelector(state => state.selectBooksReducer);
+
+  console.log(books);
 
   const dispatch = useAppDispatch();
 
