@@ -5,7 +5,7 @@ import rightArrow from '../../assets/right_arrow.svg';
 import leftArrow from '../../assets/left_arrow.svg';
 import {useQuery} from 'react-query';
 import {reviewApis} from '../../api/axiosConfig';
-import {off} from 'process';
+import {Link} from 'react-router-dom';
 
 type review = {
   clubId: number;
@@ -14,23 +14,31 @@ type review = {
 };
 
 const Carousel = () => {
-  const {data} = useQuery(
-    ['getAllReview'],
-    async () => {
-      const response = await reviewApis.getAllReview();
-      return response.data.data;
-    },
-    {
-      onSuccess(data) {
-        console.log(data);
-      },
-    },
-  );
+  const {data} = useQuery(['getAllReview'], async () => {
+    const response = await reviewApis.getAllReview();
+    return response.data.data;
+  });
+
+  console.log('받아오는 데이터에용', data);
+
   const newBanners =
     data &&
     data.map((item: review) => {
       return item.thumbnail;
     });
+  // const clubIds =
+  //   data &&
+  //   data.map((item: review) => {
+  //     return item.clubId;
+  //   });
+  // const reviews =
+  //   data &&
+  //   data.map((item: review) => {
+  //     return item.reviewList;
+  //   });
+
+  // console.log(reviews);
+
   const [currentIndex, setCurrentIndex] = useState(3);
   const [isMouseIn, setIsMouseIn] = useState(false);
   const [transition, setTransition] = useState('');
@@ -113,6 +121,8 @@ const Carousel = () => {
     setTransition(transitionStyle);
   };
 
+  console.log('슬라이드에용', slides);
+
   return (
     <>
       {data && (
@@ -132,20 +142,21 @@ const Carousel = () => {
                 slidesLength={slidesLength}
                 currentIndex={currentIndex}
                 transition={transition}>
-                {slides?.map((slideIndex: any, index: number) => {
-                  const itemIndex = getItemIndex(index);
+                {slides?.map((slideIndex: any, sIndex: number) => {
+                  const itemIndex = getItemIndex(sIndex);
                   return (
                     <C.CarouselListItem
-                      key={index}
+                      key={sIndex}
                       className={`slider-item ${
-                        currentIndex === index ? 'current-slide' : ''
+                        currentIndex === sIndex ? 'current-slide' : ''
                       }`}
                       currCarousel={currentIndex}>
                       <img
                         src={newBanners[itemIndex]}
                         alt={newBanners[itemIndex]}
                       />
-                      <div>후기입니다</div>
+
+                      <div>후기</div>
                     </C.CarouselListItem>
                   );
                 })}
