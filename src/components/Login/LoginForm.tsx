@@ -66,9 +66,12 @@ function LoginForm() {
   );
 
   useEffect(() => {
-    // accessToken을 deps에서 제외시켜줘야 제대로 작동함
-    //accessToken이 있는지 없는지는 컴포넌트가 렌더링 될 때 한번만 판별하면 되는데, deps에 access토큰이 있으면 로그인 로그아웃 할 시 매번 useEffect를 실행시키기 때문에 매번 loggingIn 모달을 dispatch
     if (accessToken) {
+      if (accessToken.split(' ')[0] !== 'Bearer') {
+        localStorage.removeItem('Authorization');
+        return;
+      }
+    } else {
       dispatch(openGlobalModal('loggingIn'));
     }
   }, [dispatch]);
