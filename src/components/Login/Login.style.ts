@@ -66,6 +66,7 @@ export const StSmallNavBtn = styled.button<{
   width: 33%;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 `;
 
 export const StContainer = styled.div`
