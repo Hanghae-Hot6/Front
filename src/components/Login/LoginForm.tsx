@@ -37,8 +37,6 @@ function LoginForm() {
 
   const kakaoCode = location.search.split('=')[1];
   console.log(kakaoCode);
-  console.log(REDIRECT_URI);
-  console.log(DEPLOY_REDIRECT_URI);
 
   const {values, errors, submitting, handleChange, handleSubmit} =
     useSignUpForm(
