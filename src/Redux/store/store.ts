@@ -6,7 +6,7 @@ import {modalReducer} from '../modules/slices/modalSlice';
 export const store = configureStore({
   reducer: {
     modalReducer,
-    selectBooksReducer: selectBooksReducer,
+    selectBooksReducer,
   },
 });
 

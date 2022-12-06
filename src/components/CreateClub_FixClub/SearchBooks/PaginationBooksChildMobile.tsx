@@ -21,7 +21,7 @@ const PaginationBooksChildMobile = ({
   dataLength,
   widthPortion = 45,
 }: PaginationBooksChildMobileProps) => {
-  const books = useAppSelector(state => state.selectBookReducer);
+  const books = useAppSelector(state => state.selectBooksReducer);
   const dispatch = useAppDispatch();
 
   const handleBookClick = (selectedBook: NaverBooksDataType) => {
