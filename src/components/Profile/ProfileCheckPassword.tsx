@@ -160,11 +160,18 @@ const StProfileChangeForm = styled.form<{isPWCorrect: boolean}>`
 const BtnBox = styled.div`
   display: flex;
   justify-content: space-between;
+  button:first-child {
+    width: 50%;
+    background-color: #fff;
+    color: ${props => props.theme.MainColor};
+    border-right: 1px solid ${props => props.theme.MainColor};
+    padding: 0;
+  }
   button {
     width: 50%;
     background-color: #fff;
     color: ${props => props.theme.MainColor};
-    border: 1px solid ${props => props.theme.MainColor};
+    border-top: 1px solid ${props => props.theme.MainColor};
     padding: 0;
   }
 `;
