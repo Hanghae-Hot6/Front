@@ -12,6 +12,9 @@ export const Container = styled.div`
   div {
     position: relative;
     height: 470px;
+    @media screen and (max-width: 576px) {
+      height: 45.8rem;
+    }
   }
 `;
 
@@ -101,6 +104,14 @@ export const CarouselListItem = styled.li<{
     padding: 1rem;
     transition: all 0.5s ease;
     box-sizing: border-box;
+  }
+  @media screen and (max-width: 576px) {
+    div {
+      width: 90vw;
+    }
+    img {
+      width: 90vw;
+    }
   }
 `;
 
