@@ -1,7 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import Carousel from './Carousel';
+import {useQuery} from 'react-query';
+import {reviewApis} from '../../api/axiosConfig';
 const ClubEpilogue = () => {
+  const {data} = useQuery(['getAllReview'], async () => {
+    const response = await reviewApis.getAllReview();
+    return response.data.data;
+  });
+  console.log(data);
+
   return (
     <ClubEpilogueWrap>
       <TitleWrap>
