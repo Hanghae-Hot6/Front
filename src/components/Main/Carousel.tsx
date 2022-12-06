@@ -21,7 +21,9 @@ const Carousel = () => {
       return response.data.data;
     },
     {
-      onSuccess(data) {},
+      onSuccess(data) {
+        console.log(data);
+      },
     },
   );
   const newBanners =
@@ -130,13 +132,13 @@ const Carousel = () => {
                 slidesLength={slidesLength}
                 currentIndex={currentIndex}
                 transition={transition}>
-                {slides?.map((slideIndex: number, index: number) => {
-                  const itemIndex = getItemIndex(slideIndex);
+                {slides?.map((slideIndex: any, index: number) => {
+                  const itemIndex = getItemIndex(index);
                   return (
                     <C.CarouselListItem
                       key={index}
                       className={`slider-item ${
-                        currentIndex === slideIndex ? 'current-slide' : ''
+                        currentIndex === index ? 'current-slide' : ''
                       }`}
                       currCarousel={currentIndex}>
                       <img
