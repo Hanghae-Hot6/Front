@@ -27,13 +27,14 @@ export const ButtonContainer = styled.div`
   margin-top: 5.2rem;
   align-items: center;
   justify-content: center;
+  width: 100%;
   @media screen and (max-width: 576px) {
     width: 100%;
   }
 `;
 
 export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
-  width: 40rem;
+  width: 100%;
   height: 6rem;
   color: ${props => props.fontC};
   background-color: ${props => props.theme.MainColor};
@@ -42,7 +43,8 @@ export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   margin-bottom: 4.3rem;
   @media screen and (max-width: 576px) {
     height: 6rem;
-    width: 40rem;
+    width: 100%;
+    /* width: 40rem; */
   }
 `;
 
