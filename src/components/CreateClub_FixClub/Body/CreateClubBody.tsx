@@ -112,7 +112,7 @@ const CreateClubBody = ({
 
   const navigate = useNavigate();
 
-  const books = useAppSelector(state => state.selectBookReducer);
+  const books = useAppSelector(state => state.selectBooksReducer);
 
   // 모임개설
 

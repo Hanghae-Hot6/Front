@@ -92,33 +92,16 @@ const selectBooksSlice = createSlice({
         });
       });
 
-      // let yo: (NaverBooksDataType | undefined)[] = [];
-      // Object.values(state).forEach(val => {
-      //   if (val) {
-      //     yo.push(val);
-      //   }
-      // });
-
-      // yo.forEach((val, index) => {
-      //   if (index === 0) {
-      //     state.book1 = val;
-      //   } else if (index === 1) {
-      //     state.book2 = val;
-      //   } else {
-      //     state.book3 = val;
-      //   }
-      // });
-
       console.log(current(state));
     },
     emptyBooks: state => {
-      state = initialState;
-      console.log(state);
-      console.log('redux emptyBooks');
+      state['book1'] = undefined;
+      state['book2'] = undefined;
+      state['book3'] = undefined;
     },
   },
 });
 
-export const selectBookReducer = selectBooksSlice.reducer;
+export const selectBooksReducer = selectBooksSlice.reducer;
 export const {addBook, delBook, delBooks, emptyBooks} =
   selectBooksSlice.actions;
