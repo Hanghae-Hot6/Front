@@ -31,6 +31,11 @@ const HeaderSearchBooksChild = ({
                     <Title>{val?.clubName}</Title>
                     {/* <Author>{data?.isbn}</Author> */}
                     <Text>{val?.category}</Text>
+                    {val && (
+                      <LinkClub to={`/club_detail/${val?.clubId}`}>
+                        모임 바로가기
+                      </LinkClub>
+                    )}
                     {/* <Content>{data.}</Content> */}
                   </SmallDiv>
                 </LeftDiv>
@@ -141,6 +146,9 @@ const Box = styled.div<{width: number; height: number}>`
   margin-top: 1rem;
   /* border: 1px solid black; */
   /* background-color: #333; */
+  @media screen and (max-width: 576px) {
+    margin-left: 5rem;
+  }
 `;
 const SmallDiv = styled.div`
   width: 60%;
@@ -148,7 +156,13 @@ const SmallDiv = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
+const LinkClub = styled(Link)`
+  display: none;
+  margin-top: 5px;
+  @media screen and (max-width: 576px) {
+    display: block;
+  }
+`;
 const Title = styled.span`
   font-weight: 700;
   font-size: 1.6rem;

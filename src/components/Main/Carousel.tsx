@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import * as C from './CarouselStyled';
 // import {RiArrowDropLeftLine, RiArrowDropRightLine} from 'react-icons/ri';
-import rightArrow from '../../assets/right_arrow.svg';
-import leftArrow from '../../assets/left_arrow.svg';
+import rightArrow from '../../assets/arrow_right.svg';
+import leftArrow from '../../assets/arrow_left.svg';
 import {useQuery} from 'react-query';
 import {reviewApis} from '../../api/axiosConfig';
 import {Link} from 'react-router-dom';
@@ -14,16 +14,10 @@ type review = {
 };
 
 const Carousel = () => {
-  const {data} = useQuery(
-    ['getAllReview'],
-    async () => {
-      const response = await reviewApis.getAllReview();
-      return response.data.data;
-    },
-    {
-      onSuccess(data) {},
-    },
-  );
+  const {data} = useQuery(['getAllReview'], async () => {
+    const response = await reviewApis.getAllReview();
+    return response.data.data;
+  });
   // const newBanners =
   //   data &&
   //   data.map((item: review) => {
@@ -39,7 +33,7 @@ const Carousel = () => {
   const itemsSize = newBanners?.length;
   const addItems = 3;
   let slides = setSlides(addItems);
-  console.log(slides);
+
   const slidesLength = slides?.length;
   const transitionTime = 500;
   const transitionStyle = `transform ${transitionTime}ms ease 0s`;
@@ -114,8 +108,6 @@ const Carousel = () => {
     setTransition(transitionStyle);
   };
 
-  console.log('슬라이드에용', slides);
-
   return (
     <>
       {data && (
@@ -144,11 +136,27 @@ const Carousel = () => {
                         currentIndex === index ? 'current-slide' : ''
                       }`}
                       currCarousel={currentIndex}>
-                      <img
-                        src={newBanners[itemIndex]?.thumbnail}
-                        alt={newBanners[itemIndex]?.thumbnail}
-                      />
-                      <div>{newBanners[itemIndex]?.reviewList[0].comment}</div>
+                      <Link
+                        to={`/club_detail/${newBanners[itemIndex]?.clubId}`}>
+                        <img
+                          src={newBanners[itemIndex]?.thumbnail}
+                          alt={newBanners[itemIndex]?.thumbnail}
+                        />
+                      </Link>
+
+                      <C.Review>
+                        <C.Writer>
+                          {newBanners[itemIndex]?.reviewList[0].memberId}
+                          <small>
+                            {newBanners[
+                              itemIndex
+                            ]?.reviewList[0].createdAt.split('T', 1)}
+                          </small>
+                        </C.Writer>
+                        <C.Comment>
+                          {newBanners[itemIndex]?.reviewList[0].comment}
+                        </C.Comment>
+                      </C.Review>
                     </C.CarouselListItem>
                   );
                 })}
