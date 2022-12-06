@@ -6,4 +6,7 @@ export const CreateClubButton = styled.button`
   background-color: transparent;
   color: ${props => props.theme.MainColor};
   border: 1px solid ${props => props.theme.MainColor};
+  @media screen and (max-width: 430px) {
+    font-size: 1rem;
+  }
 `;

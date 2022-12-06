@@ -81,6 +81,14 @@ const Select = styled.select<{
   appearance: none;
   background: url(${CaretDown}) no-repeat right 1rem center;
 
+  @media screen and (max-width: 576px) {
+    background-size: 3rem;
+  }
+
+  @media screen and (max-width: 430px) {
+    background-size: 2rem;
+  }
+
   ${({width}) => {
     if (width) {
       return `width:${width};`;
