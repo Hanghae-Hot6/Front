@@ -68,7 +68,6 @@ const BooksViewer = ({}: BooksViewerProps) => {
           });
 
           return (
-            // <></>
             <BookImage
               key={book.isbn}
               border={DeleteBookCheck}
