@@ -49,17 +49,20 @@ const ClubListBody = () => {
   // console.log(data);
 
   // 성공
+  const N = 3;
   const categoryTap = categoryArray.map((category, index) => {
     const categoryFilter = data?.filter(
       (club: Clubs) => club.category === category,
     );
+    const categoryPop = categoryFilter?.slice(0, 3);
+
     if (status === 'success') {
       return {
         id: index,
         title: category,
         content:
-          categoryFilter.length > 0 &&
-          categoryFilter.map((club: Clubs, id: number) => {
+          categoryPop?.length > 0 &&
+          categoryPop?.map((club: Clubs, id: number) => {
             return (
               <div key={club.clubId}>
                 {/* 인기 TOP3 */}

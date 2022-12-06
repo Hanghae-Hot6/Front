@@ -29,10 +29,8 @@ const ClubDetailBody = () => {
         }
       },
       onError: (error: any) => {
-        console.log('에러', error);
-
         // 로그인 에러 남바 : 403 or 401
-        if (error.response.status === 500) {
+        if (error.response.status === 401||403) {
           return alert('로그인이 필요합니다.'), navigate('/Login');
         }
       },
