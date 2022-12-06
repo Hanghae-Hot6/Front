@@ -21,6 +21,11 @@ const Header = () => {
   // accessToken이 존재하면 Login 상태
   useEffect(() => {
     if (accessToken) {
+      if (accessToken === 'ndefine' || accessToken === 'undefined') {
+        localStorage.removeItem('Authorization');
+        setIsLogin(false);
+        return;
+      }
       setIsLogin(true);
     } else {
       setIsLogin(false);
