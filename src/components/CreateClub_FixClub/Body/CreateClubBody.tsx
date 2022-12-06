@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationButton from '../../../common/NavigationButton';
 import ThinLine from '../../../common/ThinLine';
+import useWindowSizeDetector from '../../../Hooks/useWindowSizeDetector';
 import FixClubPage from '../../../Pages/FixClubPage';
 import {
   addBook,
@@ -52,7 +53,7 @@ const CreateClubBody = ({
 }: CreateClubBodyProps) => {
   const [input, setInput] = useState<SubmitClubType>(initialValue);
   const dispatch = useAppDispatch();
-
+  const {windowWidth} = useWindowSizeDetector();
   const getSingleNaverBookData = async (bookIsbn: string) => {
     try {
       const response = await axios.get(
@@ -110,6 +111,7 @@ const CreateClubBody = ({
 
   const accessToken = getAccessToken();
 
+  // const{width}
   const navigate = useNavigate();
 
   const books = useAppSelector(state => state.selectBookReducer);
@@ -229,15 +231,15 @@ const CreateClubBody = ({
             input={input}
             setInput={setInput}
             name="clubName"
-            placeholder="제목을 입력해 주세요"
-            flex={2}
+            placeholder="모임명을 입력해주세요"
+            flex={5}
           />
           <SelectInput
             input={input}
             setInput={setInput}
             name="category"
-            placeholder="카테고리 선택"
-            width="29.2rem"
+            placeholder={windowWidth > 576 ? '카테고리 선택' : '카테고리'}
+            flex={2}
             marginLeft="1rem"
             options={[
               '인문',
@@ -255,8 +257,8 @@ const CreateClubBody = ({
             input={input}
             setInput={setInput}
             name="clubIntro"
-            maxLength={50}
-            placeholder="인트로를 작성해주세요 (글자제한 50자)"
+            maxCharLength={50}
+            placeholder="모임 소개를 한 줄로 작성해주세요"
           />
         </ParagraphDiv>
         <ParagraphDiv>

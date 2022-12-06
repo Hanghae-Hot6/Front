@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import {NaverBooksDataType} from '../../../types/bookSearch';
 import validate from '../../../utils/validate';
 
-type PaginationBooksChildProps = {
+type PaginationBooksChildMobileProps = {
   data: NaverBooksDataType[] | undefined;
   borderWidth: number;
   borderHeight: number;
@@ -14,13 +14,13 @@ type PaginationBooksChildProps = {
   widthPortion?: number;
 };
 
-const PaginationBooksChild = ({
+const PaginationBooksChildMobile = ({
   data,
   borderWidth,
   borderHeight,
   dataLength,
   widthPortion = 45,
-}: PaginationBooksChildProps) => {
+}: PaginationBooksChildMobileProps) => {
   const books = useAppSelector(state => state.selectBookReducer);
   const dispatch = useAppDispatch();
 
@@ -72,7 +72,7 @@ const PaginationBooksChild = ({
     </Div>
   );
 };
-export default PaginationBooksChild;
+export default PaginationBooksChildMobile;
 
 const Div = styled.div<{
   width: number;
@@ -80,23 +80,31 @@ const Div = styled.div<{
   widthPortion: number;
   dataLength: number;
 }>`
-  width: ${(props: {width: number; widthPortion: number}) =>
-    props.widthPortion * 0.01 * props.width}rem;
+  /* width: 200%; */
+  /* width: 220%; */
+  /* width: 30%; */
+
+  width: 100/6%;
+  /* width: 20%; */
+
+  /* width: 50rem; */
 
   height: ${(props: {height: number}) => 0.8 * 0.9 * props.height}rem;
+
+  /* height: 200%; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
+  background-color: aliceblue;
+  border: 1px solid black;
 `;
-
-/* width: ${(props: {width: number; widthPortion: number}) =>
-    props.widthPortion * 0.01 * props.width}rem; */
 
 const Wrap = styled.div`
   width: 100%;
   height: calc(100% / 3);
   padding: 1rem 2rem;
+
   /* border: 1px solid black; */
 
   /* :hover {
@@ -129,6 +137,8 @@ const LeftDiv = styled.div<{clicked: boolean}>`
 const ImageWrapper = styled.div<{width: number; height: number}>`
   width: ${({width}) => 0.07 * width}rem;
   height: ${({height}) => 0.18 * height}rem;
+  /* width: 1%;
+  height: 1%; */
 
   filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
 `;

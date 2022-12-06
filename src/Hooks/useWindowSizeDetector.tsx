@@ -22,6 +22,6 @@ const useWindowSizeDetector = () => {
     };
   }, []);
 
-  return {width: windowSize.width, height: windowSize.height};
+  return {windowWidth: windowSize.width, windowHeight: windowSize.height};
 };
 export default useWindowSizeDetector;

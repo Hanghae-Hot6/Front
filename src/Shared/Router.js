@@ -1,6 +1,7 @@
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import InterestClubs from '../components/Profile/ProfileOutlet/InterestClubs';
 import LeaderClubs from '../components/Profile/ProfileOutlet/LeaderClubs';
+import ChatTestPage from '../Pages/ChatTestPage';
 
 import ClubDetailPage from '../Pages/ClubDetailPage';
 import ClubListPage from '../Pages/ClubListPage';
@@ -23,6 +24,7 @@ const Router = () => {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/club_detail/:id" element={<ClubDetailPage />} />
         <Route path="/club_list" element={<ClubListPage />} />
+        <Route path="/chat_test" element={<ChatTestPage />} />
         <Route path="/create_club" element={<CreateClubPage />} />
         <Route path="/fix_club/:id" element={<FixClubPage />} />
         <Route path="/login" element={<LoginPage />} />

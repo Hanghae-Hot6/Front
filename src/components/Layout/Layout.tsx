@@ -129,6 +129,7 @@ const BtnWrap = styled.div`
   width: 7rem;
   border-radius: 30px;
   transition: all 0.5s;
+
   z-index: 2;
   :hover {
     transform: matrix3d(

@@ -39,6 +39,10 @@ const ImageContainer = styled.div<{border: boolean}>`
   &:hover {
     transform: scale(1.03);
   }
+
+  @media screen and (max-width: 576px) {
+    margin: 0 1.6rem;
+  }
 `;
 
 const Image = styled.img`
