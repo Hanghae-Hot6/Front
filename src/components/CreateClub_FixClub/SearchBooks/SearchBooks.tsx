@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
+import useWindowSizeDetector from '../../../Hooks/useWindowSizeDetector';
 
 import {NaverBooksDataType} from '../../../types/bookSearch';
 import {SubmitClubType} from '../../../types/clubList';
@@ -9,10 +10,12 @@ import {SubmitClubType} from '../../../types/clubList';
 import BooksViewer from '../BooksViewer/BooksViewer';
 import {CreateClubButton} from '../common/CreateClubDesigns';
 import PaginationBooks from './PaginationBooks';
+import PaginationBooksMobile from './PaginationBooksMobile';
 
 type SearchBooksProps = {};
 
 const SearchBooks = ({}: SearchBooksProps) => {
+  const {windowWidth} = useWindowSizeDetector();
   const [showNaverBookSearch, setShowNaverBookSearch] =
     useState<boolean>(false);
   const [booknameSearch, setBooknameSearch] = useState<string>('');
@@ -90,12 +93,21 @@ const SearchBooks = ({}: SearchBooksProps) => {
           </CreateClubButton>
         </Div>
         {showNaverBookSearch && (
-          <BookSearchPreviewDiv>
-            <PaginationBooks
-              data={NewArray}
-              borderWidth={80}
-              borderHeight={40}
-            />
+          <BookSearchPreviewDiv height={windowWidth > 576 ? 45.3 : 60}>
+            {windowWidth > 576 ? (
+              <PaginationBooks
+                data={NewArray}
+                borderWidth={80}
+                borderHeight={40}
+              />
+            ) : (
+              <PaginationBooksMobile
+                data={NewArray}
+                borderWidth={60}
+                borderHeight={60}
+                widthPortion={40}
+              />
+            )}
           </BookSearchPreviewDiv>
         )}
 
@@ -134,12 +146,14 @@ const BookSearchInput = styled.input`
   outline: none;
 `;
 
-const BookSearchPreviewDiv = styled.div`
+const BookSearchPreviewDiv = styled.div<{height: number}>`
   width: 100%;
-  height: 45.3rem;
+  height: ${({height}) => height}rem;
   border: 1px solid ${props => props.theme.LightGray};
   display: flex;
+  padding: 1rem;
   align-items: center;
   justify-content: center;
   margin-bottom: 1rem;
+  /* overflow: hidden; */
 `;

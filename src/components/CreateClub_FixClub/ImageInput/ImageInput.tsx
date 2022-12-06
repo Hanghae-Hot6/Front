@@ -137,6 +137,9 @@ const Div = styled.div`
 const Span = styled.span`
   font-size: 2.2rem;
   color: ${props => props.theme.Gray};
+  @media screen and (max-width: 430px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const ThumbnailPreviewDiv = styled.div`

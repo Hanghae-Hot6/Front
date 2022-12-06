@@ -35,15 +35,22 @@ const ImageContainer = styled.div<{border: boolean}>`
       return `border: 3px solid ${props.theme.MainColor};`;
     }
   }}
-  transition: all 0.5s;
+  transition: all 0.3s;
   &:hover {
     transform: scale(1.03);
+  }
+
+  @media screen and (max-width: 576px) {
+    height: 18rem;
+    margin: 0 1.6rem;
+  }
+  @media screen and (max-width: 430px) {
+    height: 15rem;
+    margin: 0 1.2rem;
   }
 `;
 
 const Image = styled.img`
   height: 100%;
-  /* display: block; */
-
   object-fit: contain;
 `;
