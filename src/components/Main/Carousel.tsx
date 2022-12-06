@@ -14,30 +14,23 @@ type review = {
 };
 
 const Carousel = () => {
-  const {data} = useQuery(['getAllReview'], async () => {
-    const response = await reviewApis.getAllReview();
-    return response.data.data;
-  });
-
-  console.log('받아오는 데이터에용', data);
-
-  const newBanners =
-    data &&
-    data.map((item: review) => {
-      return item.thumbnail;
-    });
-  // const clubIds =
+  const {data} = useQuery(
+    ['getAllReview'],
+    async () => {
+      const response = await reviewApis.getAllReview();
+      return response.data.data;
+    },
+    {
+      onSuccess(data) {},
+    },
+  );
+  // const newBanners =
   //   data &&
   //   data.map((item: review) => {
-  //     return item.clubId;
-  //   });
-  // const reviews =
-  //   data &&
-  //   data.map((item: review) => {
-  //     return item.reviewList;
+  //     return item.thumbnail;
   //   });
 
-  // console.log(reviews);
+  const newBanners = data;
 
   const [currentIndex, setCurrentIndex] = useState(3);
   const [isMouseIn, setIsMouseIn] = useState(false);
@@ -46,7 +39,7 @@ const Carousel = () => {
   const itemsSize = newBanners?.length;
   const addItems = 3;
   let slides = setSlides(addItems);
-
+  console.log(slides);
   const slidesLength = slides?.length;
   const transitionTime = 500;
   const transitionStyle = `transform ${transitionTime}ms ease 0s`;
@@ -142,21 +135,20 @@ const Carousel = () => {
                 slidesLength={slidesLength}
                 currentIndex={currentIndex}
                 transition={transition}>
-                {slides?.map((slideIndex: any, sIndex: number) => {
-                  const itemIndex = getItemIndex(sIndex);
+                {slides?.map((slide: number, index: number) => {
+                  const itemIndex = getItemIndex(index);
                   return (
                     <C.CarouselListItem
-                      key={sIndex}
+                      key={index}
                       className={`slider-item ${
-                        currentIndex === sIndex ? 'current-slide' : ''
+                        currentIndex === index ? 'current-slide' : ''
                       }`}
                       currCarousel={currentIndex}>
                       <img
-                        src={newBanners[itemIndex]}
-                        alt={newBanners[itemIndex]}
+                        src={newBanners[itemIndex]?.thumbnail}
+                        alt={newBanners[itemIndex]?.thumbnail}
                       />
-
-                      <div>후기</div>
+                      <div>{newBanners[itemIndex]?.reviewList[0].comment}</div>
                     </C.CarouselListItem>
                   );
                 })}

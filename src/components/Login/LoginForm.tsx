@@ -69,9 +69,10 @@ function LoginForm() {
     if (accessToken) {
       if (accessToken.split(' ')[0] !== 'Bearer') {
         localStorage.removeItem('Authorization');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('Refresh-Token');
         return;
       }
-    } else {
       dispatch(openGlobalModal('loggingIn'));
     }
   }, [dispatch]);
