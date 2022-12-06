@@ -30,6 +30,12 @@ const ClubDetailBody = () => {
           alert('로그인이 필요합니다.');
           navigate('/Login');
         }
+        if (error.response.status === 404) {
+          navigate('*');
+        }
+        if (error.response.status === 400) {
+          navigate('*');
+        }
       },
     },
   );

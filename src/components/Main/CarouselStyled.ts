@@ -69,17 +69,18 @@ export const CarouselListItem = styled.li<{
   position: relative;
   :hover {
     img {
-      filter: blur(2px);
-      -webkit-filter: blur(2px);
+      /* filter: blur(2px); */
+      /* -webkit-filter: blur(2px); */
       transform: scale(0.95);
-      border: 1px solid ${props => props.theme.DarkPurple};
+      border: 1px solid ${props => props.theme.MainColor};
     }
 
     > div {
       transform: scale(0.95);
-      border: 1px solid ${props => props.theme.DarkPurple};
-      border-top: none;
+      border: 1px solid ${props => props.theme.MainColor};
+
       opacity: 1;
+      left: 0px;
     }
   }
   img {
@@ -92,12 +93,14 @@ export const CarouselListItem = styled.li<{
   div {
     opacity: 0;
     position: absolute;
-    bottom: 0;
-    width: 100%;
+    left: -100px;
+    bottom: 10px;
+    width: 427px;
     height: 100px;
     background-color: #fff;
     padding: 1rem;
     transition: all 0.5s ease;
+    box-sizing: border-box;
   }
 `;
 
