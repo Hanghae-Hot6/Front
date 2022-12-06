@@ -60,13 +60,10 @@ function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
       try {
         const response = await memberApis.modifyProfile(values);
         return response;
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     },
     {
       onSuccess: data => {
-        console.log(data);
         if (data?.status === 200 && data.data.success === true) {
           dispatch(closeGlobalModal('profileChange'));
           dispatch(openGlobalModal('successChangeProfile'));

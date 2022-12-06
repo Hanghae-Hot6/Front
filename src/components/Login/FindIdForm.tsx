@@ -31,7 +31,6 @@ function FindIdForm() {
         const response = await memberApis.changeMemberId(values);
         return response;
       } catch (error: any) {
-        console.log(error);
         if (error.response.data.status === 401) {
           dispatch(openGlobalModal('unAuthorizedEmail'));
         }
@@ -39,7 +38,6 @@ function FindIdForm() {
     },
     {
       onSuccess: data => {
-        console.log(data);
         if (data?.status === 200 && data.data.success === true) {
           dispatch(openGlobalModal('findIdSendMessage'));
         }

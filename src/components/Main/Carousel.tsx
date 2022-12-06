@@ -85,7 +85,6 @@ const Carousel = () => {
 
     // if (!isMouseIn) {
     //   intervalId = setInterval(() => handleSwipe(1), 3000);
-    //   console.log(currentIndex);
     // }
     // return () => {
     //   clearInterval(intervalId);

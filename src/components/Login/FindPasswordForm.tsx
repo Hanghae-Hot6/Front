@@ -33,7 +33,6 @@ function FindPasswordForm() {
     },
     {
       onSuccess: data => {
-        console.log(data);
         if (data?.status === 200 && data.data.success === true) {
           dispatch(openGlobalModal('sendNewPassword'));
         }
@@ -55,7 +54,6 @@ function FindPasswordForm() {
     if (values.id === '' || values.email === '') {
       dispatch(openGlobalModal('findPasswordEmptyInput'));
     } else {
-      console.log(values);
       findPasswordMutate(values);
     }
   };

@@ -27,9 +27,7 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
       try {
         const response = await memberApis.signUp(values);
         return response;
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     },
     {
       onSuccess: () => {
@@ -37,7 +35,6 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
       },
       onError: error => {
         //401 에러 Bad Request
-        console.log(error);
       },
     },
   );
@@ -53,7 +50,6 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
         'Refresh-Token',
         JSON.stringify(response.headers['refresh-token']),
       );
-      console.log(response);
 
       return response;
     },
@@ -68,7 +64,6 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
         } else if (error.response.status === 404) {
           dispatch(openGlobalModal('logIn-404Error'));
         }
-        console.log('error response', error.response);
       },
     },
   );
@@ -85,9 +80,7 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
       try {
         const {data} = await memberApis.idCheck(queryKey[1]);
         return data;
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     },
     // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
     {
@@ -98,7 +91,6 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
       onSuccess: (idCheckData: any) => {
         // 통신 성공후 idCheckData의 success를 판별 => 유효성검사
         if (idCheckData) {
-          console.log(idCheckData);
           if (idCheckData.success === true) {
             setIsIdCheck(true);
             delete errors.idCheck;
@@ -109,7 +101,6 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
         }
       },
       onError: (error: any) => {
-        // console.log(error.message);
         throw error;
       },
     },
@@ -127,9 +118,7 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
       try {
         const {data} = await memberApis.sendEmail(queryKey[1]);
         return data;
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     },
 
     // 버튼을 눌렀을 때만 실행할 수 있도록 만들기 위해, 자동 실행 방지 설정
@@ -183,9 +172,7 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
           }
         }
       },
-      onError: (error: any) => {
-        console.log(error.message);
-      },
+      onError: (error: any) => {},
     },
   );
 
@@ -237,7 +224,6 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
     if (certNumber === '' || undefined) {
       dispatch(openGlobalModal('certNumEmptyAlert'));
     } else {
-      console.log(certNum);
       certNumFetch();
     }
   };

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import NavigationButton from '../../common/NavigationButton';
 import {getAccessToken, getUserId} from '../../utils';
 import {Link, useLocation} from 'react-router-dom';
@@ -11,6 +11,8 @@ import HeaderHamburgSlider from './HeaderHamburgSlider';
 
 const Header = () => {
   const [on, setOn] = useState<boolean>(false);
+  const [isSearch, setIsSearch] = useState<boolean>(false);
+
   const accessToken = getAccessToken();
   const userId = getUserId();
 
@@ -24,10 +26,22 @@ const Header = () => {
     } else {
       setIsLogin(false);
     }
+
+    return () => {};
   }, []);
   const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
     setOn(!on);
   };
+
+  const onSearchClickHandler = (callBack: () => void) => {
+    setOn(prev => prev === true);
+    callBack();
+  };
+
+  // useEffect(() => {
+  //   onSearchClickHandler(() => setIsSearch(prev => prev === true));
+  // }, []);
+
   return (
     <>
       <StHeader>
@@ -65,36 +79,16 @@ const Header = () => {
                 </>
               )}
             </StNavBtnsDiv>
+            <img
+              className="mobile-search-icon"
+              src={MagnifyingGlass}
+              alt="MagnifyingGlass"
+              onClick={() => {
+                setOn(true);
+              }}
+            />
             <StNavHamBtns onClick={handleClick}>
               <div></div>
-              {/* <div onClick={handleClick}>
-              <div className={on ? 'on' : 'off'}>
-                  {isLogin ? (
-                    <>
-                      <NavigationButton
-                        path={`/login`}
-                        onClickCallback={() => {
-                          localStorage.removeItem('Authorization');
-                          localStorage.removeItem('userId');
-                          localStorage.removeItem('Refresh-Token');
-                        }}>
-                        로그아웃
-                      </NavigationButton>
-                      <NavigationButton path={`/profile/${userId}`}>
-                        마이페이지
-                      </NavigationButton>
-                      <NavigationButton path={`/create_club`}>
-                        모임개설
-                      </NavigationButton>
-                    </>
-                  ) : (
-                    <>
-                      <NavigationButton path="/login">로그인</NavigationButton>
-                      <NavigationButton path="/sign">회원가입</NavigationButton>
-                    </>
-                  )}
-                </div>
-              </div> */}
             </StNavHamBtns>
           </div>
         </StHeaderSection>
@@ -103,8 +97,10 @@ const Header = () => {
             on={on}
             userId={userId}
             isLogin={isLogin}
+            isSearch={isSearch}
             setOn={setOn}
             setIsLogin={setIsLogin}
+            setIsSearch={setIsSearch}
           />
         )}
       </StHeader>
@@ -117,6 +113,14 @@ const StHeader = styled.header`
   height: 92px;
   border-bottom: 1px solid #eee;
   overflow: hidden;
+  .mobile-search-icon {
+    display: none;
+    @media screen and (max-width: 576px) {
+      display: inline-block;
+      height: 100%;
+      margin: 3px 1rem;
+    }
+  }
 `;
 const StHeaderSection = styled.section`
   display: flex;
@@ -203,7 +207,7 @@ const StNavHamBtns = styled.div`
   justify-content: end;
   @media screen and (max-width: 576px) {
     height: 33px;
-
+    width: 33px;
     display: flex;
     > div {
       cursor: pointer;

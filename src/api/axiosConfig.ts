@@ -127,7 +127,7 @@ export const memberApis = {
 
   getInterestClubs: async () => await api.get(`members/mypage/interest`),
 
-  //My page
+  // My page
   // myPageInfo: async () => await api.get(`mypage`),
 
   // // 내가 개설한 클럽 모임

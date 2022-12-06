@@ -122,9 +122,10 @@ const Container = styled.div`
   margin-right: 200px;
   width: 33%;
   @media screen and (max-width: 576px) {
-    cursor: pointer;
+    display: none;
+    /* cursor: pointer;
     margin-right: 0px;
-    width: 10vw;
+    width: 10vw; */
   }
 `;
 const SearchBox = styled.div`
@@ -157,6 +158,9 @@ const StInputDiv = styled.div`
   > img {
     position: absolute;
     left: 1.5rem;
+    @media screen and (max-width: 576px) {
+      display: none;
+    }
   }
   input {
     background: #ffffff;
@@ -171,6 +175,7 @@ const StInputDiv = styled.div`
       border-color: ${props => props.theme.MainColor};
       outline: none;
     }
+
     @media screen and (max-width: 576px) {
       width: 0;
       border: none;

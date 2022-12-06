@@ -18,21 +18,24 @@ import HeaderSliderSearchBooks from './HeaderSliderSearchBooks';
 type HamburgTypes = {
   on: boolean;
   isLogin: boolean;
+  isSearch: boolean;
   userId: string | null;
   setOn: Dispatch<SetStateAction<boolean>>;
   setIsLogin: Dispatch<SetStateAction<boolean>>;
+  setIsSearch: Dispatch<SetStateAction<boolean>>;
 };
 
 function HeaderHamburgSlider({
   on,
   isLogin,
+  isSearch,
   userId,
   setOn,
   setIsLogin,
+  setIsSearch,
 }: HamburgTypes) {
   const navigate = useNavigate();
   const accessToken = getAccessToken();
-  const [isSearch, setIsSearch] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
 
   useEffect(() => {
@@ -108,17 +111,22 @@ function HeaderHamburgSlider({
     const {value} = e.target;
     // setShowBookSearchBar(true);
     setInput(value);
-    console.log(input);
   };
   return (
     <>
       <StSliderContainer>
         <StSliderHeader>
-          <img src={CaretLeft} alt="" onClick={() => setOn(false)} />
+          <img
+            src={CaretLeft}
+            alt="CaretLeft"
+            onClick={() => {
+              // setIsSearch(false);
+              setOn(false);
+            }}
+          />
           {!isSearch && (
             <input
               type="text"
-              id="search-input"
               placeholder="찾으실 모임을 입력해주세요."
               onChange={handleChange}
               value={input}

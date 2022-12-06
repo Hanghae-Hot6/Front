@@ -17,7 +17,6 @@ function InterestClubs() {
     async () => {
       try {
         const response = await memberApis.getInterestClubs();
-        console.log(response);
         return response.data;
       } catch (error: any) {}
     },
