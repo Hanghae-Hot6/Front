@@ -25,13 +25,15 @@ const ClubDetailBody = () => {
       retry: 0,
       onSuccess() {
         if (localStorage.length === 0) {
-          return alert('로그인이 필요합니다.'), navigate('/Login');
+          alert('로그인이 필요합니다.');
+          navigate('/Login');
         }
       },
       onError: (error: any) => {
         // 로그인 에러 남바 : 403 or 401
-        if (error.response.status === 401||403) {
-          return alert('로그인이 필요합니다.'), navigate('/Login');
+        if (error.response.status === 403) {
+          alert('로그인이 필요합니다.');
+          navigate('/Login');
         }
       },
     },

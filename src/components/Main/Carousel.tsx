@@ -24,11 +24,14 @@ const Carousel = () => {
       onSuccess(data) {},
     },
   );
-  const newBanners =
-    data &&
-    data.map((item: review) => {
-      return item.thumbnail;
-    });
+  // const newBanners =
+  //   data &&
+  //   data.map((item: review) => {
+  //     return item.thumbnail;
+  //   });
+
+  const newBanners = data;
+
   const [currentIndex, setCurrentIndex] = useState(3);
   const [isMouseIn, setIsMouseIn] = useState(false);
   const [transition, setTransition] = useState('');
@@ -36,7 +39,7 @@ const Carousel = () => {
   const itemsSize = newBanners?.length;
   const addItems = 3;
   let slides = setSlides(addItems);
-
+  console.log(slides);
   const slidesLength = slides?.length;
   const transitionTime = 500;
   const transitionStyle = `transform ${transitionTime}ms ease 0s`;
@@ -130,20 +133,20 @@ const Carousel = () => {
                 slidesLength={slidesLength}
                 currentIndex={currentIndex}
                 transition={transition}>
-                {slides?.map((slideIndex: number, index: number) => {
-                  const itemIndex = getItemIndex(slideIndex);
+                {slides?.map((slide: number, index: number) => {
+                  const itemIndex = getItemIndex(index);
                   return (
                     <C.CarouselListItem
                       key={index}
                       className={`slider-item ${
-                        currentIndex === slideIndex ? 'current-slide' : ''
+                        currentIndex === index ? 'current-slide' : ''
                       }`}
                       currCarousel={currentIndex}>
                       <img
-                        src={newBanners[itemIndex]}
-                        alt={newBanners[itemIndex]}
+                        src={newBanners[itemIndex]?.thumbnail}
+                        alt={newBanners[itemIndex]?.thumbnail}
                       />
-                      <div>후기입니다</div>
+                      <div>{newBanners[itemIndex]?.reviewList[0].comment}</div>
                     </C.CarouselListItem>
                   );
                 })}
