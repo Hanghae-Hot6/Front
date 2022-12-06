@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import styled, {keyframes} from 'styled-components';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
 import RegistStInput from '../Elem/RegistStInput';
 import eyeImg from '../../assets/eye.svg';

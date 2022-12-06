@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-
 import {useMutation, useQuery} from 'react-query';
 import {Link, useNavigate} from 'react-router-dom';
 import {clubApis, memberApis} from '../../../api/axiosConfig';
@@ -9,7 +8,6 @@ import GlobalModal from '../../../common/GlobalModal';
 import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
 import Pagenation from '../Pagenation';
-import styled from 'styled-components';
 import * as P from '../Profile.style';
 
 function LeaderClubs() {

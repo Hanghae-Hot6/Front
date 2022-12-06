@@ -8,11 +8,8 @@ import CaretLeft from '../../assets/CaretLeft.svg';
 import MagnifyingGlassBlack from '../../assets/MagnifyingGlassBlack.svg';
 import {useNavigate} from 'react-router-dom';
 import {getAccessToken} from '../../utils';
-import {Div} from '../CreateClub_FixClub/ImageInput/ImagePreview/ImagePreview.style';
-import HeaderSearch from './HeaderSearch';
 import {ClubSearchType} from '../../types/bookSearch';
 import axios from 'axios';
-import HeaderSearchBooks from './HeaderSearchBooks';
 import HeaderSliderSearchBooks from './HeaderSliderSearchBooks';
 
 type HamburgTypes = {

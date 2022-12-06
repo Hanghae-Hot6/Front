@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import useSignUpForm from '../SignUp/useSignUpForm';
 import {getAccessToken, getUserId} from '../../utils';
 import {useLocation, useNavigate} from 'react-router-dom';
@@ -32,9 +32,13 @@ function LoginForm() {
   const REST_API_KEY = `${process.env.REACT_APP_REST_API_KEY}`;
   const REDIRECT_URI = `${process.env.REACT_APP_REDIRECT_URI}`;
   const DEPLOY_REDIRECT_URI = `${process.env.REACT_APP_DEPLOY_REDIRECT_URI}`;
+
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${DEPLOY_REDIRECT_URI}&response_type=code`;
 
   const kakaoCode = location.search.split('=')[1];
+  console.log(kakaoCode);
+  console.log(REDIRECT_URI);
+  console.log(DEPLOY_REDIRECT_URI);
 
   const {values, errors, submitting, handleChange, handleSubmit} =
     useSignUpForm(
@@ -54,6 +58,7 @@ function LoginForm() {
       enabled: !!kakaoCode,
 
       onSuccess: data => {
+        console.log(data);
         localStorage.setItem('userId', data.data.data);
         dispatch(openGlobalModal('loginComplete'));
       },

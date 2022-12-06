@@ -1,10 +1,5 @@
-import React from 'react';
-import {
-  closeGlobalModal,
-  openGlobalModal,
-} from '../../Redux/modules/slices/modalSlice';
 import GlobalModal from '../../common/GlobalModal';
-import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
+import {useAppSelector} from '../../Redux/store/store';
 
 function SignUpModalCollection() {
   const {isGlobalModalOpen, dispatchId} = useAppSelector(

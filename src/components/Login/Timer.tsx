@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {closeGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../Redux/store/store';

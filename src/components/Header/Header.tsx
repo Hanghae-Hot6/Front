@@ -1,7 +1,7 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NavigationButton from '../../common/NavigationButton';
 import {getAccessToken, getUserId} from '../../utils';
-import {Link, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
 import hamBtn from '../../assets/hamBtn.svg';
@@ -17,9 +17,8 @@ const Header = () => {
   const userId = getUserId();
 
   const [isLogin, setIsLogin] = useState(false);
-  // accessToken이 존재하면 Login 상태
-  const location = useLocation();
 
+  // accessToken이 존재하면 Login 상태
   useEffect(() => {
     if (accessToken) {
       setIsLogin(true);
@@ -29,18 +28,10 @@ const Header = () => {
 
     return () => {};
   }, []);
+
   const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
     setOn(!on);
   };
-
-  const onSearchClickHandler = (callBack: () => void) => {
-    setOn(prev => prev === true);
-    callBack();
-  };
-
-  // useEffect(() => {
-  //   onSearchClickHandler(() => setIsSearch(prev => prev === true));
-  // }, []);
 
   return (
     <>

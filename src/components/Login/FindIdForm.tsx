@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import {useMutation} from 'react-query';
 import {useNavigate} from 'react-router-dom';
-import styled from 'styled-components';
 import {memberApis} from '../../api/axiosConfig';
-import GlobalModal from '../../common/GlobalModal';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
-import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
+import {useAppDispatch} from '../../Redux/store/store';
 import {FindIdValue} from '../../types/regist';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
@@ -15,9 +13,6 @@ function FindIdForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const {isGlobalModalOpen, dispatchId} = useAppSelector(
-    state => state.modalReducer,
-  );
   const init = {
     email: '',
     username: '',
