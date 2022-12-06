@@ -113,22 +113,24 @@ function HeaderHamburgSlider({
     <>
       <StSliderContainer>
         <StSliderHeader>
-          <img
-            src={CaretLeft}
-            alt="CaretLeft"
-            onClick={() => {
-              // setIsSearch(false);
-              setOn(false);
-            }}
-          />
-          {!isSearch && (
-            <input
-              type="text"
-              placeholder="찾으실 모임을 입력해주세요."
-              onChange={handleChange}
-              value={input}
+          <div>
+            <img
+              src={CaretLeft}
+              alt="CaretLeft"
+              onClick={() => {
+                // setIsSearch(false);
+                setOn(false);
+              }}
             />
-          )}
+            {!isSearch && (
+              <input
+                type="text"
+                placeholder="찾으실 모임을 입력해주세요."
+                onChange={handleChange}
+                value={input}
+              />
+            )}
+          </div>
           <img
             src={MagnifyingGlassBlack}
             alt="MagnifyingGlassBlack"
@@ -222,9 +224,20 @@ const StSliderHeader = styled.header`
   justify-content: space-between;
   width: 100%;
   height: 7rem;
-  background-color: pink;
+  background-color: #fff;
   border-bottom: 1px solid ${props => props.theme.LightGray};
   padding: 0 1rem;
+  div:first-child {
+    display: flex;
+    align-items: center;
+    input {
+      outline: none;
+      border: 0;
+      margin-left: 1rem;
+      height: 100%;
+      width: 30rem;
+    }
+  }
 `;
 
 const StSliderBody = styled.div`
