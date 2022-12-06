@@ -35,7 +35,7 @@ const Header = () => {
     return () => {};
   }, []);
 
-  const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
+  const handleHamburgClick: React.MouseEventHandler<HTMLDivElement> = e => {
     setOn(!on);
   };
 
@@ -81,10 +81,11 @@ const Header = () => {
               src={MagnifyingGlass}
               alt="MagnifyingGlass"
               onClick={() => {
-                setOn(true);
+                setOn(prev => (prev = true));
+                setIsSearch(prev => (prev = true));
               }}
             />
-            <StNavHamBtns onClick={handleClick}>
+            <StNavHamBtns onClick={handleHamburgClick}>
               <div></div>
             </StNavHamBtns>
           </div>

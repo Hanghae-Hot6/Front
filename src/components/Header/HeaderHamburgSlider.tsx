@@ -128,11 +128,11 @@ function HeaderHamburgSlider({
               src={CaretLeft}
               alt="CaretLeft"
               onClick={() => {
-                // setIsSearch(false);
-                setOn(false);
+                setIsSearch(prev => (prev = false));
+                setOn(prev => (prev = false));
               }}
             />
-            {!isSearch && (
+            {isSearch && (
               <input
                 type="text"
                 placeholder="찾으실 모임을 입력해주세요."
@@ -149,7 +149,7 @@ function HeaderHamburgSlider({
         </StSliderHeader>
 
         <StSliderBody>
-          {isSearch && (
+          {!isSearch && (
             <>
               <SliderProfileDiv
                 onClick={() => {
@@ -252,7 +252,7 @@ const StSliderHeader = styled.header`
       border: 0;
       margin-left: 1rem;
       height: 100%;
-      width: 30rem;
+      width: 25rem;
     }
   }
 `;
