@@ -64,6 +64,7 @@ const PaginationBooksChild = ({
                 <SmallDiv>
                   <Title>{val?.title}</Title>
                   <Price>{val?.pubdate}</Price>
+                  <Desc>{val?.description}</Desc>
                 </SmallDiv>
               </LeftDiv>
             </Wrap>
@@ -154,11 +155,23 @@ const Title = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  width: 15rem;
-  margin-bottom: 1rem;
+  width: 20rem;
+  margin-bottom: 0.8rem;
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  margin-bottom: 0.2rem;
+`;
+const Desc = styled.span`
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  width: 120%;
+  line-height: 1.4;
+  height: 2.8rem;
+  overflow: hidden;
+`;
 
 /////////////////////////////////////
 

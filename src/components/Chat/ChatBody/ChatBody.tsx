@@ -6,7 +6,6 @@ import ThinLine from '../../../common/ThinLine';
 import Theme from '../../../theme/Theme';
 import {getAccessToken, getUserIdFixed} from '../../../utils';
 import ChatRoomBrief from '../ChatRoomBrief/ChatRoomBrief';
-import ChatRoomNotAvaliable from '../ChatRoomNotAvaliable';
 import ChatRoom from '../ChatRoom/ChatRoom';
 import left_arrow from '../../../assets/CaretLeft.svg';
 import close_btn from '../../../assets/Xbtn.svg';

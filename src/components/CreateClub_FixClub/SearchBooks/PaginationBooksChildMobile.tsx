@@ -155,7 +155,8 @@ const Desc = styled.span`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   width: 30vw;
-  height: 2.5rem;
+  line-height: 1.2;
+  height: 2.8rem;
   overflow: hidden;
 `;
 

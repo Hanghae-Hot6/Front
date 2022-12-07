@@ -1,6 +1,10 @@
+import React, {useEffect, useState} from 'react';
+
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import InterestClubs from '../components/Profile/ProfileOutlet/InterestClubs';
 import LeaderClubs from '../components/Profile/ProfileOutlet/LeaderClubs';
+import useWindowSizeDetector from '../Hooks/useWindowSizeDetector';
+import ChatPage from '../Pages/ChatPage';
 import ChatTestPage from '../Pages/ChatTestPage';
 
 import ClubDetailPage from '../Pages/ClubDetailPage';
@@ -17,11 +21,24 @@ import ProfilePage from '../Pages/ProfilePage';
 import SignPage from '../Pages/SignPage';
 
 const Router = () => {
+  // 576px 이하일 때부터 /chat 에 들어갈 수 있다
+  const {windowWidth} = useWindowSizeDetector();
+  const [chatRouterOn, setChatRouterOn] = useState(false);
+
+  useEffect(() => {
+    if (windowWidth < 576) {
+      setChatRouterOn(true);
+    } else {
+      setChatRouterOn(false);
+    }
+  }, [windowWidth]);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        {chatRouterOn && <Route path="/chat" element={<ChatPage />} />}
         <Route path="/club_detail/:id" element={<ClubDetailPage />} />
         <Route path="/club_list" element={<ClubListPage />} />
         <Route path="/chat_test" element={<ChatTestPage />} />
