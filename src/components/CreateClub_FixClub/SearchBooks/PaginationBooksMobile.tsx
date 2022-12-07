@@ -111,7 +111,6 @@ const Content = styled.div`
       carouselLocation: number;
       width: number;
     }) => {
-      console.log(props.dataLength);
       return `${(-props.carouselLocation * 100) / props.dataLength}%`;
     }}
   );

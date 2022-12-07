@@ -14,8 +14,6 @@ type BooksViewerProps = {};
 const BooksViewer = ({}: BooksViewerProps) => {
   const books = useAppSelector(state => state.selectBooksReducer);
 
-  console.log(books);
-
   const dispatch = useAppDispatch();
 
   const [deleteList, setDeleteList] = useState<

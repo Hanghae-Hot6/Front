@@ -92,9 +92,7 @@ const CreateClubBody = ({
     [],
   );
 
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
+  useEffect(() => {}, [input]);
 
   // unmount시 redux에 있는 책 데이터들 모두 날리기
   useEffect(() => {
@@ -134,7 +132,6 @@ const CreateClubBody = ({
       },
       onError: () => {
         window.confirm('모임 개설이 안되었습니다 에러를 확인해보세요');
-        console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
       },
     },
   );
@@ -161,7 +158,6 @@ const CreateClubBody = ({
       },
       onError: () => {
         window.confirm('모임 수정이 안되었습니다 에러를 확인해보세요');
-        console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
       },
     },
   );

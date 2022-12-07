@@ -18,9 +18,7 @@ const ClubListBody = () => {
       return response.data.data;
     },
     {
-      onError: error => {
-        console.log('getClub에러', error);
-      },
+      onError: error => {},
     },
   );
 

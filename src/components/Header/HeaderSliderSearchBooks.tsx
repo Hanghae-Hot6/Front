@@ -34,8 +34,6 @@ function HeaderSliderSearchBooks({
 
   const newData = data && data[0];
 
-  console.log(newData);
-
   return (
     <>
       <FlexDiv>

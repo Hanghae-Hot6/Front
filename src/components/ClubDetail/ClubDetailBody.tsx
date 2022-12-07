@@ -57,9 +57,7 @@ const ClubDetailBody = () => {
       onSuccess: data => {
         alert(data);
       },
-      onError: error => {
-        console.log('모임가입에러', error);
-      },
+      onError: error => {},
     },
   );
 
@@ -73,9 +71,7 @@ const ClubDetailBody = () => {
       onSuccess: data => {
         alert(data);
       },
-      onError: error => {
-        console.log('관심 모임 에러', error);
-      },
+      onError: error => {},
     },
   );
 
@@ -90,9 +86,7 @@ const ClubDetailBody = () => {
       onSuccess: data => {
         alert('탈퇴되었습니다.');
       },
-      onError: error => {
-        console.log('클럽 탈퇴 에러', error);
-      },
+      onError: error => {},
     },
   );
 

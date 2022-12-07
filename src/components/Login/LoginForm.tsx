@@ -36,7 +36,6 @@ function LoginForm() {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${DEPLOY_REDIRECT_URI}&response_type=code`;
 
   const kakaoCode = location.search.split('=')[1];
-  console.log(kakaoCode);
 
   const {values, errors, submitting, handleChange, handleSubmit} =
     useSignUpForm(
@@ -56,7 +55,6 @@ function LoginForm() {
       enabled: !!kakaoCode,
 
       onSuccess: data => {
-        console.log(data);
         localStorage.setItem('userId', data.data.data);
         dispatch(openGlobalModal('loginComplete'));
       },

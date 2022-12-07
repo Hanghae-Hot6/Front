@@ -21,7 +21,6 @@ const Header = () => {
   // accessToken이 존재하면 Login 상태
   useEffect(() => {
     if (accessToken) {
-      console.log(accessToken);
       if (accessToken.split(' ')[0] !== 'Bearer') {
         localStorage.removeItem('Authorization');
         setIsLogin(false);

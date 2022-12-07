@@ -39,9 +39,7 @@ const Review = ({subscription}: {subscription: boolean}) => {
         alert(data);
         setInput({comment: ''});
       },
-      onError: error => {
-        console.log('리뷰 작성 에러', error);
-      },
+      onError: error => {},
     },
   );
 
@@ -61,9 +59,7 @@ const Review = ({subscription}: {subscription: boolean}) => {
       onSuccess: data => {
         alert(data);
       },
-      onError: error => {
-        console.log('리뷰 삭제 에러', error);
-      },
+      onError: error => {},
     },
   );
 
