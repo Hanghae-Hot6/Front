@@ -41,7 +41,7 @@ export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   justify-content: center;
   @media screen and (max-width: 576px) {
     height: 6rem;
-    width: 40rem;
+    width: 100%;
   }
   img {
     transform: scale(0.8);
@@ -66,6 +66,7 @@ export const StSmallNavBtn = styled.button<{
   width: 33%;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 `;
 
 export const StContainer = styled.div`

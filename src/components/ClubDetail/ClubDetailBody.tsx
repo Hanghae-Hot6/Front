@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import * as C from './ClubDetailBody.style';
 import {useQuery, useMutation} from 'react-query';
 import {useParams} from 'react-router-dom';
@@ -23,19 +23,29 @@ const ClubDetailBody = () => {
     },
     {
       retry: 0,
-      onSuccess() {
-        if (localStorage.length === 0) {
-          return alert('로그인이 필요합니다.'), navigate('/Login');
-        }
-      },
+      onSuccess() {},
       onError: (error: any) => {
         // 로그인 에러 남바 : 403 or 401
-        if (error.response.status === 401||403) {
-          return alert('로그인이 필요합니다.'), navigate('/Login');
+        if (error.response.status === 403) {
+          alert('로그인이 필요합니다.');
+          navigate('/Login');
+        }
+        if (error.response.status === 404) {
+          navigate('*');
+        }
+        if (error.response.status === 400) {
+          navigate('*');
         }
       },
     },
   );
+
+  useEffect(() => {
+    if (localStorage.length === 0) {
+      alert('로그인이 필요합니다.');
+      navigate('/Login');
+    }
+  }, []);
 
   //모임 가입하기 api
   const {mutate: signUpClub} = useMutation(

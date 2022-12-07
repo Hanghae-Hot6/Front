@@ -152,6 +152,7 @@ export const memberApis = {
 // };
 
 // 클럽 관련된 api 모음 클럽 만들기는 제외
+
 export const clubApis = {
   getClubsTop5: async () =>
     await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/top5`),
@@ -191,4 +192,6 @@ export const reviewApis = {
     await api.delete(
       `${process.env.REACT_APP_BASE_URL}/clubs/${reviewId}/delete`,
     ),
+  getAllReview: async () =>
+    await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/reviews`),
 };

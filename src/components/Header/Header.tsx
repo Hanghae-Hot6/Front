@@ -21,7 +21,8 @@ const Header = () => {
   // accessToken이 존재하면 Login 상태
   useEffect(() => {
     if (accessToken) {
-      if (accessToken === 'ndefine' || accessToken === 'undefined') {
+      console.log(accessToken);
+      if (accessToken.split(' ')[0] !== 'Bearer') {
         localStorage.removeItem('Authorization');
         setIsLogin(false);
         return;
@@ -34,7 +35,7 @@ const Header = () => {
     return () => {};
   }, []);
 
-  const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
+  const handleHamburgClick: React.MouseEventHandler<HTMLDivElement> = e => {
     setOn(!on);
   };
 
@@ -80,10 +81,11 @@ const Header = () => {
               src={MagnifyingGlass}
               alt="MagnifyingGlass"
               onClick={() => {
-                setOn(true);
+                setOn(prev => (prev = true));
+                setIsSearch(prev => (prev = true));
               }}
             />
-            <StNavHamBtns onClick={handleClick}>
+            <StNavHamBtns onClick={handleHamburgClick}>
               <div></div>
             </StNavHamBtns>
           </div>

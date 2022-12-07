@@ -37,9 +37,19 @@ function HeaderHamburgSlider({
 
   useEffect(() => {
     if (accessToken) {
-      setIsLogin(true);
+      if (accessToken.split(' ')[0] !== 'Bearer') {
+        localStorage.removeItem('Authorization');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('Refresh-Token');
+        alert('로그인 해주세요.');
+        navigate('/login');
+        return;
+      } else {
+      }
     } else {
-      setIsLogin(false);
+      alert('로그인 해주세요.');
+      navigate('/login');
+      return;
     }
   }, []);
 
@@ -113,22 +123,24 @@ function HeaderHamburgSlider({
     <>
       <StSliderContainer>
         <StSliderHeader>
-          <img
-            src={CaretLeft}
-            alt="CaretLeft"
-            onClick={() => {
-              // setIsSearch(false);
-              setOn(false);
-            }}
-          />
-          {!isSearch && (
-            <input
-              type="text"
-              placeholder="찾으실 모임을 입력해주세요."
-              onChange={handleChange}
-              value={input}
+          <div>
+            <img
+              src={CaretLeft}
+              alt="CaretLeft"
+              onClick={() => {
+                setIsSearch(prev => (prev = false));
+                setOn(prev => (prev = false));
+              }}
             />
-          )}
+            {isSearch && (
+              <input
+                type="text"
+                placeholder="찾으실 모임을 입력해주세요."
+                onChange={handleChange}
+                value={input}
+              />
+            )}
+          </div>
           <img
             src={MagnifyingGlassBlack}
             alt="MagnifyingGlassBlack"
@@ -137,9 +149,16 @@ function HeaderHamburgSlider({
         </StSliderHeader>
 
         <StSliderBody>
-          {isSearch && (
+          {!isSearch && (
             <>
-              <SliderProfileDiv>
+              <SliderProfileDiv
+                onClick={() => {
+                  if (isLogin) {
+                    navigate(`/profile/${userId}`);
+                  } else {
+                    return;
+                  }
+                }}>
                 <img src={profileImg} alt={profileImg} />
                 {isLogin ? (
                   <div>
@@ -222,9 +241,20 @@ const StSliderHeader = styled.header`
   justify-content: space-between;
   width: 100%;
   height: 7rem;
-  background-color: pink;
+  background-color: #fff;
   border-bottom: 1px solid ${props => props.theme.LightGray};
   padding: 0 1rem;
+  div:first-child {
+    display: flex;
+    align-items: center;
+    input {
+      outline: none;
+      border: 0;
+      margin-left: 1rem;
+      height: 100%;
+      width: 25rem;
+    }
+  }
 `;
 
 const StSliderBody = styled.div`
@@ -239,6 +269,7 @@ const SliderProfileDiv = styled.div`
   width: 100%;
   height: 12rem;
   border: 0;
+  cursor: pointer;
   img {
     display: block;
     height: 100%;

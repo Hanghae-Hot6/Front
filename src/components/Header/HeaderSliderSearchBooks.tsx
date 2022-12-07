@@ -1,4 +1,5 @@
 import React, {ReactNode, useState} from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import {NaverBooksDataType} from '../../types/bookSearch';
 import {ClubSearchType} from '../../types/bookSearch';
@@ -30,6 +31,11 @@ function HeaderSliderSearchBooks({
       setCarouselLocation(parseInt(e.currentTarget.dataset.index));
     }
   };
+
+  const newData = data && data[0];
+
+  console.log(newData);
+
   return (
     <>
       <FlexDiv>
@@ -37,18 +43,20 @@ function HeaderSliderSearchBooks({
           <Content carouselLocation={carouselLocation}>
             {data?.map((val, index) => {
               return (
-                <HeaderSearchBooksChild
-                  key={index}
-                  data={val}
-                  width={width}
-                  height={height}
-                />
+                <>
+                  <HeaderSearchBooksChild
+                    key={index}
+                    data={val}
+                    width={width}
+                    height={height}
+                  />
+                </>
               );
             })}
           </Content>
         </Container>
       </FlexDiv>
-      {/* <IndexButtonContainer>
+      <IndexButtonContainer>
         {data?.map((__, index) => {
           return (
             <IndexButton
@@ -60,7 +68,7 @@ function HeaderSliderSearchBooks({
             </IndexButton>
           );
         })}
-      </IndexButtonContainer> */}
+      </IndexButtonContainer>
     </>
   );
 }
@@ -75,8 +83,9 @@ const FlexDiv = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 100%;
+    height: 90%;
     width: 100%;
+    overflow: hidden;
   }
 `;
 
@@ -92,6 +101,7 @@ const Container = styled.div<{
     height: 100%;
     width: 100%;
     align-items: flex-start;
+    overflow: hidden;
   }
 `;
 
@@ -104,27 +114,37 @@ const Content = styled.div`
   );
   transition: transform 0.5s;
   align-items: center;
+  @media screen and (max-width: 576px) {
+    transform: translate(
+      ${(props: {carouselLocation: number}) => {
+        return -props.carouselLocation * 55;
+      }}rem
+    );
+  }
 `;
 
-// const IndexButtonContainer = styled.div`
-//   width: 78.3rem;
-//   height: 4rem;
-//   display: flex;
-//   /* justify-content: center; */
-//   padding-left: 3.2rem;
-//   background-color: #fff;
-//   border: 1px solid ${props => props.theme.MainColor};
-//   border-top: none;
-//   border-bottom-left-radius: 1.5rem;
-//   border-bottom-right-radius: 1.5rem;
-// `;
+const IndexButtonContainer = styled.div`
+  width: 78.3rem;
+  height: 4rem;
+  display: flex;
+  /* justify-content: center; */
+  padding-left: 3.2rem;
+  background-color: #fff;
+  /* border: 1px solid ${props => props.theme.MainColor}; */
+  border-top: none;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  @media screen and (max-width: 576px) {
+    width: 90vw;
+  }
+`;
 
-// const IndexButton = styled.button<{isActive?: boolean}>`
-//   background-color: ${({isActive}) => (isActive ? '#333' : '#999')};
-//   font-size: 18px;
-//   margin: 0 1rem;
-//   height: 2.5rem;
-//   width: 3rem;
-//   color: #fff;
-//   border-radius: 3px;
-// `;
+const IndexButton = styled.button<{isActive?: boolean}>`
+  background-color: ${({isActive}) => (isActive ? '#333' : '#999')};
+  font-size: 18px;
+  margin: 0 1rem;
+  height: 2.5rem;
+  width: 3rem;
+  color: #fff;
+  border-radius: 3px;
+`;
