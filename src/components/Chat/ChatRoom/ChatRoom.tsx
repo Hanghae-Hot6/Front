@@ -190,6 +190,11 @@ const ChatInputInput = styled.input`
   :focus {
     outline: none;
   }
+  @media screen and (max-width: 576px) {
+    width: 200px;
+    border: none;
+    box-shadow: none;
+  }
 `;
 
 const SendButton = styled.button`
