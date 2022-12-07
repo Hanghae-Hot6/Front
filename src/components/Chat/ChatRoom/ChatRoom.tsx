@@ -34,6 +34,8 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const divRef = useRef<HTMLDivElement | null>(null);
 
+  console.log(chatRoomNowInfo.chatRoomId);
+
   // 채팅 서비스 킷 생성
   const ChattingServiceKit = useMemo(() => {
     return new ChattingService(chatRoomNowInfo.chatRoomId);

@@ -1,23 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import styled from 'styled-components';
 import {NaverBooksDataType} from '../../../types/bookSearch';
-import PaginationBooksChild from './PaginationBooksChild';
+import PaginationBooksChildMobile from './PaginationBooksChildMobile';
 
-type PaginationBooksProps = {
+type PaginationBooksMobileProps = {
   borderWidth?: number;
   borderHeight?: number;
-
+  widthPortion?: number;
   data?: NaverBooksDataType[][];
 };
 
-// pagination books
-// width height 을 숫자로 받음 rem으로만 받음
-
-const PaginationBooks = ({
+const PaginationBooksMobile = ({
   data,
   borderWidth = 80,
   borderHeight = 40,
-}: PaginationBooksProps) => {
+}: // widthPortion = 45,
+PaginationBooksMobileProps) => {
   const [carouselLocation, setCarouselLocation] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
   const handleIndexClick: React.MouseEventHandler<HTMLButtonElement> = e => {
@@ -28,23 +26,34 @@ const PaginationBooks = ({
     }
   };
 
+  const handleArrowClick = () => {};
+
   return (
     <>
       <CarouselContainer borderWidth={borderWidth} borderHeight={borderHeight}>
         <Container2>
-          <ContentContainer>
-            <Content carouselLocation={carouselLocation} width={borderWidth}>
-              {data?.map((val, index) => {
-                return (
-                  <PaginationBooksChild
-                    key={index}
-                    data={val}
-                    borderWidth={borderWidth}
-                    borderHeight={borderHeight}
-                  />
-                );
-              })}
-            </Content>
+          <ContentContainer id="yes">
+            <div style={{position: 'relative'}}>
+              <Content
+                id="parent"
+                dataLength={6}
+                carouselLocation={carouselLocation}
+                width={borderWidth}>
+                {data?.map((val, index) => {
+                  // if (index !== 1) return;
+
+                  return (
+                    <PaginationBooksChildMobile
+                      key={index}
+                      data={val}
+                      dataLength={data.length}
+                      borderWidth={borderWidth}
+                      borderHeight={borderHeight}
+                    />
+                  );
+                })}
+              </Content>
+            </div>
           </ContentContainer>
           <IndexButtonContainer>
             {data?.map((__, index) => {
@@ -60,68 +69,65 @@ const PaginationBooks = ({
             })}
           </IndexButtonContainer>
         </Container2>
-        <Container3></Container3>
+        {/* <Container3></Container3> */}
       </CarouselContainer>
     </>
   );
 };
-export default PaginationBooks;
+export default PaginationBooksMobile;
 
 const CarouselContainer = styled.div<{
   borderWidth: number;
   borderHeight: number;
 }>`
   display: flex;
-  border: 1px solid black;
   justify-content: center;
   align-items: center;
 
   width: ${({borderWidth: width}) => width}rem;
   height: ${({borderHeight: height}) => height}rem;
-`;
-
-const ContentContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 80%;
-  overflow: hidden;
-  /* border: 2px solid ${props => props.theme.MainColor}; */
-  background-color: #fff;
-  /* align-items: center; */
+  /* border: 2px solid black; */
 `;
 
 const Container2 = styled.div`
-  width: 45%;
+  width: 100%;
   height: 90%;
 `;
-
-const Container3 = styled.div`
-  width: 45%;
-  height: 90%;
-
-  /* border: 1px solid black; */
+const ContentContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 86%;
+  overflow: hidden;
+  background-color: #fff;
+  /* border: 1px solid green; */
 `;
 
 const Content = styled.div`
   display: flex;
+  position: absolute;
   transform: translate(
-    ${(props: {carouselLocation: number; width: number}) => {
-      return `${-props.carouselLocation * 0.45 * props.width}rem`;
+    ${(props: {
+      dataLength: number;
+      carouselLocation: number;
+      width: number;
+    }) => {
+      console.log(props.dataLength);
+      return `${(-props.carouselLocation * 100) / props.dataLength}%`;
     }}
   );
+
   transition: transform 0.5s;
   align-items: center;
 `;
 
 const IndexButtonContainer = styled.div`
   width: 100%;
-  height: 20%;
+  height: 16%;
 
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  /* border: 1px solid ${props => props.theme.MainColor}; */
 `;
 
 const IndexButton = styled.button<{isActive?: boolean}>`

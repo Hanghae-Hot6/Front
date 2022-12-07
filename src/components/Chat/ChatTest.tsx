@@ -9,18 +9,21 @@ import ChattingService from './ChattingService';
 
 type ChatTestProps = {};
 
+// 낚시를 배워봅시다
+// ef1f5246-e23e-462c-b14c-2cef7cca869c
+
 const ChatTest = ({}: ChatTestProps) => {
   const [input, setInput] = useState<string>('');
 
   // chattingServiceKit 만들기
 
   const ChattingServiceKit = useMemo(() => {
-    return new ChattingService('');
+    return new ChattingService('ef1f5246-e23e-462c-b14c-2cef7cca869c');
   }, []);
 
-  const accessToken = getAccessToken();
+  // const accessToken = getAccessToken();
 
-  const userId = getUserIdFixed();
+  // const userId = getUserIdFixed();
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -33,58 +36,57 @@ const ChatTest = ({}: ChatTestProps) => {
 
   // 채팅방들 보기
 
-  useEffect(() => {
-    ChattingServiceKit.onConnect(
-      getAccessToken(),
-      {
-        Authorization: accessToken,
-        type: 'TALK',
-      },
+  // useEffect(() => {
+  //   ChattingServiceKit.onConnect(
+  //     getAccessToken(),
+  //     {
+  //       Authorization: accessToken,
+  //       type: 'TALK',
+  //     },
 
-      (receivingMessage: any) => {},
-      userId,
-      'ChatTest',
-    );
-  }, []);
+  //     (receivingMessage: any) => {},
+  //     userId,
+  //     'ChatTest',
+  //   );
+  // }, []);
 
-  const handleClick2 = async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/chat/messages/9d8856fb-1e18-41e3-baa8-310fe5ab731c`,
-      {
-        headers: {
-          Authorization: accessToken,
-          'Content-Type': 'application/json',
-        },
-      },
-    );
+  // const handleClick2 = async () => {
+  //   const response = await axios.get(
+  //     `${process.env.REACT_APP_BASE_URL}/chat/messages/9d8856fb-1e18-41e3-baa8-310fe5ab731c`,
+  //     {
+  //       headers: {
+  //         Authorization: accessToken,
+  //         'Content-Type': 'application/json',
+  //       },
+  //     },
+  //   );
 
-    return response;
-  };
+  //   return response;
+  // };
 
-  const handleClick = useCallback(() => {
-    ChattingServiceKit.sendMessage(
-      {},
-      {
-        chatRoomId: '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
-        message: input,
-        type: 'TALK',
-        sender: userId,
-      },
-    );
-  }, [input, userId]);
+  // const handleClick = useCallback(() => {
+  //   ChattingServiceKit.sendMessage(
+  //     {},
+  //     {
+  //       chatRoomId: '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
+  //       message: input,
+  //       type: 'TALK',
+  //       sender: userId,
+  //     },
+  //   );
+  // }, [input, userId]);
+
+  // useEffect(() => {
+  //   return () => {
+  //     ChattingServiceKit.onDisconnect(userId);
+  //   };
+  // }, []);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
 
     setInput(e.target.value);
   };
-
-  useEffect(() => {
-    return () => {
-      ChattingServiceKit.onDisconnect(userId);
-    };
-  }, []);
-
   const handleKeyPress = (key: any) => {
     if (key === 'Enter') {
       buttonRef.current!.click();
@@ -93,11 +95,11 @@ const ChatTest = ({}: ChatTestProps) => {
 
   return (
     <>
-      <MessageSendButton onClick={handleClick2}>채팅보기</MessageSendButton>
+      {/* <MessageSendButton onClick={handleClick2}>채팅보기</MessageSendButton>
 
       <MessageSendButton ref={buttonRef} onClick={handleClick}>
         메세지보내기
-      </MessageSendButton>
+      </MessageSendButton> */}
       <input type="text" onChange={handleChange} />
       <KeyDetector sendKeyValue={handleKeyPress} />
     </>
