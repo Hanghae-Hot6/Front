@@ -5,13 +5,29 @@ import arrow from '../../assets/arrowUp.svg';
 import ChatBody from '../Chat/ChatBody/ChatBody';
 import chatBtn from '../../assets/chatBtn.svg';
 import Header from '../Header/Header';
+import useWindowSizeDetector from '../../Hooks/useWindowSizeDetector';
+import {useNavigate} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
+import {
+  setButtonShowToFalse,
+  toggleButtonShow,
+} from '../../Redux/modules/slices/chatButtonShowSlice';
 type Props = {
   children: ReactNode;
 };
 
 const Layout = (props: Props) => {
+  const {windowWidth} = useWindowSizeDetector();
+  const chatButtonShow = useAppSelector(
+    state => state.chatButtonShowReducer.buttonShow,
+  );
+  console.log(chatButtonShow);
+
   const [showButton, setShowButton] = useState(false);
+
   const [showChat, setShowChat] = useState(false);
+  const navigate = useNavigate();
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -32,6 +48,14 @@ const Layout = (props: Props) => {
       window.removeEventListener('scroll', handleShowButton);
     };
   }, []);
+  const handleShowChat: React.MouseEventHandler<HTMLButtonElement> = e => {
+    e.preventDefault();
+    if (windowWidth < 576) {
+      navigate('/chat');
+    } else {
+      setShowChat(!showChat);
+    }
+  };
 
   return (
     <div>
@@ -40,33 +64,10 @@ const Layout = (props: Props) => {
 
       {showChat && <ChatBody setShowChat={setShowChat} />}
       <Footer />
-      {showButton ? (
-        <BtnWrap style={{height: '140px'}}>
+      {chatButtonShow && (
+        <BtnWrap style={{height: showButton ? '140px' : '68px'}}>
           {
-            <ChatButton
-              onClick={() => {
-                setShowChat(!showChat);
-              }}>
-              <img src={chatBtn} alt="chatBtn" />
-            </ChatButton>
-          }
-          {showButton ? (
-            <TopButton onClick={scrollToTop} style={{opacity: 1}}>
-              <img src={arrow} alt={arrow} />
-            </TopButton>
-          ) : (
-            <TopButton onClick={scrollToTop} style={{opacity: 0}}>
-              <img src={arrow} alt={arrow} />
-            </TopButton>
-          )}
-        </BtnWrap>
-      ) : (
-        <BtnWrap style={{height: '68px'}}>
-          {
-            <ChatButton
-              onClick={() => {
-                setShowChat(!showChat);
-              }}>
+            <ChatButton onClick={handleShowChat}>
               <img src={chatBtn} alt="chatBtn" />
             </ChatButton>
           }
@@ -86,6 +87,42 @@ const Layout = (props: Props) => {
 };
 
 export default Layout;
+
+// {chatButtonShow && showButton ? (
+//   <BtnWrap style={{height: showButton?'140px':'68px'}}>
+//     {
+//       <ChatButton onClick={handleShowChat}>
+//         <img src={chatBtn} alt="chatBtn" />
+//       </ChatButton>
+//     }
+//     {showButton ? (
+//       <TopButton onClick={scrollToTop} style={{opacity: 1}}>
+//         <img src={arrow} alt={arrow} />
+//       </TopButton>
+//     ) : (
+//       <TopButton onClick={scrollToTop} style={{opacity: 0}}>
+//         <img src={arrow} alt={arrow} />
+//       </TopButton>
+//     )}
+//   </BtnWrap>
+// ) : (
+//   <BtnWrap style={{height: '68px'}}>
+//     {
+//       <ChatButton onClick={handleShowChat}>
+//         <img src={chatBtn} alt="chatBtn" />
+//       </ChatButton>
+//     }
+//     {showButton ? (
+//       <TopButton onClick={scrollToTop} style={{opacity: 1}}>
+//         <img src={arrow} alt={arrow} />
+//       </TopButton>
+//     ) : (
+//       <TopButton onClick={scrollToTop} style={{opacity: 0}}>
+//         <img src={arrow} alt={arrow} />
+//       </TopButton>
+//     )}
+//   </BtnWrap>
+// )}
 
 const TopButton = styled.button`
   width: 5.5rem;

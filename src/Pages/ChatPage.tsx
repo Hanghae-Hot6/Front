@@ -3,6 +3,11 @@ import {useNavigate} from 'react-router-dom';
 import ChatBody from '../components/Chat/ChatBody/ChatBody';
 import Layout from '../components/Layout/Layout';
 import useWindowSizeDetector from '../Hooks/useWindowSizeDetector';
+import {
+  setButtonShowToFalse,
+  setButtonShowToTrue,
+} from '../Redux/modules/slices/chatButtonShowSlice';
+import {useAppDispatch} from '../Redux/store/store';
 
 type ChatPageProps = {};
 
@@ -11,6 +16,14 @@ const ChatPage = ({}: ChatPageProps) => {
   const {windowWidth} = useWindowSizeDetector();
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setButtonShowToFalse());
+    return () => {
+      dispatch(setButtonShowToTrue());
+    };
+  }, []);
 
   useEffect(() => {
     if (windowWidth < 564 && windowWidth > 560) {
@@ -26,6 +39,7 @@ const ChatPage = ({}: ChatPageProps) => {
     <>
       <Layout>
         <div>chat</div>
+
         {/* <ChatBody setShowChat={setShowChat} /> */}
         {/* <CreateClubFixClubPageLayout>
           <CreateClubTitle title="모임 개설하기" />
