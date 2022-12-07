@@ -11,6 +11,7 @@ import left_arrow from '../../../assets/CaretLeft.svg';
 import close_btn from '../../../assets/Xbtn.svg';
 import logo_gray from '../../../assets/logo_gray.svg';
 import {Link, useNavigate} from 'react-router-dom';
+import useWindowSizeDetector from '../../../Hooks/useWindowSizeDetector';
 
 type ChatBodyProps = {
   setShowChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,6 +25,7 @@ export type ChatRoomType = {
 };
 
 const ChatBody = ({setShowChat}: ChatBodyProps) => {
+  const {windowWidth} = useWindowSizeDetector();
   const accessToken = getAccessToken();
   const navigate = useNavigate();
   const userId = getUserIdFixed();
@@ -74,6 +76,15 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
     setChatRoomNowInfo(chatRoomInfo);
   };
 
+  const handleCloseBtnClick: React.MouseEventHandler<HTMLButtonElement> = e => {
+    e.preventDefault();
+    if (windowWidth < 576) {
+      navigate(-1);
+    } else {
+      setShowChat(false);
+    }
+  };
+
   return (
     <>
       <Chat>
@@ -88,20 +99,14 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
               </GoBackBtn>
 
               <ClubName>{chatRoomNowInfo?.clubName}</ClubName>
-              <CloseBtn
-                onClick={() => {
-                  setShowChat(false);
-                }}>
+              <CloseBtn onClick={handleCloseBtnClick}>
                 <img src={close_btn} alt="닫기 버튼" />
               </CloseBtn>
             </>
           ) : (
             <>
               <ChatTitle>메세지</ChatTitle>
-              <CloseBtn
-                onClick={() => {
-                  setShowChat(false);
-                }}>
+              <CloseBtn onClick={handleCloseBtnClick}>
                 <img src={close_btn} alt="닫기 버튼" />
               </CloseBtn>
             </>
@@ -158,56 +163,27 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
   );
 };
 export default ChatBody;
-const NoneClub = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 18rem auto;
-  gap: 1.5rem;
-  p {
-    color: ${props => props.theme.LightGray};
-    font-weight: 600;
-    font-size: 1.6rem;
-  }
-  a {
-    width: 10rem;
-    height: 3rem;
-    border: 1px solid transparent;
-    border-radius: 3rem;
-    background-color: ${props => props.theme.MainColor};
-    color: #fff;
-    font-size: 1.6rem;
-    text-align: center;
-    line-height: 3rem;
-    transition: all 0.5s;
-    :hover {
-      border: 1px solid ${props => props.theme.MainColor};
-      background-color: #fff;
-      color: ${props => props.theme.MainColor};
-    }
-  }
-`;
 
 const Chat = styled.div`
-  position: fixed;
-  width: 33rem;
+  @media screen and (min-width: 576px) {
+    position: fixed;
+    width: 33rem;
 
-  height: 60rem;
+    height: 60rem;
 
-  bottom: 10rem;
-  right: 10rem;
+    bottom: 10rem;
+    right: 10rem;
 
-  background-color: ${props => props.theme.White};
-  /* border: 1px solid ${props => props.theme.LightPurple2}; */
-  box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
-  border-radius: 0.7rem;
-  z-index: 13;
+    background-color: ${props => props.theme.White};
+    box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
+    border-radius: 0.7rem;
+    z-index: 13;
+  }
 
-  @media screen and (max-height: 500px) {
+  /* @media screen and (max-height: 500px) {
     height: 50rem;
     bottom: 5px;
-  }
+  } */
 `;
 
 const ChatHeader = styled.div`
@@ -250,4 +226,36 @@ const ClubName = styled.span`
   font-size: 1.8rem;
   white-space: nowrap;
   text-overflow: ellipsis;
+`;
+
+// 채팅방이 없을 때
+const NoneClub = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 18rem auto;
+  gap: 1.5rem;
+  p {
+    color: ${props => props.theme.LightGray};
+    font-weight: 600;
+    font-size: 1.6rem;
+  }
+  a {
+    width: 10rem;
+    height: 3rem;
+    border: 1px solid transparent;
+    border-radius: 3rem;
+    background-color: ${props => props.theme.MainColor};
+    color: #fff;
+    font-size: 1.6rem;
+    text-align: center;
+    line-height: 3rem;
+    transition: all 0.5s;
+    :hover {
+      border: 1px solid ${props => props.theme.MainColor};
+      background-color: #fff;
+      color: ${props => props.theme.MainColor};
+    }
+  }
 `;

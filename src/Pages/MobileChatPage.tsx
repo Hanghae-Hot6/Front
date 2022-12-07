@@ -9,9 +9,9 @@ import {
 } from '../Redux/modules/slices/chatButtonShowSlice';
 import {useAppDispatch} from '../Redux/store/store';
 
-type ChatPageProps = {};
+type MobileChatPageProps = {};
 
-const ChatPage = ({}: ChatPageProps) => {
+const MobileChatPage = ({}: MobileChatPageProps) => {
   const [showChat, setShowChat] = useState(false);
   const {windowWidth} = useWindowSizeDetector();
 
@@ -39,7 +39,7 @@ const ChatPage = ({}: ChatPageProps) => {
     <>
       <Layout>
         <div>chat</div>
-
+        <ChatBody setShowChat={setShowChat} />
         {/* <ChatBody setShowChat={setShowChat} /> */}
         {/* <CreateClubFixClubPageLayout>
           <CreateClubTitle title="모임 개설하기" />
@@ -50,4 +50,4 @@ const ChatPage = ({}: ChatPageProps) => {
     </>
   );
 };
-export default ChatPage;
+export default MobileChatPage;

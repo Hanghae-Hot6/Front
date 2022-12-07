@@ -21,7 +21,6 @@ const Layout = (props: Props) => {
   const chatButtonShow = useAppSelector(
     state => state.chatButtonShowReducer.buttonShow,
   );
-  console.log(chatButtonShow);
 
   const [showButton, setShowButton] = useState(false);
 

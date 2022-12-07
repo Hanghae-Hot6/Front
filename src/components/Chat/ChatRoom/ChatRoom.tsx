@@ -32,9 +32,6 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   const [onConnect, setOnConnect] = useState<boolean>(false);
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const divRef = useRef<HTMLDivElement | null>(null);
-
-  console.log(chatRoomNowInfo.chatRoomId);
 
   // 채팅 서비스 킷 생성
   const ChattingServiceKit = useMemo(() => {
