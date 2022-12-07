@@ -201,6 +201,11 @@ const Chat = styled.div`
   box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
   border-radius: 0.7rem;
   z-index: 13;
+
+  @media screen and (max-height: 500px) {
+    height: 50rem;
+    bottom: 5px;
+  }
 `;
 
 const ChatHeader = styled.div`
@@ -227,6 +232,10 @@ const ChatRoomsListDiv = styled.div`
   height: 51.4rem;
   padding: 1.4rem 1.2rem;
   overflow: scroll;
+  @media screen and (max-height: 500px) {
+    height: 45rem;
+    bottom: 5px;
+  }
 `;
 
 // header 부분
