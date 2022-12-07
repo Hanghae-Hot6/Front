@@ -201,6 +201,9 @@ const Chat = styled.div`
   box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
   border-radius: 0.7rem;
   z-index: 13;
+  @media screen and (max-width: 576px) {
+    bottom: 5px;
+  }
 `;
 
 const ChatHeader = styled.div`
