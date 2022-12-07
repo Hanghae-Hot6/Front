@@ -64,7 +64,7 @@ const ProfilePage = () => {
       </StSection>
       {showChat && <ChatBody setShowChat={setShowChat} />}
       <Footer />
-      <BtnWrap style={{height: '70px'}}>
+      <BtnWrap style={{height: '7rem'}}>
         <ChatButton
           onClick={() => {
             setShowChat(!showChat);
@@ -106,6 +106,13 @@ const BtnWrap = styled.div`
   width: 7rem;
   border-radius: 30px;
   transition: all 0.5s;
+  @media screen and (max-width: 576px) {
+    top: 85%;
+    right: 7%;
+    width: 7rem;
+    border-radius: 50%;
+  }
+
   :hover {
     transform: matrix3d(
         1,
