@@ -72,7 +72,6 @@ const CarouselContainer = styled.div<{
   borderHeight: number;
 }>`
   display: flex;
-  border: 1px solid black;
   justify-content: center;
   align-items: center;
 
