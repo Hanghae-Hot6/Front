@@ -192,9 +192,12 @@ const NoneClub = styled.div`
 const Chat = styled.div`
   position: fixed;
   width: 33rem;
+
   height: 60rem;
+
   bottom: 10rem;
   right: 10rem;
+
   background-color: ${props => props.theme.White};
   /* border: 1px solid ${props => props.theme.LightPurple2}; */
   box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);

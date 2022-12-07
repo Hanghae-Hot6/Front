@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {Route, Routes, BrowserRouter} from 'react-router-dom';
+import {Route, Routes, BrowserRouter, useNavigate} from 'react-router-dom';
 import InterestClubs from '../components/Profile/ProfileOutlet/InterestClubs';
 import LeaderClubs from '../components/Profile/ProfileOutlet/LeaderClubs';
 import useWindowSizeDetector from '../Hooks/useWindowSizeDetector';
