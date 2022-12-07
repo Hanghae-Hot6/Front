@@ -203,6 +203,7 @@ const Chat = styled.div`
   z-index: 13;
 
   @media screen and (max-height: 500px) {
+    height: 53rem;
     bottom: 5px;
   }
 `;
