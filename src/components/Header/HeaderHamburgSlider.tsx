@@ -44,14 +44,9 @@ function HeaderHamburgSlider({
         alert('로그인 해주세요.');
         navigate('/login');
         return;
-      } else {
       }
-    } else {
-      alert('로그인 해주세요.');
-      navigate('/login');
-      return;
     }
-  }, []);
+  }, [accessToken, navigate]);
 
   const fetch = async ({queryKey}: any) => {
     if (input) {
@@ -74,6 +69,7 @@ function HeaderHamburgSlider({
     data: profileData,
     // isLoading,
     // error,
+    refetch: refetchInfo,
   } = useQuery(
     ['getProfile', userId],
     async () => {
@@ -86,12 +82,21 @@ function HeaderHamburgSlider({
       }
     },
     {
+      refetchOnWindowFocus: false,
+      retry: 0,
+      enabled: !!userId,
       onSuccess: data => {},
       onError: error => {
         throw error;
       },
     },
   );
+
+  useEffect(() => {
+    if (userId) {
+      refetchInfo();
+    }
+  }, [refetchInfo, userId]);
 
   let endNum: number;
   let divideBy: number;
@@ -187,7 +192,7 @@ function HeaderHamburgSlider({
             </>
           )}
 
-          {!isSearch && (
+          {isSearch && (
             <>
               <HeaderSliderSearchBooks
                 data={NewArray}
@@ -204,8 +209,8 @@ function HeaderHamburgSlider({
                 localStorage.removeItem('Authorization');
                 localStorage.removeItem('userId');
                 localStorage.removeItem('Refresh-Token');
-                setOn(false);
-                navigate('/');
+                setIsLogin(prev => (prev = false));
+                setOn(prev => (prev = false));
               } else {
                 navigate('/login');
               }
