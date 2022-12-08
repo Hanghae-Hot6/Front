@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {ClubSearchType} from '../../types/bookSearch';
 import {Link} from 'react-router-dom';
+import Thumb from '../../assets/thumbnail_default.png';
 type CarouselBooksChildProps = {
   data: ClubSearchType[] | undefined;
   width?: number;
@@ -26,7 +27,11 @@ const HeaderSearchBooksChild = ({
             <Wrap key={index}>
               <Box width={width} height={height}>
                 <LeftDiv>
-                  {val && <Image src={val?.thumbnail} />}
+                  {val && val?.thumbnail === null ? (
+                    <Image src={Thumb} alt="클럽 썸네일 이미지" />
+                  ) : (
+                    <Image src={val?.thumbnail} alt="클럽 썸네일 이미지" />
+                  )}
                   <SmallDiv>
                     <Title>{val?.clubName}</Title>
                     {/* <Author>{data?.isbn}</Author> */}
