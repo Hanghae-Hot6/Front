@@ -9,7 +9,7 @@ import {clubDetailType} from '../../types/clubList';
 import {clubApis} from '../../api/axiosConfig';
 import {getUserId} from '../../utils';
 import Review from './Review';
-
+import Thumb from '../../assets/thumbnail_default.png';
 const ClubDetailBody = () => {
   const navigate = useNavigate();
   const {id} = useParams();
@@ -98,6 +98,7 @@ const ClubDetailBody = () => {
       alert('취소되었습니다.');
     }
   };
+  console.log(data);
 
   // 로딩스피너 도입하기
   if (status === 'loading') {
@@ -110,7 +111,12 @@ const ClubDetailBody = () => {
           <C.MainContent>
             <div>
               <C.ImageWrap>
-                <img src={data.thumbnail} alt="클럽 썸네일 이미지" />
+                {data.thumbnail === null ? (
+                  <img src={Thumb} alt="클럽 썸네일 이미지" />
+                ) : (
+                  <img src={data.thumbnail} alt="클럽 썸네일 이미지" />
+                )}
+                {/* <img src={data.thumbnail} alt="클럽 썸네일 이미지" /> */}
               </C.ImageWrap>
             </div>
 
