@@ -99,6 +99,7 @@ const Wrap = styled.div`
   @media screen and (max-width: 576px) {
     overflow: hidden;
     width: 120%;
+    height: 18rem;
   }
   :hover > .on {
     display: block;

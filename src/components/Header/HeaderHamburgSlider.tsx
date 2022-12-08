@@ -264,7 +264,7 @@ const StSliderHeader = styled.header`
 
 const StSliderBody = styled.div`
   width: 100%;
-  height: 73rem;
+  height: 65rem;
   background-color: #fff;
   padding: 2rem;
 `;
