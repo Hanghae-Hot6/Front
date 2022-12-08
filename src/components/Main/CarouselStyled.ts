@@ -81,12 +81,12 @@ export const CarouselListItem = styled.li<{
     > div {
       transform: scale(0.95);
       border: 1px solid ${props => props.theme.MainColor};
-
       opacity: 1;
       left: 0px;
     }
   }
   img {
+    background-color: ${props => props.theme.DarkPurple};
     width: 42.7rem;
     height: 45.8rem;
     object-fit: cover;
@@ -96,7 +96,7 @@ export const CarouselListItem = styled.li<{
   div {
     opacity: 0;
     position: absolute;
-    left: -100px;
+    left: -50px;
     bottom: 10px;
     width: 42.7rem;
     height: 100px;
