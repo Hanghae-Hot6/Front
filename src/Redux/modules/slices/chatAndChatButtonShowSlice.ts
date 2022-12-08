@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   chatShow: false,
+
   chatButtonShow: true,
   scrollButtonShow: false,
 };

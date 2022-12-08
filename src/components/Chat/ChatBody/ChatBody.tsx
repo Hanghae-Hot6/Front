@@ -12,31 +12,28 @@ import close_btn from '../../../assets/Xbtn.svg';
 import logo_gray from '../../../assets/logo_gray.svg';
 import {Link, useNavigate} from 'react-router-dom';
 import useWindowSizeDetector from '../../../Hooks/useWindowSizeDetector';
-import {useAppDispatch} from '../../../Redux/store/store';
+import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import {
   setChatButtonShowToFalse,
   setChatButtonShowToTrue,
   setChatShowToFalse,
   setScrollButtonShowToTrue,
 } from '../../../Redux/modules/slices/chatAndChatButtonShowSlice';
+import {ChatRoomType} from '../../../types/chat';
 
 type ChatBodyProps = {
   // setShowChat: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export type ChatRoomType = {
-  chatRoomId: string;
-  thumbnail: string;
-  clubName: string;
-  participants: number;
-};
-
 const ChatBody = ({}: ChatBodyProps) => {
-  const {windowWidth} = useWindowSizeDetector();
+  const {windowWidth, widthIsIncreasing} = useWindowSizeDetector();
   const accessToken = getAccessToken();
   const navigate = useNavigate();
   const userId = getUserIdFixed();
   const dispatch = useAppDispatch();
+  const {chatShow} = useAppSelector(
+    state => state.chatAndChatButtonShowReducer,
+  );
 
   // 나의 채팅룸 목록 가져오기
   const fetchChatRooms = async () => {
@@ -101,8 +98,9 @@ const ChatBody = ({}: ChatBodyProps) => {
   }, []);
 
   useEffect(() => {
-    if (windowWidth < 564 && windowWidth > 560) {
+    if (chatShow && !widthIsIncreasing && windowWidth < 564) {
       navigate('/mobile_chat');
+      dispatch(setChatShowToFalse());
     }
   }, [windowWidth]);
 

@@ -30,10 +30,8 @@ const ChatAndScrollTopButton = ({}: ChatAndScrollTopButtonProps) => {
     const handleShowButton = () => {
       if (window.scrollY > 500) {
         dispatch(setScrollButtonShowToTrue());
-        // setShowButton(true);
       } else {
         dispatch(setScrollButtonShowToFalse());
-        // setShowButton(false);
       }
     };
 
@@ -50,6 +48,7 @@ const ChatAndScrollTopButton = ({}: ChatAndScrollTopButtonProps) => {
       dispatch(setToggleChatShow());
     }
   };
+
   return (
     <>
       <BtnWrap

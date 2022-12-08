@@ -1,8 +1,8 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import styled from 'styled-components';
+import {ChatRoomType, ChatType} from '../../../types/chat';
 import {getAccessToken, getUserIdFixed} from '../../../utils';
-import {ChatRoomType} from '../ChatBody/ChatBody';
-import {ChatType} from '../ChatRoom/ChatRoom';
+
 import ChattingService from '../ChattingService';
 
 type ChatRoomBriefProps = {
