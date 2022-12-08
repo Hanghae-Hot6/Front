@@ -98,7 +98,6 @@ const ClubDetailBody = () => {
       alert('취소되었습니다.');
     }
   };
-  console.log(data);
 
   // 로딩스피너 도입하기
   if (status === 'loading') {
