@@ -62,7 +62,7 @@ const ProfilePage = () => {
       <StSection>
         <ProfileContainer data={profileData?.data} />
       </StSection>
-      {showChat && <ChatBody setShowChat={setShowChat} />}
+      {showChat && <ChatBody />}
       <Footer />
       <BtnWrap style={{height: '7rem'}}>
         <ChatButton

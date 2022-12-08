@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
 import ThinLine from '../../../common/ThinLine';
@@ -12,9 +12,16 @@ import close_btn from '../../../assets/Xbtn.svg';
 import logo_gray from '../../../assets/logo_gray.svg';
 import {Link, useNavigate} from 'react-router-dom';
 import useWindowSizeDetector from '../../../Hooks/useWindowSizeDetector';
+import {useAppDispatch} from '../../../Redux/store/store';
+import {
+  setChatButtonShowToFalse,
+  setChatButtonShowToTrue,
+  setChatShowToFalse,
+  setScrollButtonShowToTrue,
+} from '../../../Redux/modules/slices/chatAndChatButtonShowSlice';
 
 type ChatBodyProps = {
-  setShowChat: React.Dispatch<React.SetStateAction<boolean>>;
+  // setShowChat: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type ChatRoomType = {
@@ -24,11 +31,12 @@ export type ChatRoomType = {
   participants: number;
 };
 
-const ChatBody = ({setShowChat}: ChatBodyProps) => {
+const ChatBody = ({}: ChatBodyProps) => {
   const {windowWidth} = useWindowSizeDetector();
   const accessToken = getAccessToken();
   const navigate = useNavigate();
   const userId = getUserIdFixed();
+  const dispatch = useAppDispatch();
 
   // 나의 채팅룸 목록 가져오기
   const fetchChatRooms = async () => {
@@ -81,9 +89,22 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
     if (windowWidth < 576) {
       navigate(-1);
     } else {
-      setShowChat(false);
+      dispatch(setChatShowToFalse());
     }
   };
+  useEffect(() => {
+    dispatch(setChatButtonShowToFalse());
+
+    return () => {
+      dispatch(setChatButtonShowToTrue());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (windowWidth < 564 && windowWidth > 560) {
+      navigate('/mobile_chat');
+    }
+  }, [windowWidth]);
 
   return (
     <>

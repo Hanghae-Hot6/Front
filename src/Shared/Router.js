@@ -38,7 +38,9 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<NotFoundPage />} />
-        {chatRouterOn && <Route path="/chat" element={<MobileChatPage />} />}
+        {chatRouterOn && (
+          <Route path="/mobile_chat" element={<MobileChatPage />} />
+        )}
         <Route path="/club_detail/:id" element={<ClubDetailPage />} />
         <Route path="/club_list" element={<ClubListPage />} />
         <Route path="/chat_test" element={<ChatTestPage />} />
