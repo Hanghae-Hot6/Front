@@ -60,7 +60,7 @@ function FindIdForm() {
   };
 
   return (
-    <>
+    <div>
       <RegistStForm
         jc="flex-start"
         onSubmit={handleSubmit}
@@ -85,7 +85,7 @@ function FindIdForm() {
               value={values.username}
               label="실명"></RegistStInput>
           </div>
-          <div>
+          <L.ButtonContainer>
             <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
               아이디 찾기
             </L.StNavBtn>
@@ -96,11 +96,11 @@ function FindIdForm() {
               onClick={() => navigate('/login')}>
               로그인
             </L.StNavBtn>
-          </div>
+          </L.ButtonContainer>
         </L.StContainer>
         <LoginModalCollection />
       </RegistStForm>
-    </>
+    </div>
   );
 }
 
