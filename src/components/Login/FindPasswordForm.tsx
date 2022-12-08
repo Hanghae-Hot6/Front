@@ -59,7 +59,7 @@ function FindPasswordForm() {
   };
 
   return (
-    <>
+    <div>
       <RegistStForm
         jc="flex-start"
         onSubmit={handleSubmit}
@@ -85,7 +85,7 @@ function FindPasswordForm() {
               label="E-mail"></RegistStInput>
           </div>
 
-          <div>
+          <L.ButtonContainer>
             <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
               비밀번호 찾기
             </L.StNavBtn>
@@ -96,11 +96,11 @@ function FindPasswordForm() {
               onClick={() => navigate('/login')}>
               로그인
             </L.StNavBtn>
-          </div>
+          </L.ButtonContainer>
         </L.StContainer>
         <LoginModalCollection />
       </RegistStForm>
-    </>
+    </div>
   );
 }
 
