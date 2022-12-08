@@ -68,23 +68,21 @@ function FindIdForm() {
         height="87rem"
         width="55.6rem">
         <L.StContainer>
-          <div>
-            <RegistStInput
-              id="email"
-              type="email"
-              name="email"
-              onChange={handleChange}
-              value={values.email}
-              label="E-mail"></RegistStInput>
+          <RegistStInput
+            id="email"
+            type="email"
+            name="email"
+            onChange={handleChange}
+            value={values.email}
+            label="E-mail"></RegistStInput>
 
-            <RegistStInput
-              id="username"
-              type="text"
-              name="username"
-              onChange={handleChange}
-              value={values.username}
-              label="실명"></RegistStInput>
-          </div>
+          <RegistStInput
+            id="username"
+            type="text"
+            name="username"
+            onChange={handleChange}
+            value={values.username}
+            label="실명"></RegistStInput>
           <L.ButtonContainer>
             <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
               아이디 찾기

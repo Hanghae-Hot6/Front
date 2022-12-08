@@ -67,23 +67,21 @@ function FindPasswordForm() {
         height="87rem"
         width="55.6rem">
         <L.StContainer>
-          <div>
-            <RegistStInput
-              id="id"
-              type="text"
-              name="id"
-              onChange={handleChange}
-              value={values.id}
-              label="아이디"></RegistStInput>
+          <RegistStInput
+            id="id"
+            type="text"
+            name="id"
+            onChange={handleChange}
+            value={values.id}
+            label="아이디"></RegistStInput>
 
-            <RegistStInput
-              id="email"
-              type="email"
-              name="email"
-              onChange={handleChange}
-              value={values.email}
-              label="E-mail"></RegistStInput>
-          </div>
+          <RegistStInput
+            id="email"
+            type="email"
+            name="email"
+            onChange={handleChange}
+            value={values.email}
+            label="E-mail"></RegistStInput>
 
           <L.ButtonContainer>
             <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
