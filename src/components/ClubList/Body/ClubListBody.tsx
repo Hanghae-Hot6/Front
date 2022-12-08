@@ -6,7 +6,7 @@ import {Link, useLocation} from 'react-router-dom';
 import {useQuery} from 'react-query';
 import {LocationState, Clubs} from '../../../types/clubList';
 import {clubApis} from '../../../api/axiosConfig';
-
+import Thumb from '../../../assets/thumbnail_default.png';
 const ClubListBody = () => {
   const {state} = useLocation() as LocationState;
   const [index, setIndex] = useState<number>(0);
@@ -70,7 +70,11 @@ const ClubListBody = () => {
                   <C.PopContentBox>
                     <C.ImgWrap>
                       <span>{id + 1}</span>
-                      <img src={club.thumbnail} alt={club.summary} />
+                      {club.thumbnail === null ? (
+                        <img src={Thumb} alt="클럽 썸네일 이미지" />
+                      ) : (
+                        <img src={club.thumbnail} alt="클럽 썸네일 이미지" />
+                      )}
                     </C.ImgWrap>
                     <C.CategoryTitle color="#5200FF">
                       {club.clubName}
@@ -90,7 +94,11 @@ const ClubListBody = () => {
                 <Link to={`/club_detail/${club.clubId}`}>
                   <C.MainContentBox>
                     <C.MainImgWrap>
-                      <img src={club.thumbnail} alt={club.summary} />
+                      {club.thumbnail === null ? (
+                        <img src={Thumb} alt="클럽 썸네일 이미지" />
+                      ) : (
+                        <img src={club.thumbnail} alt="클럽 썸네일 이미지" />
+                      )}
                     </C.MainImgWrap>
                     <C.MainTitleWrap>
                       <C.CategoryTitle color="#5200FF">

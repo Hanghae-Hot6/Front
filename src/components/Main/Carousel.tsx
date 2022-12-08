@@ -6,7 +6,7 @@ import leftArrow from '../../assets/arrow_left.svg';
 import {useQuery} from 'react-query';
 import {reviewApis} from '../../api/axiosConfig';
 import {Link} from 'react-router-dom';
-
+import Thumb from '../../assets/thumbnail_default.png';
 type review = {
   clubId: number;
   reviewList: [];
@@ -138,10 +138,18 @@ const Carousel = () => {
                       currCarousel={currentIndex}>
                       <Link
                         to={`/club_detail/${newBanners[itemIndex]?.clubId}`}>
-                        <img
+                        {/* <img
                           src={newBanners[itemIndex]?.thumbnail}
                           alt={newBanners[itemIndex]?.thumbnail}
-                        />
+                        /> */}
+                        {newBanners[itemIndex].thumbnail === null ? (
+                          <img src={Thumb} alt="클럽 썸네일 이미지" />
+                        ) : (
+                          <img
+                            src={newBanners[itemIndex]?.thumbnail}
+                            alt={newBanners[itemIndex]?.thumbnail}
+                          />
+                        )}
                       </Link>
 
                       <C.Review>
