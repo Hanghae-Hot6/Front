@@ -30,7 +30,9 @@ const HeaderSearchBooksChild = ({
                   {val && val?.thumbnail === null ? (
                     <Image src={Thumb} alt="클럽 썸네일 이미지" />
                   ) : (
-                    <Image src={val?.thumbnail} alt="클럽 썸네일 이미지" />
+                    val && (
+                      <Image src={val?.thumbnail} alt="클럽 썸네일 이미지" />
+                    )
                   )}
                   <SmallDiv>
                     <Title>{val?.clubName}</Title>
