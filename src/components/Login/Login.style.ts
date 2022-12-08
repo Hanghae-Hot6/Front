@@ -76,4 +76,7 @@ export const StContainer = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
+  div:nth-child(2) {
+    width: 100%;
+  }
 `;
