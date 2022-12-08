@@ -51,7 +51,14 @@ const HeaderSearchBooksChild = ({
               {val && (
                 <RightBox className="on">
                   <div>
-                    <img src={val?.thumbnail} alt={val?.clubName} />
+                    {val && val?.thumbnail === null ? (
+                      <img src={Thumb} alt="클럽 썸네일 이미지" />
+                    ) : (
+                      val && (
+                        <img src={val?.thumbnail} alt="클럽 썸네일 이미지" />
+                      )
+                    )}
+
                     <TitleWrap>
                       <Title>{val?.clubName}</Title>
                       <div>
@@ -179,10 +186,17 @@ const Title = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  width: 15rem;
+  width: 20rem;
   margin-bottom: 1rem;
 `;
-const Text = styled.span``;
+const Text = styled.span`
+  width: 20rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+`;
 const Image = styled.img`
   width: 8.8rem;
   height: 10rem;
