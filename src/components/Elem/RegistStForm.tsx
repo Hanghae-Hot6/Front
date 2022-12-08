@@ -51,7 +51,7 @@ const StForm = styled.form<{
 
   @media screen and (max-width: 576px) {
     height: 100%;
-    width: 100%;
+    width: 80vw;
     border: 0;
     padding: 1rem;
     margin: 0 auto;
