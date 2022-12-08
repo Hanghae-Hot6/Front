@@ -45,7 +45,7 @@ function ProfileModalCollection() {
 
   const sendEmailHandler = () => {
     if (textAreaValue.trim() === '') {
-      dispatch(openGlobalModal('noText'));
+      return dispatch(openGlobalModal('noText'));
     }
     sendInquiryMutate(textAreaValue.trim().slice(0, 500));
     setTextAreaValue('');
