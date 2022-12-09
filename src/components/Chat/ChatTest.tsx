@@ -3,6 +3,7 @@ import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {useEffect} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
+import {chatApis} from '../../api/axiosConfig';
 import {getAccessToken, getUserId, getUserIdFixed} from '../../utils';
 import KeyDetector from '../../utils/KeyDetector';
 import ChattingService from './ChattingService';
@@ -21,9 +22,9 @@ const ChatTest = ({}: ChatTestProps) => {
     return new ChattingService('ef1f5246-e23e-462c-b14c-2cef7cca869c');
   }, []);
 
-  // const accessToken = getAccessToken();
+  const accessToken = getAccessToken();
 
-  // const userId = getUserIdFixed();
+  const userId = getUserIdFixed();
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -50,37 +51,31 @@ const ChatTest = ({}: ChatTestProps) => {
   //   );
   // }, []);
 
-  // const handleClick2 = async () => {
-  //   const response = await axios.get(
-  //     `${process.env.REACT_APP_BASE_URL}/chat/messages/9d8856fb-1e18-41e3-baa8-310fe5ab731c`,
-  //     {
-  //       headers: {
-  //         Authorization: accessToken,
-  //         'Content-Type': 'application/json',
-  //       },
-  //     },
-  //   );
+  const handleClick2 = async () => {
+    const response = await chatApis.getAllChatRoomMessages(
+      'e239f429-5832-46cc-af26-0fee276804f7',
+    );
+    console.log(response);
+    return response;
+  };
 
-  //   return response;
-  // };
+  const handleClick = useCallback(() => {
+    ChattingServiceKit.sendMessage(
+      {},
+      {
+        chatRoomId: '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
+        message: input,
+        type: 'TALK',
+        sender: userId,
+      },
+    );
+  }, [input, userId]);
 
-  // const handleClick = useCallback(() => {
-  //   ChattingServiceKit.sendMessage(
-  //     {},
-  //     {
-  //       chatRoomId: '9d8856fb-1e18-41e3-baa8-310fe5ab731c',
-  //       message: input,
-  //       type: 'TALK',
-  //       sender: userId,
-  //     },
-  //   );
-  // }, [input, userId]);
-
-  // useEffect(() => {
-  //   return () => {
-  //     ChattingServiceKit.onDisconnect(userId);
-  //   };
-  // }, []);
+  useEffect(() => {
+    return () => {
+      ChattingServiceKit.onDisconnect(userId);
+    };
+  }, []);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -95,11 +90,11 @@ const ChatTest = ({}: ChatTestProps) => {
 
   return (
     <>
-      {/* <MessageSendButton onClick={handleClick2}>채팅보기</MessageSendButton>
+      <MessageSendButton onClick={handleClick2}>채팅보기</MessageSendButton>
 
       <MessageSendButton ref={buttonRef} onClick={handleClick}>
         메세지보내기
-      </MessageSendButton> */}
+      </MessageSendButton>
       <input type="text" onChange={handleChange} />
       <KeyDetector sendKeyValue={handleKeyPress} />
     </>

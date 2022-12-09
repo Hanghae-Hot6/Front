@@ -7,7 +7,7 @@ import KeyDetector from '../../../utils/KeyDetector';
 
 import MyChat from '../ChatDialog/MyChat';
 import OthersChat from '../ChatDialog/OthersChat';
-import ChatInput from '../ChatInput/ChatInput';
+
 import ChattingService from '../ChattingService';
 import PaperPlaneRight from '../../../assets/PaperPlaneRight.svg';
 import {ChatRoomType, ChatType} from '../../../types/chat';
@@ -30,6 +30,8 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   const ChattingServiceKit = useMemo(() => {
     return new ChattingService(chatRoomNowInfo.chatRoomId);
   }, [chatRoomNowInfo.chatRoomId]);
+
+  console.log(chatRoomNowInfo.chatRoomId);
 
   // onConnect시 메시지 받아오기
   useEffect(() => {
