@@ -1,18 +1,23 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import React, {useState, useEffect} from 'react';
-import RegistErrorSpan from '../Elem/RegistErrorSpan';
-import RegistStInput from '../Elem/RegistStInput';
-import eyeImg from '../../assets/eye.svg';
+import {useMutation} from 'react-query';
 import {useAppDispatch} from '../../Redux/store/store';
+
+//components
+import RegistStInput from '../Elem/RegistStInput';
+import RegistErrorSpan from '../Elem/RegistErrorSpan';
+
+// 그외 (img, css, fn, params...)
+import {memberApis} from '../../api/axiosConfig';
 import {
   closeGlobalModal,
   openGlobalModal,
 } from '../../Redux/modules/slices/modalSlice';
-import {memberApis} from '../../api/axiosConfig';
-import {useMutation} from 'react-query';
-import {ErrorsValue, SignValueType} from '../../types/regist';
-import {profileValidate} from './ProfileValidate';
 import {CheckPasswordModalProps} from '../../types/profile';
+import {profileValidate} from './ProfileValidate';
+import {ErrorsValue, SignValueType} from '../../types/regist';
 import * as P from './Profile.style';
+import eyeImg from '../../assets/eye.svg';
 
 function ProfileChange({setIsPWCorrect, isPWCorrect}: CheckPasswordModalProps) {
   const initialValues = {

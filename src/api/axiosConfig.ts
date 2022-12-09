@@ -21,7 +21,6 @@ const api = axios.create(config);
 
 api.interceptors.request.use(function (config) {
   const accessToken = getAccessToken();
-  const refreshToken = getRefreshToken();
 
   if (!config) {
     config = {};

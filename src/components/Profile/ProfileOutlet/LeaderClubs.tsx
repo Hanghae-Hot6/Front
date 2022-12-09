@@ -1,13 +1,18 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import React, {useState, useEffect} from 'react';
 import {useMutation, useQuery} from 'react-query';
 import {Link, useNavigate} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
+
+//components
+import GlobalModal from '../../../common/GlobalModal';
+import Pagenation from '../Pagenation';
+
+// 그외 (img, css, fn, params...)
 import {clubApis, memberApis} from '../../../api/axiosConfig';
 import {clubList} from '../../../types/regist';
 import {getUserId} from '../../../utils';
-import GlobalModal from '../../../common/GlobalModal';
-import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import {openGlobalModal} from '../../../Redux/modules/slices/modalSlice';
-import Pagenation from '../Pagenation';
 import * as P from '../Profile.style';
 
 function LeaderClubs() {

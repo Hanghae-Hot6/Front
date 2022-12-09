@@ -1,12 +1,17 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import {useState} from 'react';
+import {useMutation} from 'react-query';
+import {useAppDispatch} from '../../Redux/store/store';
+
+//components
+import RegistStInput from '../Elem/RegistStInput';
+
+// 그외 (img, css, fn, params...)
+import {memberApis} from '../../api/axiosConfig';
+import {CheckPasswordModalProps} from '../../types/profile';
 import styled, {keyframes} from 'styled-components';
 import {closeGlobalModal} from '../../Redux/modules/slices/modalSlice';
-import {useAppDispatch} from '../../Redux/store/store';
-import RegistStInput from '../Elem/RegistStInput';
 import eyeImg from '../../assets/eye.svg';
-import {useMutation} from 'react-query';
-import {CheckPasswordModalProps} from '../../types/profile';
-import {memberApis} from '../../api/axiosConfig';
 
 function ProfileCheckPassword({
   setIsPWCorrect,
@@ -72,7 +77,7 @@ function ProfileCheckPassword({
       <div className="inputsDiv">
         <h2>개인정보 수정</h2>
         <RegistStInput
-          label="비밀번호"
+          label="임시 비밀번호"
           id="password"
           name="password"
           type={passwordType.type}
@@ -89,6 +94,7 @@ function ProfileCheckPassword({
         </RegistStInput>
         <span>{message}</span>
       </div>
+
       <ProcessDiv isPWCorrect={isPWCorrect}>
         <span></span>
         <span></span>

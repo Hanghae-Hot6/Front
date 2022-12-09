@@ -1,8 +1,12 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
+import {useAppDispatch} from '../../Redux/store/store';
+
+// 그외 (img, css, fn, params...)
 import {ProfileDataType} from '../../types/regist';
+import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import profileImg from '../../assets/profileImg.svg';
 import profileChatingImg from '../../assets/profileChatingImg.svg';
-import {useAppDispatch} from '../../Redux/store/store';
-import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
+
 import * as P from './Profile.style';
 function ProfileDetail({data}: ProfileDataType) {
   const dispatch = useAppDispatch();

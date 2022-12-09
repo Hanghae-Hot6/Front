@@ -1,8 +1,13 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import {useState, useEffect} from 'react';
+import {useAppDispatch} from '../../Redux/store/store';
+
+//components
+import timer from '../../assets/timer.svg';
+
+// 그외 (img, css, fn, params...)
 import styled from 'styled-components';
 import {closeGlobalModal} from '../../Redux/modules/slices/modalSlice';
-import {useAppDispatch} from '../../Redux/store/store';
-import timer from '../../assets/timer.svg';
 
 type TimerProps = {
   initMin: number;

@@ -1,12 +1,17 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import React, {useState} from 'react';
+import {useMutation} from 'react-query';
 import {useAppDispatch, useAppSelector} from '../../Redux/store/store';
+
+//components
 import GlobalModal from '../../common/GlobalModal';
 import ProfileChange from './ProfileChange';
-import styled from 'styled-components';
-import {useMutation} from 'react-query';
-import {memberApis} from '../../api/axiosConfig';
-import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import ProfileCheckPassword from './ProfileCheckPassword';
+
+// 그외 (img, css, fn, params...)
+import {memberApis} from '../../api/axiosConfig';
+import styled from 'styled-components';
+import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 
 function ProfileModalCollection() {
   const {isGlobalModalOpen, dispatchId} = useAppSelector(

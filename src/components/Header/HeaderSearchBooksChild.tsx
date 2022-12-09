@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import {ClubSearchType} from '../../types/bookSearch';
-import {Link} from 'react-router-dom';
 import Thumb from '../../assets/thumbnail_default.png';
 type CarouselBooksChildProps = {
   data: ClubSearchType[] | undefined;

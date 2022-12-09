@@ -1,19 +1,23 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import {useEffect, useState} from 'react';
-import useSignUpForm from '../SignUp/useSignUpForm';
-import {getAccessToken, getUserId} from '../../utils';
+import {useQuery} from 'react-query';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../Redux/store/store';
-import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
-import eyeImg from '../../assets/eye.svg';
-import kako_comment_img from '../../assets/kako_comment_img.svg';
 
-import {useQuery} from 'react-query';
+//components
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
 import RegistErrorSpan from '../Elem/RegistErrorSpan';
-import {memberApis} from '../../api/axiosConfig';
 import LoginModalCollection from './LoginModalCollection';
+
+// 그외 (img, css, fn, params...)
+import useSignUpForm from '../SignUp/useSignUpForm';
+import {memberApis} from '../../api/axiosConfig';
+import {getAccessToken, getUserId} from '../../utils';
+import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import * as L from './Login.style';
+import eyeImg from '../../assets/eye.svg';
+import kako_comment_img from '../../assets/kako_comment_img.svg';
 
 function LoginForm() {
   const navigate = useNavigate();

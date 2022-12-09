@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 
-export const StContainer = styled.div`
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%; */
-`;
+export const StContainer = styled.div``;
 
 export const StCheckBtn = styled.button`
   font-size: 1.4rem;
@@ -44,7 +38,6 @@ export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   @media screen and (max-width: 576px) {
     height: 6rem;
     width: 100%;
-    /* width: 40rem; */
   }
 `;
 

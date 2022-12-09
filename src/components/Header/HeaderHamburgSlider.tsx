@@ -1,16 +1,21 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {useQuery} from 'react-query';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
+
+//components
+import HeaderSliderSearchBooks from './HeaderSliderSearchBooks';
+
+// 그외 (img, css, fn, params...)
 import {memberApis} from '../../api/axiosConfig';
+import {getAccessToken} from '../../utils';
+import {ClubSearchType} from '../../types/bookSearch';
 import profileImg from '../../assets/profileImg.svg';
 import hamburgSignLogo from '../../assets/hamburgSignLogo.svg';
 import CaretLeft from '../../assets/CaretLeft.svg';
 import MagnifyingGlassBlack from '../../assets/MagnifyingGlassBlack.svg';
-import {useNavigate} from 'react-router-dom';
-import {getAccessToken} from '../../utils';
-import {ClubSearchType} from '../../types/bookSearch';
-import axios from 'axios';
-import HeaderSliderSearchBooks from './HeaderSliderSearchBooks';
 
 type HamburgTypes = {
   on: boolean;

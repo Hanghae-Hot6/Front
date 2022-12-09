@@ -1,8 +1,7 @@
-import React from 'react';
-import RegistLayout from '../components/Layout/RegistLayout';
-import notFound from '../assets/404.svg';
-import styled from 'styled-components';
 import Header from '../components/Header/Header';
+import RegistLayout from '../components/Layout/RegistLayout';
+import styled from 'styled-components';
+import notFound from '../assets/404.svg';
 
 const NotFoundPage = () => {
   return (

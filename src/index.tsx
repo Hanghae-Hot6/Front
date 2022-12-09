@@ -1,12 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import {Provider} from 'react-redux';
+import ReactDOM from 'react-dom/client';
 import {store} from './Redux/store/store';
 import {ThemeProvider} from 'styled-components';
-import Theme from './theme/Theme';
 import {QueryClient, QueryClientProvider} from 'react-query';
+import './index.css';
+import App from './App';
+import Theme from './theme/Theme';
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useQuery} from 'react-query';
 import {Link} from 'react-router-dom';
+import Pagenation from '../Pagenation';
 import {memberApis} from '../../../api/axiosConfig';
 import {clubList} from '../../../types/regist';
 import {getUserId} from '../../../utils';
-import Pagenation from '../Pagenation';
 import * as P from '../Profile.style';
 
 function InterestClubs() {

@@ -1,5 +1,4 @@
-import {createSlice, PayloadAction, current} from '@reduxjs/toolkit';
-import BooksViewer from '../../../components/CreateClub_FixClub/BooksViewer/BooksViewer';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NaverBooksDataType} from '../../../types/bookSearch';
 
 type BookType = 'book1' | 'book2' | 'book3';

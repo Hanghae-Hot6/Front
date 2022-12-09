@@ -1,10 +1,7 @@
 import React, {ReactNode, useState} from 'react';
-import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import {NaverBooksDataType} from '../../types/bookSearch';
-import {ClubSearchType} from '../../types/bookSearch';
-// import CarouselBooksChild from '../../components/CreateClub/CarouselBooks/CarouselBooksChild/CarouselBooksChild';
 import HeaderSearchBooksChild from './HeaderSearchBooksChild';
+import {ClubSearchType} from '../../types/bookSearch';
 
 type CarouselBooksProps = {
   width?: number;

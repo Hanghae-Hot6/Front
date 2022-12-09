@@ -1,7 +1,7 @@
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit';
 import {chatAndChatButtonShowReducer} from '../modules/slices/chatAndChatButtonShowSlice';
 import {selectBooksReducer} from './../modules/slices/selectBooksSlice';
-import {configureStore} from '@reduxjs/toolkit';
-import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {modalReducer} from '../modules/slices/modalSlice';
 
 export const store = configureStore({

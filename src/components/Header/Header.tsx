@@ -1,13 +1,18 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import React, {useEffect, useState} from 'react';
-import NavigationButton from '../../common/NavigationButton';
-import {getAccessToken, getUserId} from '../../utils';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+
+//components
+import NavigationButton from '../../common/NavigationButton';
+import HeaderSearch from './HeaderSearch';
+import HeaderHamburgSlider from './HeaderHamburgSlider';
+
+// 그외 (img, css, fn, params...)
+import {getAccessToken, getUserId} from '../../utils';
 import logo from '../../assets/logo.svg';
 import hamBtn from '../../assets/hamBtn.svg';
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
-import HeaderSearch from './HeaderSearch';
-import HeaderHamburgSlider from './HeaderHamburgSlider';
 
 const Header = () => {
   const [on, setOn] = useState<boolean>(false);

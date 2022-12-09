@@ -1,14 +1,20 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import React, {useState} from 'react';
 import {useMutation} from 'react-query';
 import {useNavigate} from 'react-router-dom';
-import {memberApis} from '../../api/axiosConfig';
-import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../Redux/store/store';
-import {FindIdValue} from '../../types/regist';
+
+//components
+import LoginModalCollection from './LoginModalCollection';
 import RegistStForm from '../Elem/RegistStForm';
 import RegistStInput from '../Elem/RegistStInput';
+
+// 그외 (img, css, fn, params...)
+import {memberApis} from '../../api/axiosConfig';
+import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
+import {FindIdValue} from '../../types/regist';
 import * as L from './Login.style';
-import LoginModalCollection from './LoginModalCollection';
+
 function FindIdForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

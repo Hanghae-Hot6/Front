@@ -1,8 +1,13 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import {useState, useEffect} from 'react';
 import {Link, Outlet, useNavigate} from 'react-router-dom';
+
+//components
+import Pagenation from './Pagenation';
+
+// 그외 (img, css, fn, params...)
 import {ProfileDataType} from '../../types/regist';
 import {getUserId} from '../../utils';
-import Pagenation from './Pagenation';
 import * as P from './Profile.style';
 
 function ProfileClubList({data}: ProfileDataType) {

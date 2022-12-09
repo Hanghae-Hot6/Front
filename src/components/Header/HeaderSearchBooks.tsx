@@ -1,9 +1,12 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import React, {ReactNode, useState} from 'react';
 import styled from 'styled-components';
-import {NaverBooksDataType} from '../../types/bookSearch';
-import {ClubSearchType} from '../../types/bookSearch';
-// import CarouselBooksChild from '../../components/CreateClub/CarouselBooks/CarouselBooksChild/CarouselBooksChild';
+
+//components
 import HeaderSearchBooksChild from './HeaderSearchBooksChild';
+
+// 그외 (img, css, fn, params...)
+import {ClubSearchType} from '../../types/bookSearch';
 
 type CarouselBooksProps = {
   width?: number;

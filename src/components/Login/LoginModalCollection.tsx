@@ -1,4 +1,3 @@
-import React from 'react';
 import GlobalModal from '../../common/GlobalModal';
 import {useAppSelector} from '../../Redux/store/store';
 

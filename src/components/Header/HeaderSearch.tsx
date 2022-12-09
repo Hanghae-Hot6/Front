@@ -1,13 +1,16 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
+import React, {useState} from 'react';
+import {useQuery} from 'react-query';
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {QueryClient, useQuery, useQueryClient} from 'react-query';
 import styled from 'styled-components';
-import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
-import close_btn from '../../assets/Xbtn.svg';
 
+//components
 import HeaderSearchBooks from './HeaderSearchBooks';
+
+// 그외 (img, css, fn, params...)
 import {ClubSearchType} from '../../types/bookSearch';
-type BookSearchBarProps = {};
+import close_btn from '../../assets/Xbtn.svg';
+import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 
 // export type NaverBooksDataType = {
 //   image: string;
@@ -16,7 +19,7 @@ type BookSearchBarProps = {};
 //   title: string;
 // };
 
-const HeaderSearch = ({}: BookSearchBarProps) => {
+const HeaderSearch = () => {
   const [showBookSearchBar, setShowBookSearchBar] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
 

@@ -1,7 +1,6 @@
-import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
-import {Link} from 'react-router-dom';
 
 const Footer = () => {
   // fe 3 be 3 designer 1 github link

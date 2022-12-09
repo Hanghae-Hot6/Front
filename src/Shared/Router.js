@@ -1,24 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
+import {Route, Routes, BrowserRouter} from 'react-router-dom';
 
-import {Route, Routes, BrowserRouter, useNavigate} from 'react-router-dom';
-import InterestClubs from '../components/Profile/ProfileOutlet/InterestClubs';
-import LeaderClubs from '../components/Profile/ProfileOutlet/LeaderClubs';
-import useWindowSizeDetector from '../Hooks/useWindowSizeDetector';
-import MobileChatPage from '../Pages/MobileChatPage';
-import ChatTestPage from '../Pages/ChatTestPage';
-
-import ClubDetailPage from '../Pages/ClubDetailPage';
-import ClubListPage from '../Pages/ClubListPage';
-import CreateClubPage from '../Pages/CreateClubPage';
-import FindIdPage from '../Pages/FindIdPage';
-import FindPasswordPage from '../Pages/FindPasswordPage';
-import FixClubPage from '../Pages/FixClubPage';
-import LoginPage from '../Pages/LoginPage';
 import MainPage from '../Pages/MainPage';
 import NotFoundPage from '../Pages/NotFoundPage';
+import MobileChatPage from '../Pages/MobileChatPage';
+import ClubDetailPage from '../Pages/ClubDetailPage';
+import ClubListPage from '../Pages/ClubListPage';
+import ChatTestPage from '../Pages/ChatTestPage';
+import CreateClubPage from '../Pages/CreateClubPage';
+import FixClubPage from '../Pages/FixClubPage';
+import LoginPage from '../Pages/LoginPage';
+import FindIdPage from '../Pages/FindIdPage';
+import FindPasswordPage from '../Pages/FindPasswordPage';
 import ProfilePage from '../Pages/ProfilePage';
-
+import InterestClubs from '../components/Profile/ProfileOutlet/InterestClubs';
+import LeaderClubs from '../components/Profile/ProfileOutlet/LeaderClubs';
 import SignPage from '../Pages/SignPage';
+
+import useWindowSizeDetector from '../Hooks/useWindowSizeDetector';
 
 const Router = () => {
   // 576px 이하일 때부터 /chat 에 들어갈 수 있다

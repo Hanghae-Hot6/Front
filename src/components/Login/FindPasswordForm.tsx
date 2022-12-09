@@ -1,14 +1,19 @@
+// Libraries(react관련 패키지, 그외 라이브러리)
 import React, {useState} from 'react';
 import {useMutation} from 'react-query';
+import {useNavigate} from 'react-router-dom';
+
+//components
+import RegistStForm from '../Elem/RegistStForm';
+import RegistStInput from '../Elem/RegistStInput';
+import LoginModalCollection from './LoginModalCollection';
+
+// 그외 (img, css, fn, params...)
 import {memberApis} from '../../api/axiosConfig';
 import {openGlobalModal} from '../../Redux/modules/slices/modalSlice';
 import {useAppDispatch} from '../../Redux/store/store';
 import {FindPasswordValueType} from '../../types/regist';
-import RegistStForm from '../Elem/RegistStForm';
-import RegistStInput from '../Elem/RegistStInput';
-import LoginModalCollection from './LoginModalCollection';
 import * as L from './Login.style';
-import {useNavigate} from 'react-router-dom';
 
 function FindPasswordForm() {
   const dispatch = useAppDispatch();
