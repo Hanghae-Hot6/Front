@@ -215,15 +215,15 @@
 <summary> Front-end</summary>
 <div markdown="1">   
     
-    - 반응형 도입 — 모바일ver
-    - 보안 강화 — https
-    - infinite carousel -- 완
+    - 반응형 도입 — 모바일ver --완료
+    - 보안 강화 — https -- 완료
+    - infinite carousel -- 완료
     - infinite scroll — 모바일ver
     - 검색, 좋아요등 서버에 부하가 올 수 있는 api call 최적화
     - 이미지 용량 최적화
     - 채팅에서 이미지 전송 기능 추가
-    - 후기 기능
-    - api instance
+    - 후기 기능 -- 완료
+    - api instance -- 완료
     - 과거 채팅 무한 스크롤로 불러오기
 </div>
 </details>
