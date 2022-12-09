@@ -130,7 +130,9 @@ const CreateClubBody = ({
         window.confirm('모임 개설 성공');
         navigate('/');
       },
-      onError: () => {
+      onError: err => {
+        // 에러 처리 확인하기
+        console.log(err);
         window.confirm('모임 개설이 안되었습니다 에러를 확인해보세요');
       },
     },
@@ -312,7 +314,7 @@ const CreateClubBody = ({
             input={input}
             setInput={setInput}
             name="schedule"
-            placeholder="1/1 첫번째 회의 10:30 - 02:00"
+            placeholder="예) 1/1 첫번째 회의 10:30 - 02:00"
             // width="55.8rem"
             height="17.8rem"
           />

@@ -100,7 +100,10 @@ const ChatRoomBrief = ({
               <Participants>{chatRoomInfo.participants}</Participants>
             </Div4>
 
-            <LastChatTime>5분전</LastChatTime>
+            <LastChatTime>
+              {receiveMsg ? receiveMsg?.date : lastChat ? lastChat?.date : '몇'}
+              분전
+            </LastChatTime>
           </Div3>
 
           <Message>
