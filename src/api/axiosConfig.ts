@@ -195,3 +195,12 @@ export const reviewApis = {
   getAllReview: async () =>
     await api.get(`${process.env.REACT_APP_BASE_URL}/clubs/reviews`),
 };
+
+// 채팅
+export const chatApis = {
+  getAllChatRoomMessages: async (chatRoomId: string) => {
+    return await api.get(
+      `${process.env.REACT_APP_BASE_URL}/chat/messages/${chatRoomId}`,
+    );
+  },
+};

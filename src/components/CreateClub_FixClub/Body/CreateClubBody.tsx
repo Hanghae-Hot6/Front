@@ -156,8 +156,10 @@ const CreateClubBody = ({
         window.confirm('모임 수정 성공');
         navigate('/');
       },
-      onError: () => {
+      onError: err => {
         window.confirm('모임 수정이 안되었습니다 에러를 확인해보세요');
+        console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
+        console.log(err);
       },
     },
   );

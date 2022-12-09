@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 
-import {Route, Routes, BrowserRouter} from 'react-router-dom';
+import {Route, Routes, BrowserRouter, useNavigate} from 'react-router-dom';
 import InterestClubs from '../components/Profile/ProfileOutlet/InterestClubs';
 import LeaderClubs from '../components/Profile/ProfileOutlet/LeaderClubs';
 import useWindowSizeDetector from '../Hooks/useWindowSizeDetector';
-import ChatPage from '../Pages/ChatPage';
+import MobileChatPage from '../Pages/MobileChatPage';
 import ChatTestPage from '../Pages/ChatTestPage';
 
 import ClubDetailPage from '../Pages/ClubDetailPage';
@@ -38,7 +38,9 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<NotFoundPage />} />
-        {chatRouterOn && <Route path="/chat" element={<ChatPage />} />}
+        {chatRouterOn && (
+          <Route path="/mobile_chat" element={<MobileChatPage />} />
+        )}
         <Route path="/club_detail/:id" element={<ClubDetailPage />} />
         <Route path="/club_list" element={<ClubListPage />} />
         <Route path="/chat_test" element={<ChatTestPage />} />

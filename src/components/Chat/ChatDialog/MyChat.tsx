@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {ChatType} from '../ChatRoom/ChatRoom';
+import {ChatType} from '../../../types/chat';
 
 type MyChatProps = {
   chatObject: ChatType;

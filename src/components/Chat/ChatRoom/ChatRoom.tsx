@@ -4,22 +4,15 @@ import ThinLine from '../../../common/ThinLine';
 import Theme from '../../../theme/Theme';
 import {getAccessToken, getUserIdFixed} from '../../../utils';
 import KeyDetector from '../../../utils/KeyDetector';
-import {ChatRoomType} from '../ChatBody/ChatBody';
+
 import MyChat from '../ChatDialog/MyChat';
 import OthersChat from '../ChatDialog/OthersChat';
-import ChatInput from '../ChatInput/ChatInput';
+
 import ChattingService from '../ChattingService';
 import PaperPlaneRight from '../../../assets/PaperPlaneRight.svg';
+import {ChatRoomType, ChatType} from '../../../types/chat';
 type ChatRoomProps = {
   chatRoomNowInfo: ChatRoomType;
-};
-
-export type ChatType = {
-  chatRoomId: string;
-  date: string;
-  message: string;
-  sender: string;
-  type: string;
 };
 
 const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
@@ -32,12 +25,13 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   const [onConnect, setOnConnect] = useState<boolean>(false);
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const divRef = useRef<HTMLDivElement | null>(null);
 
   // 채팅 서비스 킷 생성
   const ChattingServiceKit = useMemo(() => {
     return new ChattingService(chatRoomNowInfo.chatRoomId);
   }, [chatRoomNowInfo.chatRoomId]);
+
+  console.log(chatRoomNowInfo.chatRoomId);
 
   // onConnect시 메시지 받아오기
   useEffect(() => {

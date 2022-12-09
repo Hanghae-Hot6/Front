@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
 import ThinLine from '../../../common/ThinLine';
@@ -11,22 +11,30 @@ import left_arrow from '../../../assets/CaretLeft.svg';
 import close_btn from '../../../assets/Xbtn.svg';
 import logo_gray from '../../../assets/logo_gray.svg';
 import {Link, useNavigate} from 'react-router-dom';
+import useWindowSizeDetector from '../../../Hooks/useWindowSizeDetector';
+import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
+import {
+  setChatButtonShowToFalse,
+  setChatButtonShowToTrue,
+  setChatShowToFalse,
+  setScrollButtonShowToTrue,
+} from '../../../Redux/modules/slices/chatAndChatButtonShowSlice';
+import {ChatRoomType} from '../../../types/chat';
+import * as C from './ChatBody.style';
 
 type ChatBodyProps = {
-  setShowChat: React.Dispatch<React.SetStateAction<boolean>>;
+  // setShowChat: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export type ChatRoomType = {
-  chatRoomId: string;
-  thumbnail: string;
-  clubName: string;
-  participants: number;
-};
-
-const ChatBody = ({setShowChat}: ChatBodyProps) => {
+const ChatBody = ({}: ChatBodyProps) => {
+  const {windowWidth, widthIsIncreasing} = useWindowSizeDetector();
   const accessToken = getAccessToken();
   const navigate = useNavigate();
   const userId = getUserIdFixed();
+  const dispatch = useAppDispatch();
+  const {chatShow} = useAppSelector(
+    state => state.chatAndChatButtonShowReducer,
+  );
 
   // 나의 채팅룸 목록 가져오기
   const fetchChatRooms = async () => {
@@ -74,43 +82,60 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
     setChatRoomNowInfo(chatRoomInfo);
   };
 
+  const handleCloseBtnClick: React.MouseEventHandler<HTMLButtonElement> = e => {
+    e.preventDefault();
+    if (windowWidth < 576) {
+      navigate(-1);
+    } else {
+      dispatch(setChatShowToFalse());
+    }
+  };
+  useEffect(() => {
+    dispatch(setChatButtonShowToFalse());
+
+    return () => {
+      dispatch(setChatButtonShowToTrue());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (chatShow && !widthIsIncreasing && windowWidth < 564) {
+      navigate('/mobile_chat');
+      dispatch(setChatShowToFalse());
+    }
+  }, [windowWidth]);
+
   return (
     <>
-      <Chat>
-        <ChatHeader>
+      <C.Chat>
+        <C.ChatHeader>
           {enterChatRoom ? (
             <>
-              <GoBackBtn
+              <C.GoBackBtn
                 onClick={() => {
                   setEnterChatRoom(false);
                 }}>
                 <img src={left_arrow} alt="뒤로가기" />
-              </GoBackBtn>
+              </C.GoBackBtn>
 
-              <ClubName>{chatRoomNowInfo?.clubName}</ClubName>
-              <CloseBtn
-                onClick={() => {
-                  setShowChat(false);
-                }}>
+              <C.ClubName>{chatRoomNowInfo?.clubName}</C.ClubName>
+              <C.CloseBtn onClick={handleCloseBtnClick}>
                 <img src={close_btn} alt="닫기 버튼" />
-              </CloseBtn>
+              </C.CloseBtn>
             </>
           ) : (
             <>
-              <ChatTitle>메세지</ChatTitle>
-              <CloseBtn
-                onClick={() => {
-                  setShowChat(false);
-                }}>
+              <C.ChatTitle>메세지</C.ChatTitle>
+              <C.CloseBtn onClick={handleCloseBtnClick}>
                 <img src={close_btn} alt="닫기 버튼" />
-              </CloseBtn>
+              </C.CloseBtn>
             </>
           )}
-        </ChatHeader>
+        </C.ChatHeader>
 
-        <ThinLine color={Theme.LightGray} thick="1px" />
+        {chatShow && <ThinLine color={Theme.LightGray} thick="1px" />}
 
-        <ChatRoomsListDiv>
+        <C.ChatRoomsListDiv>
           {enterChatRoom ? (
             <>
               {chatRoomNowInfo ? (
@@ -135,116 +160,26 @@ const ChatBody = ({setShowChat}: ChatBodyProps) => {
                   })}
                 </div>
               ) : chatRoomsStatus === 'success' && myChatRooms.length === 0 ? (
-                <NoneClub>
+                <C.NoneClub>
                   <img src={logo_gray} alt="회색로고" />
                   <p>가입된 모임이 없습니다.</p>
                   <Link to="/club_list">모임 찾기</Link>
-                </NoneClub>
+                </C.NoneClub>
               ) : null}
               {chatRoomsStatus === 'loading' ? (
-                <NoneClub>
+                <C.NoneClub>
                   <div>Loading</div>
-                </NoneClub>
+                </C.NoneClub>
               ) : accessToken ? null : (
-                <NoneClub>
+                <C.NoneClub>
                   <div>회원가입을 해주세요.</div>
-                </NoneClub>
+                </C.NoneClub>
               )}
             </>
           )}
-        </ChatRoomsListDiv>
-      </Chat>
+        </C.ChatRoomsListDiv>
+      </C.Chat>
     </>
   );
 };
 export default ChatBody;
-const NoneClub = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 18rem auto;
-  gap: 1.5rem;
-  p {
-    color: ${props => props.theme.LightGray};
-    font-weight: 600;
-    font-size: 1.6rem;
-  }
-  a {
-    width: 10rem;
-    height: 3rem;
-    border: 1px solid transparent;
-    border-radius: 3rem;
-    background-color: ${props => props.theme.MainColor};
-    color: #fff;
-    font-size: 1.6rem;
-    text-align: center;
-    line-height: 3rem;
-    transition: all 0.5s;
-    :hover {
-      border: 1px solid ${props => props.theme.MainColor};
-      background-color: #fff;
-      color: ${props => props.theme.MainColor};
-    }
-  }
-`;
-
-const Chat = styled.div`
-  position: fixed;
-  width: 33rem;
-  height: 60rem;
-  bottom: 10rem;
-  right: 10rem;
-  background-color: ${props => props.theme.White};
-  /* border: 1px solid ${props => props.theme.LightPurple2}; */
-  box-shadow: 11px 9px 19px rgba(0, 0, 0, 0.08);
-  border-radius: 0.7rem;
-  z-index: 13;
-
-  @media screen and (max-height: 500px) {
-    height: 50rem;
-    bottom: 5px;
-  }
-`;
-
-const ChatHeader = styled.div`
-  display: flex;
-  height: 7.2rem;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.8rem;
-`;
-
-const ChatTitle = styled.h1`
-  font-size: 1.8rem;
-  font-weight: 600;
-`;
-
-const CloseBtn = styled.button`
-  background-color: #fff;
-`;
-
-const ChatRoomsListDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 51.4rem;
-  padding: 1.4rem 1.2rem;
-  overflow: scroll;
-  @media screen and (max-height: 500px) {
-    height: 45rem;
-    bottom: 5px;
-  }
-`;
-
-// header 부분
-
-const GoBackBtn = styled.button`
-  background-color: #fff;
-`;
-
-const ClubName = styled.span`
-  font-size: 1.8rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;

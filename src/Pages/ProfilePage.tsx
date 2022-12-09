@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {getAccessToken, getUserId} from '../utils';
-import {useAppDispatch} from '../Redux/store/store';
+import {useAppDispatch, useAppSelector} from '../Redux/store/store';
 import {openGlobalModal} from '../Redux/modules/slices/modalSlice';
 import styled from 'styled-components';
 import Footer from '../components/Footer/Footer';
@@ -12,6 +12,7 @@ import {memberApis} from '../api/axiosConfig';
 import Header from '../components/Header/Header';
 import ChatBody from '../components/Chat/ChatBody/ChatBody';
 import chatBtn from '../assets/chatBtn.svg';
+import ChatAndScrollTopButton from '../components/ChatAndScrollTopButton/ChatAndScrollTopButton';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -19,7 +20,9 @@ const ProfilePage = () => {
   const urlId = useParams();
   const accessToken = getAccessToken();
   const userId = getUserId();
-  const [showChat, setShowChat] = useState(false);
+  const {chatShow} = useAppSelector(
+    state => state.chatAndChatButtonShowReducer,
+  );
 
   useEffect(() => {
     // 토큰이 없으면 로그인 페이지로 돌려보냄
@@ -62,16 +65,17 @@ const ProfilePage = () => {
       <StSection>
         <ProfileContainer data={profileData?.data} />
       </StSection>
-      {showChat && <ChatBody setShowChat={setShowChat} />}
+      {chatShow && <ChatBody />}
       <Footer />
-      <BtnWrap style={{height: '7rem'}}>
+      {/* <BtnWrap style={{height: '7rem'}}>
         <ChatButton
           onClick={() => {
             setShowChat(!showChat);
           }}>
           <img src={chatBtn} alt="chatBtn" />
         </ChatButton>
-      </BtnWrap>
+      </BtnWrap> */}
+      <ChatAndScrollTopButton />
       <ProfileModalCollection />
     </Stdiv>
   );
