@@ -193,30 +193,49 @@
 
 <br>
 <details>
-<summary> <h4>모임 참석 인원 다 찼을때 참석 하기 버튼을 누르면 null</h4></summary>
+<summary> <h4>모임 참석 인원 다 찼을때 참석 하기 버튼을 누르면 null이 alert 으로 출력</h4></summary>
 <div markdown="1">   
      response를 error로 보내주셨는데 response를 data로 잡고 있었음 back에서 error -> data로 보내주심
 
 </div>
   
 </details>
+
 <details>
 <summary> <h4>클럽 썸네일 이미지가 null 이면 엑박이 뜬다.</h4></summary>
 <div markdown="1">   
-    프론트에서 썸네일이미지가null 일때 디폴트 썸네일 넣어주고 백에서도 디폴트 썸네일 넣어줌
+    프론트에서 썸네일이미지가 null 일때 디폴트 썸네일 넣어주고 백에서도 디폴트 썸네일 넣어줌
 
 </div>
    
 </details>
+
 <details>
-<summary> 3</summary>
+<summary><h4>비밀번호 수정 시 비밀번호 확인 일치해도 안 됨 </h4></summary>
 <div markdown="1">   
     3
  
 </div>
 </details>
+
 <details>
-<summary> 4</summary>
+<summary><h4>모임개설 할 때 스페이스바만 눌러서 모임개설이 됨</h4></summary>
+<div markdown="1">   
+    4
+   
+</div>
+</details>
+
+<details>
+<summary><h4>모임개설시에 어떠한 값(인풋)이 입력되지 않았는지 판단하면 좋을 듯</h4></summary>
+<div markdown="1">   
+    4
+   
+</div>
+</details>
+
+<details>
+<summary><h4>채팅 시, 끝글자가 한글자 더 메시지가 전송되는 오류</h4></summary>
 <div markdown="1">   
     4
    
