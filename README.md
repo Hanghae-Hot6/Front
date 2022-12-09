@@ -144,7 +144,7 @@
 ## 🎯 트러블 슈팅
 
 <details>
-<summary>  이전에 작성했던 채팅들이 휘발되는 문제</summary>
+<summary>  <h3>이전에 작성했던 채팅들이 휘발되는 문제</h3></summary>
 <div markdown="1">   
    
 ### 1. 검색어 자동 완성 API call 1/8로 최소화
@@ -193,7 +193,7 @@
 
 <br>
 <details>
-<summary> 모임 참석 인원 다 찼을때 참석 하기 버튼을 누르면 null</summary>
+<summary> <h3>모임 참석 인원 다 찼을때 참석 하기 버튼을 누르면 null</h3></summary>
 <div markdown="1">   
      response를 error로 보내주셨는데 response를 data로 잡고 있었음 back에서 error -> data로 보내주심
 
@@ -201,7 +201,7 @@
   
 </details>
 <details>
-<summary> 클럽 썸네일 이미지가 null 이면 엑박이 뜬다.</summary>
+<summary> <h3>클럽 썸네일 이미지가 null 이면 엑박이 뜬다.</h3></summary>
 <div markdown="1">   
     프론트에서 썸네일이미지가null 일때 디폴트 썸네일 넣어주고 백에서도 디폴트 썸네일 넣어줌
 
