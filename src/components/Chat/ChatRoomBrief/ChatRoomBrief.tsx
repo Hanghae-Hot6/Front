@@ -151,7 +151,8 @@ const Thumbnail = styled.img`
 
 const Div2 = styled.div`
   height: 100%;
-  width: 20rem;
+  /* width: 20rem; */
+  flex: 1;
   padding: 0 1rem;
   /* border: 1px solid black; */
   @media screen and (max-width: 576px) {
@@ -189,7 +190,7 @@ const Message = styled.span`
 const LastChatTime = styled.h1`
   margin: 1rem 0.2rem;
   font-size: 1.2rem;
-  /* min-width: 3rem; */
+  color: ${props => props.theme.Gray};
 `;
 
 const Participants = styled.h1`
