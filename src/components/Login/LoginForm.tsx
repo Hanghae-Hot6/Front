@@ -74,8 +74,9 @@ function LoginForm() {
         localStorage.removeItem('userId');
         localStorage.removeItem('Refresh-Token');
         return;
+      } else {
+        dispatch(openGlobalModal('loggingIn'));
       }
-      dispatch(openGlobalModal('loggingIn'));
     }
   }, [dispatch]);
 

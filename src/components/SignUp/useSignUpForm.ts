@@ -214,13 +214,8 @@ function useSignUpForm(initialValues: SignValueType, isSingUp: boolean) {
     }
   };
   // 이메일 인증번호 작성후 모달 확인 버튼
-  const emailModalCheckHandler = (certNumObj: any) => {
-    let certNum = '';
-    for (let b = 0; b < Object.keys(certNumObj).length; b++) {
-      certNum = certNum + certNumObj['certNumber' + b];
-    }
-    setCertNumber(certNum);
-
+  const emailModalCheckHandler = (invisibleInput: any) => {
+    setCertNumber(invisibleInput.invisibleObj);
     if (certNumber === '' || undefined) {
       dispatch(openGlobalModal('certNumEmptyAlert'));
     } else {

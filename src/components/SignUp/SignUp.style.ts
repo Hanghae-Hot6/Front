@@ -83,6 +83,7 @@ export const StInputBox = styled.div`
   justify-content: space-evenly;
   height: 3rem;
   padding: 0 7rem;
+  position: relative;
   input {
     display: flex;
     text-align: center;
@@ -95,6 +96,16 @@ export const StInputBox = styled.div`
     :focus {
       outline: none;
     }
+  }
+  .invisibleInput {
+    font-size: 1.8rem;
+    position: absolute;
+    border: 1px solid black;
+    padding-left: 1.6rem;
+    width: 22rem;
+    opacity: 0;
+    letter-spacing: 1.5rem;
+    text-align: start;
   }
 
   .On {
