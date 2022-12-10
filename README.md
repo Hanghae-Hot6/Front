@@ -35,7 +35,7 @@
 
 ## ⚙️ 서비스 아키텍처
 
-![서비스아키텍쳐ver_2](https://user-images.githubusercontent.com/113868313/203928554-51132feb-8af7-4d71-9a89-394840b51b5b.png)
+![서비스아키텍쳐ver 1](https://user-images.githubusercontent.com/113868313/206831504-25031372-7de6-41eb-8003-9e4d4659abef.png)
 
 <br>
 
@@ -144,7 +144,7 @@
 ## 🎯 트러블 슈팅
 
 <details>
-<summary>  <h4>이전에 작성했던 채팅들이 휘발되는 문제</h4></summary>
+<summary>  <h4>채팅방 PC화면에서 모바일로 전환, 모바일화면에서 PC화면으로 전환시 더 부드러운 UX로 고치기</h4></summary>
 <div markdown="1">   
    
 ### 1. 검색어 자동 완성 API call 1/8로 최소화
@@ -165,9 +165,29 @@
 </div>
 </details>
 <details>
-<summary> 2</summary>
+   <summary> <h4>Infinite Carousel</h4> </summary>
 <div markdown="1">   
-    2
+   
+### Infinite Carousel
+   
+|구분|설명|
+|---|---|
+|문제<br>상황|맨 끝 배너에서 첫 번째 배너로 넘어갈 때 자연스럽게 넘어가지 않고 역재생 되는 듯한 애니메이션 발생|
+|문제원인|transition + 양 끝 이미지에 추가적인 이미지가 없기 때문에 처음으로 돌아감 때문에 역재생 애니메이션 발생|
+|문제해결|배너 양 끝에 데이터를 복사해 주고 끝 배너에서 첫 번째 배너로 넘어갈 때 transition을 없애줌|
+|해결결과|해당 하는 이미지의 개수만큼 배너 이벤트가 이루어 지기 때문에 자연스럽게 넘어가는 애니메이션이 생김 |
+
+##### Infinite Carousel 적용 전/후
+   
+### 적용 전
+
+
+https://user-images.githubusercontent.com/113868313/206861600-dee7da77-110c-43d5-bef1-409408101e42.mp4
+
+
+### 적용 후
+https://user-images.githubusercontent.com/113868313/206861489-23a89d5d-40fb-4c07-94c7-0ddf7797039c.mp4
+
 
 </div>
 </details>
@@ -195,8 +215,8 @@
 <details>
 <summary> <h4>모임 참석 인원 다 찼을때 참석 하기 버튼을 누르면 null이 alert 으로 출력</h4></summary>
 <div markdown="1">   
-     response를 error로 보내주셨는데 response를 data로 잡고 있었음 back에서 error -> data로 보내주심
-
+     인원 다 찼을때 post요청에 대한 response를 error로 보내주셨는데 해당 response를 data로 잡고 있었음 back에서 error -> data로 보내주심
+<img src="https://user-images.githubusercontent.com/113868313/206859217-8d4bf659-b32b-49fd-b6c4-2896d7cbe2c2.png" />
 </div>
   
 </details>
@@ -204,8 +224,8 @@
 <details>
 <summary> <h4>클럽 썸네일 이미지가 null 이면 엑박이 뜬다.</h4></summary>
 <div markdown="1">   
-    프론트에서 썸네일이미지가 null 일때 디폴트 썸네일 넣어주고 백에서도 디폴트 썸네일 넣어줌
-
+    프론트/백에서 썸네일이미지가 null 일때 디폴트 썸네일 넣어주어 썸네일 이미지를 넣지 않은 모임도 기본 이미지를 심어주었다.
+<img src="https://user-images.githubusercontent.com/113868313/206859223-00445627-ae65-4fdb-9a41-680c834aae31.png" />
 </div>
    
 </details>
@@ -213,7 +233,7 @@
 <details>
 <summary><h4>비밀번호 수정 시 비밀번호 확인 일치해도 안 됨 </h4></summary>
 <div markdown="1">   
-    3
+   임시 비밀번호를 수정 값으로 확인 하고 있어서 일치 확인이 불가 했었음
  
 </div>
 </details>
@@ -221,26 +241,24 @@
 <details>
 <summary><h4>모임개설 할 때 스페이스바만 눌러서 모임개설이 됨</h4></summary>
 <div markdown="1">   
-    4
-   
+   프론트
+    서버로 input에 들어온 값을 보내기 전에 trim(’ ’)을 이용해 빈 값만 있는 경우를 걸러낸다
+    <br>
+   백엔드
+    개설시 받아오는 requestDto에 필수로 요구하는 입력값은 NotBlank 어노테이션을 달아놓아
+    필수로 요구하는 입력값은 입력하지 않으면 400에러가 발생하도록 변경
 </div>
 </details>
 
 <details>
 <summary><h4>모임개설시에 어떠한 값(인풋)이 입력되지 않았는지 판단하면 좋을 듯</h4></summary>
 <div markdown="1">   
-    4
+    input태그에 required 옵션을 달아주어서 form 제출 시 입력되지 않은 값을 명시하게 해줌
    
 </div>
 </details>
 
-<details>
-<summary><h4>채팅 시, 끝글자가 한글자 더 메시지가 전송되는 오류</h4></summary>
-<div markdown="1">   
-    4
-   
-</div>
-</details>
+
 
 <br>
 
@@ -253,15 +271,17 @@
     - 반응형 도입 — 모바일ver --완료
     - 보안 강화 — https -- 완료
     - infinite carousel -- 완료
-    - infinite scroll — 모바일ver
+    - infinite scroll — 모바일ver -- 완료
+    - 과거 채팅 무한 스크롤로 불러오기 -- 완료
+    - 후기 기능 -- 완료
+    - api instance -- 완료
     - 검색, 좋아요등 서버에 부하가 올 수 있는 api call 최적화
     - 이미지 용량 최적화
     - 채팅에서 이미지 전송 기능 추가
-    - 후기 기능 -- 완료
-    - api instance -- 완료
-    - 과거 채팅 무한 스크롤로 불러오기
+    
 </div>
 </details>
+
 
 <br>
 <hr>
