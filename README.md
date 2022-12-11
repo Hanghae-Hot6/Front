@@ -245,7 +245,13 @@ https://user-images.githubusercontent.com/113868313/206861489-23a89d5d-40fb-4c07
 </div>
 </details>
 
-
+<details>
+<summary><h4>과거 채팅  infinite scroll로 가져오기</h4></summary>
+<div markdown="1">   
+    적용 완료
+   
+</div>
+</details>
 
 <br>
 
