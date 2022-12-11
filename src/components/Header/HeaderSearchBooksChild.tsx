@@ -50,14 +50,15 @@ const HeaderSearchBooksChild = ({
               {val && (
                 <RightBox className="on">
                   <div>
-                    {val && val?.thumbnail === null ? (
-                      <img src={Thumb} alt="클럽 썸네일 이미지" />
-                    ) : (
-                      val && (
-                        <img src={val?.thumbnail} alt="클럽 썸네일 이미지" />
-                      )
-                    )}
-
+                    <Link to={`/club_detail/${val.clubId}`}>
+                      {val && val?.thumbnail === null ? (
+                        <img src={Thumb} alt="클럽 썸네일 이미지" />
+                      ) : (
+                        val && (
+                          <img src={val?.thumbnail} alt="클럽 썸네일 이미지" />
+                        )
+                      )}
+                    </Link>
                     <TitleWrap>
                       <Title>{val?.clubName}</Title>
                       <div>
@@ -126,7 +127,7 @@ const RightBox = styled.div`
   > div {
     display: flex;
   }
-  > div > img {
+  > div img {
     width: 14.8rem;
     height: 21.6rem;
     filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.18));
@@ -212,6 +213,14 @@ const TitleWrap = styled.div`
   }
   margin-left: 1.5rem;
   margin-top: 1rem;
+  a {
+    background-color: ${props => props.theme.MainColor};
+    width: 50%;
+    height: 3rem;
+    color: #fff;
+    line-height: 3rem;
+    text-align: center;
+  }
 `;
 const LeftDiv = styled.div`
   display: flex;
