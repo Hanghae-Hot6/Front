@@ -4,6 +4,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 5.2rem;
+  width: 100%;
   @media screen and (max-width: 576px) {
     width: 100%;
   }
@@ -30,7 +31,8 @@ export const StLoginDivier = styled.div`
 
 export const StNavBtn = styled.button<{fontC: string; bgColor: string}>`
   display: flex;
-  width: 40rem;
+  /* width: 40rem; */
+  width: 100%;
   height: 6rem;
   color: ${({fontC}) => fontC};
   background-color: ${({bgColor}) => bgColor};

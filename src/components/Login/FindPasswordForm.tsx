@@ -66,41 +66,38 @@ function FindPasswordForm() {
   return (
     <div>
       <RegistStForm
-        jc="flex-start"
         onSubmit={handleSubmit}
         title="비밀번호 변경"
-        height="87rem"
-        width="55.6rem">
-        <L.StContainer>
-          <RegistStInput
-            id="id"
-            type="text"
-            name="id"
-            onChange={handleChange}
-            value={values.id}
-            label="아이디"></RegistStInput>
+        height="83rem"
+        width="49.2rem">
+        <RegistStInput
+          id="id"
+          type="text"
+          name="id"
+          onChange={handleChange}
+          value={values.id}
+          label="아이디"></RegistStInput>
 
-          <RegistStInput
-            id="email"
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={values.email}
-            label="E-mail"></RegistStInput>
+        <RegistStInput
+          id="email"
+          type="email"
+          name="email"
+          onChange={handleChange}
+          value={values.email}
+          label="E-mail"></RegistStInput>
 
-          <L.ButtonContainer>
-            <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
-              비밀번호 찾기
-            </L.StNavBtn>
-            <L.StNavBtn
-              type="button"
-              bgColor="#5200FF"
-              fontC="white"
-              onClick={() => navigate('/login')}>
-              로그인
-            </L.StNavBtn>
-          </L.ButtonContainer>
-        </L.StContainer>
+        <L.ButtonContainer>
+          <L.StNavBtn type="submit" bgColor="#5200FF" fontC="white">
+            비밀번호 찾기
+          </L.StNavBtn>
+          <L.StNavBtn
+            type="button"
+            bgColor="#5200FF"
+            fontC="white"
+            onClick={() => navigate('/login')}>
+            로그인
+          </L.StNavBtn>
+        </L.ButtonContainer>
         <LoginModalCollection />
       </RegistStForm>
     </div>
