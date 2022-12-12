@@ -46,8 +46,6 @@ const ChatRoomBrief = ({
 
         console.log(allChatMessages);
         console.log(totalMessageLength);
-        // console.log(data);
-        // console.log(data.data[data.data.length - 3]);
         setLastChat(data[data.length - 2]);
       },
       onError: () => {},

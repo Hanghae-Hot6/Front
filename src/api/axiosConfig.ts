@@ -198,10 +198,23 @@ export const reviewApis = {
 
 // 채팅
 export const chatApis = {
+  getChatRoomMessages: async (payload: any) => {
+    return await api.get(
+      `${process.env.REACT_APP_BASE_URL}/chat/messages/${payload.chatRoomId}?page=${payload.page}&size=${payload.size}`,
+    );
+  },
   getAllChatRoomMessages: async (chatRoomId: string) => {
     return await api.get(
-      `${process.env.REACT_APP_BASE_URL}/chat/messages/${chatRoomId}?page=1&size=15`,
+      `${process.env.REACT_APP_BASE_URL}/chat/messages/${chatRoomId}`,
     );
+  },
+};
+
+// 모임개설
+
+export const createClubApis = {
+  createClubSubmit: async (formData: FormData) => {
+    return await api.post(`${process.env.REACT_APP_BASE_URL}/clubs`, formData);
   },
 };
 

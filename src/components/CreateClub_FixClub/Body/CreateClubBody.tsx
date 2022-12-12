@@ -109,7 +109,6 @@ const CreateClubBody = ({
 
   const accessToken = getAccessToken();
 
-  // const{width}
   const navigate = useNavigate();
 
   const books = useAppSelector(state => state.selectBooksReducer);
@@ -216,6 +215,8 @@ const CreateClubBody = ({
     } else {
       clubSubmit(formData);
     }
+
+    //
   };
   const handleOnSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();

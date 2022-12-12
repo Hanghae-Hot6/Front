@@ -13,6 +13,7 @@ import PaperPlaneRight from '../../../assets/PaperPlaneRight.svg';
 import {ChatRoomType, ChatType} from '../../../types/chat';
 import {useQuery} from 'react-query';
 import {chatApis} from '../../../api/axiosConfig';
+import {fakeMessage, getFakeMessage} from './fakeMessage';
 type ChatRoomProps = {
   chatRoomNowInfo: ChatRoomType;
 };
@@ -33,14 +34,41 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     return new ChattingService(chatRoomNowInfo.chatRoomId);
   }, [chatRoomNowInfo.chatRoomId]);
 
-  // console.log(chatRoomNowInfo.chatRoomId);
+  const [page, setPage] = useState<number>(1);
+  const fetchSize = useRef<number>(15);
 
-  const {data, refetch: fetchAllChatRoomMessages} = useQuery(
-    ['getAllChatRoomMessages', chatRoomNowInfo.chatRoomId],
+  // const {data: yo, refetch: fetchAllMessages} = useQuery(
+  //   ['getAllChatRoomMessages', chatRoomNowInfo.chatRoomId],
+  //   async ({queryKey}) => {
+  //     const response = await chatApis.getAllChatRoomMessages(queryKey[1]);
+  //     return response.data;
+  //   },
+  //   {
+  //     // 기본값: 브라우저 화면을 재방문시 useQuery다시 요청함 -> 요청 안함
+  //     refetchOnWindowFocus: false,
+  //     // 8 - (1) : useQuery의 동작을 수동으로 바꿈
+  //     enabled: false,
+  //     // 기본값: retry를 3번까지 다시 요청 -> 다시요청 안함
+  //     retry: 0,
+  //     onSuccess: data => {
+  //       console.log(data);
+  //     },
+  //     onError: () => {},
+  //   },
+  // );
+
+  const {data: yoyo, refetch: fetchAllChatRoomMessages} = useQuery(
+    [
+      'getChatRoomMessages',
+      {
+        chatRoomId: chatRoomNowInfo.chatRoomId,
+        page,
+        size: fetchSize.current,
+      },
+    ],
     async ({queryKey}) => {
-      const response = await chatApis.getAllChatRoomMessages(queryKey[1]);
-
-      return response.data.data;
+      const response = await chatApis.getChatRoomMessages(queryKey[1]);
+      return response.data;
     },
     {
       // 기본값: 브라우저 화면을 재방문시 useQuery다시 요청함 -> 요청 안함
@@ -50,12 +78,30 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       // 기본값: retry를 3번까지 다시 요청 -> 다시요청 안함
       retry: 0,
       onSuccess: data => {
-        const messagesFromServer = [...data];
-        const totalMessageLength = messagesFromServer.pop().chatMessageCount;
-        const allChatMessages = messagesFromServer;
+        const messagesFromServer = [...data.data];
+        const totalMessageLength: number =
+          messagesFromServer.pop().chatMessageCount;
+        const allChatMessages: ChatType[] = messagesFromServer[0];
 
         console.log(allChatMessages);
-        console.log(totalMessageLength);
+
+        // let k = page;
+
+        // if (fetchSize.current * k >= totalMessageLength) {
+        //   setMessageList(allChatMessages);
+        //   setMessageToDown(!messageToDown);
+
+        //   console.log(fetchSize.current * k);
+        //   console.log('totalMessageLength => ' + totalMessageLength);
+        // } else {
+        //   while (fetchSize.current * k <= totalMessageLength) {
+        //     k++;
+        //     console.log(k);
+        //   }
+        //   setPage(k);
+        //   console.log(k);
+        //   console.log('refetch!');
+        // }
       },
       onError: () => {},
     },
@@ -77,7 +123,8 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       userId,
       'ChatRoom',
     );
-    fetchAllChatRoomMessages();
+    // fetchAllChatRoomMessages();
+    // fetchAllMessages();
   }, []);
 
   // 메세지 배열안에 모으기
@@ -124,6 +171,10 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     scrollToBottom();
   }, [messageToDown]);
 
+  useEffect(() => {
+    setMessageToDown(!messageToDown);
+  }, [messageList.length]);
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
 
@@ -141,27 +192,61 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
           sender: userId,
         },
       );
-      setMessageToDown(!messageToDown);
     }
 
     setInput('');
   }, [input, userId]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setMessageList([...getFakeMessage(page, 8), ...messageList]);
+    }, 500);
+    console.log(page);
+  }, [page]);
+  console.log(messageList);
   const handleKeyPress = (key: any) => {
     if (key === 'Enter') {
       buttonRef.current!.click();
     }
   };
+  const bottomObserver = useRef<HTMLDivElement | null>(null);
 
+  const Observer = useMemo(() => {
+    return new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          console.log('hi I am intersecting');
+
+          setPage(prev => prev + 1);
+          // refetchInfiniteScrollData();
+          // 새 항목 불러옴
+        }
+      },
+      {threshold: 0.25, rootMargin: '80px'},
+    );
+  }, []);
+
+  useEffect(() => {
+    if (bottomObserver) {
+      Observer.observe(bottomObserver.current!);
+    }
+    return () => {
+      if (bottomObserver.current) {
+        // console.log('disconnected');
+        Observer.unobserve(bottomObserver.current!);
+      }
+    };
+  }, [bottomObserver]);
   return (
     <>
       <ChattingList ref={messageBoxRef}>
+        <div ref={bottomObserver} />
         {messageList.map((val, index) => {
           if (val.sender === userId) {
             return (
-              <>
-                <MyChat key={index} chatObject={val} />
-              </>
+              <div key={index}>
+                <MyChat chatObject={val} />
+              </div>
             );
           } else {
             return <OthersChat key={index} chatObject={val} />;
