@@ -25,28 +25,34 @@ const ChatRoomBrief = ({
   // e239f429-5832-46cc-af26-0fee276804f7
   const [lastChat, setLastChat] = useState<ChatType | undefined>(undefined);
 
-  const {data: allChatRoomMessages, refetch: fetchAllChatRoomMessages} =
-    useQuery(
-      ['getAllChatRoomMessages', chatRoomId],
-      async ({queryKey}) => {
-        const response = await chatApis.getAllChatRoomMessages(queryKey[1]);
+  const {data, refetch: fetchAllChatRoomMessages} = useQuery(
+    ['getAllChatRoomMessages', chatRoomId],
+    async ({queryKey}) => {
+      const response = await chatApis.getAllChatRoomMessages(queryKey[1]);
 
-        return response.data;
+      return response.data.data;
+    },
+    {
+      // 기본값: 브라우저 화면을 재방문시 useQuery다시 요청함 -> 요청 안함
+      refetchOnWindowFocus: false,
+      // 8 - (1) : useQuery의 동작을 수동으로 바꿈
+      enabled: false,
+      // 기본값: retry를 3번까지 다시 요청 -> 다시요청 안함
+      retry: 0,
+      onSuccess: data => {
+        const messagesFromServer = [...data];
+        const allChatMessages = messagesFromServer;
+        const totalMessageLength = messagesFromServer.pop().chatMessageCount;
+
+        console.log(allChatMessages);
+        console.log(totalMessageLength);
+        // console.log(data);
+        // console.log(data.data[data.data.length - 3]);
+        setLastChat(data[data.length - 2]);
       },
-      {
-        // 기본값: 브라우저 화면을 재방문시 useQuery다시 요청함 -> 요청 안함
-        refetchOnWindowFocus: false,
-        // 8 - (1) : useQuery의 동작을 수동으로 바꿈
-        enabled: false,
-        // 기본값: retry를 3번까지 다시 요청 -> 다시요청 안함
-        retry: 0,
-        onSuccess: data => {
-          console.log(data.data);
-          setLastChat(data.data[data.data.length - 1]);
-        },
-        onError: () => {},
-      },
-    );
+      onError: () => {},
+    },
+  );
 
   const ChattingServiceKit = useMemo(() => {
     // 여기에서 노란색 에러가 뜨고있다
@@ -101,7 +107,11 @@ const ChatRoomBrief = ({
             </Div4>
 
             <LastChatTime>
-              {receiveMsg ? receiveMsg?.date : lastChat ? lastChat?.date : '몇'}
+              {receiveMsg
+                ? receiveMsg?.date
+                : lastChat
+                ? lastChat?.date
+                : '몇 '}
               분전
             </LastChatTime>
           </Div3>

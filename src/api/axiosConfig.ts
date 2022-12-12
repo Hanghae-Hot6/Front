@@ -200,7 +200,9 @@ export const reviewApis = {
 export const chatApis = {
   getAllChatRoomMessages: async (chatRoomId: string) => {
     return await api.get(
-      `${process.env.REACT_APP_BASE_URL}/chat/messages/${chatRoomId}`,
+      `${process.env.REACT_APP_BASE_URL}/chat/messages/${chatRoomId}?page=1&size=15`,
     );
   },
 };
+
+// http://localhost:8080/chat/messages/8d202b5a-0928-4ce0-bd75-7e0a5245df27?page=2&size=5

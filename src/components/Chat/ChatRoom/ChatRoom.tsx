@@ -11,6 +11,8 @@ import OthersChat from '../ChatDialog/OthersChat';
 import ChattingService from '../ChattingService';
 import PaperPlaneRight from '../../../assets/PaperPlaneRight.svg';
 import {ChatRoomType, ChatType} from '../../../types/chat';
+import {useQuery} from 'react-query';
+import {chatApis} from '../../../api/axiosConfig';
 type ChatRoomProps = {
   chatRoomNowInfo: ChatRoomType;
 };
@@ -31,7 +33,33 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     return new ChattingService(chatRoomNowInfo.chatRoomId);
   }, [chatRoomNowInfo.chatRoomId]);
 
-  console.log(chatRoomNowInfo.chatRoomId);
+  // console.log(chatRoomNowInfo.chatRoomId);
+
+  const {data, refetch: fetchAllChatRoomMessages} = useQuery(
+    ['getAllChatRoomMessages', chatRoomNowInfo.chatRoomId],
+    async ({queryKey}) => {
+      const response = await chatApis.getAllChatRoomMessages(queryKey[1]);
+
+      return response.data.data;
+    },
+    {
+      // 기본값: 브라우저 화면을 재방문시 useQuery다시 요청함 -> 요청 안함
+      refetchOnWindowFocus: false,
+      // 8 - (1) : useQuery의 동작을 수동으로 바꿈
+      enabled: false,
+      // 기본값: retry를 3번까지 다시 요청 -> 다시요청 안함
+      retry: 0,
+      onSuccess: data => {
+        const messagesFromServer = [...data];
+        const totalMessageLength = messagesFromServer.pop().chatMessageCount;
+        const allChatMessages = messagesFromServer;
+
+        console.log(allChatMessages);
+        console.log(totalMessageLength);
+      },
+      onError: () => {},
+    },
+  );
 
   // onConnect시 메시지 받아오기
   useEffect(() => {
@@ -49,6 +77,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       userId,
       'ChatRoom',
     );
+    fetchAllChatRoomMessages();
   }, []);
 
   // 메세지 배열안에 모으기
