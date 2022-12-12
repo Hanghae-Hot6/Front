@@ -158,11 +158,10 @@
 |문제해결|채팅창을 열고 닫는 상태를 담는 redux의 slice를 새로 추가하고 상태관리를 전역적으로 바꿔줌<br>화면의 width를 실시간으로 판단하는 hook을 만듬<br>pc화면에서 모바일화면 상태로 돌입될 시 , 또 역순 일 시 hook이 작동이 되고,<br>이에 따라 이벤트가 발생되게끔 코드를 작성<br>이벤트의 콜백으로 PC화면 → 모바일 화면 일 경우, ‘/mobile_chat’으로 주소를 옮기고<br>모바일 화면 → PC화면 일 경우 채팅창 팝업을 띄우게 코드를 작성함|
 |해결결과|유저는 채팅을 하는중에 갑작스럽게 화면 사이즈가 바뀌어도, 끊기지 않고 자연스럽게 채팅을 진행 할 수 있게 됨 |
 
-##### Debounce 적용 전/후
-   
-|적용 전|적용 후|
-|---|---|
-|![debounce적용전_네트워크 트래픽](https://user-images.githubusercontent.com/72599761/193569214-0ebc9139-0fb2-4ad7-8c3c-8ecf8d0487b8.gif)|![debounce적용후_네트워크 트래픽](https://user-images.githubusercontent.com/72599761/193569257-4cf4a103-64d7-4b26-87e3-1c8cf2765f47.gif)|
+### 적용 전                                                                                                                                                                                                                                                     
+ https://user-images.githubusercontent.com/113868313/207056844-9100fec9-0d6d-483a-8390-15625ebbdab2.mp4
+ ### 적용 후     
+   https://user-images.githubusercontent.com/113868313/207056857-119bbc09-0a22-4339-a31f-6f862d71c6a9.mp4|
 
 </div>
 </details>
