@@ -183,7 +183,9 @@
 ### 적용 전
 
 
-https://user-images.githubusercontent.com/113868313/206861600-dee7da77-110c-43d5-bef1-409408101e42.mp4
+
+https://user-images.githubusercontent.com/113868313/207059748-f2f33559-23ca-4c78-9673-062174aab450.mp4
+
 
 
 ### 적용 후
