@@ -56,6 +56,7 @@ const Banner = () => {
           {banners.map((url, index) => (
             <B.CarouselListItem activeIndex={activeIndex} key={index}>
               <img src={url} alt={url} />
+
               <div>
                 <Link to="/club_list" state={0}>
                   바로가기
