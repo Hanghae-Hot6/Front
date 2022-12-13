@@ -202,15 +202,6 @@ const CreateClubBody = ({
       return;
     }
 
-    // Object.values(input).forEach((val) => {
-
-    //   if(typeof val === 'object'){
-
-    //   }else if(val.trim() === ''){
-    //     window.confirm(`입력란에 빈 칸이 존재합니다 `)
-    //   }
-    // })
-
     // 공백란 있으면 window.confirm 창 띄우기
 
     //
