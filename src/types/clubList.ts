@@ -82,3 +82,17 @@ export type SubmitClubType = {
   clubSummary: string;
   bookSummary: string;
 };
+
+export const submitClubKeysInKorean = {
+  clubName: '모임명',
+  category: '카테고리',
+  clubIntro: '한 줄 모임소개',
+  thumbnail: '썸네일',
+  memberMaxNum: '최대 인원',
+  startDate: '시작 일시',
+  finishDate: '종료 일시',
+  location: '장소',
+  schedule: '일정',
+  clubSummary: '상세내용',
+  bookSummary: '책 소개',
+};

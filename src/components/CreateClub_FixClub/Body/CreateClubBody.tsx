@@ -13,7 +13,7 @@ import {
 } from '../../../Redux/modules/slices/selectBooksSlice';
 import {useAppDispatch, useAppSelector} from '../../../Redux/store/store';
 import Theme from '../../../theme/Theme';
-import {SubmitClubType} from '../../../types/clubList';
+import {submitClubKeysInKorean, SubmitClubType} from '../../../types/clubList';
 import {getAccessToken} from '../../../utils';
 
 import DateInput from '../Basic_Inputs/DateInput';
@@ -169,6 +169,41 @@ const CreateClubBody = ({
   const handleSubmit = async () => {
     // 총 14개 키
 
+    let emptyValueCollection: string[] = [];
+    Object.keys(input).forEach((val, index) => {
+      if (input[val as keyof Omit<SubmitClubType, 'thumbnail'>].trim() === '') {
+        emptyValueCollection.push(
+          val as keyof Omit<SubmitClubType, 'thumbnail'>,
+        );
+      }
+    });
+
+    if (emptyValueCollection.length !== 0) {
+      const emptyValueList = emptyValueCollection.map(val => {
+        return submitClubKeysInKorean[
+          val as keyof Omit<
+            SubmitClubType,
+            'thumbnail' | 'book1' | 'book2' | 'book3'
+          >
+        ];
+      });
+
+      window.confirm(`입력란에 빈 값이 존재합니다 ${emptyValueList.join(',')}`);
+      return;
+    }
+
+    // Object.values(input).forEach((val) => {
+
+    //   if(typeof val === 'object'){
+
+    //   }else if(val.trim() === ''){
+    //     window.confirm(`입력란에 빈 칸이 존재합니다 `)
+    //   }
+    // })
+
+    // 공백란 있으면 window.confirm 창 띄우기
+
+    //
     const formData = new FormData();
     formData.append('clubName', input.clubName);
     formData.append('category', input.category);
@@ -210,6 +245,8 @@ const CreateClubBody = ({
     formData.append('schedule', input.schedule);
     formData.append('clubSummary', input.clubSummary);
     formData.append('bookSummary', input.bookSummary);
+
+    // 공백란 막기
 
     if (!!fixClubData) {
       clubFix([formData, clubId!]);
