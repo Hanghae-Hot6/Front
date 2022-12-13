@@ -171,7 +171,16 @@ const CreateClubBody = ({
 
     let emptyValueCollection: string[] = [];
     Object.keys(input).forEach((val, index) => {
-      if (input[val as keyof Omit<SubmitClubType, 'thumbnail'>].trim() === '') {
+      if (
+        val === 'thumbnail' ||
+        val === 'book1' ||
+        val === 'book2' ||
+        val === 'book3'
+      ) {
+        // thumbnail 이면 pass함
+      } else if (
+        input[val as keyof Omit<SubmitClubType, 'thumbnail'>].trim() === ''
+      ) {
         emptyValueCollection.push(
           val as keyof Omit<SubmitClubType, 'thumbnail'>,
         );
@@ -179,6 +188,7 @@ const CreateClubBody = ({
     });
 
     if (emptyValueCollection.length !== 0) {
+      console.log(emptyValueCollection);
       const emptyValueList = emptyValueCollection.map(val => {
         return submitClubKeysInKorean[
           val as keyof Omit<
@@ -227,6 +237,9 @@ const CreateClubBody = ({
       } else {
         if (books.book3?.isbn) {
           formData.append('book1', books.book3?.isbn);
+        } else {
+          window.confirm('도서는 적어도 한 권 이상은 등록해주셔야합니다');
+          return;
         }
       }
     }
