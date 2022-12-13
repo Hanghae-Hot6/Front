@@ -295,10 +295,20 @@ const CreateClubBody = ({
         </ParagraphDiv>
 
         <ParagraphDiv title="시작">
-          <DateInput input={input} setInput={setInput} name="startDate" />
+          <DateInput
+            input={input}
+            setInput={setInput}
+            name="startDate"
+            dateInputType="startDate"
+          />
         </ParagraphDiv>
         <ParagraphDiv title="종료">
-          <DateInput input={input} setInput={setInput} name="finishDate" />
+          <DateInput
+            input={input}
+            setInput={setInput}
+            name="finishDate"
+            dateInputType="finishDate"
+          />
         </ParagraphDiv>
         <ParagraphDiv title="장소">
           <TextInput
