@@ -42,6 +42,8 @@ function ProfileCheckPassword({
   const {mutate: passwordCheck} = useMutation(
     async (passwordValue: string) => {
       try {
+        console.log(passwordValue.toString());
+        console.log(typeof passwordValue);
         const response = await memberApis.passwordCheck(passwordValue);
         return response;
       } catch (error: any) {}
@@ -77,7 +79,7 @@ function ProfileCheckPassword({
       <div className="inputsDiv">
         <h2>개인정보 수정</h2>
         <RegistStInput
-          label="임시 비밀번호"
+          label="비밀번호"
           id="password"
           name="password"
           type={passwordType.type}
