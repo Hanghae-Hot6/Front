@@ -13,9 +13,11 @@ const useInfiniteScrollHooks = (chatRoomId: string) => {
   const fetchSize = useRef<number>(8);
   const [noMoreFetching, setNoMoreFetching] = useState<boolean>(false);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const {
     data: chatRoomMessages,
-    isLoading,
+
     refetch: fetchChatRoomMessages,
   } = useQuery(
     [
@@ -27,12 +29,11 @@ const useInfiniteScrollHooks = (chatRoomId: string) => {
       },
     ],
     async ({queryKey}) => {
-      console.log(noMoreFetching);
       if (page < 1 || noMoreFetching) return;
 
-      const response = (await applyDebouncing(500, () =>
-        chatApis.getChatRoomMessages(queryKey[1]),
-      )) as AxiosResponse<any, any>;
+      const response = (await applyDebouncing(300, () => {
+        return chatApis.getChatRoomMessages(queryKey[1]);
+      })) as AxiosResponse<any, any>;
       // const response = await chatApis.getChatRoomMessages(queryKey[1])
       return response.data;
     },
@@ -49,10 +50,11 @@ const useInfiniteScrollHooks = (chatRoomId: string) => {
         const allChatMessages: ChatType[] = messagesFromServer[0];
 
         if (allChatMessages.length < fetchSize.current) {
-          setNoMoreFetching(true);
+          setNoMoreFetching(false);
         }
 
         setPrevMessageList([...allChatMessages.reverse(), ...prevMessageList]);
+        setIsLoading(!isLoading);
       },
       onError: err => {
         console.log('err');
@@ -76,6 +78,7 @@ const useInfiniteScrollHooks = (chatRoomId: string) => {
           return;
         }
         if (entries[0].isIntersecting) {
+          setIsLoading(true);
           setPage(prev => prev + 1);
         }
       },

@@ -130,7 +130,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     <>
       <ChattingList ref={messageBoxRef}>
         <div ref={chatRoomTopObserver} />
-        {isLoading && <div>로딩중임..</div>}
+        {isLoading && <IAMLOADING>로딩중임..</IAMLOADING>}
         {prevMessageList.map((val, index) => {
           if (val.sender === userId) {
             return (
@@ -209,4 +209,8 @@ const ChatInputInput = styled.input`
 const SendButton = styled.button`
   flex: 1;
   background-color: #fff;
+`;
+
+const IAMLOADING = styled.div`
+  font-size: 3rem;
 `;
