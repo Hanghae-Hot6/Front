@@ -32,8 +32,12 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   const [onConnect, setOnConnect] = useState<boolean>(false);
 
   const {messageBoxRef, scrollToBottom} = useMessageBoxHooks();
-  const {chatRoomTopObserver, fetchChatRoomMessages, prevMessageList} =
-    useInfiniteScrollHooks(chatRoomNowInfo.chatRoomId);
+  const {
+    chatRoomTopObserver,
+    fetchChatRoomMessages,
+    prevMessageList,
+    isLoading,
+  } = useInfiniteScrollHooks(chatRoomNowInfo.chatRoomId);
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -126,6 +130,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     <>
       <ChattingList ref={messageBoxRef}>
         <div ref={chatRoomTopObserver} />
+        {isLoading && <div>로딩중임..</div>}
         {prevMessageList.map((val, index) => {
           if (val.sender === userId) {
             return (

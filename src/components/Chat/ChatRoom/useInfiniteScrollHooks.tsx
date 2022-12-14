@@ -1,7 +1,9 @@
+import {AxiosResponse} from 'axios';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useQuery} from 'react-query';
 import {chatApis} from '../../../api/axiosConfig';
 import {ChatType} from '../../../types/chat';
+import {applyDebouncing} from '../../../utils/debouncingFunction';
 
 // type useInfiniteScrollHooksProps = {chatRoomId: string};
 
@@ -27,12 +29,17 @@ const useInfiniteScrollHooks = (chatRoomId: string) => {
     async ({queryKey}) => {
       console.log(noMoreFetching);
       if (page < 1 || noMoreFetching) return;
-      const response = await chatApis.getChatRoomMessages(queryKey[1]);
+
+      const response = (await applyDebouncing(500, () =>
+        chatApis.getChatRoomMessages(queryKey[1]),
+      )) as AxiosResponse<any, any>;
+      // const response = await chatApis.getChatRoomMessages(queryKey[1])
       return response.data;
     },
     {
       refetchOnWindowFocus: false,
       // enabled: false,
+      refetchInterval: 10 * 1000,
       retry: 0,
       onSuccess: data => {
         if (!data) return;
@@ -54,13 +61,7 @@ const useInfiniteScrollHooks = (chatRoomId: string) => {
     },
   );
 
-  // console.log(noMoreFetching);
   const chatRoomTopObserver = useRef<HTMLDivElement | null>(null);
-
-  // useEffect(() => {
-  //   console.log('prevMessageList');
-  //   console.log(prevMessageList);
-  // }, [prevMessageList]);
 
   useEffect(() => {
     fetchChatRoomMessages();
