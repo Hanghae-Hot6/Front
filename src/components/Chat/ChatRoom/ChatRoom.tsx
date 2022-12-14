@@ -183,16 +183,12 @@ const TestDiv = styled.div`
 
 const LoadingSpinner = styled.div<{spinnerKeyframes: Keyframes}>`
   margin: auto;
-  /* margin-top: 10rem; */
-  /* margin-bottom: 3rem; */
-  /* position: absolute;
-  top: 1rem; */
+  margin-top: 1rem;
+  margin-bottom: 2rem;
   width: 3rem;
   height: 3rem;
   border: 0.6rem solid rgba(163, 129, 129, 0.1);
   border-right: 0.6rem solid ${props => props.theme.MainColor};
-  /* border: 1px solid black; */
-
   border-radius: 50%;
   animation: ${({spinnerKeyframes}) => spinnerKeyframes} 1s linear infinite;
 `;
@@ -205,7 +201,6 @@ const ChattingList = styled.div`
   flex: 8;
   padding: 0 1rem;
   position: relative;
-  /* border: 1px solid black; */
 `;
 
 const ChatInputDiv = styled.div`

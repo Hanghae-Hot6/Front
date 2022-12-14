@@ -9,7 +9,7 @@ export const modifyDateFormat = (dateInput: Date) => {
   }`;
 };
 
-const convertChatDateToDateObject = (
+export const convertChatDateToDateObject = (
   givenDate: string = '2022년 12월 08일 목요일 오전 05:02:09',
 ) => {
   const chatDateSplit = givenDate.split(' ');
@@ -59,3 +59,25 @@ const convertChatDateToDateObject = (
 
   return chatDate;
 };
+
+export const minutesPassIndicator = (
+  criterionDate: Date,
+  compareDate: Date,
+) => {
+  const subtraction = criterionDate.getTime() - compareDate.getTime();
+
+  if (subtraction < 1000 * 60) {
+    return `${Math.floor(subtraction / 1000)}초전`;
+  } else if (subtraction >= 1000 * 60 && subtraction < 1000 * 60 * 60) {
+    return `${Math.floor(subtraction / (1000 * 60))}분전`;
+  } else if (
+    subtraction >= 1000 * 60 * 60 &&
+    subtraction < 1000 * 60 * 60 * 24
+  ) {
+    return `${Math.floor(subtraction / (1000 * 60 * 60))}시간전`;
+  } else {
+    return `${Math.floor(subtraction / (1000 * 60 * 60 * 24))}일전`;
+  }
+};
+
+export const timeRightNow = new Date();

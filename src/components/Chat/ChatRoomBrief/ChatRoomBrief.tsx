@@ -4,6 +4,11 @@ import styled from 'styled-components';
 import {chatApis} from '../../../api/axiosConfig';
 import {ChatRoomType, ChatType} from '../../../types/chat';
 import {getAccessToken, getUserIdFixed} from '../../../utils';
+import {
+  convertChatDateToDateObject,
+  minutesPassIndicator,
+  timeRightNow,
+} from '../../../utils/dateFormat';
 
 import ChattingService from '../ChattingService';
 
@@ -22,35 +27,43 @@ const ChatRoomBrief = ({
   const userId = getUserIdFixed();
 
   const [receiveMsg, setReceiveMsg] = useState<ChatType | undefined>(undefined);
-  // e239f429-5832-46cc-af26-0fee276804f7
+
   const [lastChat, setLastChat] = useState<ChatType | undefined>(undefined);
 
-  const {data, refetch: fetchAllChatRoomMessages} = useQuery(
-    ['getAllChatRoomMessages', chatRoomId],
-    async ({queryKey}) => {
-      const response = await chatApis.getAllChatRoomMessages(queryKey[1]);
-
-      return response.data.data;
-    },
-    {
-      // 기본값: 브라우저 화면을 재방문시 useQuery다시 요청함 -> 요청 안함
-      refetchOnWindowFocus: false,
-      // 8 - (1) : useQuery의 동작을 수동으로 바꿈
-      enabled: false,
-      // 기본값: retry를 3번까지 다시 요청 -> 다시요청 안함
-      retry: 0,
-      onSuccess: data => {
-        const messagesFromServer = [...data];
-        const allChatMessages = messagesFromServer;
-        const totalMessageLength = messagesFromServer.pop().chatMessageCount;
-
-        console.log(allChatMessages);
-        console.log(totalMessageLength);
-        setLastChat(data[data.length - 2]);
+  const {data: lastChatRoomMessage, refetch: fetchLastChatRoomMessage} =
+    useQuery(
+      [
+        'getChatRoomMessages',
+        {
+          chatRoomId: chatRoomId,
+          page: 1,
+          size: 1,
+        },
+      ],
+      async ({queryKey}) => {
+        const response = await chatApis.getChatRoomMessages(queryKey[1]);
+        // const response = await chatApis.getChatRoomMessages(queryKey[1])
+        return response.data;
       },
-      onError: () => {},
-    },
-  );
+      {
+        refetchOnWindowFocus: false,
+        enabled: false,
+        refetchInterval: 10 * 1000,
+        retry: 0,
+        onSuccess: data => {
+          if (!data) return;
+          const messagesFromServer = [...data.data];
+          const totalMessageLength: number =
+            messagesFromServer.pop().chatMessageCount;
+          const allChatMessages: ChatType[] = messagesFromServer[0];
+          setLastChat(allChatMessages[0]);
+        },
+        onError: err => {
+          console.log('err');
+          console.log(err);
+        },
+      },
+    );
 
   const ChattingServiceKit = useMemo(() => {
     // 여기에서 노란색 에러가 뜨고있다
@@ -75,7 +88,7 @@ const ChatRoomBrief = ({
       userId,
       'ChatRoomBrief',
     );
-    fetchAllChatRoomMessages();
+    fetchLastChatRoomMessage();
   }, []);
 
   // // 컴포넌트 언마운트시 서버와의 소켓통신을 disconnect한다
@@ -106,11 +119,16 @@ const ChatRoomBrief = ({
 
             <LastChatTime>
               {receiveMsg
-                ? receiveMsg?.date
+                ? minutesPassIndicator(
+                    timeRightNow,
+                    convertChatDateToDateObject(receiveMsg?.date),
+                  )
                 : lastChat
-                ? lastChat?.date
-                : '몇 '}
-              분전
+                ? minutesPassIndicator(
+                    timeRightNow,
+                    convertChatDateToDateObject(lastChat?.date),
+                  )
+                : '몇분전'}
             </LastChatTime>
           </Div3>
 
@@ -180,7 +198,7 @@ const Div3 = styled.div`
 const Div4 = styled.div`
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 75%;
   /* border: 1px solid black; */
 `;
 
@@ -197,10 +215,15 @@ const Title = styled.h1`
 
 const Message = styled.span`
   font-size: 1.1rem;
+  /* width: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; */
 `;
 const LastChatTime = styled.h1`
-  margin: 1rem 0.2rem;
+  margin: 1rem 0.1rem;
   font-size: 1.2rem;
+  /* border: 1px solid black; */
   color: ${props => props.theme.Gray};
 `;
 

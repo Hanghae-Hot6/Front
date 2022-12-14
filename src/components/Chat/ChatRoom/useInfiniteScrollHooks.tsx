@@ -15,11 +15,7 @@ const useInfiniteScrollHooks = (chatRoomId: string) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const {
-    data: chatRoomMessages,
-
-    refetch: fetchChatRoomMessages,
-  } = useQuery(
+  const {data: chatRoomMessages, refetch: fetchChatRoomMessages} = useQuery(
     [
       'getChatRoomMessages',
       {
