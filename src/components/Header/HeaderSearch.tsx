@@ -22,6 +22,7 @@ import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 const HeaderSearch = () => {
   const [showBookSearchBar, setShowBookSearchBar] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
+  let timeId: NodeJS.Timer;
 
   const fetch = async ({queryKey}: any) => {
     if (input) {
@@ -58,14 +59,19 @@ const HeaderSearch = () => {
       }
     }
   }
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
 
     const {value} = e.target;
     setShowBookSearchBar(true);
-
-    setInput(value);
+    // setInput(value);
+    if (timeId) {
+      console.log('clear timer');
+      clearTimeout(timeId);
+    }
+    timeId = setTimeout(async () => {
+      await setInput(value);
+    }, 500);
   };
   const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
     e.preventDefault();
@@ -85,7 +91,7 @@ const HeaderSearch = () => {
             id="search-input"
             placeholder="찾으실 모임을 입력해주세요."
             onChange={handleChange}
-            value={input}
+            // value={input}
           />
           <div>
             {showBookSearchBar ? (
