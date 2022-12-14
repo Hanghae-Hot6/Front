@@ -11,6 +11,12 @@ const useMessageBoxHooks = () => {
     }
   };
 
-  return {messageBoxRef, scrollToBottom};
+  const scrollToMiddle = () => {
+    if (messageBoxRef.current) {
+      messageBoxRef.current.scrollTop = 400;
+    }
+  };
+
+  return {messageBoxRef, scrollToBottom, scrollToMiddle};
 };
 export default useMessageBoxHooks;

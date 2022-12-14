@@ -67,7 +67,8 @@ export const minutesPassIndicator = (
   const subtraction = criterionDate.getTime() - compareDate.getTime();
 
   if (subtraction < 1000 * 60) {
-    return `${Math.floor(subtraction / 1000)}초전`;
+    // return `${Math.floor(subtraction / 1000)}초전`;
+    return `몇 초전`;
   } else if (subtraction >= 1000 * 60 && subtraction < 1000 * 60 * 60) {
     return `${Math.floor(subtraction / (1000 * 60))}분전`;
   } else if (
@@ -79,5 +80,3 @@ export const minutesPassIndicator = (
     return `${Math.floor(subtraction / (1000 * 60 * 60 * 24))}일전`;
   }
 };
-
-export const timeRightNow = new Date();

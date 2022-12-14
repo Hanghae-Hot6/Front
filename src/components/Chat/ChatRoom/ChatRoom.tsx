@@ -30,7 +30,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
 
   const [onConnect, setOnConnect] = useState<boolean>(false);
 
-  const {messageBoxRef, scrollToBottom} = useMessageBoxHooks();
+  const {messageBoxRef, scrollToBottom, scrollToMiddle} = useMessageBoxHooks();
   const {
     chatRoomTopObserver,
     fetchChatRoomMessages,
@@ -130,9 +130,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       <ChattingList ref={messageBoxRef}>
         <TestDiv>
           <div ref={chatRoomTopObserver} />
-          {/* <LoadingSpinner spinnerKeyframes={spinnerKeyframes} /> */}
           {isLoading && <LoadingSpinner spinnerKeyframes={spinnerKeyframes} />}
-
           {prevMessageList.map((val, index) => {
             if (val.sender === userId) {
               return (
