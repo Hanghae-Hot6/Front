@@ -7,7 +7,6 @@ import {getAccessToken, getUserIdFixed} from '../../../utils';
 import {
   convertChatDateToDateObject,
   minutesPassIndicator,
-  timeRightNow,
 } from '../../../utils/dateFormat';
 
 import ChattingService from '../ChattingService';
@@ -25,7 +24,7 @@ const ChatRoomBrief = ({
 }: ChatRoomBriefProps) => {
   const accessToken = getAccessToken();
   const userId = getUserIdFixed();
-
+  const timeRightNow = new Date();
   const [receiveMsg, setReceiveMsg] = useState<ChatType | undefined>(undefined);
 
   const [lastChat, setLastChat] = useState<ChatType | undefined>(undefined);
