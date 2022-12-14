@@ -282,7 +282,6 @@ const CreateClubBody = ({
         <ThinLine color={Theme.LightGray2} />
 
         {/* input part 2 */}
-
         <ParagraphDiv title="인원">
           <SelectInput
             input={input}
@@ -294,13 +293,13 @@ const CreateClubBody = ({
             options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
           />
         </ParagraphDiv>
-
         <ParagraphDiv title="시작">
           <DateInput input={input} setInput={setInput} name="startDate" />
         </ParagraphDiv>
         <ParagraphDiv title="종료">
           <DateInput input={input} setInput={setInput} name="finishDate" />
         </ParagraphDiv>
+
         <ParagraphDiv title="장소">
           <TextInput
             input={input}

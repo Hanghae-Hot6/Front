@@ -65,18 +65,18 @@ class ChattingService {
           : {},
       );
 
-      if (componentAddress === 'ChatRoom') {
-        this.stompClient.send(
-          '/pub/chat/message',
-          headers,
-          JSON.stringify({
-            chatRoomId: this.chatRoomId,
-            message: `${userId}님이 접속하셨습니다`,
-            type: 'TALK',
-            sender: userId,
-          }),
-        );
-      }
+      // if (componentAddress === 'ChatRoom') {
+      //   this.stompClient.send(
+      //     '/pub/chat/message',
+      //     headers,
+      //     JSON.stringify({
+      //       chatRoomId: this.chatRoomId,
+      //       message: `${userId}님이 접속하셨습니다`,
+      //       type: 'TALK',
+      //       sender: userId,
+      //     }),
+      //   );
+      // }
     });
     return receivingMessage;
   };
