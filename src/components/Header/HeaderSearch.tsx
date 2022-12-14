@@ -59,19 +59,27 @@ const HeaderSearch = () => {
       }
     }
   }
+  const debouncer = (callback: (value: any) => void, limit: number): any => {
+    let timeout: NodeJS.Timeout;
+
+    return (value: any) => {
+      if (timeout) {
+        console.log(timeout);
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(async () => {
+        console.log(value);
+        await callback(value);
+      }, limit);
+    };
+  };
+  const printValue = debouncer(value => setInput(value), 200);
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
-
     const {value} = e.target;
     setShowBookSearchBar(true);
-    // setInput(value);
-    if (timeId) {
-      console.log('clear timer');
-      clearTimeout(timeId);
-    }
-    timeId = setTimeout(async () => {
-      await setInput(value);
-    }, 500);
+    printValue(value);
   };
   const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
     e.preventDefault();
