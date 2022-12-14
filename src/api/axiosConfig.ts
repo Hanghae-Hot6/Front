@@ -123,10 +123,17 @@ export const memberApis = {
     await api.post(`mail/findId`, payload),
 
   postInquiryEmail: async (payload: string) =>
-    await api.post(`mail/cs`, payload),
+    await api.post(`mail/cs`, payload, {
+      headers: {'Content-Type': 'text/plain'},
+    }),
 
-  passwordCheck: async (payload: string) =>
-    await api.post(`members/auth`, payload),
+  passwordCheck: async (payload: string) => {
+    console.log(payload);
+
+    return await api.post(`members/auth`, payload, {
+      headers: {'Content-Type': 'text/plain'},
+    });
+  },
 
   // My page
   myPageInfo: async () => await api.get(`mypage`),

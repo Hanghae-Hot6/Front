@@ -28,6 +28,8 @@ const Header = () => {
     if (accessToken) {
       if (accessToken.split(' ')[0] !== 'Bearer') {
         localStorage.removeItem('Authorization');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('refreshToken');
         setIsLogin(false);
         return;
       }

@@ -59,7 +59,7 @@ function LoginForm() {
       enabled: !!kakaoCode,
 
       onSuccess: data => {
-        localStorage.setItem('userId', data.data.data);
+        localStorage.setItem('userId', JSON.stringify(data.data.data));
         dispatch(openGlobalModal('loginComplete'));
       },
 
