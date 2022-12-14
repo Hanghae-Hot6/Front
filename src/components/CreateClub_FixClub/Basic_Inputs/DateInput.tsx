@@ -9,6 +9,7 @@ type DateInputProps = {
   placeholder?: string;
   width?: string;
   flex?: number;
+  dateInputType: 'startDate' | 'finishDate';
 };
 
 const DateInput = ({
@@ -18,6 +19,7 @@ const DateInput = ({
   placeholder,
   width = '100%',
   flex,
+  dateInputType,
 }: DateInputProps) => {
   const [toggleDateValue, setToggleDateValue] = useState<boolean>(false);
 
@@ -44,6 +46,8 @@ const DateInput = ({
         required
         onChange={handleChange}
         placeholder={placeholder}
+        min={input.startDate}
+        max={input.finishDate}
         width={width}
         value={input[name]}
         flex={flex}
