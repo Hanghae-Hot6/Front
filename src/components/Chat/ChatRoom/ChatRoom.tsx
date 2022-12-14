@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import styled from 'styled-components';
+import styled, {Keyframes, keyframes} from 'styled-components';
 import ThinLine from '../../../common/ThinLine';
 import Theme from '../../../theme/Theme';
 import {getAccessToken, getUserIdFixed} from '../../../utils';
-import KeyDetector from '../../../utils/KeyDetector';
+import KeyDetector from '../../../common/KeyDetector';
 
 import MyChat from '../ChatDialog/MyChat';
 import OthersChat from '../ChatDialog/OthersChat';
@@ -11,11 +11,10 @@ import OthersChat from '../ChatDialog/OthersChat';
 import ChattingService from '../ChattingService';
 import PaperPlaneRight from '../../../assets/PaperPlaneRight.svg';
 import {ChatRoomType, ChatType} from '../../../types/chat';
-import {useQuery} from 'react-query';
-import {chatApis} from '../../../api/axiosConfig';
 
 import useMessageBoxHooks from './useMessageBoxHooks';
 import useInfiniteScrollHooks from './useInfiniteScrollHooks';
+import {spinnerKeyframes} from '../../../utils/styledComponentsUtils';
 
 type ChatRoomProps = {
   chatRoomNowInfo: ChatRoomType;
@@ -129,30 +128,34 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   return (
     <>
       <ChattingList ref={messageBoxRef}>
-        <div ref={chatRoomTopObserver} />
-        {isLoading && <IAMLOADING>로딩중임..</IAMLOADING>}
-        {prevMessageList.map((val, index) => {
-          if (val.sender === userId) {
-            return (
-              <div key={index}>
-                <MyChat chatObject={val} />
-              </div>
-            );
-          } else {
-            return <OthersChat key={index} chatObject={val} />;
-          }
-        })}
-        {messageList.map((val, index) => {
-          if (val.sender === userId) {
-            return (
-              <div key={index}>
-                <MyChat chatObject={val} />
-              </div>
-            );
-          } else {
-            return <OthersChat key={index} chatObject={val} />;
-          }
-        })}
+        <TestDiv>
+          <div ref={chatRoomTopObserver} />
+          {/* <LoadingSpinner spinnerKeyframes={spinnerKeyframes} /> */}
+          {isLoading && <LoadingSpinner spinnerKeyframes={spinnerKeyframes} />}
+
+          {prevMessageList.map((val, index) => {
+            if (val.sender === userId) {
+              return (
+                <div key={index}>
+                  <MyChat chatObject={val} />
+                </div>
+              );
+            } else {
+              return <OthersChat key={index} chatObject={val} />;
+            }
+          })}
+          {messageList.map((val, index) => {
+            if (val.sender === userId) {
+              return (
+                <div key={index}>
+                  <MyChat chatObject={val} />
+                </div>
+              );
+            } else {
+              return <OthersChat key={index} chatObject={val} />;
+            }
+          })}
+        </TestDiv>
       </ChattingList>
       <ThinLine color={Theme.LightGray2} thick="2px" marginTopBottom="1rem" />
 
@@ -173,6 +176,27 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
 };
 export default ChatRoom;
 
+const TestDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const LoadingSpinner = styled.div<{spinnerKeyframes: Keyframes}>`
+  margin: auto;
+  /* margin-top: 10rem; */
+  /* margin-bottom: 3rem; */
+  /* position: absolute;
+  top: 1rem; */
+  width: 3rem;
+  height: 3rem;
+  border: 0.6rem solid rgba(163, 129, 129, 0.1);
+  border-right: 0.6rem solid ${props => props.theme.MainColor};
+  /* border: 1px solid black; */
+
+  border-radius: 50%;
+  animation: ${({spinnerKeyframes}) => spinnerKeyframes} 1s linear infinite;
+`;
+
 const ChattingList = styled.div`
   display: flex;
   flex-direction: column;
@@ -180,6 +204,7 @@ const ChattingList = styled.div`
   overflow: auto;
   flex: 8;
   padding: 0 1rem;
+  position: relative;
   /* border: 1px solid black; */
 `;
 

@@ -5,7 +5,7 @@ import {useQuery} from 'react-query';
 import styled from 'styled-components';
 import {chatApis} from '../../api/axiosConfig';
 import {getAccessToken, getUserId, getUserIdFixed} from '../../utils';
-import KeyDetector from '../../utils/KeyDetector';
+import KeyDetector from '../../common/KeyDetector';
 import ChattingService from './ChattingService';
 
 type ChatTestProps = {};
