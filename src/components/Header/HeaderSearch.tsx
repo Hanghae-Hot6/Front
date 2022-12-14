@@ -1,5 +1,5 @@
 // Libraries(react관련 패키지, 그외 라이브러리)
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useMemo} from 'react';
 import {useQuery} from 'react-query';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -24,8 +24,8 @@ const HeaderSearch = () => {
   const [showBookSearchBar, setShowBookSearchBar] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
 
-  const printValue = useCallback(
-    debouncer(value => setInput(value), 500),
+  const debouncingValue = useMemo(
+    () => debouncer(value => setInput(value), 500),
     [],
   );
 
@@ -65,12 +65,15 @@ const HeaderSearch = () => {
     }
   }
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    e.preventDefault();
-    const {value} = e.target;
-    setShowBookSearchBar(true);
-    printValue(value);
-  };
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      e.preventDefault();
+      const {value} = e.target;
+      setShowBookSearchBar(true);
+      debouncingValue(value);
+    },
+    [debouncingValue],
+  );
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
     e.preventDefault();
