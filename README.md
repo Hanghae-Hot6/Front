@@ -28,7 +28,7 @@
 | 류창민 | [ryucm의 github](https://github.com/ryucm)                 | Backend  |
 | 조계일 | [chokyeil의 github](https://github.com/chokyeil)           | Backend  |
 | 박현도 | [atto08의 github](https://github.com/atto08)               | Backend  |
-| 장승주 |                                                            | DESIGNER |
+| 장승주 |                                                            | Designer |
 
 <br>
 <hr>
