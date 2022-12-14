@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import styled from 'styled-components';
+import styled, {Keyframes, keyframes} from 'styled-components';
 import ThinLine from '../../../common/ThinLine';
 import Theme from '../../../theme/Theme';
 import {getAccessToken, getUserIdFixed} from '../../../utils';
-import KeyDetector from '../../../utils/KeyDetector';
+import KeyDetector from '../../../common/KeyDetector';
 
 import MyChat from '../ChatDialog/MyChat';
 import OthersChat from '../ChatDialog/OthersChat';
@@ -11,6 +11,11 @@ import OthersChat from '../ChatDialog/OthersChat';
 import ChattingService from '../ChattingService';
 import PaperPlaneRight from '../../../assets/PaperPlaneRight.svg';
 import {ChatRoomType, ChatType} from '../../../types/chat';
+
+import useMessageBoxHooks from './useMessageBoxHooks';
+import useInfiniteScrollHooks from './useInfiniteScrollHooks';
+import {spinnerKeyframes} from '../../../utils/styledComponentsUtils';
+
 type ChatRoomProps = {
   chatRoomNowInfo: ChatRoomType;
 };
@@ -22,7 +27,16 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   const [input, setInput] = useState<string>('');
   const [receiveMsg, setReceiveMsg] = useState<ChatType | undefined>(undefined);
   const [messageList, setMessageList] = useState<ChatType[]>([]);
+
   const [onConnect, setOnConnect] = useState<boolean>(false);
+
+  const {messageBoxRef, scrollToBottom} = useMessageBoxHooks();
+  const {
+    chatRoomTopObserver,
+    fetchChatRoomMessages,
+    prevMessageList,
+    isLoading,
+  } = useInfiniteScrollHooks(chatRoomNowInfo.chatRoomId);
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -30,8 +44,6 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   const ChattingServiceKit = useMemo(() => {
     return new ChattingService(chatRoomNowInfo.chatRoomId);
   }, [chatRoomNowInfo.chatRoomId]);
-
-  console.log(chatRoomNowInfo.chatRoomId);
 
   // onConnect시 메시지 받아오기
   useEffect(() => {
@@ -49,6 +61,7 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
       userId,
       'ChatRoom',
     );
+    fetchChatRoomMessages();
   }, []);
 
   // 메세지 배열안에 모으기
@@ -63,8 +76,6 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
 
   useEffect(() => {
     return () => {
-      // console.log(` ${chatRoomNowInfo.clubName}방에서 나가셨습니다`);
-
       // 작동을 잘 안함
       if (onConnect) {
         ChattingServiceKit.sendMessage(
@@ -83,21 +94,12 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
     };
   }, []);
 
-  const [messageToDown, setMessageToDown] = useState<boolean>(false);
-  const messageBoxRef = useRef<HTMLDivElement | null>(null);
-
-  const scrollToBottom = () => {
-    if (messageBoxRef.current) {
-      messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
-    }
-  };
   useEffect(() => {
     scrollToBottom();
-  }, [messageToDown]);
+  }, [messageList.length]);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
-
     setInput(e.target.value);
   };
 
@@ -112,7 +114,6 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
           sender: userId,
         },
       );
-      setMessageToDown(!messageToDown);
     }
 
     setInput('');
@@ -127,17 +128,34 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
   return (
     <>
       <ChattingList ref={messageBoxRef}>
-        {messageList.map((val, index) => {
-          if (val.sender === userId) {
-            return (
-              <>
-                <MyChat key={index} chatObject={val} />
-              </>
-            );
-          } else {
-            return <OthersChat key={index} chatObject={val} />;
-          }
-        })}
+        <TestDiv>
+          <div ref={chatRoomTopObserver} />
+          {/* <LoadingSpinner spinnerKeyframes={spinnerKeyframes} /> */}
+          {isLoading && <LoadingSpinner spinnerKeyframes={spinnerKeyframes} />}
+
+          {prevMessageList.map((val, index) => {
+            if (val.sender === userId) {
+              return (
+                <div key={index}>
+                  <MyChat chatObject={val} />
+                </div>
+              );
+            } else {
+              return <OthersChat key={index} chatObject={val} />;
+            }
+          })}
+          {messageList.map((val, index) => {
+            if (val.sender === userId) {
+              return (
+                <div key={index}>
+                  <MyChat chatObject={val} />
+                </div>
+              );
+            } else {
+              return <OthersChat key={index} chatObject={val} />;
+            }
+          })}
+        </TestDiv>
       </ChattingList>
       <ThinLine color={Theme.LightGray2} thick="2px" marginTopBottom="1rem" />
 
@@ -158,6 +176,23 @@ const ChatRoom = ({chatRoomNowInfo}: ChatRoomProps) => {
 };
 export default ChatRoom;
 
+const TestDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const LoadingSpinner = styled.div<{spinnerKeyframes: Keyframes}>`
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border: 0.6rem solid rgba(163, 129, 129, 0.1);
+  border-right: 0.6rem solid ${props => props.theme.MainColor};
+  border-radius: 50%;
+  animation: ${({spinnerKeyframes}) => spinnerKeyframes} 1s linear infinite;
+`;
+
 const ChattingList = styled.div`
   display: flex;
   flex-direction: column;
@@ -165,7 +200,7 @@ const ChattingList = styled.div`
   overflow: auto;
   flex: 8;
   padding: 0 1rem;
-  /* border: 1px solid black; */
+  position: relative;
 `;
 
 const ChatInputDiv = styled.div`
@@ -194,4 +229,8 @@ const ChatInputInput = styled.input`
 const SendButton = styled.button`
   flex: 1;
   background-color: #fff;
+`;
+
+const IAMLOADING = styled.div`
+  font-size: 3rem;
 `;

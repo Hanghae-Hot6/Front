@@ -204,9 +204,24 @@ export const reviewApis = {
 
 // 채팅
 export const chatApis = {
+  getChatRoomMessages: async (payload: any) => {
+    return await api.get(
+      `${process.env.REACT_APP_BASE_URL}/chat/messages/${payload.chatRoomId}?page=${payload.page}&size=${payload.size}`,
+    );
+  },
   getAllChatRoomMessages: async (chatRoomId: string) => {
     return await api.get(
       `${process.env.REACT_APP_BASE_URL}/chat/messages/${chatRoomId}`,
     );
   },
 };
+
+// 모임개설
+
+export const createClubApis = {
+  createClubSubmit: async (formData: FormData) => {
+    return await api.post(`${process.env.REACT_APP_BASE_URL}/clubs`, formData);
+  },
+};
+
+// http://localhost:8080/chat/messages/8d202b5a-0928-4ce0-bd75-7e0a5245df27?page=2&size=5

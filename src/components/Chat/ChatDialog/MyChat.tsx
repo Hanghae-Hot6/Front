@@ -24,17 +24,17 @@ const MyChat = ({chatObject}: MyChatProps) => {
 };
 export default MyChat;
 
+const ChatBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+`;
 const MyChatDiv = styled.div`
   margin: 0.4rem 0;
   /* margin-left: auto; */
   padding: 2rem;
   border-radius: 1rem 1rem 0 1rem;
   background-color: ${props => props.theme.MainColor};
-`;
-const ChatBox = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: end;
 `;
 const SpanDiv = styled.div`
   float: right;

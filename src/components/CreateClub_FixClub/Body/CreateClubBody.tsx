@@ -109,7 +109,6 @@ const CreateClubBody = ({
 
   const accessToken = getAccessToken();
 
-  // const{width}
   const navigate = useNavigate();
 
   const books = useAppSelector(state => state.selectBooksReducer);
@@ -130,7 +129,9 @@ const CreateClubBody = ({
         window.confirm('모임 개설 성공');
         navigate('/');
       },
-      onError: () => {
+      onError: err => {
+        // 에러 처리 확인하기
+        console.log(err);
         window.confirm('모임 개설이 안되었습니다 에러를 확인해보세요');
       },
     },
@@ -214,6 +215,8 @@ const CreateClubBody = ({
     } else {
       clubSubmit(formData);
     }
+
+    //
   };
   const handleOnSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -279,7 +282,6 @@ const CreateClubBody = ({
         <ThinLine color={Theme.LightGray2} />
 
         {/* input part 2 */}
-
         <ParagraphDiv title="인원">
           <SelectInput
             input={input}
@@ -291,13 +293,13 @@ const CreateClubBody = ({
             options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
           />
         </ParagraphDiv>
-
         <ParagraphDiv title="시작">
           <DateInput input={input} setInput={setInput} name="startDate" />
         </ParagraphDiv>
         <ParagraphDiv title="종료">
           <DateInput input={input} setInput={setInput} name="finishDate" />
         </ParagraphDiv>
+
         <ParagraphDiv title="장소">
           <TextInput
             input={input}
@@ -312,7 +314,7 @@ const CreateClubBody = ({
             input={input}
             setInput={setInput}
             name="schedule"
-            placeholder="1/1 첫번째 회의 10:30 - 02:00"
+            placeholder="예) 1/1 첫번째 회의 10:30 - 02:00"
             // width="55.8rem"
             height="17.8rem"
           />
