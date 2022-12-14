@@ -214,11 +214,17 @@ const Title = styled.h1`
 `;
 
 const Message = styled.span`
+  display: inline-block;
   font-size: 1.1rem;
-  /* width: 4rem;
+
+  /* max-width: 16.6rem; */
+  @media screen and (min-width: 576px) {
+    max-width: 12.6rem;
+  }
+
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; */
+  white-space: nowrap;
 `;
 const LastChatTime = styled.h1`
   margin: 1rem 0.1rem;
