@@ -1,5 +1,5 @@
 // Libraries(react관련 패키지, 그외 라이브러리)
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {useQuery} from 'react-query';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import HeaderSearchBooks from './HeaderSearchBooks';
 import {ClubSearchType} from '../../types/bookSearch';
 import close_btn from '../../assets/Xbtn.svg';
 import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
+import {debouncer} from '../../utils/debouncing';
 
 // export type NaverBooksDataType = {
 //   image: string;
@@ -22,7 +23,11 @@ import MagnifyingGlass from '../../assets/MagnifyingGlass.svg';
 const HeaderSearch = () => {
   const [showBookSearchBar, setShowBookSearchBar] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
-  let timeId: NodeJS.Timer;
+
+  const printValue = useCallback(
+    debouncer(value => setInput(value), 500),
+    [],
+  );
 
   const fetch = async ({queryKey}: any) => {
     if (input) {
@@ -59,21 +64,6 @@ const HeaderSearch = () => {
       }
     }
   }
-  const debouncer = (callback: (value: any) => void, limit: number): any => {
-    let timeout: NodeJS.Timeout;
-
-    return (value: any) => {
-      if (timeout) {
-        console.log(timeout);
-        clearTimeout(timeout);
-      }
-      timeout = setTimeout(async () => {
-        console.log(value);
-        await callback(value);
-      }, limit);
-    };
-  };
-  const printValue = debouncer(value => setInput(value), 200);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
@@ -81,6 +71,7 @@ const HeaderSearch = () => {
     setShowBookSearchBar(true);
     printValue(value);
   };
+
   const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
     e.preventDefault();
 
