@@ -20,7 +20,7 @@ const useWindowSizeDetector = () => {
   };
 
   useEffect(() => {
-    if (Math.abs(widthDetect - windowSize.width) > 1) {
+    if (Math.abs(widthDetect - windowSize.width) > 0.1) {
       setWidthDetect(windowSize.width);
       setWidthIsIncreasing(widthDetect - windowSize.width < 0);
     }
