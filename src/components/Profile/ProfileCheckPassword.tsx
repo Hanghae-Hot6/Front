@@ -42,8 +42,8 @@ function ProfileCheckPassword({
   const {mutate: passwordCheck} = useMutation(
     async (passwordValue: string) => {
       try {
-        console.log(passwordValue.toString());
-        console.log(typeof passwordValue);
+        // console.log(passwordValue.toString());
+        // console.log(typeof passwordValue);
         const response = await memberApis.passwordCheck(passwordValue);
         return response;
       } catch (error: any) {}

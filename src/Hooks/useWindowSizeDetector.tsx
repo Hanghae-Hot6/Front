@@ -15,6 +15,7 @@ const useWindowSizeDetector = () => {
   const [widthIsIncreasing, setWidthIsIncreasing] = useState<
     boolean | undefined
   >(undefined);
+
   const handleResize = () => {
     setWindowSize({width: window.innerWidth, height: window.innerHeight});
   };
@@ -36,7 +37,6 @@ const useWindowSizeDetector = () => {
   return {
     windowWidth: windowSize.width,
     windowHeight: windowSize.height,
-
     widthIsIncreasing,
   };
 };

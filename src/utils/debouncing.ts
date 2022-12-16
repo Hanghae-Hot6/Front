@@ -6,11 +6,11 @@ export const debouncer = (
 
   return (value: any) => {
     if (timeout) {
-      console.log(timeout);
+      // console.log(timeout);
       clearTimeout(timeout);
     }
     timeout = setTimeout(async () => {
-      console.log(value);
+      // console.log(value);
       await callback(value);
     }, limit);
   };
