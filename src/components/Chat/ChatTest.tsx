@@ -55,7 +55,7 @@ const ChatTest = ({}: ChatTestProps) => {
     const response = await chatApis.getAllChatRoomMessages(
       'e239f429-5832-46cc-af26-0fee276804f7',
     );
-    console.log(response);
+    // console.log(response);
     return response;
   };
 

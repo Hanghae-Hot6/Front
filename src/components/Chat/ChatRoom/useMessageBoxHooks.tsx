@@ -1,7 +1,5 @@
 import React, {useRef} from 'react';
 
-type useMessageBoxHooksProps = {};
-
 const useMessageBoxHooks = () => {
   const messageBoxRef = useRef<HTMLDivElement | null>(null);
 

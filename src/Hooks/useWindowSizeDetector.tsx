@@ -15,12 +15,13 @@ const useWindowSizeDetector = () => {
   const [widthIsIncreasing, setWidthIsIncreasing] = useState<
     boolean | undefined
   >(undefined);
+
   const handleResize = () => {
     setWindowSize({width: window.innerWidth, height: window.innerHeight});
   };
 
   useEffect(() => {
-    if (Math.abs(widthDetect - windowSize.width) > 1) {
+    if (Math.abs(widthDetect - windowSize.width) > 0.1) {
       setWidthDetect(windowSize.width);
       setWidthIsIncreasing(widthDetect - windowSize.width < 0);
     }
@@ -36,7 +37,6 @@ const useWindowSizeDetector = () => {
   return {
     windowWidth: windowSize.width,
     windowHeight: windowSize.height,
-
     widthIsIncreasing,
   };
 };

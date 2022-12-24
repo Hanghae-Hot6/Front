@@ -128,7 +128,7 @@ export const memberApis = {
     }),
 
   passwordCheck: async (payload: string) => {
-    console.log(payload);
+    // console.log(payload);
 
     return await api.post(`members/auth`, payload, {
       headers: {'Content-Type': 'text/plain'},

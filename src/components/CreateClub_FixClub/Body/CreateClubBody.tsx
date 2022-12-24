@@ -158,9 +158,9 @@ const CreateClubBody = ({
         navigate('/');
       },
       onError: err => {
-        window.confirm('모임 수정이 안되었습니다 에러를 확인해보세요');
-        console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
-        console.log(err);
+        window.confirm('모임 수정이 안되었습니다 입력란을 다시 확인해보세요');
+        // console.log('이런 ㅜㅜ 에러가 떳군요, 어서 코드를 확인해보셔요');
+        // console.log(err);
       },
     },
   );
@@ -187,7 +187,6 @@ const CreateClubBody = ({
     });
 
     if (emptyValueCollection.length !== 0) {
-      console.log(emptyValueCollection);
       const emptyValueList = emptyValueCollection.map(val => {
         return submitClubKeysInKorean[
           val as keyof Omit<
